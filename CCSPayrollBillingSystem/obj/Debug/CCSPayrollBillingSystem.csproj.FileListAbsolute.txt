@@ -1,0 +1,13 @@
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.exe.config
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.exe
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.pdb
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.AssemblyReference.cache
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.FormMain.resources
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.Properties.Resources.resources
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.GenerateResource.cache
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.CoreCompileInputs.cache
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.exe
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.pdb
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.PayrollPrompt.resources
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ProfilePrompt.resources
+C:\Users\jreyDC\source\repos\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.UsersPrompt.resources
