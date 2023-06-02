@@ -63,6 +63,7 @@ namespace CCSPayrollBillingSystem
             this.btnProfilePromptProject.Text = "Add Project";
             this.btnProfilePromptProject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilePromptProject.UseVisualStyleBackColor = true;
+            this.btnProfilePromptProject.Click += new System.EventHandler(this.btnProfilePromptProject_Click);
             // 
             // btnProfilePromptEmployee
             // 
@@ -80,6 +81,7 @@ namespace CCSPayrollBillingSystem
             this.btnProfilePromptEmployee.Text = "Add Employee";
             this.btnProfilePromptEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilePromptEmployee.UseVisualStyleBackColor = true;
+            this.btnProfilePromptEmployee.Click += new System.EventHandler(this.btnProfilePromptEmployee_Click);
             // 
             // ProfilePrompt
             // 

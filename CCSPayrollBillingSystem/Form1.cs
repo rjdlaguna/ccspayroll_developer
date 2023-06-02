@@ -34,5 +34,22 @@ namespace CCSPayrollBillingSystem
             UsersPrompt usersPrompt = new UsersPrompt();
             usersPrompt.Show();
         }
+
+        private void btnBillingMenu_Click(object sender, EventArgs e)
+        {
+            frmBilling frmBilling = new frmBilling();
+            frmBilling.Show();
+        }
+
+        private void btnPrintMenu_Click(object sender, EventArgs e)
+        {
+            PrintForm frmPrint = new PrintForm();
+            frmPrint.Show();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -16,5 +16,17 @@ namespace CCSPayrollBillingSystem
         {
             InitializeComponent();
         }
+
+        private void btnProfilePromptEmployee_Click(object sender, EventArgs e)
+        {
+            EmployeeProfileForm frmEmployeeProfile = new EmployeeProfileForm();
+            frmEmployeeProfile.Show();
+        }
+
+        private void btnProfilePromptProject_Click(object sender, EventArgs e)
+        {
+            ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
+            frmProjectProfile.Show();
+        }
     }
 }
