@@ -292,6 +292,11 @@
       <DependentUpon>mdlUser.edmx</DependentUpon>
       <LastGenOutput>mdlUser.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\captcha.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\floppy-disk.png" />
     <None Include="Resources\loupe.png" />
   </ItemGroup>
   <ItemGroup>
