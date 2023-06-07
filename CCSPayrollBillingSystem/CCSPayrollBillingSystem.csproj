@@ -153,7 +153,11 @@
       <DependentUpon>ProjectProfileForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\DatabaseCommand.cs" />
+    <Compile Include="Scripts\DatabaseConnection.cs" />
+    <Compile Include="Scripts\DatabaseReader.cs" />
     <Compile Include="Scripts\FormVisibility.cs" />
+    <Compile Include="Scripts\SystemUtilities.cs" />
     <Compile Include="tblUser.cs">
       <DependentUpon>mdlUser.tt</DependentUpon>
     </Compile>
@@ -292,6 +296,11 @@
       <DependentUpon>mdlUser.edmx</DependentUpon>
       <LastGenOutput>mdlUser.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\captcha.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\floppy-disk.png" />
     <None Include="Resources\loupe.png" />
   </ItemGroup>
   <ItemGroup>
