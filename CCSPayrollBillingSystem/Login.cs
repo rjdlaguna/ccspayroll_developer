@@ -19,27 +19,34 @@ namespace CCSPayrollBillingSystem
             SqlConnection cnn = new SqlConnection(connetionString);
             cnn.Open();
 
-            string sql = "SELECT * FROM tblUser WHERE Username='"+txtUsername.Text+"'AND Password='"+txtPassword.Text+"'";
+            if (txtUsername.Text != string.Empty || txtPassword.Text != string.Empty) {
+                string sql = "SELECT * FROM tblUser WHERE Username='" + txtUsername.Text + "'AND Password='" + txtPassword.Text + "'";
 
-            SqlCommand command = new SqlCommand(sql, cnn);
-            SqlDataReader dataReader = command.ExecuteReader();
+                SqlCommand command = new SqlCommand(sql, cnn);
+                SqlDataReader dataReader = command.ExecuteReader();
 
-            if (dataReader.Read())
-            {
-                MessageBox.Show("Hi! " + dataReader.GetValue(1));
-                dataReader.Close();
-                this.Hide();
-                formMain.ShowDialog();
+
+                if (dataReader.Read())
+                {
+                    MessageBox.Show("Hi! " + dataReader.GetValue(1));
+                    dataReader.Close();
+                    this.Hide();
+                    formMain.ShowDialog();
+                }
+                else
+                {
+                    dataReader.Close();
+                    MessageBox.Show("No Accounts Available!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+                command.Dispose();
+                cnn.Close();
             }
             else
             {
-                dataReader.Close();
-                MessageBox.Show("No Accounts Available!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please Fill the Required Fields!");
             }
-
-            command.Dispose();
-            cnn.Close();
-        
         }
         //SELECT QUERY STRUCTURE
 
