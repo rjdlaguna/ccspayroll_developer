@@ -76,6 +76,12 @@
     <Compile Include="BillingForm.Designer.cs">
       <DependentUpon>BillingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeePayroll.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,10 +162,19 @@
     <Compile Include="Scripts\DatabaseCommand.cs" />
     <Compile Include="Scripts\DatabaseConnection.cs" />
     <Compile Include="Scripts\DatabaseReader.cs" />
+    <Compile Include="Scripts\EventManager.cs" />
     <Compile Include="Scripts\FormVisibility.cs" />
+    <Compile Include="Scripts\QueryProcessor.cs" />
+    <Compile Include="Scripts\StaticInstance.cs" />
     <Compile Include="Scripts\SystemUtilities.cs" />
     <Compile Include="tblUser.cs">
       <DependentUpon>mdlUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserManagement.Designer.cs">
+      <DependentUpon>UserManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="UsersPrompt.cs">
       <SubType>Form</SubType>
@@ -169,6 +184,9 @@
     </Compile>
     <EmbeddedResource Include="BillingForm.resx">
       <DependentUpon>BillingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeePayroll.resx">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
@@ -204,6 +222,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserManagement.resx">
+      <DependentUpon>UserManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsersPrompt.resx">
       <DependentUpon>UsersPrompt.cs</DependentUpon>

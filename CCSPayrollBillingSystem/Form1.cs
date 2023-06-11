@@ -12,11 +12,29 @@ namespace CCSPayrollBillingSystem
 {
     public partial class FormMain : Form
     {
-        public FormMain()
+        private const string ADMIN = "admin";
+        private string userLogged;
+        public FormMain(string user)
         {
             InitializeComponent();
+            //EventManager.OnAdminLogged += OnUserLoggedIdentifier;
+            userLogged = user;
         }
 
+        //private void OnUserLoggedIdentifier(string user)
+        //{
+        //    //userLogged = user;
+        //    toolStripStatusLabelMainView.Text = userLogged;
+        //}
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            //statusStripMain.Items[0].Text = userLogged;
+            toolStripStatusLabelMainView.Text = userLogged + "logged!";
+            if (userLogged != ADMIN) { menuStrip.Items[3].Visible = false; }
+        }
+
+        #region Buttons...
         private void btnPayrollMenu_Click(object sender, EventArgs e)
         {
             PayrollPrompt payrollPrompt = new PayrollPrompt();
@@ -46,10 +64,22 @@ namespace CCSPayrollBillingSystem
             PrintForm frmPrint = new PrintForm();
             frmPrint.Show();
         }
+        #endregion
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        #region Menu Strips
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Close();
+            formLogin formLogin = new formLogin();
+            formLogin.Show();
+        }
+        #endregion
 
+        private void passwordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            ChangePassword changePassword = new ChangePassword(userLogged);
+            changePassword.Show();
         }
     }
 }

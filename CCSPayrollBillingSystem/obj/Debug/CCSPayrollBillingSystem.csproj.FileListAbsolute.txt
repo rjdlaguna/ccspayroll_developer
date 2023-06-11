@@ -37,3 +37,5 @@ D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayro
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.PrintForm.resources
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.frmProjectPayroll.resources
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ProjectProfileForm.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.UserManagement.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ChangePassword.resources

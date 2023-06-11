@@ -16,5 +16,22 @@ namespace CCSPayrollBillingSystem
         {
             InitializeComponent();
         }
+
+        private void btnUserPromptUser1_Click(object sender, EventArgs e)
+        {
+            UserManagerFormView("user1");
+        }
+
+        private void btnUserPromptUser2_Click(object sender, EventArgs e)
+        {
+            UserManagerFormView("user2");
+        }
+
+        private void UserManagerFormView(string user)
+        {
+            UserManagement userManagement = new UserManagement(user);
+            this.Close();
+            userManagement.Show();
+        }
     }
 }

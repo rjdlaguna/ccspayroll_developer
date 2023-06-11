@@ -63,6 +63,7 @@ namespace CCSPayrollBillingSystem
             this.btnUserPromptUser2.Text = "User2";
             this.btnUserPromptUser2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUserPromptUser2.UseVisualStyleBackColor = true;
+            this.btnUserPromptUser2.Click += new System.EventHandler(this.btnUserPromptUser2_Click);
             // 
             // btnUserPromptUser1
             // 
@@ -80,6 +81,7 @@ namespace CCSPayrollBillingSystem
             this.btnUserPromptUser1.Text = "User1";
             this.btnUserPromptUser1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUserPromptUser1.UseVisualStyleBackColor = true;
+            this.btnUserPromptUser1.Click += new System.EventHandler(this.btnUserPromptUser1_Click);
             // 
             // UsersPrompt
             // 
