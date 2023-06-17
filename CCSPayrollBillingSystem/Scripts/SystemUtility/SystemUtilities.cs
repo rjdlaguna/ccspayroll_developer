@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace CCSPayrollBillingSystem.Scripts
 {
-    public class SystemUtilities:StaticInstance<SystemUtilities>
+    public class SystemUtilities
     {
-        private string user;
-
-        public void SetUser(string user)
-        {
-            this.user = user;
-        }
+        
         public static string GetConnectionString()
         {
             return @"Data Source=(localdb)\ProjectsV13;Initial Catalog=db_PayrollBilling;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
-        public string GetUserLoggedIn()
-        {
-            return user;
-        }
+    }
+
+    public static class Constants
+    {
+        public const string ADMIN = "admin";
+        public const string USER1 = "user1";
+        public const string USER2 = "user2";
     }
 }

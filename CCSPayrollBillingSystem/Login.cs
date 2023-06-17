@@ -24,7 +24,9 @@ namespace CCSPayrollBillingSystem
                 loginProcessor.ExecuteSqlLoginQuery(username, password, () =>
                 {
                     // Successful login action
-                    FormMain formMain = new FormMain(username);
+                    SessionManager.LoggedInUser = username;
+
+                    FormMain formMain = new FormMain();
                     this.Hide();
                     formMain.Show();
                 }, () =>
@@ -43,7 +45,6 @@ namespace CCSPayrollBillingSystem
         {
             return !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtPassword.Text);
         }
-
     }
 }
 

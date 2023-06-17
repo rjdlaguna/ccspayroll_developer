@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
 
         private void UserManagerFormView(string user)
         {
-            UserManagement userManagement = new UserManagement(user);
+            UserManagement userManagement = new UserManagement();
             this.Close();
             userManagement.Show();
         }

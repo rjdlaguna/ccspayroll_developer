@@ -16,7 +16,7 @@ namespace CCSPayrollBillingSystem
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-            FormMain formMain = new FormMain(user);
+            FormMain formMain = new FormMain();
             formMain.Show();
         }
 
@@ -34,7 +34,7 @@ namespace CCSPayrollBillingSystem
                     // Successful Update action
                     MessageBox.Show("Password Changed!", "Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     
-                    FormMain formMain = new FormMain(user);
+                    FormMain formMain = new FormMain();
                     this.Hide();
                     formMain.Show();
                 }, () =>

@@ -7,10 +7,10 @@ namespace CCSPayrollBillingSystem
     public partial class UserManagement : Form
     {
         private string user;
-        public UserManagement(string user)
+        public UserManagement()
         {
             InitializeComponent();
-            this.user = user;
+            this.user = SessionManager.LoggedInUser;
         }
 
         private void UserManagement_Load(object sender, EventArgs e)
@@ -21,7 +21,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            FormMain formMain = new FormMain(user);
+            FormMain formMain = new FormMain();
             this.Close();
             formMain.Show();
         }
@@ -39,7 +39,7 @@ namespace CCSPayrollBillingSystem
                     // Successful Change User action
                     MessageBox.Show("Password Changed!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    FormMain formMain = new FormMain(username);
+                    FormMain formMain = new FormMain();
                     this.Close();
                     formMain.Show();
                 }, () =>
