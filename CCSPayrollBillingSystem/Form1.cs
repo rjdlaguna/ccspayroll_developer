@@ -82,7 +82,12 @@ namespace CCSPayrollBillingSystem
             Job job = new Job();
             job.Show();
         }
-
+        private void deductionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Deduction deduction = new Deduction();
+            deduction.Show();
+        }
         #endregion
 
         public void OnApplicationExit()

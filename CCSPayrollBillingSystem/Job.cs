@@ -75,7 +75,7 @@ namespace CCSPayrollBillingSystem
             if (ValidateInput())
             {
                 QueryProcessor jobProcessor = new QueryProcessor();
-                jobProcessor.ExecuteSqlSearchJobQuery(jobTitle, (jobTitle, jobDescription, jobRank, jobPayRate) =>
+                jobProcessor.ExecuteSqlSearchQuery(jobTitle, (jobTitle, jobDescription, jobRank, jobPayRate) =>
                 {
                     // Successful Job action
                     jobProcessor.ExecuteSqlUpdateQuery(jobTitle, jobDescription, jobRank, decimal.Parse(jobPayRate));
@@ -103,7 +103,7 @@ namespace CCSPayrollBillingSystem
             if (jobTitle != string.Empty)
             {
                 QueryProcessor jobProcessor = new QueryProcessor();
-                jobProcessor.ExecuteSqlSearchJobQuery(jobTitle, (jobTitle, jobDescription, jobRank, jobPayRate) =>
+                jobProcessor.ExecuteSqlSearchQuery(jobTitle, (jobTitle, jobDescription, jobRank, jobPayRate) =>
                 {
                     // Successful Job action
                     SetUIs(jobTitle, jobDescription, jobRank, decimal.Parse(jobPayRate));
@@ -127,6 +127,13 @@ namespace CCSPayrollBillingSystem
         private bool ValidateInput()
         {
             return !string.IsNullOrEmpty(txtJobTitle.Text) && !string.IsNullOrEmpty(comboRank.Text) && !string.IsNullOrEmpty(txtPayRate.Text);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            FormMain formMain = new FormMain();
+            this.Close();
+            formMain.Show();
         }
     }
 }

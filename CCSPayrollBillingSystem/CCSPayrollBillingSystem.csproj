@@ -82,6 +82,12 @@
     <Compile Include="ChangePassword.Designer.cs">
       <DependentUpon>ChangePassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Deduction.Designer.cs">
+      <DependentUpon>Deduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeePayroll.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deduction.resx">
+      <DependentUpon>Deduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeePayroll.resx">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>

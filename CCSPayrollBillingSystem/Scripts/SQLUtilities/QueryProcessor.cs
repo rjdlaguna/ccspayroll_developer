@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CCSPayrollBillingSystem.Scripts
@@ -163,7 +164,7 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
         //Searching Records from tblJob
-        public void ExecuteSqlSearchJobQuery(string jobTitle, Action<string, string, string, string> onSuccess, Action onFailure)
+        public void ExecuteSqlSearchQuery(string jobTitle, Action<string, string, string, string> onSuccess, Action onFailure)
         {
             using (connection = new DatabaseConnection(connectionString))
             {
@@ -215,6 +216,113 @@ namespace CCSPayrollBillingSystem.Scripts
 
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlUpdate, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+        }
+        #endregion
+
+        #region SQL Process for Deduction CRUD Management
+        //Searching Records from tblJob
+        public void ExecuteSqlSearchQueryForJobCombo(Action<Dictionary<string, string>> onSuccess, Action onFailure)
+        {
+            Dictionary<string,string> resultList = new Dictionary<string, string>();
+            string sqlSearchForJobCombo = "SELECT JobID,JobTitle FROM tblJob";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                command = new DatabaseCommand(sqlSearchForJobCombo, connection);
+                dataReader = new DatabaseReader(command.ExecuteReader());
+                if (!dataReader.Read()) onFailure.Invoke(); 
+                while(dataReader.Read())
+                {
+                    string key = dataReader.GetValue(0).ToString();
+                    string value = dataReader.GetValue(1).ToString();
+                    resultList.Add(key,value);
+                }
+                onSuccess?.Invoke(resultList);
+            }
+        }
+        
+        //Search Validation for Inserting Deductions
+        public void ExecuteSqlSearchValidationQuery(string deductionID, string jobID, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT * FROM tblDeductions WHERE DeductionID=@DeductionID AND JobID=@JobID";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@DeductionID", deductionID);
+                    command.AddParameter("@JobID", jobID);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (!dataReader.Read())
+                        {
+                            onSuccess?.Invoke();
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
+        //Searching Records from tblDeduction
+        public void ExecuteSqlDeductionSearchQuery(string deductionID, string jobID, Action<string, string, string, string, string> onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT * FROM tblDeductions WHERE DeductionID=@Deduction OR JobID=@JobID";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@DeductionID", deductionID);
+                    command.AddParameter("@JobID", jobID);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            onSuccess?.Invoke(dataReader.GetValue(1).ToString(), dataReader.GetValue(2).ToString(), dataReader.GetValue(3).ToString(), dataReader.GetValue(4).ToString(), dataReader.GetValue(5).ToString());
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
+        //Insert tblDeduction
+        public void ExecuteSqlDeductionSaveQuery(string jobID, string sss, string pagibig, string philhealth, string tax)
+        {
+            string sqlInsert = "INSERT INTO tblDeductions(JobID, SSS, PagIbig, PhilHealth, Tax) VALUES('" + jobID + "','" + sss + "','" + pagibig + "','" + philhealth + "','" + tax + "')";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlInsert, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+        }
+        //Updating tblDeduction
+        public void ExecuteSqlDeductionUpdateQuery(string deductionID, string jobID, string sss, string pagibig, string philhealth, string tax)
+        {
+
+            string sqlUpdate = "UPDATE tblDeductions SET SSS='" + sss + "', PagIbig='" + pagibig + "', PhilHealth='" + philhealth + "', Tax='" + tax + "' WHERE DeductionID='" + deductionID + "' AND JobID='" + jobID + "'";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlUpdate, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+        }
+        //Deleting tblDeduction
+        public void ExecuteSqlDeductionDeleteQuery(string deductionID, string jobID)
+        {
+
+            string sqlDelete = "DELETE FROM tblDeductions WHERE DeductionID='" + deductionID + "' AND JobID='" + jobID + "'";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlDelete, connection);
             dataReader = new DatabaseReader(command.ExecuteReader());
         }
         #endregion

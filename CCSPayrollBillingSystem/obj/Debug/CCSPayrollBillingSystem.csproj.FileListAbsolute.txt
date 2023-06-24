@@ -39,3 +39,4 @@ D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayro
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.UserManagement.resources
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ChangePassword.resources
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.Job.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.Deduction.resources

@@ -40,13 +40,13 @@ namespace CCSPayrollBillingSystem
             this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deductionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxMenu = new System.Windows.Forms.GroupBox();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
-            this.jobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deductionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnProfileMenu = new System.Windows.Forms.Button();
             this.btnPrintMenu = new System.Windows.Forms.Button();
             this.btnBillingMenu = new System.Windows.Forms.Button();
@@ -145,6 +145,20 @@ namespace CCSPayrollBillingSystem
             this.empSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.empSettingsToolStripMenuItem.Text = "Employee Settings";
             // 
+            // jobToolStripMenuItem
+            // 
+            this.jobToolStripMenuItem.Name = "jobToolStripMenuItem";
+            this.jobToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.jobToolStripMenuItem.Text = "Job";
+            this.jobToolStripMenuItem.Click += new System.EventHandler(this.jobToolStripMenuItem_Click);
+            // 
+            // deductionsToolStripMenuItem
+            // 
+            this.deductionsToolStripMenuItem.Name = "deductionsToolStripMenuItem";
+            this.deductionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deductionsToolStripMenuItem.Text = "Deductions";
+            this.deductionsToolStripMenuItem.Click += new System.EventHandler(this.deductionsToolStripMenuItem_Click);
+            // 
             // passwordToolStripMenuItem
             // 
             this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
@@ -188,19 +202,6 @@ namespace CCSPayrollBillingSystem
             this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
             this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
-            // 
-            // jobToolStripMenuItem
-            // 
-            this.jobToolStripMenuItem.Name = "jobToolStripMenuItem";
-            this.jobToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.jobToolStripMenuItem.Text = "Job";
-            this.jobToolStripMenuItem.Click += new System.EventHandler(this.jobToolStripMenuItem_Click);
-            // 
-            // deductionsToolStripMenuItem
-            // 
-            this.deductionsToolStripMenuItem.Name = "deductionsToolStripMenuItem";
-            this.deductionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deductionsToolStripMenuItem.Text = "Deductions";
             // 
             // btnProfileMenu
             // 

@@ -42,14 +42,13 @@ namespace CCSPayrollBillingSystem
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 26);
+            this.label1.Location = new System.Drawing.Point(34, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 0;
@@ -57,7 +56,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtJobID
             // 
-            this.txtJobID.Location = new System.Drawing.Point(81, 23);
+            this.txtJobID.Location = new System.Drawing.Point(81, 26);
             this.txtJobID.Name = "txtJobID";
             this.txtJobID.ReadOnly = true;
             this.txtJobID.Size = new System.Drawing.Size(155, 20);
@@ -65,7 +64,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtJobTitle
             // 
-            this.txtJobTitle.Location = new System.Drawing.Point(81, 49);
+            this.txtJobTitle.Location = new System.Drawing.Point(81, 52);
             this.txtJobTitle.Name = "txtJobTitle";
             this.txtJobTitle.Size = new System.Drawing.Size(155, 20);
             this.txtJobTitle.TabIndex = 11;
@@ -73,7 +72,7 @@ namespace CCSPayrollBillingSystem
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 52);
+            this.label2.Location = new System.Drawing.Point(27, 55);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 10;
@@ -81,7 +80,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtJobDescription
             // 
-            this.txtJobDescription.Location = new System.Drawing.Point(30, 92);
+            this.txtJobDescription.Location = new System.Drawing.Point(30, 95);
             this.txtJobDescription.Multiline = true;
             this.txtJobDescription.Name = "txtJobDescription";
             this.txtJobDescription.Size = new System.Drawing.Size(206, 91);
@@ -90,7 +89,7 @@ namespace CCSPayrollBillingSystem
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 76);
+            this.label3.Location = new System.Drawing.Point(27, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 12;
@@ -98,7 +97,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtPayRate
             // 
-            this.txtPayRate.Location = new System.Drawing.Point(81, 243);
+            this.txtPayRate.Location = new System.Drawing.Point(81, 246);
             this.txtPayRate.Name = "txtPayRate";
             this.txtPayRate.Size = new System.Drawing.Size(155, 20);
             this.txtPayRate.TabIndex = 15;
@@ -106,7 +105,7 @@ namespace CCSPayrollBillingSystem
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 246);
+            this.label4.Location = new System.Drawing.Point(21, 249);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 14;
@@ -115,7 +114,7 @@ namespace CCSPayrollBillingSystem
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(39, 200);
+            this.label5.Location = new System.Drawing.Point(39, 203);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 16;
@@ -129,7 +128,7 @@ namespace CCSPayrollBillingSystem
             "Utilities",
             "Skilled",
             "Others"});
-            this.comboRank.Location = new System.Drawing.Point(81, 197);
+            this.comboRank.Location = new System.Drawing.Point(81, 200);
             this.comboRank.Name = "comboRank";
             this.comboRank.Size = new System.Drawing.Size(155, 21);
             this.comboRank.TabIndex = 17;
@@ -139,7 +138,7 @@ namespace CCSPayrollBillingSystem
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(283, 19);
+            this.btnSearch.Location = new System.Drawing.Point(283, 22);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 40);
             this.btnSearch.TabIndex = 18;
@@ -153,7 +152,7 @@ namespace CCSPayrollBillingSystem
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdate.Location = new System.Drawing.Point(283, 176);
+            this.btnUpdate.Location = new System.Drawing.Point(283, 132);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 40);
             this.btnUpdate.TabIndex = 9;
@@ -167,33 +166,21 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(283, 232);
+            this.btnCancel.Location = new System.Drawing.Point(283, 188);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Image = global::CCSPayrollBillingSystem.Properties.Resources.edit;
-            this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(283, 118);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(100, 40);
-            this.btnEdit.TabIndex = 7;
-            this.btnEdit.Text = "EDIT";
-            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(283, 65);
+            this.btnSave.Location = new System.Drawing.Point(283, 76);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
             this.btnSave.TabIndex = 6;
@@ -206,7 +193,8 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 303);
+            this.ClientSize = new System.Drawing.Size(414, 306);
+            this.ControlBox = false;
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.comboRank);
             this.Controls.Add(this.label5);
@@ -218,7 +206,6 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtJobID);
             this.Controls.Add(this.label1);
@@ -235,7 +222,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.TextBox txtJobID;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtJobTitle;
         private System.Windows.Forms.Label label2;
