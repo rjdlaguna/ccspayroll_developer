@@ -76,6 +76,18 @@
     <Compile Include="BillingForm.Designer.cs">
       <DependentUpon>BillingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Deduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Deduction.Designer.cs">
+      <DependentUpon>Deduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeePayroll.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +105,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Job.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Job.Designer.cs">
+      <DependentUpon>Job.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -114,12 +132,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>mdlUser.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="PasswordChangerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PasswordChangerForm.Designer.cs">
-      <DependentUpon>PasswordChangerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PayrollPrompt.cs">
       <SubType>Form</SubType>
@@ -153,13 +165,23 @@
       <DependentUpon>ProjectProfileForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\DatabaseCommand.cs" />
-    <Compile Include="Scripts\DatabaseConnection.cs" />
-    <Compile Include="Scripts\DatabaseReader.cs" />
-    <Compile Include="Scripts\FormVisibility.cs" />
-    <Compile Include="Scripts\SystemUtilities.cs" />
+    <Compile Include="Scripts\SQLUtilities\DatabaseCommand.cs" />
+    <Compile Include="Scripts\SQLUtilities\DatabaseConnection.cs" />
+    <Compile Include="Scripts\SQLUtilities\DatabaseReader.cs" />
+    <Compile Include="Scripts\SystemUtility\EventManager.cs" />
+    <Compile Include="Scripts\SystemUtility\FormVisibility.cs" />
+    <Compile Include="Scripts\SQLUtilities\QueryProcessor.cs" />
+    <Compile Include="Scripts\SystemUtility\SessionManager.cs" />
+    <Compile Include="Scripts\SystemUtility\StaticInstance.cs" />
+    <Compile Include="Scripts\SystemUtility\SystemUtilities.cs" />
     <Compile Include="tblUser.cs">
       <DependentUpon>mdlUser.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserManagement.Designer.cs">
+      <DependentUpon>UserManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="UsersPrompt.cs">
       <SubType>Form</SubType>
@@ -170,6 +192,12 @@
     <EmbeddedResource Include="BillingForm.resx">
       <DependentUpon>BillingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deduction.resx">
+      <DependentUpon>Deduction.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeePayroll.resx">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,11 +207,11 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Job.resx">
+      <DependentUpon>Job.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PasswordChangerForm.resx">
-      <DependentUpon>PasswordChangerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PayrollPrompt.resx">
       <DependentUpon>PayrollPrompt.cs</DependentUpon>
@@ -204,6 +232,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserManagement.resx">
+      <DependentUpon>UserManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsersPrompt.resx">
       <DependentUpon>UsersPrompt.cs</DependentUpon>
@@ -296,6 +327,8 @@
       <DependentUpon>mdlUser.edmx</DependentUpon>
       <LastGenOutput>mdlUser.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\file.png" />
+    <None Include="Resources\bin.png" />
     <None Include="Resources\captcha.png" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\edit.png" />
