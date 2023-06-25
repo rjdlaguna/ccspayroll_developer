@@ -78,10 +78,11 @@ namespace CCSPayrollBillingSystem
 
             jobID = GetJobID(jobTitle);
 
-            if (deductionID != string.Empty)
+            if (deductionID != string.Empty || jobTitle != string.Empty)
             {
                 QueryProcessor deductionProcessor = new QueryProcessor();
-                deductionProcessor.ExecuteSqlDeductionSearchQuery(deductionID, jobTitle, (jobID, sss, pagibig, philhealth, tax) =>
+                deductionProcessor.ExecuteSqlDeductionSearchQuery(deductionID, jobID, 
+                    (jobID, sss, pagibig, philhealth, tax) =>
                 {
                     // Successful Job action
                     SetUIs(deductionID, jobTitle, sss, pagibig, philhealth, tax);
@@ -128,35 +129,20 @@ namespace CCSPayrollBillingSystem
                 MessageBox.Show("Please Fill the Required Fields Correctly!");
             }
         }
-        private bool ValidateInput()
-        {
-            return !string.IsNullOrEmpty(txtSSS.Text) && !string.IsNullOrEmpty(txtPAGIBIG.Text) && !string.IsNullOrEmpty(txtPhilHealth.Text) && !string.IsNullOrEmpty(txtTax.Text);
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            FormMain formMain = new FormMain();
-            this.Close();
-            formMain.Show();
-        }
-
-        private string GetJobID(string jobTitle)
-        {
-            jobID = jobDict.FirstOrDefault(pair => pair.Value == jobTitle).Key;
-            return jobID;
-        }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            SetFields();
+            jobTitle = cmbJobs.Text;
+            jobID = GetJobID(jobTitle);
 
             if (ValidateInput())
             {
-                QueryProcessor jobProcessor = new QueryProcessor();
-                jobProcessor.ExecuteSqlDeductionSearchQuery(deductionID, jobID, (jobID, sss, pagibig, philhealth, tax) =>
+                QueryProcessor deductionProcessor = new QueryProcessor();
+                deductionProcessor.ExecuteSqlDeductionSearchQuery(deductionID, jobID, 
+                    (jobID, sss, pagibig, philhealth, tax) =>
                 {
-                    // Successful Job action
-                    jobProcessor.ExecuteSqlDeductionUpdateQuery(deductionID, jobID, sss, pagibig, philhealth, tax);
+                    // Successful Deduction action
+                    deductionProcessor.ExecuteSqlDeductionUpdateQuery(deductionID, jobID, sss, pagibig, philhealth, tax);
                     MessageBox.Show(" Record Successfully Updated.");
 
                     FormMain formMain = new FormMain();
@@ -176,7 +162,49 @@ namespace CCSPayrollBillingSystem
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            jobTitle = cmbJobs.Text;
+            jobID = GetJobID(jobTitle);
 
+            if (ValidateInput())
+            {
+                QueryProcessor deductionProcessor = new QueryProcessor();
+                deductionProcessor.ExecuteSqlDeductionDeleteQuery(deductionID, jobID, () =>
+                {
+                    // Successful Job action
+                    MessageBox.Show(" Record Successfully Deleted.");
+
+                    FormMain formMain = new FormMain();
+                    this.Close();
+                    formMain.Show();
+                }, () =>
+                {
+                    // Failed Job action
+                    MessageBox.Show("No Accounts Available!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                });
+            }
+            else
+            {
+                MessageBox.Show("Please Fill the Required Fields Correctly!");
+            }
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            FormMain formMain = new FormMain();
+            formMain.Show();
+        }
+
+        private bool ValidateInput()
+        {
+            return !string.IsNullOrEmpty(txtSSS.Text) && !string.IsNullOrEmpty(txtPAGIBIG.Text) && !string.IsNullOrEmpty(txtPhilHealth.Text) && !string.IsNullOrEmpty(txtTax.Text);
+        }
+
+        private string GetJobID(string jobTitle)
+        {
+            jobID = jobDict.FirstOrDefault(pair => pair.Value == jobTitle).Key;
+            return jobID;
+        }
+
     }
 }

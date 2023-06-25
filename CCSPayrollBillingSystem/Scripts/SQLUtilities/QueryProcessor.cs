@@ -209,7 +209,7 @@ namespace CCSPayrollBillingSystem.Scripts
             dataReader = new DatabaseReader(command.ExecuteReader());
         }
         //Deleting tblJob
-        public void ExecuteSqlDeleteQuery(string jobTitle)
+        public void ExecuteSqlDeleteQuery(string jobTitle, Action onSuccess, Action onFailure)
         {
 
             string sqlUpdate = "DELETE FROM tblJob WHERE JobTitle='" + jobTitle + "'";
@@ -231,13 +231,14 @@ namespace CCSPayrollBillingSystem.Scripts
             {
                 command = new DatabaseCommand(sqlSearchForJobCombo, connection);
                 dataReader = new DatabaseReader(command.ExecuteReader());
-                if (!dataReader.Read()) onFailure.Invoke(); 
                 while(dataReader.Read())
                 {
                     string key = dataReader.GetValue(0).ToString();
                     string value = dataReader.GetValue(1).ToString();
                     resultList.Add(key,value);
+                    Console.WriteLine(key +"-"+ value);
                 }
+                if (resultList.Count <= 0) onFailure.Invoke();
                 onSuccess?.Invoke(resultList);
             }
         }
@@ -245,9 +246,10 @@ namespace CCSPayrollBillingSystem.Scripts
         //Search Validation for Inserting Deductions
         public void ExecuteSqlSearchValidationQuery(string deductionID, string jobID, Action onSuccess, Action onFailure)
         {
+
             using (connection = new DatabaseConnection(connectionString))
             {
-                string sqlSearch = "SELECT * FROM tblDeductions WHERE DeductionID=@DeductionID AND JobID=@JobID";
+                string sqlSearch = "SELECT * FROM tblDeductions WHERE JobID=@JobID";
 
                 using (command = new DatabaseCommand(sqlSearch, connection))
                 {
@@ -274,7 +276,7 @@ namespace CCSPayrollBillingSystem.Scripts
         {
             using (connection = new DatabaseConnection(connectionString))
             {
-                string sqlSearch = "SELECT * FROM tblDeductions WHERE DeductionID=@Deduction OR JobID=@JobID";
+                string sqlSearch = "SELECT * FROM tblDeductions WHERE DeductionID=@DeductionID OR JobID=@JobID";
 
                 using (command = new DatabaseCommand(sqlSearch, connection))
                 {
@@ -316,7 +318,7 @@ namespace CCSPayrollBillingSystem.Scripts
             dataReader = new DatabaseReader(command.ExecuteReader());
         }
         //Deleting tblDeduction
-        public void ExecuteSqlDeductionDeleteQuery(string deductionID, string jobID)
+        public void ExecuteSqlDeductionDeleteQuery(string deductionID, string jobID, Action onSuccess, Action onFailure)
         {
 
             string sqlDelete = "DELETE FROM tblDeductions WHERE DeductionID='" + deductionID + "' AND JobID='" + jobID + "'";
