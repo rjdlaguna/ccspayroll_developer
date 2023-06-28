@@ -197,6 +197,7 @@ namespace CCSPayrollBillingSystem.Scripts
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlInsert, connection);
             dataReader = new DatabaseReader(command.ExecuteReader());
+
         }
         //Updating tblJob
         public void ExecuteSqlUpdateQuery(string jobTitle, string jobDescription, string jobRank, decimal jobPayRate)
@@ -219,7 +220,8 @@ namespace CCSPayrollBillingSystem.Scripts
             dataReader = new DatabaseReader(command.ExecuteReader());
         }
 
-        public void ExecuteSqlEmpDataSaveQuery(string firstname, string middlename, string lastname, string homeaddress, string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract)
+        public void ExecuteSqlEmpDataSaveQuery(string firstname, string middlename, string lastname, string homeaddress, 
+                                                string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract, Action onSuccess, Action onFailure)
         {
             string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndofContractDate) "
                                 + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','" 
@@ -229,6 +231,15 @@ namespace CCSPayrollBillingSystem.Scripts
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlInsert, connection);
             dataReader = new DatabaseReader(command.ExecuteReader());
+
+            if (!dataReader.Read())
+            {
+                onSuccess?.Invoke();
+            }
+            else
+            {
+                onFailure?.Invoke();
+            }
         }
 
         #endregion

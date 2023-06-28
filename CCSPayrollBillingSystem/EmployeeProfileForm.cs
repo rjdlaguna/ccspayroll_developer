@@ -34,12 +34,20 @@ namespace CCSPayrollBillingSystem
             lblEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd);
             promptText = lblEmpDataPrompt.Text;
             
-            if(!String.IsNullOrEmpty(promptText) || promptText == "")
+            if(String.IsNullOrEmpty(promptText) || promptText == "")
             {
 
                 QueryProcessor empDataProcessor = new QueryProcessor();
-                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd);
-                MessageBox.Show(" Employee Data Successfully Saved.");
+                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, () =>
+                {
+                    // Successful Job action
+                    ClearEmpDataTextFields();
+                    MessageBox.Show("Employee data successfully saved.");
+                }, () =>
+                {
+                    MessageBox.Show("Error inserting employee data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                );
             }
         }
 
@@ -59,32 +67,25 @@ namespace CCSPayrollBillingSystem
         private string ValidateEmpDataFields(string fname, string mname, string lname, string homeadd, string contactno, DateTime bdate, DateTime dhired, DateTime contractend)
         {
             string prompt = "";
-            if (String.IsNullOrEmpty(fname))
+
+            if (IsEmptyEmpDataFields(fname))
             {
                 txtfirstname.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
                 prompt = "First Name cannot be empty.";
             }
-            else if (String.IsNullOrEmpty(lname))
+            else if (IsEmptyEmpDataFields(lname))
             {
                 txtlastname.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
                 prompt = "Last Name cannot be empty.";
             }
-            else if (String.IsNullOrEmpty(homeadd))
+            else if (IsEmptyEmpDataFields(homeadd))
             {
                 txthomeaddress.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
                 prompt = "Home Address cannot be empty.";
             }
-            else if (String.IsNullOrEmpty(contactno))
+            else if (IsEmptyEmpDataFields(contactno))
             {
                 txtcontactno.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
                 prompt = "Contact No. cannot be empty.";
             }
             else if (GetAge(Convert.ToDateTime(bdate)) < 18)
@@ -118,6 +119,17 @@ namespace CCSPayrollBillingSystem
             return age;
         }
 
+        private bool IsEmptyEmpDataFields(string empValue)
+        {
+            bool isEmpty = false;
+            if(String.IsNullOrEmpty(empValue))
+            {
+                lblEmpDataPrompt.Text = "";
+                lblEmpDataPrompt.Show();
+                isEmpty = true;
+            }
+            return isEmpty;
+        }
 
         private void ClearEmpDataTextFields()
         {
