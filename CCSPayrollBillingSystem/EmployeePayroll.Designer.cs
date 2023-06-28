@@ -32,12 +32,14 @@ namespace CCSPayrollBillingSystem
             this.btnSearch = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtEmployeeName = new System.Windows.Forms.TextBox();
-            this.txtRank = new System.Windows.Forms.TextBox();
             this.txtBaseRate = new System.Windows.Forms.TextBox();
+            this.txtRank = new System.Windows.Forms.TextBox();
+            this.txtEmployeeName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtTax = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtPagIbig = new System.Windows.Forms.TextBox();
             this.txtPhilHealth = new System.Windows.Forms.TextBox();
             this.txtSSS = new System.Windows.Forms.TextBox();
@@ -46,8 +48,6 @@ namespace CCSPayrollBillingSystem
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtRegDays = new System.Windows.Forms.TextBox();
-            this.txtTax = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.txtRegOT = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtSplHolidays = new System.Windows.Forms.TextBox();
@@ -86,7 +86,7 @@ namespace CCSPayrollBillingSystem
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(576, 3);
+            this.btnSearch.Location = new System.Drawing.Point(580, 3);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(38, 40);
             this.btnSearch.TabIndex = 1;
@@ -113,22 +113,39 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(25, 12);
+            this.groupBox1.Location = new System.Drawing.Point(29, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(286, 106);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "EMPLOYEE DETAILS";
             // 
-            // label1
+            // txtBaseRate
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(32, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Rank :";
+            this.txtBaseRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBaseRate.Location = new System.Drawing.Point(77, 67);
+            this.txtBaseRate.Name = "txtBaseRate";
+            this.txtBaseRate.ReadOnly = true;
+            this.txtBaseRate.Size = new System.Drawing.Size(179, 20);
+            this.txtBaseRate.TabIndex = 8;
+            // 
+            // txtRank
+            // 
+            this.txtRank.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRank.Location = new System.Drawing.Point(77, 41);
+            this.txtRank.Name = "txtRank";
+            this.txtRank.ReadOnly = true;
+            this.txtRank.Size = new System.Drawing.Size(179, 20);
+            this.txtRank.TabIndex = 7;
+            // 
+            // txtEmployeeName
+            // 
+            this.txtEmployeeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmployeeName.Location = new System.Drawing.Point(77, 18);
+            this.txtEmployeeName.Name = "txtEmployeeName";
+            this.txtEmployeeName.ReadOnly = true;
+            this.txtEmployeeName.Size = new System.Drawing.Size(179, 20);
+            this.txtEmployeeName.TabIndex = 6;
             // 
             // label3
             // 
@@ -140,32 +157,15 @@ namespace CCSPayrollBillingSystem
             this.label3.TabIndex = 5;
             this.label3.Text = "Base Rate :";
             // 
-            // txtEmployeeName
+            // label1
             // 
-            this.txtEmployeeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployeeName.Location = new System.Drawing.Point(77, 18);
-            this.txtEmployeeName.Name = "txtEmployeeName";
-            this.txtEmployeeName.ReadOnly = true;
-            this.txtEmployeeName.Size = new System.Drawing.Size(179, 20);
-            this.txtEmployeeName.TabIndex = 6;
-            // 
-            // txtRank
-            // 
-            this.txtRank.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRank.Location = new System.Drawing.Point(77, 41);
-            this.txtRank.Name = "txtRank";
-            this.txtRank.ReadOnly = true;
-            this.txtRank.Size = new System.Drawing.Size(179, 20);
-            this.txtRank.TabIndex = 7;
-            // 
-            // txtBaseRate
-            // 
-            this.txtBaseRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBaseRate.Location = new System.Drawing.Point(77, 67);
-            this.txtBaseRate.Name = "txtBaseRate";
-            this.txtBaseRate.ReadOnly = true;
-            this.txtBaseRate.Size = new System.Drawing.Size(179, 20);
-            this.txtBaseRate.TabIndex = 8;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(32, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Rank :";
             // 
             // groupBox2
             // 
@@ -178,12 +178,31 @@ namespace CCSPayrollBillingSystem
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(328, 46);
+            this.groupBox2.Location = new System.Drawing.Point(332, 46);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(286, 127);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "DEDUCTIONS :";
+            // 
+            // txtTax
+            // 
+            this.txtTax.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTax.Location = new System.Drawing.Point(77, 93);
+            this.txtTax.Name = "txtTax";
+            this.txtTax.Size = new System.Drawing.Size(179, 20);
+            this.txtTax.TabIndex = 5;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(40, 96);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(31, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Tax :";
             // 
             // txtPagIbig
             // 
@@ -256,25 +275,6 @@ namespace CCSPayrollBillingSystem
             this.txtRegDays.Name = "txtRegDays";
             this.txtRegDays.Size = new System.Drawing.Size(106, 20);
             this.txtRegDays.TabIndex = 1;
-            // 
-            // txtTax
-            // 
-            this.txtTax.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTax.Location = new System.Drawing.Point(77, 93);
-            this.txtTax.Name = "txtTax";
-            this.txtTax.Size = new System.Drawing.Size(179, 20);
-            this.txtTax.TabIndex = 5;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(40, 96);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(31, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Tax :";
             // 
             // txtRegOT
             // 
@@ -441,7 +441,7 @@ namespace CCSPayrollBillingSystem
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.txtRegHolidays);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(25, 164);
+            this.groupBox3.Location = new System.Drawing.Point(29, 164);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(286, 264);
             this.groupBox3.TabIndex = 27;
@@ -453,7 +453,7 @@ namespace CCSPayrollBillingSystem
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdate.Location = new System.Drawing.Point(514, 292);
+            this.btnUpdate.Location = new System.Drawing.Point(518, 292);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 40);
             this.btnUpdate.TabIndex = 30;
@@ -466,7 +466,7 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(514, 390);
+            this.btnCancel.Location = new System.Drawing.Point(518, 390);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 29;
@@ -479,7 +479,7 @@ namespace CCSPayrollBillingSystem
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(514, 244);
+            this.btnSave.Location = new System.Drawing.Point(518, 244);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
             this.btnSave.TabIndex = 28;
@@ -492,7 +492,7 @@ namespace CCSPayrollBillingSystem
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Image = global::CCSPayrollBillingSystem.Properties.Resources.bin;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(514, 341);
+            this.btnDelete.Location = new System.Drawing.Point(518, 341);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(100, 40);
             this.btnDelete.TabIndex = 32;
@@ -505,7 +505,7 @@ namespace CCSPayrollBillingSystem
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.Image = global::CCSPayrollBillingSystem.Properties.Resources.edit;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(514, 198);
+            this.btnEdit.Location = new System.Drawing.Point(518, 198);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(100, 40);
             this.btnEdit.TabIndex = 31;
@@ -516,7 +516,7 @@ namespace CCSPayrollBillingSystem
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(36, 136);
+            this.label17.Location = new System.Drawing.Point(40, 136);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(61, 13);
             this.label17.TabIndex = 33;
@@ -524,7 +524,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtGrossPay
             // 
-            this.txtGrossPay.Location = new System.Drawing.Point(103, 133);
+            this.txtGrossPay.Location = new System.Drawing.Point(107, 133);
             this.txtGrossPay.Name = "txtGrossPay";
             this.txtGrossPay.ReadOnly = true;
             this.txtGrossPay.Size = new System.Drawing.Size(178, 20);
@@ -532,7 +532,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtNetPay
             // 
-            this.txtNetPay.Location = new System.Drawing.Point(328, 205);
+            this.txtNetPay.Location = new System.Drawing.Point(332, 205);
             this.txtNetPay.Name = "txtNetPay";
             this.txtNetPay.ReadOnly = true;
             this.txtNetPay.Size = new System.Drawing.Size(144, 20);
@@ -541,7 +541,7 @@ namespace CCSPayrollBillingSystem
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(325, 182);
+            this.label18.Location = new System.Drawing.Point(329, 182);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(51, 13);
             this.label18.TabIndex = 35;
@@ -549,7 +549,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtVAT
             // 
-            this.txtVAT.Location = new System.Drawing.Point(328, 264);
+            this.txtVAT.Location = new System.Drawing.Point(332, 264);
             this.txtVAT.Name = "txtVAT";
             this.txtVAT.Size = new System.Drawing.Size(144, 20);
             this.txtVAT.TabIndex = 38;
@@ -557,7 +557,7 @@ namespace CCSPayrollBillingSystem
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(325, 248);
+            this.label19.Location = new System.Drawing.Point(329, 248);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(34, 13);
             this.label19.TabIndex = 37;
@@ -567,7 +567,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 441);
+            this.ClientSize = new System.Drawing.Size(644, 441);
             this.ControlBox = false;
             this.Controls.Add(this.txtVAT);
             this.Controls.Add(this.label19);
