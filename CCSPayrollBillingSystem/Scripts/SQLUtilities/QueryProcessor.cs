@@ -218,6 +218,19 @@ namespace CCSPayrollBillingSystem.Scripts
             command = new DatabaseCommand(sqlUpdate, connection);
             dataReader = new DatabaseReader(command.ExecuteReader());
         }
+
+        public void ExecuteSqlEmpDataSaveQuery(string firstname, string middlename, string lastname, string homeaddress, string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract)
+        {
+            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndofContractDate) "
+                                + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','" 
+                                                                + homeaddress + "', '" + contactno + "','"+ birthdate + "','" 
+                                                                + datehired + "','" + endofcontract + "')";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlInsert, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+        }
+
         #endregion
 
         #region SQL Process for Deduction CRUD Management
