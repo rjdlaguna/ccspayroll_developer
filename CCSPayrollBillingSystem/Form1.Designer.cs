@@ -45,12 +45,12 @@ namespace CCSPayrollBillingSystem
             this.passwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxMenu = new System.Windows.Forms.GroupBox();
-            this.statusStripMain = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProfileMenu = new System.Windows.Forms.Button();
             this.btnPrintMenu = new System.Windows.Forms.Button();
             this.btnBillingMenu = new System.Windows.Forms.Button();
             this.btnPayrollMenu = new System.Windows.Forms.Button();
+            this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.groupBoxMenu.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -142,34 +142,34 @@ namespace CCSPayrollBillingSystem
             this.jobToolStripMenuItem,
             this.deductionsToolStripMenuItem});
             this.empSettingsToolStripMenuItem.Name = "empSettingsToolStripMenuItem";
-            this.empSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.empSettingsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.empSettingsToolStripMenuItem.Text = "Employee Settings";
             // 
             // jobToolStripMenuItem
             // 
             this.jobToolStripMenuItem.Name = "jobToolStripMenuItem";
-            this.jobToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.jobToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.jobToolStripMenuItem.Text = "Job";
             this.jobToolStripMenuItem.Click += new System.EventHandler(this.jobToolStripMenuItem_Click);
             // 
             // deductionsToolStripMenuItem
             // 
             this.deductionsToolStripMenuItem.Name = "deductionsToolStripMenuItem";
-            this.deductionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deductionsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.deductionsToolStripMenuItem.Text = "Deductions";
             this.deductionsToolStripMenuItem.Click += new System.EventHandler(this.deductionsToolStripMenuItem_Click);
             // 
             // passwordToolStripMenuItem
             // 
             this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
-            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.passwordToolStripMenuItem.Text = "Change Password";
             this.passwordToolStripMenuItem.Click += new System.EventHandler(this.passwordToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
@@ -186,22 +186,6 @@ namespace CCSPayrollBillingSystem
             this.groupBoxMenu.TabIndex = 2;
             this.groupBoxMenu.TabStop = false;
             this.groupBoxMenu.Text = "MenuBox";
-            // 
-            // statusStripMain
-            // 
-            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelMainView});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 419);
-            this.statusStripMain.Name = "statusStripMain";
-            this.statusStripMain.Size = new System.Drawing.Size(934, 22);
-            this.statusStripMain.TabIndex = 3;
-            this.statusStripMain.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabelMainView
-            // 
-            this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
-            this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
             // 
             // btnProfileMenu
             // 
@@ -275,6 +259,22 @@ namespace CCSPayrollBillingSystem
             this.btnPayrollMenu.UseVisualStyleBackColor = true;
             this.btnPayrollMenu.Click += new System.EventHandler(this.btnPayrollMenu_Click);
             // 
+            // statusStripMain
+            // 
+            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelMainView});
+            this.statusStripMain.Location = new System.Drawing.Point(0, 419);
+            this.statusStripMain.Name = "statusStripMain";
+            this.statusStripMain.Size = new System.Drawing.Size(934, 22);
+            this.statusStripMain.TabIndex = 3;
+            this.statusStripMain.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelMainView
+            // 
+            this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
+            this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -289,7 +289,7 @@ namespace CCSPayrollBillingSystem
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CCSPayrollBillingSystem";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

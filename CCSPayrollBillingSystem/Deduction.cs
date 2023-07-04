@@ -205,6 +205,5 @@ namespace CCSPayrollBillingSystem
             jobID = jobDict.FirstOrDefault(pair => pair.Value == jobTitle).Key;
             return jobID;
         }
-
     }
 }
