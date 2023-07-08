@@ -19,6 +19,7 @@ namespace CCSPayrollBillingSystem.Scripts
         public const string ADMIN = "admin";
         public const string USER1 = "user1";
         public const string USER2 = "user2";
+        public const string DEFAULT_VALUE = "0.0";
 
         public const float REG_OT = 1.25F;
         public const decimal SUN_SP_HOLIDAYS = 1.30M;

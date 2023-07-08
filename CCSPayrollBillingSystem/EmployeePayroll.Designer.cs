@@ -70,6 +70,16 @@ namespace CCSPayrollBillingSystem
             this.label18 = new System.Windows.Forms.Label();
             this.txtVAT = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.txtRegDaysRate = new System.Windows.Forms.TextBox();
+            this.txtOthersRate = new System.Windows.Forms.TextBox();
+            this.txtPDARate = new System.Windows.Forms.TextBox();
+            this.txtRegOTRate = new System.Windows.Forms.TextBox();
+            this.txtCOLARate = new System.Windows.Forms.TextBox();
+            this.txtSplHolidaysRate = new System.Windows.Forms.TextBox();
+            this.txtRegHolidaysOTRate = new System.Windows.Forms.TextBox();
+            this.txtSplHolidaysOTRate = new System.Windows.Forms.TextBox();
+            this.txtRegHolidaysRate = new System.Windows.Forms.TextBox();
+            this.btnCalculate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -180,6 +190,7 @@ namespace CCSPayrollBillingSystem
             this.txtTax.Name = "txtTax";
             this.txtTax.Size = new System.Drawing.Size(179, 20);
             this.txtTax.TabIndex = 5;
+            this.txtTax.Text = "0";
             // 
             // label8
             // 
@@ -198,6 +209,7 @@ namespace CCSPayrollBillingSystem
             this.txtPagIbig.Name = "txtPagIbig";
             this.txtPagIbig.Size = new System.Drawing.Size(179, 20);
             this.txtPagIbig.TabIndex = 4;
+            this.txtPagIbig.Text = "0";
             // 
             // txtPhilHealth
             // 
@@ -206,6 +218,7 @@ namespace CCSPayrollBillingSystem
             this.txtPhilHealth.Name = "txtPhilHealth";
             this.txtPhilHealth.Size = new System.Drawing.Size(179, 20);
             this.txtPhilHealth.TabIndex = 3;
+            this.txtPhilHealth.Text = "0";
             // 
             // txtSSS
             // 
@@ -214,6 +227,7 @@ namespace CCSPayrollBillingSystem
             this.txtSSS.Name = "txtSSS";
             this.txtSSS.Size = new System.Drawing.Size(179, 20);
             this.txtSSS.TabIndex = 2;
+            this.txtSSS.Text = "0";
             // 
             // label4
             // 
@@ -249,7 +263,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.lblRegDays.AutoSize = true;
             this.lblRegDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRegDays.Location = new System.Drawing.Point(51, 22);
+            this.lblRegDays.Location = new System.Drawing.Point(38, 22);
             this.lblRegDays.Name = "lblRegDays";
             this.lblRegDays.Size = new System.Drawing.Size(77, 13);
             this.lblRegDays.TabIndex = 9;
@@ -258,24 +272,26 @@ namespace CCSPayrollBillingSystem
             // txtRegDays
             // 
             this.txtRegDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegDays.Location = new System.Drawing.Point(131, 19);
+            this.txtRegDays.Location = new System.Drawing.Point(118, 19);
             this.txtRegDays.Name = "txtRegDays";
-            this.txtRegDays.Size = new System.Drawing.Size(106, 20);
+            this.txtRegDays.Size = new System.Drawing.Size(67, 20);
             this.txtRegDays.TabIndex = 1;
+            this.txtRegDays.TextChanged += new System.EventHandler(this.txtRegDays_TextChanged);
             // 
             // txtRegOT
             // 
             this.txtRegOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegOT.Location = new System.Drawing.Point(131, 45);
+            this.txtRegOT.Location = new System.Drawing.Point(118, 45);
             this.txtRegOT.Name = "txtRegOT";
-            this.txtRegOT.Size = new System.Drawing.Size(106, 20);
+            this.txtRegOT.Size = new System.Drawing.Size(67, 20);
             this.txtRegOT.TabIndex = 12;
+            this.txtRegOT.TextChanged += new System.EventHandler(this.txtRegOT_TextChanged);
             // 
             // lblRegOT
             // 
             this.lblRegOT.AutoSize = true;
             this.lblRegOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRegOT.Location = new System.Drawing.Point(60, 48);
+            this.lblRegOT.Location = new System.Drawing.Point(47, 48);
             this.lblRegOT.Name = "lblRegOT";
             this.lblRegOT.Size = new System.Drawing.Size(68, 13);
             this.lblRegOT.TabIndex = 11;
@@ -284,16 +300,17 @@ namespace CCSPayrollBillingSystem
             // txtSplHolidays
             // 
             this.txtSplHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSplHolidays.Location = new System.Drawing.Point(131, 71);
+            this.txtSplHolidays.Location = new System.Drawing.Point(118, 71);
             this.txtSplHolidays.Name = "txtSplHolidays";
-            this.txtSplHolidays.Size = new System.Drawing.Size(106, 20);
+            this.txtSplHolidays.Size = new System.Drawing.Size(67, 20);
             this.txtSplHolidays.TabIndex = 14;
+            this.txtSplHolidays.TextChanged += new System.EventHandler(this.txtSplHolidays_TextChanged);
             // 
             // lblSplHolidays
             // 
             this.lblSplHolidays.AutoSize = true;
             this.lblSplHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSplHolidays.Location = new System.Drawing.Point(37, 74);
+            this.lblSplHolidays.Location = new System.Drawing.Point(24, 74);
             this.lblSplHolidays.Name = "lblSplHolidays";
             this.lblSplHolidays.Size = new System.Drawing.Size(91, 13);
             this.lblSplHolidays.TabIndex = 13;
@@ -302,16 +319,17 @@ namespace CCSPayrollBillingSystem
             // txtSplHolidaysOT
             // 
             this.txtSplHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSplHolidaysOT.Location = new System.Drawing.Point(131, 97);
+            this.txtSplHolidaysOT.Location = new System.Drawing.Point(118, 97);
             this.txtSplHolidaysOT.Name = "txtSplHolidaysOT";
-            this.txtSplHolidaysOT.Size = new System.Drawing.Size(106, 20);
+            this.txtSplHolidaysOT.Size = new System.Drawing.Size(67, 20);
             this.txtSplHolidaysOT.TabIndex = 16;
+            this.txtSplHolidaysOT.TextChanged += new System.EventHandler(this.txtSplHolidaysOT_TextChanged);
             // 
             // lblSplHolidaysOT
             // 
             this.lblSplHolidaysOT.AutoSize = true;
             this.lblSplHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSplHolidaysOT.Location = new System.Drawing.Point(19, 100);
+            this.lblSplHolidaysOT.Location = new System.Drawing.Point(6, 100);
             this.lblSplHolidaysOT.Name = "lblSplHolidaysOT";
             this.lblSplHolidaysOT.Size = new System.Drawing.Size(109, 13);
             this.lblSplHolidaysOT.TabIndex = 15;
@@ -320,16 +338,17 @@ namespace CCSPayrollBillingSystem
             // txtRegHolidays
             // 
             this.txtRegHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegHolidays.Location = new System.Drawing.Point(131, 123);
+            this.txtRegHolidays.Location = new System.Drawing.Point(118, 123);
             this.txtRegHolidays.Name = "txtRegHolidays";
-            this.txtRegHolidays.Size = new System.Drawing.Size(106, 20);
+            this.txtRegHolidays.Size = new System.Drawing.Size(67, 20);
             this.txtRegHolidays.TabIndex = 18;
+            this.txtRegHolidays.TextChanged += new System.EventHandler(this.txtRegHolidays_TextChanged);
             // 
             // lblRegHolidays
             // 
             this.lblRegHolidays.AutoSize = true;
             this.lblRegHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRegHolidays.Location = new System.Drawing.Point(35, 126);
+            this.lblRegHolidays.Location = new System.Drawing.Point(22, 126);
             this.lblRegHolidays.Name = "lblRegHolidays";
             this.lblRegHolidays.Size = new System.Drawing.Size(93, 13);
             this.lblRegHolidays.TabIndex = 17;
@@ -338,16 +357,17 @@ namespace CCSPayrollBillingSystem
             // txtRegHolidaysOT
             // 
             this.txtRegHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegHolidaysOT.Location = new System.Drawing.Point(131, 149);
+            this.txtRegHolidaysOT.Location = new System.Drawing.Point(118, 149);
             this.txtRegHolidaysOT.Name = "txtRegHolidaysOT";
-            this.txtRegHolidaysOT.Size = new System.Drawing.Size(106, 20);
+            this.txtRegHolidaysOT.Size = new System.Drawing.Size(67, 20);
             this.txtRegHolidaysOT.TabIndex = 20;
+            this.txtRegHolidaysOT.TextChanged += new System.EventHandler(this.txtRegHolidaysOT_TextChanged);
             // 
             // lblRegHolidaysOT
             // 
             this.lblRegHolidaysOT.AutoSize = true;
             this.lblRegHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRegHolidaysOT.Location = new System.Drawing.Point(22, 152);
+            this.lblRegHolidaysOT.Location = new System.Drawing.Point(9, 152);
             this.lblRegHolidaysOT.Name = "lblRegHolidaysOT";
             this.lblRegHolidaysOT.Size = new System.Drawing.Size(106, 13);
             this.lblRegHolidaysOT.TabIndex = 19;
@@ -356,16 +376,17 @@ namespace CCSPayrollBillingSystem
             // txtCOLA
             // 
             this.txtCOLA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCOLA.Location = new System.Drawing.Point(131, 175);
+            this.txtCOLA.Location = new System.Drawing.Point(118, 175);
             this.txtCOLA.Name = "txtCOLA";
-            this.txtCOLA.Size = new System.Drawing.Size(106, 20);
+            this.txtCOLA.Size = new System.Drawing.Size(67, 20);
             this.txtCOLA.TabIndex = 22;
+            this.txtCOLA.TextChanged += new System.EventHandler(this.txtCOLA_TextChanged);
             // 
             // lblCOLA
             // 
             this.lblCOLA.AutoSize = true;
             this.lblCOLA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCOLA.Location = new System.Drawing.Point(87, 178);
+            this.lblCOLA.Location = new System.Drawing.Point(74, 178);
             this.lblCOLA.Name = "lblCOLA";
             this.lblCOLA.Size = new System.Drawing.Size(41, 13);
             this.lblCOLA.TabIndex = 21;
@@ -374,16 +395,17 @@ namespace CCSPayrollBillingSystem
             // txtPDA
             // 
             this.txtPDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPDA.Location = new System.Drawing.Point(131, 201);
+            this.txtPDA.Location = new System.Drawing.Point(118, 201);
             this.txtPDA.Name = "txtPDA";
-            this.txtPDA.Size = new System.Drawing.Size(106, 20);
+            this.txtPDA.Size = new System.Drawing.Size(67, 20);
             this.txtPDA.TabIndex = 24;
+            this.txtPDA.TextChanged += new System.EventHandler(this.txtPDA_TextChanged);
             // 
             // lblPDA
             // 
             this.lblPDA.AutoSize = true;
             this.lblPDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPDA.Location = new System.Drawing.Point(93, 204);
+            this.lblPDA.Location = new System.Drawing.Point(80, 204);
             this.lblPDA.Name = "lblPDA";
             this.lblPDA.Size = new System.Drawing.Size(35, 13);
             this.lblPDA.TabIndex = 23;
@@ -392,16 +414,17 @@ namespace CCSPayrollBillingSystem
             // txtOthers
             // 
             this.txtOthers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOthers.Location = new System.Drawing.Point(131, 227);
+            this.txtOthers.Location = new System.Drawing.Point(118, 227);
             this.txtOthers.Name = "txtOthers";
-            this.txtOthers.Size = new System.Drawing.Size(106, 20);
+            this.txtOthers.Size = new System.Drawing.Size(67, 20);
             this.txtOthers.TabIndex = 26;
+            this.txtOthers.TextChanged += new System.EventHandler(this.txtOthers_TextChanged);
             // 
             // lblOthers
             // 
             this.lblOthers.AutoSize = true;
             this.lblOthers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOthers.Location = new System.Drawing.Point(84, 230);
+            this.lblOthers.Location = new System.Drawing.Point(71, 230);
             this.lblOthers.Name = "lblOthers";
             this.lblOthers.Size = new System.Drawing.Size(44, 13);
             this.lblOthers.TabIndex = 25;
@@ -409,6 +432,15 @@ namespace CCSPayrollBillingSystem
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtRegDaysRate);
+            this.groupBox3.Controls.Add(this.txtOthersRate);
+            this.groupBox3.Controls.Add(this.txtPDARate);
+            this.groupBox3.Controls.Add(this.txtRegOTRate);
+            this.groupBox3.Controls.Add(this.txtCOLARate);
+            this.groupBox3.Controls.Add(this.txtSplHolidaysRate);
+            this.groupBox3.Controls.Add(this.txtRegHolidaysOTRate);
+            this.groupBox3.Controls.Add(this.txtSplHolidaysOTRate);
+            this.groupBox3.Controls.Add(this.txtRegHolidaysRate);
             this.groupBox3.Controls.Add(this.txtRegDays);
             this.groupBox3.Controls.Add(this.txtOthers);
             this.groupBox3.Controls.Add(this.lblRegDays);
@@ -428,7 +460,7 @@ namespace CCSPayrollBillingSystem
             this.groupBox3.Controls.Add(this.lblRegHolidays);
             this.groupBox3.Controls.Add(this.txtRegHolidays);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(29, 164);
+            this.groupBox3.Location = new System.Drawing.Point(29, 124);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(286, 264);
             this.groupBox3.TabIndex = 27;
@@ -438,15 +470,16 @@ namespace CCSPayrollBillingSystem
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(40, 136);
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(26, 402);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(61, 13);
+            this.label17.Size = new System.Drawing.Size(79, 15);
             this.label17.TabIndex = 33;
             this.label17.Text = "Gross Pay :";
             // 
             // txtGrossPay
             // 
-            this.txtGrossPay.Location = new System.Drawing.Point(107, 133);
+            this.txtGrossPay.Location = new System.Drawing.Point(119, 401);
             this.txtGrossPay.Name = "txtGrossPay";
             this.txtGrossPay.ReadOnly = true;
             this.txtGrossPay.Size = new System.Drawing.Size(178, 20);
@@ -463,9 +496,10 @@ namespace CCSPayrollBillingSystem
             // label18
             // 
             this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(329, 182);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(51, 13);
+            this.label18.Size = new System.Drawing.Size(64, 15);
             this.label18.TabIndex = 35;
             this.label18.Text = "Net Pay :";
             // 
@@ -479,11 +513,107 @@ namespace CCSPayrollBillingSystem
             // label19
             // 
             this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.Location = new System.Drawing.Point(329, 248);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(34, 13);
+            this.label19.Size = new System.Drawing.Size(39, 15);
             this.label19.TabIndex = 37;
             this.label19.Text = "VAT :";
+            // 
+            // txtRegDaysRate
+            // 
+            this.txtRegDaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegDaysRate.Location = new System.Drawing.Point(201, 19);
+            this.txtRegDaysRate.Name = "txtRegDaysRate";
+            this.txtRegDaysRate.ReadOnly = true;
+            this.txtRegDaysRate.Size = new System.Drawing.Size(67, 20);
+            this.txtRegDaysRate.TabIndex = 27;
+            // 
+            // txtOthersRate
+            // 
+            this.txtOthersRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOthersRate.Location = new System.Drawing.Point(201, 227);
+            this.txtOthersRate.Name = "txtOthersRate";
+            this.txtOthersRate.ReadOnly = true;
+            this.txtOthersRate.Size = new System.Drawing.Size(67, 20);
+            this.txtOthersRate.TabIndex = 35;
+            // 
+            // txtPDARate
+            // 
+            this.txtPDARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPDARate.Location = new System.Drawing.Point(201, 201);
+            this.txtPDARate.Name = "txtPDARate";
+            this.txtPDARate.ReadOnly = true;
+            this.txtPDARate.Size = new System.Drawing.Size(67, 20);
+            this.txtPDARate.TabIndex = 34;
+            // 
+            // txtRegOTRate
+            // 
+            this.txtRegOTRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegOTRate.Location = new System.Drawing.Point(201, 45);
+            this.txtRegOTRate.Name = "txtRegOTRate";
+            this.txtRegOTRate.ReadOnly = true;
+            this.txtRegOTRate.Size = new System.Drawing.Size(67, 20);
+            this.txtRegOTRate.TabIndex = 28;
+            // 
+            // txtCOLARate
+            // 
+            this.txtCOLARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCOLARate.Location = new System.Drawing.Point(201, 175);
+            this.txtCOLARate.Name = "txtCOLARate";
+            this.txtCOLARate.ReadOnly = true;
+            this.txtCOLARate.Size = new System.Drawing.Size(67, 20);
+            this.txtCOLARate.TabIndex = 33;
+            // 
+            // txtSplHolidaysRate
+            // 
+            this.txtSplHolidaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSplHolidaysRate.Location = new System.Drawing.Point(201, 71);
+            this.txtSplHolidaysRate.Name = "txtSplHolidaysRate";
+            this.txtSplHolidaysRate.ReadOnly = true;
+            this.txtSplHolidaysRate.Size = new System.Drawing.Size(67, 20);
+            this.txtSplHolidaysRate.TabIndex = 29;
+            // 
+            // txtRegHolidaysOTRate
+            // 
+            this.txtRegHolidaysOTRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolidaysOTRate.Location = new System.Drawing.Point(201, 149);
+            this.txtRegHolidaysOTRate.Name = "txtRegHolidaysOTRate";
+            this.txtRegHolidaysOTRate.ReadOnly = true;
+            this.txtRegHolidaysOTRate.Size = new System.Drawing.Size(67, 20);
+            this.txtRegHolidaysOTRate.TabIndex = 32;
+            // 
+            // txtSplHolidaysOTRate
+            // 
+            this.txtSplHolidaysOTRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSplHolidaysOTRate.Location = new System.Drawing.Point(201, 97);
+            this.txtSplHolidaysOTRate.Name = "txtSplHolidaysOTRate";
+            this.txtSplHolidaysOTRate.ReadOnly = true;
+            this.txtSplHolidaysOTRate.Size = new System.Drawing.Size(67, 20);
+            this.txtSplHolidaysOTRate.TabIndex = 30;
+            // 
+            // txtRegHolidaysRate
+            // 
+            this.txtRegHolidaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolidaysRate.Location = new System.Drawing.Point(201, 123);
+            this.txtRegHolidaysRate.Name = "txtRegHolidaysRate";
+            this.txtRegHolidaysRate.ReadOnly = true;
+            this.txtRegHolidaysRate.Size = new System.Drawing.Size(67, 20);
+            this.txtRegHolidaysRate.TabIndex = 31;
+            // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalculate.Image = global::CCSPayrollBillingSystem.Properties.Resources.calculator;
+            this.btnCalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCalculate.Location = new System.Drawing.Point(332, 390);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(128, 40);
+            this.btnCalculate.TabIndex = 39;
+            this.btnCalculate.Text = "CALCULATE";
+            this.btnCalculate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
             // btnDelete
             // 
@@ -569,6 +699,7 @@ namespace CCSPayrollBillingSystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 441);
             this.ControlBox = false;
+            this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.txtVAT);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.txtNetPay);
@@ -586,6 +717,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.btnSearch);
             this.Name = "frmEmployeePayroll";
             this.Text = "Employee Payroll";
+            this.Load += new System.EventHandler(this.frmEmployeePayroll_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -646,5 +778,15 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtVAT;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtRegDaysRate;
+        private System.Windows.Forms.TextBox txtOthersRate;
+        private System.Windows.Forms.TextBox txtPDARate;
+        private System.Windows.Forms.TextBox txtRegOTRate;
+        private System.Windows.Forms.TextBox txtCOLARate;
+        private System.Windows.Forms.TextBox txtSplHolidaysRate;
+        private System.Windows.Forms.TextBox txtRegHolidaysOTRate;
+        private System.Windows.Forms.TextBox txtSplHolidaysOTRate;
+        private System.Windows.Forms.TextBox txtRegHolidaysRate;
+        private System.Windows.Forms.Button btnCalculate;
     }
 }
