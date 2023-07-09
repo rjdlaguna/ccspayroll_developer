@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
 
 namespace CCSPayrollBillingSystem.Scripts
 {
@@ -10,6 +13,7 @@ namespace CCSPayrollBillingSystem.Scripts
         private DatabaseConnection connection;
         private DatabaseCommand command;
         private DatabaseReader dataReader;
+        private SqlDataReader sqlDataReader;
 
         #region SQL Process for Login
         //Searching on tblUser for Logging In
@@ -220,26 +224,42 @@ namespace CCSPayrollBillingSystem.Scripts
             dataReader = new DatabaseReader(command.ExecuteReader());
         }
 
-        public void ExecuteSqlEmpDataSaveQuery(string firstname, string middlename, string lastname, string homeaddress, 
-                                                string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract, Action onSuccess, Action onFailure)
+        //Loading All Job Title
+        public List<string[]> ExecuteSqlLoadJobsQuery(Action onSuccess, Action onFailure)
         {
-            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndofContractDate) "
-                                + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','" 
-                                                                + homeaddress + "', '" + contactno + "','"+ birthdate + "','" 
-                                                                + datehired + "','" + endofcontract + "')";
-
-            connection = new DatabaseConnection(connectionString);
-            command = new DatabaseCommand(sqlInsert, connection);
-            dataReader = new DatabaseReader(command.ExecuteReader());
-
-            if (!dataReader.Read())
+            using (connection = new DatabaseConnection(connectionString))
             {
-                onSuccess?.Invoke();
+                List<string[]> jobList = new List<string[]>();
+                string sqlLoadJobs = "SELECT JobID, JobTitle FROM tblJob";
+
+                using (command = new DatabaseCommand(sqlLoadJobs, connection))
+                {
+                    sqlDataReader = command.ExecuteReader();
+                    
+                    if (sqlDataReader.Read())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            string[] row = new string[sqlDataReader.FieldCount];
+
+                            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                            {
+                                row[i] = sqlDataReader[i].ToString();
+                            }
+
+                            jobList.Add(row);
+                        }
+                        onSuccess?.Invoke();
+                        return jobList;
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                        return null;
+                    }
+                }
             }
-            else
-            {
-                onFailure?.Invoke();
-            }
+
         }
 
         #endregion
@@ -350,6 +370,136 @@ namespace CCSPayrollBillingSystem.Scripts
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlDelete, connection);
             dataReader = new DatabaseReader(command.ExecuteReader());
+        }
+
+        //Search for the Deduction ID of an Employee
+        public int ExecuteSQLGetDeductionIDbyJobID(int jobID, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT DeductionID FROM tblDeductions WHERE JobID=@JobID";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@JobID", jobID);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+
+                            onSuccess?.Invoke();
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+        
+        #endregion
+
+        #region SQL Process for Employees
+        // Inserting Employee Data to tblEmployee
+        public void ExecuteSqlEmpDataSaveQuery(string firstname, string middlename, string lastname, string homeaddress,
+                                               string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract, 
+                                               int jobID, int empStatus, int deductionID, Action onSuccess, Action onFailure)
+        {
+            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndofContractDate,JobID,EmpStatus,DeductionID) "
+                                + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','"
+                                                                + homeaddress + "', '" + contactno + "','" + birthdate + "','"
+                                                                + datehired + "','" + endofcontract + "','" + jobID + "','" + 
+                                                                + empStatus + "','" + deductionID + "')";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlInsert, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+
+            if (!dataReader.Read())
+            {
+                onSuccess?.Invoke();
+            }
+            else
+            {
+                onFailure?.Invoke();
+            }
+        }
+
+        //Loading All Employees and Searching Specific Employee
+        public void ExecuteSqlEmpDataViewQuery(string fname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlEmpDataSearch = "";
+                bool hasSearchValues = false;
+                if (fname == null && lname == null)
+                {
+                    sqlEmpDataSearch = "SELECT EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                                        "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," + 
+                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee";
+                } 
+                else
+                {
+                    sqlEmpDataSearch = "SELECT EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                                        "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
+                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee " + 
+                                        "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname";
+                    hasSearchValues = true;
+                }
+
+              
+                using (command = new DatabaseCommand(sqlEmpDataSearch, connection))
+                {
+                    if(hasSearchValues)
+                    {
+                        command.AddParameter("@firstname", fname);
+                        command.AddParameter("@lastname", lname);
+                    }
+                    
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.Read())
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                    
+                }
+            }
+                
+
+        }
+        //Formatting retrieved employee into a table
+        public DataTable GetEmpData()
+        {
+            DataTable dataTable = new DataTable();
+
+            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+            {
+                string columnName = sqlDataReader.GetName(i);
+                Type columnType = sqlDataReader.GetFieldType(i);
+                dataTable.Columns.Add(columnName, columnType);
+            }
+            while (sqlDataReader.Read())
+            {
+                DataRow row = dataTable.NewRow();
+                for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                {
+                    row[i] = sqlDataReader[i];
+                }
+                dataTable.Rows.Add(row);
+            }
+            sqlDataReader.Close();
+
+            return dataTable;
         }
         #endregion
 

@@ -88,6 +88,12 @@
     <Compile Include="Deduction.Designer.cs">
       <DependentUpon>Deduction.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeListForm.Designer.cs">
+      <DependentUpon>EmployeeListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeePayroll.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Deduction.resx">
       <DependentUpon>Deduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeListForm.resx">
+      <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeePayroll.resx">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>

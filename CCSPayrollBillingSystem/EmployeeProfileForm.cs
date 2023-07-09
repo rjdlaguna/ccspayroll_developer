@@ -21,7 +21,11 @@ namespace CCSPayrollBillingSystem
         private DateTime empBirthDate;
         private DateTime empDateHired;
         private DateTime empContractEnd;
+        private int empDeductionID;
+        private int empJobID;
+        private int empStatus = 1;
 
+        IDictionary<int, string> jobInfo = new Dictionary<int, string>();
         public EmployeeProfileForm()
         {
             InitializeComponent();
@@ -31,14 +35,14 @@ namespace CCSPayrollBillingSystem
         {
             string promptText = null;
             SetEmployeeValues();
-            lblEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd);
+            lblEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID, empDeductionID);
             promptText = lblEmpDataPrompt.Text;
             
             if(String.IsNullOrEmpty(promptText) || promptText == "")
             {
 
                 QueryProcessor empDataProcessor = new QueryProcessor();
-                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, () =>
+                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID,empStatus, empDeductionID,() =>
                 {
                     // Successful Job action
                     ClearEmpDataTextFields();
@@ -61,10 +65,9 @@ namespace CCSPayrollBillingSystem
             empBirthDate = dtbirthdate.Value;
             empDateHired = dtdatehired.Value;
             empContractEnd = dtcontractend.Value;
-            
         }
 
-        private string ValidateEmpDataFields(string fname, string mname, string lname, string homeadd, string contactno, DateTime bdate, DateTime dhired, DateTime contractend)
+        private string ValidateEmpDataFields(string fname, string mname, string lname, string homeadd, string contactno, DateTime bdate, DateTime dhired, DateTime contractend, int jobID, int deductionID)
         {
             string prompt = "";
 
@@ -94,6 +97,20 @@ namespace CCSPayrollBillingSystem
                 lblEmpDataPrompt.Text = "";
                 lblEmpDataPrompt.Show();
                 prompt = "Age should be 18 years old and above. Check the date of birth.";
+            } 
+            else if (jobID == 0)
+            {
+                cmbJob.Focus();
+                lblEmpDataPrompt.Text = "";
+                lblEmpDataPrompt.Show();
+                prompt = "Job should be selected.";
+            }
+            else if (deductionID == 0)
+            {
+                cmbJob.Focus();
+                lblEmpDataPrompt.Text = "";
+                lblEmpDataPrompt.Show();
+                prompt = "Selected job does not have a deduction.";
             }
             else
             {
@@ -107,6 +124,20 @@ namespace CCSPayrollBillingSystem
         private void EmployeeProfileForm_Load(object sender, EventArgs e)
         {
             lblEmpDataPrompt.Hide();
+            List<string[]>jobList = new List<string[]>();
+
+            QueryProcessor jobsProcessor = new QueryProcessor();
+            jobList = jobsProcessor.ExecuteSqlLoadJobsQuery(
+            () =>
+            {
+                //MessageBox.Show("Load jobs successfully.");
+            }, () =>
+            {
+                MessageBox.Show("Problem loading jobs.");
+            });
+
+            ExtractJobTitle(jobList);
+
         }
 
         public static int GetAge(DateTime birthDate)
@@ -142,5 +173,62 @@ namespace CCSPayrollBillingSystem
             dtdatehired.Value = DateTime.Now;
             dtcontractend.Value = DateTime.Now;
         }
+
+        private void btnViewEmp_Click(object sender, EventArgs e)
+        {
+            EmployeeListForm frmEmpList = new EmployeeListForm();
+            frmEmpList.Show();
+        }
+
+        private int GetJobIdAssigned(int jobId)
+        {
+            return jobId;
+        }
+
+        private void cmbJob_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string jobTitle = cmbJob.Text.Trim();
+            int jobTitleId = jobInfo.FirstOrDefault(x => x.Value.Trim() == jobTitle).Key;
+            empJobID = GetJobIdAssigned(jobTitleId);
+            QueryProcessor deductionProcessor = new QueryProcessor();
+            empDeductionID = deductionProcessor.ExecuteSQLGetDeductionIDbyJobID(empJobID, () =>
+            {
+                MessageBox.Show("Successfully retrieved deduction ID.");
+            }, () =>
+            {
+                MessageBox.Show("Deduction ID not found.");
+            });
+
+        }
+
+        private void ExtractJobTitle(List<string[]> jobList)
+        {
+            int[] jobIds = new int[jobList.Count];
+            string jobTitleVal = "";
+            int jobTitleId = 0;
+            int count = 0;
+            foreach (string[] job in jobList)
+            {
+                // Access the elements within each row
+                foreach (string value in job)
+                {
+                    if (int.TryParse(value, out int id))
+                    {
+                        jobIds[count] = id;
+                        jobTitleId = id;
+                        count++;
+                    }
+                    else
+                    {
+                        cmbJob.Items.Add(value);
+                        jobTitleVal = value;
+                    }
+
+                }
+                jobInfo.Add(jobTitleId, jobTitleVal);
+
+            }
+        }
+
     }
 }

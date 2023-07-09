@@ -35,6 +35,7 @@ namespace CCSPayrollBillingSystem
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.lblloginprompt = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -76,7 +77,7 @@ namespace CCSPayrollBillingSystem
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.Image = global::CCSPayrollBillingSystem.Properties.Resources.password;
             this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogin.Location = new System.Drawing.Point(150, 118);
+            this.btnLogin.Location = new System.Drawing.Point(150, 131);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnLogin.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -96,11 +97,23 @@ namespace CCSPayrollBillingSystem
             this.dateTimePicker1.Size = new System.Drawing.Size(406, 20);
             this.dateTimePicker1.TabIndex = 5;
             // 
+            // lblloginprompt
+            // 
+            this.lblloginprompt.AutoSize = true;
+            this.lblloginprompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblloginprompt.ForeColor = System.Drawing.Color.Red;
+            this.lblloginprompt.Location = new System.Drawing.Point(147, 22);
+            this.lblloginprompt.Name = "lblloginprompt";
+            this.lblloginprompt.Size = new System.Drawing.Size(45, 16);
+            this.lblloginprompt.TabIndex = 6;
+            this.lblloginprompt.Text = "label3";
+            // 
             // formLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 211);
+            this.Controls.Add(this.lblloginprompt);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
@@ -111,6 +124,7 @@ namespace CCSPayrollBillingSystem
             this.MinimizeBox = false;
             this.Name = "formLogin";
             this.Text = "CCS Payroll-Billing System Login";
+            this.Load += new System.EventHandler(this.formLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +138,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label lblloginprompt;
     }
 }
