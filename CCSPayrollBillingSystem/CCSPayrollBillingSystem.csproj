@@ -336,6 +336,7 @@
       <DependentUpon>mdlUser.edmx</DependentUpon>
       <LastGenOutput>mdlUser.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\calculator.png" />
     <None Include="Resources\file.png" />
     <None Include="Resources\bin.png" />
     <None Include="Resources\captcha.png" />
