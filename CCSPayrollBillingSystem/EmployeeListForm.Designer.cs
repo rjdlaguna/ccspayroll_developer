@@ -59,6 +59,7 @@ namespace CCSPayrollBillingSystem
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cmbEditJob = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgEmployeesList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -75,6 +76,8 @@ namespace CCSPayrollBillingSystem
             this.dgEmployeesList.ReadOnly = true;
             this.dgEmployeesList.Size = new System.Drawing.Size(514, 300);
             this.dgEmployeesList.TabIndex = 52;
+            this.dgEmployeesList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeesList_CellClick);
+            this.dgEmployeesList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeesList_CellContentClick);
             this.dgEmployeesList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeesList_CellDoubleClick);
             // 
             // dteditbirthdate
@@ -287,13 +290,14 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(900, 245);
+            this.btnCancel.Location = new System.Drawing.Point(900, 296);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 33;
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnEdit
             // 
@@ -361,11 +365,26 @@ namespace CCSPayrollBillingSystem
             this.label11.TabIndex = 51;
             this.label11.Text = "Job:";
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.Location = new System.Drawing.Point(900, 236);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(100, 40);
+            this.btnDelete.TabIndex = 55;
+            this.btnDelete.Text = "DELETE";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // EmployeeListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1021, 450);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dgEmployeesList);
@@ -419,5 +438,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox cmbEditJob;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

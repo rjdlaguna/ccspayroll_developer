@@ -236,7 +236,7 @@ namespace CCSPayrollBillingSystem.Scripts
                 {
                     sqlDataReader = command.ExecuteReader();
                     
-                    if (sqlDataReader.Read())
+                    if (sqlDataReader.HasRows)
                     {
                         while (sqlDataReader.Read())
                         {
@@ -262,6 +262,37 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        //Searching for JobID by Job Title
+        public int ExecuteSqlFindJobID(string title, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT JobID FROM tblJob WHERE JobTitle=@jobtitle";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@jobtitle", title);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+
+                            onSuccess?.Invoke();
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+
+        }
         #endregion
 
         #region SQL Process for Deduction CRUD Management
@@ -440,16 +471,16 @@ namespace CCSPayrollBillingSystem.Scripts
                 bool hasSearchValues = false;
                 if (fname == null && lname == null)
                 {
-                    sqlEmpDataSearch = "SELECT EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                    sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," + 
-                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee";
+                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee WHERE EmpStatus = 1";
                 } 
                 else
                 {
-                    sqlEmpDataSearch = "SELECT EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                    sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
                                         "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee " + 
-                                        "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname";
+                                        "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
                     hasSearchValues = true;
                 }
 
@@ -463,7 +494,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     }
                     
                     sqlDataReader = command.ExecuteReader();
-                    if (sqlDataReader.Read())
+                    if (sqlDataReader.HasRows)
                     {
                         onSuccess?.Invoke();
                     }
@@ -488,6 +519,7 @@ namespace CCSPayrollBillingSystem.Scripts
                 Type columnType = sqlDataReader.GetFieldType(i);
                 dataTable.Columns.Add(columnName, columnType);
             }
+
             while (sqlDataReader.Read())
             {
                 DataRow row = dataTable.NewRow();
@@ -501,6 +533,105 @@ namespace CCSPayrollBillingSystem.Scripts
 
             return dataTable;
         }
+
+        //Get JobID via First Name, Middle Name and Last Name
+        public int ExecuteSQLGetJobIDThruEmployeeData(string fname, string mname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT JobID FROM tblEmployee WHERE EmpFirstName=@firstname AND EmpMiddleName=@middlename AND EmpLastName=@lastname";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@firstname", fname);
+                    command.AddParameter("@middlename", mname);
+                    command.AddParameter("@lastname", lname);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+
+                            onSuccess?.Invoke();
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Update Employee Data modified
+        public void ExecuteSqlEmpDataUpdate(int id, string firstname, string middlename, string lastname, string homeaddress,
+                                               string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract,
+                                               int jobID, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," + 
+                                    "EmpHomeAddress=@homeaddress,EmpContactNo=@contactno,EmpBirthDate=@birthdate,EmploymentDate=@datehired," +
+                                    "EndOfContractDate=@endofcontract,JobID=@jobID WHERE EmpID = @id";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@id", id);
+                    command.AddParameter("@firstname", firstname);
+                    command.AddParameter("@middlename", middlename);
+                    command.AddParameter("@lastname", lastname);
+                    command.AddParameter("@homeaddress", homeaddress);
+                    command.AddParameter("@contactno", contactno);
+                    command.AddParameter("@birthdate", birthdate);
+                    command.AddParameter("@datehired", datehired);
+                    command.AddParameter("@endofcontract", endofcontract);
+                    command.AddParameter("@jobID",jobID);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            onSuccess?.Invoke();
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
+        //Update Employee Status
+        public void ExecuteSqlEmpStatusUpdateQuery(int id, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "UPDATE tblEmployee SET EmpStatus=0 WHERE EmpID = @id";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@id", id);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            onSuccess?.Invoke();
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         //END......................
