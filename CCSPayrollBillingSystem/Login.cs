@@ -20,6 +20,7 @@ namespace CCSPayrollBillingSystem
             
             if (ValidateInput())
             {
+                lblloginprompt.Hide();
                 QueryProcessor loginProcessor = new QueryProcessor();
                 loginProcessor.ExecuteSqlLoginQuery(username, password, () =>
                 {
@@ -37,13 +38,27 @@ namespace CCSPayrollBillingSystem
             }
             else
             {
-                MessageBox.Show("Please Fill the Required Fields Correctly!");
+                lblloginprompt.Show();
+                if(string.IsNullOrEmpty(txtUsername.Text))
+                {
+                    txtUsername.Focus();
+                } 
+                else
+                {
+                    txtPassword.Focus();
+                }
+                lblloginprompt.Text = "Please fill in the username and password.";
             }
 
         }
         private bool ValidateInput()
         {
             return !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtPassword.Text);
+        }
+
+        private void formLogin_Load(object sender, EventArgs e)
+        {
+            lblloginprompt.Hide();
         }
     }
 }
