@@ -174,6 +174,7 @@ namespace CCSPayrollBillingSystem
             dtcontractend.Value = DateTime.Now;
         }
 
+<<<<<<< HEAD
         private void btnViewEmp_Click(object sender, EventArgs e)
         {
             EmployeeListForm frmEmpList = new EmployeeListForm();
@@ -232,6 +233,11 @@ namespace CCSPayrollBillingSystem
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+=======
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            
+>>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
 
         }
     }

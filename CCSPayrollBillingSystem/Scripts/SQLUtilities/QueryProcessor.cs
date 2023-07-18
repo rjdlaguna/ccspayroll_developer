@@ -262,6 +262,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+<<<<<<< HEAD
         //Searching for JobID by Job Title
         public int ExecuteSqlFindJobID(string title, Action onSuccess, Action onFailure)
         {
@@ -272,27 +273,52 @@ namespace CCSPayrollBillingSystem.Scripts
                 using (command = new DatabaseCommand(sqlSearch, connection))
                 {
                     command.AddParameter("@jobtitle", title);
+=======
+        public void ExecuteSqlEmpDataSearchQuery(string fname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT * FROM tblEmployee WHERE EmpFirstName LIKE @firstname OR EmpLastName LIKE @lastname";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@firstname", fname);
+                    command.AddParameter("@lastname", lname);
+
+>>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
 
                     using (dataReader = new DatabaseReader(command.ExecuteReader()))
                     {
                         if (dataReader.Read())
                         {
+<<<<<<< HEAD
                             object result = dataReader.GetValue(0);
                             int intValue = (int)result;
 
                             onSuccess?.Invoke();
                             return intValue;
+=======
+                            onSuccess?.Invoke();
+>>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
                         }
                         else
                         {
                             onFailure?.Invoke();
+<<<<<<< HEAD
                             return 0;
+=======
+>>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
                         }
                     }
                 }
             }
+<<<<<<< HEAD
 
         }
+=======
+        }
+
+>>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
         #endregion
 
         #region SQL Process for Deduction CRUD Management
