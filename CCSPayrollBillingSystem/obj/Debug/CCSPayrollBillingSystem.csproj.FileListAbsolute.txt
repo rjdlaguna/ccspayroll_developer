@@ -65,3 +65,4 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingS
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.exe
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.pdb
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.AssemblyReference.cache
+C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForm.resources

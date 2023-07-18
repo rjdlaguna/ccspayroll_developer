@@ -242,6 +242,33 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
+        public void ExecuteSqlEmpDataSearchQuery(string fname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT * FROM tblEmployee WHERE EmpFirstName LIKE @firstname OR EmpLastName LIKE @lastname";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    command.AddParameter("@firstname", fname);
+                    command.AddParameter("@lastname", lname);
+
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            onSuccess?.Invoke();
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region SQL Process for Deduction CRUD Management

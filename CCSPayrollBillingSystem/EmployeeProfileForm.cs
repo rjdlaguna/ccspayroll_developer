@@ -142,5 +142,11 @@ namespace CCSPayrollBillingSystem
             dtdatehired.Value = DateTime.Now;
             dtcontractend.Value = DateTime.Now;
         }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            
+
+        }
     }
 }

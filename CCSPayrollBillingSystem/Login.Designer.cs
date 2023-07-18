@@ -110,6 +110,7 @@ namespace CCSPayrollBillingSystem
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "formLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CCS Payroll-Billing System Login";
             this.ResumeLayout(false);
             this.PerformLayout();
