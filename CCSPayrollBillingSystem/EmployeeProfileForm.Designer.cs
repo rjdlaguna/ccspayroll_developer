@@ -48,7 +48,6 @@ namespace CCSPayrollBillingSystem
             this.dtcontractend = new System.Windows.Forms.DateTimePicker();
             this.lblEmpDataPrompt = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
-<<<<<<< HEAD
             this.btnViewEmp = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -57,20 +56,12 @@ namespace CCSPayrollBillingSystem
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-=======
-            this.btnView = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-<<<<<<< HEAD
             this.label1.Location = new System.Drawing.Point(15, 56);
-=======
-            this.label1.Location = new System.Drawing.Point(21, 59);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 6;
@@ -124,11 +115,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.txtcontactno.Location = new System.Drawing.Point(109, 236);
             this.txtcontactno.Name = "txtcontactno";
-<<<<<<< HEAD
             this.txtcontactno.Size = new System.Drawing.Size(180, 20);
-=======
-            this.txtcontactno.Size = new System.Drawing.Size(164, 20);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.txtcontactno.TabIndex = 20;
             // 
             // txthomeaddress
@@ -136,44 +123,28 @@ namespace CCSPayrollBillingSystem
             this.txthomeaddress.Location = new System.Drawing.Point(109, 168);
             this.txthomeaddress.Multiline = true;
             this.txthomeaddress.Name = "txthomeaddress";
-<<<<<<< HEAD
             this.txthomeaddress.Size = new System.Drawing.Size(254, 46);
-=======
-            this.txthomeaddress.Size = new System.Drawing.Size(224, 46);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.txthomeaddress.TabIndex = 19;
             // 
             // txtfirstname
             // 
             this.txtfirstname.Location = new System.Drawing.Point(109, 52);
             this.txtfirstname.Name = "txtfirstname";
-<<<<<<< HEAD
             this.txtfirstname.Size = new System.Drawing.Size(180, 20);
-=======
-            this.txtfirstname.Size = new System.Drawing.Size(164, 20);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.txtfirstname.TabIndex = 16;
             // 
             // txtlastname
             // 
             this.txtlastname.Location = new System.Drawing.Point(109, 127);
             this.txtlastname.Name = "txtlastname";
-<<<<<<< HEAD
             this.txtlastname.Size = new System.Drawing.Size(180, 20);
-=======
-            this.txtlastname.Size = new System.Drawing.Size(164, 20);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.txtlastname.TabIndex = 18;
             // 
             // txtmiddlename
             // 
             this.txtmiddlename.Location = new System.Drawing.Point(109, 89);
             this.txtmiddlename.Name = "txtmiddlename";
-<<<<<<< HEAD
             this.txtmiddlename.Size = new System.Drawing.Size(180, 20);
-=======
-            this.txtmiddlename.Size = new System.Drawing.Size(164, 20);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.txtmiddlename.TabIndex = 17;
             // 
             // label6
@@ -243,18 +214,13 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-<<<<<<< HEAD
             this.btnCancel.Location = new System.Drawing.Point(481, 207);
-=======
-            this.btnCancel.Location = new System.Drawing.Point(439, 216);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-<<<<<<< HEAD
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnViewEmp
@@ -270,33 +236,13 @@ namespace CCSPayrollBillingSystem
             this.btnViewEmp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnViewEmp.UseVisualStyleBackColor = true;
             this.btnViewEmp.Click += new System.EventHandler(this.btnViewEmp_Click);
-=======
-            // 
-            // btnView
-            // 
-            this.btnView.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnView.Image = global::CCSPayrollBillingSystem.Properties.Resources.file;
-            this.btnView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnView.Location = new System.Drawing.Point(439, 148);
-            this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(100, 40);
-            this.btnView.TabIndex = 3;
-            this.btnView.Text = "VIEW EMPLOYEES";
-            this.btnView.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnView.UseVisualStyleBackColor = true;
-            this.btnView.Click += new System.EventHandler(this.btnView_Click);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             // 
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-<<<<<<< HEAD
             this.btnSave.Location = new System.Drawing.Point(481, 93);
-=======
-            this.btnSave.Location = new System.Drawing.Point(439, 73);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
             this.btnSave.TabIndex = 24;
@@ -305,7 +251,6 @@ namespace CCSPayrollBillingSystem
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-<<<<<<< HEAD
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cmbJob);
@@ -362,41 +307,15 @@ namespace CCSPayrollBillingSystem
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             // 
-=======
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             // EmployeeProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(652, 450);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnViewEmp);
-=======
-            this.ClientSize = new System.Drawing.Size(632, 450);
-            this.Controls.Add(this.lblEmpDataPrompt);
-            this.Controls.Add(this.dtcontractend);
-            this.Controls.Add(this.dtdatehired);
-            this.Controls.Add(this.dtbirthdate);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtmiddlename);
-            this.Controls.Add(this.txtlastname);
-            this.Controls.Add(this.txtfirstname);
-            this.Controls.Add(this.txthomeaddress);
-            this.Controls.Add(this.txtcontactno);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnView);
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
             this.Controls.Add(this.btnSave);
             this.Name = "EmployeeProfileForm";
             this.Text = "Employee Profile Form";
@@ -411,11 +330,7 @@ namespace CCSPayrollBillingSystem
 
         #endregion
         private System.Windows.Forms.Button btnSave;
-<<<<<<< HEAD
         private System.Windows.Forms.Button btnViewEmp;
-=======
-        private System.Windows.Forms.Button btnView;
->>>>>>> b4745d37cecc6a9edb0764ca0881e8ce027608f0
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
