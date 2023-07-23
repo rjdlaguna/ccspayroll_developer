@@ -58,13 +58,13 @@ namespace CCSPayrollBillingSystem.Scripts
         {
             return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.REG_HOLIDAYS_OT));
         }
-        public static decimal COLA(decimal baseRate, float valueCOLA)
+        public static decimal COLA(decimal valueCOLA)
         {
-            return baseRate * (decimal)valueCOLA;
+            return (decimal)valueCOLA;
         }
-        public static decimal PDA(decimal baseRate, float valuePDA)
+        public static decimal PDA(decimal valuePDA)
         {
-            return baseRate * (decimal)valuePDA;
+            return (decimal)valuePDA;
         }
         public static decimal Others(decimal baseRate, float valueOthers)
         {

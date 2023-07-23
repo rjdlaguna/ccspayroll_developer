@@ -102,14 +102,14 @@ namespace CCSPayrollBillingSystem
         private void txtCOLA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCOLA.Text)) txtCOLA.Text = "0";
-            _COLARate = WorkDaysComputation.COLA(baseRate, float.Parse(txtCOLA.Text));
+            _COLARate = WorkDaysComputation.COLA(decimal.Parse(txtCOLA.Text));
             txtCOLARate.Text = _COLARate.ToString("C", nfi);
         }
 
         private void txtPDA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPDA.Text)) txtPDA.Text = "0";
-            _PDARate = WorkDaysComputation.PDA(baseRate, float.Parse(txtPDA.Text));
+            _PDARate = WorkDaysComputation.PDA(decimal.Parse(txtPDA.Text));
             txtPDARate.Text = _PDARate.ToString("C", nfi);
         }
 
