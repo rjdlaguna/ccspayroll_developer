@@ -64,12 +64,6 @@ namespace CCSPayrollBillingSystem
             this.txtOthers = new System.Windows.Forms.TextBox();
             this.lblOthers = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtGrossPay = new System.Windows.Forms.TextBox();
-            this.txtNetPay = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtVAT = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.txtRegDaysRate = new System.Windows.Forms.TextBox();
             this.txtOthersRate = new System.Windows.Forms.TextBox();
             this.txtPDARate = new System.Windows.Forms.TextBox();
@@ -79,6 +73,12 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolidaysOTRate = new System.Windows.Forms.TextBox();
             this.txtSplHolidaysOTRate = new System.Windows.Forms.TextBox();
             this.txtRegHolidaysRate = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtGrossPay = new System.Windows.Forms.TextBox();
+            this.txtNetPay = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtVAT = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -467,59 +467,6 @@ namespace CCSPayrollBillingSystem
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "WORK DAYS";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(26, 402);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(79, 15);
-            this.label17.TabIndex = 33;
-            this.label17.Text = "Gross Pay :";
-            // 
-            // txtGrossPay
-            // 
-            this.txtGrossPay.Location = new System.Drawing.Point(119, 401);
-            this.txtGrossPay.Name = "txtGrossPay";
-            this.txtGrossPay.ReadOnly = true;
-            this.txtGrossPay.Size = new System.Drawing.Size(178, 20);
-            this.txtGrossPay.TabIndex = 34;
-            // 
-            // txtNetPay
-            // 
-            this.txtNetPay.Location = new System.Drawing.Point(332, 205);
-            this.txtNetPay.Name = "txtNetPay";
-            this.txtNetPay.ReadOnly = true;
-            this.txtNetPay.Size = new System.Drawing.Size(144, 20);
-            this.txtNetPay.TabIndex = 36;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(329, 182);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(64, 15);
-            this.label18.TabIndex = 35;
-            this.label18.Text = "Net Pay :";
-            // 
-            // txtVAT
-            // 
-            this.txtVAT.Location = new System.Drawing.Point(332, 264);
-            this.txtVAT.Name = "txtVAT";
-            this.txtVAT.Size = new System.Drawing.Size(144, 20);
-            this.txtVAT.TabIndex = 38;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(329, 248);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(39, 15);
-            this.label19.TabIndex = 37;
-            this.label19.Text = "VAT :";
-            // 
             // txtRegDaysRate
             // 
             this.txtRegDaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -601,6 +548,59 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolidaysRate.Size = new System.Drawing.Size(67, 20);
             this.txtRegHolidaysRate.TabIndex = 31;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(26, 402);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(79, 15);
+            this.label17.TabIndex = 33;
+            this.label17.Text = "Gross Pay :";
+            // 
+            // txtGrossPay
+            // 
+            this.txtGrossPay.Location = new System.Drawing.Point(119, 401);
+            this.txtGrossPay.Name = "txtGrossPay";
+            this.txtGrossPay.ReadOnly = true;
+            this.txtGrossPay.Size = new System.Drawing.Size(178, 20);
+            this.txtGrossPay.TabIndex = 34;
+            // 
+            // txtNetPay
+            // 
+            this.txtNetPay.Location = new System.Drawing.Point(332, 205);
+            this.txtNetPay.Name = "txtNetPay";
+            this.txtNetPay.ReadOnly = true;
+            this.txtNetPay.Size = new System.Drawing.Size(144, 20);
+            this.txtNetPay.TabIndex = 36;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(329, 182);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(64, 15);
+            this.label18.TabIndex = 35;
+            this.label18.Text = "Net Pay :";
+            // 
+            // txtVAT
+            // 
+            this.txtVAT.Location = new System.Drawing.Point(332, 264);
+            this.txtVAT.Name = "txtVAT";
+            this.txtVAT.Size = new System.Drawing.Size(144, 20);
+            this.txtVAT.TabIndex = 38;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(329, 248);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(39, 15);
+            this.label19.TabIndex = 37;
+            this.label19.Text = "VAT :";
+            // 
             // btnCalculate
             // 
             this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -679,6 +679,7 @@ namespace CCSPayrollBillingSystem
             this.btnSave.Text = "SAVE";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSearch
             // 

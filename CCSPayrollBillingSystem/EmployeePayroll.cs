@@ -53,7 +53,9 @@ namespace CCSPayrollBillingSystem
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            Init(450);//initial testing 
+            //Init(450);//initial testing 
+            EmployeeListForPayroll frmEmployeeListPayroll = new EmployeeListForPayroll();
+            frmEmployeeListPayroll.Show();
         }
 
         private void txtRegDays_TextChanged(object sender, EventArgs e)
@@ -127,6 +129,11 @@ namespace CCSPayrollBillingSystem
             //vat = decimal.Parse();
             txtGrossPay.Text = gross.ToString("C", nfi);
             txtNetPay.Text = (gross - deductions).ToString("C", nfi);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
