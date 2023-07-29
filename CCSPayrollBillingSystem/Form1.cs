@@ -88,6 +88,13 @@ namespace CCSPayrollBillingSystem
             Deduction deduction = new Deduction();
             deduction.Show();
         }
+
+        private void employeeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            EmployeePrintForm employeePrintForm = new EmployeePrintForm();
+            employeePrintForm.Show();
+        }
         #endregion
 
         public void OnApplicationExit()

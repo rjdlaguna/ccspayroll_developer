@@ -137,7 +137,6 @@ namespace CCSPayrollBillingSystem
             this.groupBoxPayroll.Size = new System.Drawing.Size(365, 130);
             this.groupBoxPayroll.TabIndex = 10;
             this.groupBoxPayroll.TabStop = false;
-            this.groupBoxPayroll.Text = "Payroll Type";
             // 
             // ChangePassword
             // 
