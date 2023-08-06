@@ -100,6 +100,7 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayr
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.pdb
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\EntityFramework.xml
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\EntityFramework.SqlServer.xml
+>>>>>>> ccc67c62c1d4f06a9620df0b933e1dc03c5360f7
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.AssemblyReference.cache
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.frmBilling.resources
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ChangePassword.resources
@@ -123,3 +124,5 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayr
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.CopyComplete
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.exe
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.pdb
+C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForPayroll.resources
+C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeePrintForm.resources

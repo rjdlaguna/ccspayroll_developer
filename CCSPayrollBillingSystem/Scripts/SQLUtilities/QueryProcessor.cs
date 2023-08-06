@@ -34,7 +34,7 @@ namespace CCSPayrollBillingSystem.Scripts
                         if (dataReader.Read())
                         {
                             //EventManager.InvokeOnAdminLogged(username);
-                           
+
                             MessageBox.Show("Hi - " + dataReader.GetValue(1));
                             onSuccess?.Invoke();
                         }
@@ -80,17 +80,17 @@ namespace CCSPayrollBillingSystem.Scripts
         //Updating tblUser for New Password
         private void ExecuteSqlUpdatePasswordQuery(string username, string newPassword)
         {
-            
+
             string sqlUpdate = "UPDATE tblUser SET Password='" + newPassword + "' WHERE Username='" + username + "'";
 
             connection = new DatabaseConnection(connectionString);
-            command = new DatabaseCommand(sqlUpdate, connection);            
+            command = new DatabaseCommand(sqlUpdate, connection);
             dataReader = new DatabaseReader(command.ExecuteReader());
             if (dataReader.Read())
             {
                 MessageBox.Show("Password Successfully Changed." + dataReader.GetValue(1));
             }
-   
+
         }
         #endregion
 
@@ -134,7 +134,7 @@ namespace CCSPayrollBillingSystem.Scripts
             dataReader = new DatabaseReader(command.ExecuteReader());
             if (dataReader.Read())
             {
-                MessageBox.Show(dataReader.GetValue(1)+"- User Successfully Changed.");
+                MessageBox.Show(dataReader.GetValue(1) + "- User Successfully Changed.");
             }
 
         }
@@ -235,7 +235,7 @@ namespace CCSPayrollBillingSystem.Scripts
                 using (command = new DatabaseCommand(sqlLoadJobs, connection))
                 {
                     sqlDataReader = command.ExecuteReader();
-                    
+
                     if (sqlDataReader.HasRows)
                     {
                         while (sqlDataReader.Read())
@@ -299,25 +299,25 @@ namespace CCSPayrollBillingSystem.Scripts
         //Searching Records from tblJob
         public void ExecuteSqlSearchQueryForJobCombo(Action<Dictionary<string, string>> onSuccess, Action onFailure)
         {
-            Dictionary<string,string> resultList = new Dictionary<string, string>();
+            Dictionary<string, string> resultList = new Dictionary<string, string>();
             string sqlSearchForJobCombo = "SELECT JobID,JobTitle FROM tblJob";
 
             using (connection = new DatabaseConnection(connectionString))
             {
                 command = new DatabaseCommand(sqlSearchForJobCombo, connection);
                 dataReader = new DatabaseReader(command.ExecuteReader());
-                while(dataReader.Read())
+                while (dataReader.Read())
                 {
                     string key = dataReader.GetValue(0).ToString();
                     string value = dataReader.GetValue(1).ToString();
-                    resultList.Add(key,value);
-                    Console.WriteLine(key +"-"+ value);
+                    resultList.Add(key, value);
+                    Console.WriteLine(key + "-" + value);
                 }
                 if (resultList.Count <= 0) onFailure.Invoke();
                 onSuccess?.Invoke(resultList);
             }
         }
-        
+
         //Search Validation for Inserting Deductions
         public void ExecuteSqlSearchValidationQuery(string deductionID, string jobID, Action onSuccess, Action onFailure)
         {
@@ -433,20 +433,20 @@ namespace CCSPayrollBillingSystem.Scripts
                 }
             }
         }
-        
+
         #endregion
 
         #region SQL Process for Employees
         // Inserting Employee Data to tblEmployee
         public void ExecuteSqlEmpDataSaveQuery(string firstname, string middlename, string lastname, string homeaddress,
-                                               string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract, 
+                                               string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract,
                                                int jobID, int empStatus, int deductionID, Action onSuccess, Action onFailure)
         {
             string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndofContractDate,JobID,EmpStatus,DeductionID) "
                                 + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','"
                                                                 + homeaddress + "', '" + contactno + "','" + birthdate + "','"
-                                                                + datehired + "','" + endofcontract + "','" + jobID + "','" + 
-                                                                + empStatus + "','" + deductionID + "')";
+                                                                + datehired + "','" + endofcontract + "','" + jobID + "','" +
+                                                                +empStatus + "','" + deductionID + "')";
 
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlInsert, connection);
@@ -472,27 +472,27 @@ namespace CCSPayrollBillingSystem.Scripts
                 if (fname == null && lname == null)
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
-                                        "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," + 
+                                        "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
                                         "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee WHERE EmpStatus = 1";
-                } 
+                }
                 else
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
-                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee " + 
+                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee " +
                                         "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
                     hasSearchValues = true;
                 }
 
-              
+
                 using (command = new DatabaseCommand(sqlEmpDataSearch, connection))
                 {
-                    if(hasSearchValues)
+                    if (hasSearchValues)
                     {
                         command.AddParameter("@firstname", fname);
                         command.AddParameter("@lastname", lname);
                     }
-                    
+
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)
                     {
@@ -502,10 +502,10 @@ namespace CCSPayrollBillingSystem.Scripts
                     {
                         onFailure?.Invoke();
                     }
-                    
+
                 }
             }
-                
+
 
         }
         //Formatting retrieved employee into a table
@@ -574,7 +574,7 @@ namespace CCSPayrollBillingSystem.Scripts
         {
             using (connection = new DatabaseConnection(connectionString))
             {
-                string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," + 
+                string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," +
                                     "EmpHomeAddress=@homeaddress,EmpContactNo=@contactno,EmpBirthDate=@birthdate,EmploymentDate=@datehired," +
                                     "EndOfContractDate=@endofcontract,JobID=@jobID WHERE EmpID = @id";
 
@@ -589,7 +589,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     command.AddParameter("@birthdate", birthdate);
                     command.AddParameter("@datehired", datehired);
                     command.AddParameter("@endofcontract", endofcontract);
-                    command.AddParameter("@jobID",jobID);
+                    command.AddParameter("@jobID", jobID);
 
                     using (dataReader = new DatabaseReader(command.ExecuteReader()))
                     {
@@ -634,6 +634,55 @@ namespace CCSPayrollBillingSystem.Scripts
 
         #endregion
 
+        #region SQL Process for Payroll Information
+        public void ExecuteSqlPayrollEmpLoadInfoQuery(string fname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlPayrollInfoSearch = "";
+                bool hasSearchValues = false;
+                if (fname == null && lname == null)
+                {
+                    sqlPayrollInfoSearch = "SELECT E.EmpID, E.EmpLastName, E.EmpFirstName, " +
+                                            "J.JobTitle, J.PayRate, J.Rank from tblEmployee " +
+                                            "E LEFT JOIN tblJob J ON E.JobID = J.JobID " +
+                                            "WHERE E.EmpStatus = 1 ORDER BY E.EmpLastName";
+                }
+                else
+                {
+                    sqlPayrollInfoSearch = "SELECT E.EmpID, E.EmpLastName, E.EmpFirstName, " +
+                                            "J.JobTitle, J.PayRate, J.Rank from tblEmployee " +
+                                            "E LEFT JOIN tblJob J ON E.JobID = J.JobID " +
+                                            "WHERE E.EmpStatus = 1 AND E.EmpFirstName = @firstname AND E.EmpLastName = @lastname";
+                    hasSearchValues = true;
+                }
+
+
+                using (command = new DatabaseCommand(sqlPayrollInfoSearch, connection))
+                {
+                    if (hasSearchValues)
+                    {
+                        command.AddParameter("@firstname", fname);
+                        command.AddParameter("@lastname", lname);
+                    }
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+
+
+        }
+
+        #endregion
         //END......................
     }
 }

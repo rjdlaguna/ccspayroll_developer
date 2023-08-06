@@ -57,6 +57,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -94,11 +96,23 @@
     <Compile Include="EmployeeListForm.Designer.cs">
       <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeListForPayroll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeListForPayroll.Designer.cs">
+      <DependentUpon>EmployeeListForPayroll.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeePayroll.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmployeePayroll.Designer.cs">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeePrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeePrintForm.Designer.cs">
+      <DependentUpon>EmployeePrintForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EmployeeProfileForm.cs">
       <SubType>Form</SubType>
@@ -207,8 +221,14 @@
     <EmbeddedResource Include="EmployeeListForm.resx">
       <DependentUpon>EmployeeListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeListForPayroll.resx">
+      <DependentUpon>EmployeeListForPayroll.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeePayroll.resx">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeePrintForm.resx">
+      <DependentUpon>EmployeePrintForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeProfileForm.resx">
       <DependentUpon>EmployeeProfileForm.cs</DependentUpon>
