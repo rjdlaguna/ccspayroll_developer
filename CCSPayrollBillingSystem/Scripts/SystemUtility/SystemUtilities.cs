@@ -53,10 +53,6 @@ namespace CCSPayrollBillingSystem.Scripts
         }
         public static decimal RegularHolidaysOT(decimal baseRate, float noOfHours)
         {
-            return (decimal)noOfDays * ((baseRate) * Constants.REST_REG_HOLIDAYS);
-        }
-        public static decimal RegularHolidaysOT(decimal baseRate, float noOfHours)
-        {
             return (decimal)noOfHours * ((baseRate) / (decimal)(Constants.MAX_HRS_WORKED * Constants.REG_HOLIDAYS_OT));
         }
         public static decimal COLA(decimal baseRate, float valueCOLA)
