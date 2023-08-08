@@ -38,25 +38,37 @@ namespace CCSPayrollBillingSystem.Scripts
         {
             return baseRate * (decimal)noOfDays;
         }
-        public static decimal RegularDaysOT(decimal baseRate, float noOfDays)
+        public static decimal RegularDaysOT(decimal baseRate, float noOfHours)
         {
-            return (baseRate * (decimal)noOfDays) + ((baseRate)/(decimal)(8*Constants.REG_OT));
+            // return (baseRate * (decimal)noOfDays) + ((baseRate)/(decimal)(8*Constants.REG_OT));
+            return (baseRate / 8) * (decimal)(Constants.REG_OT) * (decimal)noOfHours;
         }
         public static decimal SunOrSpecialHolidays(decimal baseRate, float noOfDays)
         {
-            return baseRate * (decimal)noOfDays + (baseRate * Constants.SUN_SP_HOLIDAYS);
+            // return baseRate * (decimal)noOfDays + (baseRate * Constants.SUN_SP_HOLIDAYS);
+            return baseRate *(decimal)noOfDays * Constants.SUN_SP_HOLIDAYS;
         }
-        public static decimal SpecialHolidaysOT(decimal baseRate, float noOfDays)
+        public static decimal SpecialHolidaysOT(decimal baseRate, float noOfHours)
         {
-            return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.SP_HOLIDAYS_OT));
+            //return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.SP_HOLIDAYS_OT));
+            return (baseRate / 8) * (decimal)Constants.SP_HOLIDAYS_OT * (decimal)noOfHours;
         }
-        public static decimal RestDayOrRegularHolidays(decimal baseRate, float noOfDays)
+        public static decimal RegularHolidays(decimal baseRate, float noOfDays)
         {
-            return baseRate * (decimal)noOfDays + ((baseRate) * Constants.REST_REG_HOLIDAYS);
+            //return baseRate * (decimal)noOfDays + ((baseRate) * Constants.REST_REG_HOLIDAYS);
+            return baseRate * (decimal)noOfDays * Constants.REG_HOLIDAYS;
         }
-        public static decimal RegularHolidaysOT(decimal baseRate, float noOfDays)
+        public static decimal RegularHolidaysOT(decimal baseRate, float noOfHours)
         {
-            return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.REG_HOLIDAYS_OT));
+            // return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.REG_HOLIDAYS_OT));
+            return (baseRate / 8) * (decimal) Constants.REG_HOLIDAYS_OT * (decimal)noOfHours;
+        }
+        public static decimal RestDayAndRegularHolidays(decimal baseRate, float noOfDays)
+        {
+            //return baseRate * (decimal)noOfDays + ((baseRate) * Constants.REST_REG_HOLIDAYS);
+            decimal regHolAmount = 0;
+            regHolAmount = baseRate * (decimal)noOfDays * Constants.REST_REG_HOLIDAYS;
+            return regHolAmount;
         }
         public static decimal COLA(decimal baseRate, float valueCOLA)
         {
