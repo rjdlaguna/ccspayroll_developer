@@ -20,11 +20,18 @@ namespace CCSPayrollBillingSystem
         private decimal _SplHolidaysOTRate;
         private decimal _RegHolidaysRate;
         private decimal _RegHolidaysOTRate;
+        private decimal _RegHolRestDayRate;
         private decimal _COLARate;
         private decimal _PDARate;
         private decimal _OthersRate;
 
         private NumberFormatInfo nfi;
+
+        public int empIdPayroll;
+        public string empFnamePayroll;
+        public string empLnamePayroll;
+        public double empRatePayroll;
+        public string empRankPayroll;
 
         public void Init(decimal baseRate)
         {
@@ -39,6 +46,7 @@ namespace CCSPayrollBillingSystem
             txtCOLARate.Text = Constants.DEFAULT_VALUE;
             txtPDARate.Text = Constants.DEFAULT_VALUE;
             txtOthersRate.Text = Constants.DEFAULT_VALUE;
+            txtBaseRate.Text = baseRate.ToString();
         }
 
         public frmEmployeePayroll()
@@ -49,6 +57,9 @@ namespace CCSPayrollBillingSystem
         private void frmEmployeePayroll_Load(object sender, EventArgs e)
         {
             nfi = new CultureInfo("en-PH", false).NumberFormat;
+            txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
+            txtBaseRate.Text = empRatePayroll.ToString();
+            txtRank.Text = empRankPayroll;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -56,6 +67,7 @@ namespace CCSPayrollBillingSystem
             //Init(450);//initial testing 
             EmployeeListForPayroll frmEmployeeListPayroll = new EmployeeListForPayroll();
             frmEmployeeListPayroll.Show();
+            this.Close();
         }
 
         private void txtRegDays_TextChanged(object sender, EventArgs e)
@@ -90,7 +102,7 @@ namespace CCSPayrollBillingSystem
         private void txtRegHolidays_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolidays.Text = "0";
-            _RegHolidaysRate = WorkDaysComputation.RestDayOrRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
+            _RegHolidaysRate = WorkDaysComputation.RegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
             txtRegHolidaysRate.Text = _RegHolidaysRate.ToString("C", nfi);
         }
 
@@ -99,6 +111,11 @@ namespace CCSPayrollBillingSystem
             if (string.IsNullOrWhiteSpace(txtRegHolidaysOT.Text)) txtRegHolidaysOT.Text = "0";
             _RegHolidaysOTRate = WorkDaysComputation.RegularHolidaysOT(baseRate, float.Parse(txtRegHolidaysOT.Text));
             txtRegHolidaysOTRate.Text = _RegHolidaysOTRate.ToString("C", nfi);
+        }
+
+        private void txtRegHolRestDay_TextChanged(object sender, EventArgs e)
+        {
+            
         }
 
         private void txtCOLA_TextChanged(object sender, EventArgs e)
@@ -124,7 +141,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _COLARate + _PDARate + _OthersRate;
+            gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
             deductions = decimal.Parse(txtSSS.Text) + decimal.Parse(txtPhilHealth.Text) + decimal.Parse(txtPagIbig.Text) + decimal.Parse(txtTax.Text);
             //vat = decimal.Parse();
             txtGrossPay.Text = gross.ToString("C", nfi);
@@ -134,6 +151,18 @@ namespace CCSPayrollBillingSystem
         private void btnSave_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtBaseRate_TextChanged(object sender, EventArgs e)
+        {
+            Init(Convert.ToDecimal(empRatePayroll));
+        }
+
+        private void txtRegHolRestDay_TextChanged_1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolRestDay.Text = "0";
+            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
+            txtRegHolRestDayRate.Text = _RegHolRestDayRate.ToString("C", nfi);
         }
     }
 }

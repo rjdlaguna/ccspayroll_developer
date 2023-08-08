@@ -634,6 +634,55 @@ namespace CCSPayrollBillingSystem.Scripts
 
         #endregion
 
+        #region SQL Process for Payroll Information
+        public void ExecuteSqlPayrollEmpLoadInfoQuery(string fname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlPayrollInfoSearch = "";
+                bool hasSearchValues = false;
+                if (fname == null && lname == null)
+                {
+                    sqlPayrollInfoSearch = "SELECT E.EmpID, E.EmpLastName, E.EmpFirstName, " +
+                                            "J.JobTitle, J.PayRate, J.Rank from tblEmployee " +
+                                            "E LEFT JOIN tblJob J ON E.JobID = J.JobID " +
+                                            "WHERE E.EmpStatus = 1 ORDER BY E.EmpLastName";
+                }
+                else
+                {
+                    sqlPayrollInfoSearch = "SELECT E.EmpID, E.EmpLastName, E.EmpFirstName, " +
+                                            "J.JobTitle, J.PayRate, J.Rank from tblEmployee " +
+                                            "E LEFT JOIN tblJob J ON E.JobID = J.JobID " +
+                                            "WHERE E.EmpStatus = 1 AND E.EmpFirstName = @firstname AND E.EmpLastName = @lastname";
+                    hasSearchValues = true;
+                }
+
+
+                using (command = new DatabaseCommand(sqlPayrollInfoSearch, connection))
+                {
+                    if (hasSearchValues)
+                    {
+                        command.AddParameter("@firstname", fname);
+                        command.AddParameter("@lastname", lname);
+                    }
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+
+
+        }
+
+        #endregion
         //END......................
     }
 }
