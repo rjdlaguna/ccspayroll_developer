@@ -124,3 +124,6 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayr
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.CopyComplete
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForPayroll.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForm.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForPayroll.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeePrintForm.resources

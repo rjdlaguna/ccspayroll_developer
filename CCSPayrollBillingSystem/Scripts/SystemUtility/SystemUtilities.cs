@@ -28,6 +28,7 @@ namespace CCSPayrollBillingSystem.Scripts
         public const float REST_REG_HOLIDAYS_OT = 3.38F;
         public const decimal REG_HOLIDAYS = 2.0M;
         public const float REG_HOLIDAYS_OT = 2.6F;
+        public const float MAX_HRS_WORKED = 8F;
         
         public const float NSD = 0.10F;
     }
@@ -38,25 +39,25 @@ namespace CCSPayrollBillingSystem.Scripts
         {
             return baseRate * (decimal)noOfDays;
         }
-        public static decimal RegularDaysOT(decimal baseRate, float noOfDays)
+        public static decimal RegularDaysOT(decimal baseRate, float noOfHours)
         {
-            return (baseRate * (decimal)noOfDays) + ((baseRate)/(decimal)(8*Constants.REG_OT));
+            return ((decimal)noOfHours) * ((baseRate)/(decimal)(Constants.MAX_HRS_WORKED * Constants.REG_OT));
         }
         public static decimal SunOrSpecialHolidays(decimal baseRate, float noOfDays)
         {
-            return baseRate * (decimal)noOfDays + (baseRate * Constants.SUN_SP_HOLIDAYS);
+            return (decimal)noOfDays * (baseRate * Constants.SUN_SP_HOLIDAYS);
         }
-        public static decimal SpecialHolidaysOT(decimal baseRate, float noOfDays)
+        public static decimal SpecialHolidaysOT(decimal baseRate, float noOfHours)
         {
-            return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.SP_HOLIDAYS_OT));
+            return (decimal)noOfHours * ((baseRate) / (decimal)(Constants.MAX_HRS_WORKED * Constants.SP_HOLIDAYS_OT));
         }
         public static decimal RestDayOrRegularHolidays(decimal baseRate, float noOfDays)
         {
-            return baseRate * (decimal)noOfDays + ((baseRate) * Constants.REST_REG_HOLIDAYS);
+            return (decimal)noOfDays * ((baseRate) * Constants.REST_REG_HOLIDAYS);
         }
-        public static decimal RegularHolidaysOT(decimal baseRate, float noOfDays)
+        public static decimal RegularHolidaysOT(decimal baseRate, float noOfHours)
         {
-            return baseRate * (decimal)noOfDays + ((baseRate) / (decimal)(8 * Constants.REG_HOLIDAYS_OT));
+            return (decimal)noOfHours * ((baseRate) / (decimal)(Constants.MAX_HRS_WORKED * Constants.REG_HOLIDAYS_OT));
         }
         public static decimal COLA(decimal baseRate, float valueCOLA)
         {
@@ -71,9 +72,9 @@ namespace CCSPayrollBillingSystem.Scripts
             return baseRate * (decimal)valueOthers;
         }
 
-        public static decimal NightShiftDifferential(decimal baseRate, float noOfDays, float noOfHoursInNSD)
+        public static decimal NightShiftDifferential(decimal baseRate, float noOfHoursInNSD)
         {
-            return baseRate * (decimal)noOfDays + (((baseRate) / (decimal)(8 *Constants.NSD)) * (decimal)noOfHoursInNSD);
+            return (((baseRate) / (decimal)(Constants.MAX_HRS_WORKED * Constants.NSD)) * (decimal)noOfHoursInNSD);
         }
     }
 }

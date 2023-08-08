@@ -442,7 +442,7 @@ namespace CCSPayrollBillingSystem.Scripts
                                                string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract,
                                                int jobID, int empStatus, int deductionID, Action onSuccess, Action onFailure)
         {
-            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndofContractDate,JobID,EmpStatus,DeductionID) "
+            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContractDate,JobID,EmpStatus,DeductionID) "
                                 + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','"
                                                                 + homeaddress + "', '" + contactno + "','" + birthdate + "','"
                                                                 + datehired + "','" + endofcontract + "','" + jobID + "','" +
