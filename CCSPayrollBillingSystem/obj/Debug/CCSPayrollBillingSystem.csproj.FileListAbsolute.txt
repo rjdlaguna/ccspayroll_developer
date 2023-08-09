@@ -66,7 +66,6 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingS
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.pdb
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.AssemblyReference.cache
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForm.resources
-
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.exe.config
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.exe
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\CCSPayrollBillingSystem.pdb
@@ -96,6 +95,7 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayr
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.exe
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.pdb
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForPayroll.resources
-
 C:\Users\rjdla\OneDrive\Documents\GitHub\latest_ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeePrintForm.resources
-
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForm.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeListForPayroll.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeePrintForm.resources

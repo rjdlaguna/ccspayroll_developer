@@ -29,9 +29,31 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
+            this.rtb = new System.Windows.Forms.RichTextBox();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
+            // 
+            // rtb
+            // 
+            this.rtb.Location = new System.Drawing.Point(411, 12);
+            this.rtb.Name = "rtb";
+            this.rtb.Size = new System.Drawing.Size(377, 426);
+            this.rtb.TabIndex = 2;
+            this.rtb.Text = "";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(256, 378);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(100, 40);
+            this.btnPrint.TabIndex = 32;
+            this.btnPrint.Text = "PRINT";
+            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // btnSearch
             // 
@@ -45,23 +67,17 @@ namespace CCSPayrollBillingSystem
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(411, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(377, 426);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
-            // 
             // PrintForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.btnPrint);
+            this.Controls.Add(this.rtb);
             this.Controls.Add(this.btnSearch);
             this.Name = "PrintForm";
             this.Text = "Print Form";
+            this.Load += new System.EventHandler(this.PrintForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -69,6 +85,7 @@ namespace CCSPayrollBillingSystem
         #endregion
 
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtb;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

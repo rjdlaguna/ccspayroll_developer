@@ -65,6 +65,8 @@ namespace CCSPayrollBillingSystem
             this.txtOthers = new System.Windows.Forms.TextBox();
             this.lblOthers = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtRegHolRestDayRate = new System.Windows.Forms.TextBox();
+            this.txtRegHolRestDay = new System.Windows.Forms.TextBox();
             this.txtRegDaysRate = new System.Windows.Forms.TextBox();
             this.txtOthersRate = new System.Windows.Forms.TextBox();
             this.txtPDARate = new System.Windows.Forms.TextBox();
@@ -91,9 +93,12 @@ namespace CCSPayrollBillingSystem
             this.label7 = new System.Windows.Forms.Label();
             this.dtPayrollCutOffDate = new System.Windows.Forms.DateTimePicker();
             this.dtPayrollStartDate = new System.Windows.Forms.DateTimePicker();
+            this.lblRegHolRestDay = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtRegHolRestDay = new System.Windows.Forms.TextBox();
-            this.txtRegHolRestDayRate = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -456,9 +461,16 @@ namespace CCSPayrollBillingSystem
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.txtRegHolRestDayRate);
-            this.groupBox3.Controls.Add(this.txtRegHolRestDay);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.lblRegHolRestDay);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.txtRegHolRestDayRate);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.txtRegHolRestDay);
             this.groupBox3.Controls.Add(this.txtRegDaysRate);
             this.groupBox3.Controls.Add(this.txtOthersRate);
             this.groupBox3.Controls.Add(this.txtPDARate);
@@ -494,6 +506,24 @@ namespace CCSPayrollBillingSystem
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "WORK DAYS";
             // 
+            // txtRegHolRestDayRate
+            // 
+            this.txtRegHolRestDayRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolRestDayRate.Location = new System.Drawing.Point(228, 176);
+            this.txtRegHolRestDayRate.Name = "txtRegHolRestDayRate";
+            this.txtRegHolRestDayRate.ReadOnly = true;
+            this.txtRegHolRestDayRate.Size = new System.Drawing.Size(50, 20);
+            this.txtRegHolRestDayRate.TabIndex = 38;
+            // 
+            // txtRegHolRestDay
+            // 
+            this.txtRegHolRestDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolRestDay.Location = new System.Drawing.Point(118, 176);
+            this.txtRegHolRestDay.Name = "txtRegHolRestDay";
+            this.txtRegHolRestDay.Size = new System.Drawing.Size(67, 20);
+            this.txtRegHolRestDay.TabIndex = 37;
+            this.txtRegHolRestDay.TextChanged += new System.EventHandler(this.txtRegHolRestDay_TextChanged_1);
+            // 
             // txtRegDaysRate
             // 
             this.txtRegDaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -506,7 +536,7 @@ namespace CCSPayrollBillingSystem
             // txtOthersRate
             // 
             this.txtOthersRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOthersRate.Location = new System.Drawing.Point(201, 261);
+            this.txtOthersRate.Location = new System.Drawing.Point(228, 261);
             this.txtOthersRate.Name = "txtOthersRate";
             this.txtOthersRate.ReadOnly = true;
             this.txtOthersRate.Size = new System.Drawing.Size(50, 20);
@@ -515,7 +545,7 @@ namespace CCSPayrollBillingSystem
             // txtPDARate
             // 
             this.txtPDARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPDARate.Location = new System.Drawing.Point(201, 235);
+            this.txtPDARate.Location = new System.Drawing.Point(228, 235);
             this.txtPDARate.Name = "txtPDARate";
             this.txtPDARate.ReadOnly = true;
             this.txtPDARate.Size = new System.Drawing.Size(50, 20);
@@ -533,7 +563,7 @@ namespace CCSPayrollBillingSystem
             // txtCOLARate
             // 
             this.txtCOLARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCOLARate.Location = new System.Drawing.Point(201, 209);
+            this.txtCOLARate.Location = new System.Drawing.Point(228, 209);
             this.txtCOLARate.Name = "txtCOLARate";
             this.txtCOLARate.ReadOnly = true;
             this.txtCOLARate.Size = new System.Drawing.Size(50, 20);
@@ -710,8 +740,6 @@ namespace CCSPayrollBillingSystem
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.dtPayrollCutOffDate);
             this.groupBox4.Controls.Add(this.dtPayrollStartDate);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -726,21 +754,21 @@ namespace CCSPayrollBillingSystem
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(21, 63);
+            this.label9.Location = new System.Drawing.Point(190, 48);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 13);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "Cut-off Date:";
+            this.label9.Size = new System.Drawing.Size(24, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "hrs.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(21, 33);
+            this.label7.Location = new System.Drawing.Point(185, 21);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Start Date:";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "day(s)";
             // 
             // dtPayrollCutOffDate
             // 
@@ -761,93 +789,65 @@ namespace CCSPayrollBillingSystem
             this.dtPayrollStartDate.Size = new System.Drawing.Size(131, 20);
             this.dtPayrollStartDate.TabIndex = 0;
             // 
-            // label10
+            // lblRegHolRestDay
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(-3, 179);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(116, 13);
-            this.label10.TabIndex = 36;
-            this.label10.Text = "Regular Hol Rest Day :";
-            // 
-            // txtRegHolRestDay
-            // 
-            this.txtRegHolRestDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegHolRestDay.Location = new System.Drawing.Point(118, 176);
-            this.txtRegHolRestDay.Name = "txtRegHolRestDay";
-            this.txtRegHolRestDay.Size = new System.Drawing.Size(67, 20);
-            this.txtRegHolRestDay.TabIndex = 37;
-            this.txtRegHolRestDay.TextChanged += new System.EventHandler(this.txtRegHolRestDay_TextChanged_1);
-            // 
-            // txtRegHolRestDayRate
-            // 
-            this.txtRegHolRestDayRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegHolRestDayRate.Location = new System.Drawing.Point(201, 176);
-            this.txtRegHolRestDayRate.Name = "txtRegHolRestDayRate";
-            this.txtRegHolRestDayRate.ReadOnly = true;
-            this.txtRegHolRestDayRate.Size = new System.Drawing.Size(67, 20);
-            this.txtRegHolRestDayRate.TabIndex = 38;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(185, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 13);
-            this.label7.TabIndex = 36;
-            this.label7.Text = "in Days";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(185, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 13);
-            this.label9.TabIndex = 37;
-            this.label9.Text = "in Hrs.";
+            this.lblRegHolRestDay.AutoSize = true;
+            this.lblRegHolRestDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegHolRestDay.Location = new System.Drawing.Point(6, 179);
+            this.lblRegHolRestDay.Name = "lblRegHolRestDay";
+            this.lblRegHolRestDay.Size = new System.Drawing.Size(107, 13);
+            this.lblRegHolRestDay.TabIndex = 39;
+            this.lblRegHolRestDay.Text = "Reg. Hol. | Rest Day:";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(185, 74);
+            this.label10.Location = new System.Drawing.Point(187, 74);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(42, 13);
-            this.label10.TabIndex = 38;
-            this.label10.Text = "in Days";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 40;
+            this.label10.Text = "day(s)";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(185, 101);
+            this.label11.Location = new System.Drawing.Point(187, 126);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(37, 13);
-            this.label11.TabIndex = 39;
-            this.label11.Text = "in Hrs.";
+            this.label11.Size = new System.Drawing.Size(35, 13);
+            this.label11.TabIndex = 42;
+            this.label11.Text = "day(s)";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(185, 126);
+            this.label12.Location = new System.Drawing.Point(190, 100);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(42, 13);
-            this.label12.TabIndex = 40;
-            this.label12.Text = "in Days";
+            this.label12.Size = new System.Drawing.Size(24, 13);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "hrs.";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(185, 152);
+            this.label13.Location = new System.Drawing.Point(187, 179);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(37, 13);
-            this.label13.TabIndex = 41;
-            this.label13.Text = "in Hrs.";
+            this.label13.Size = new System.Drawing.Size(35, 13);
+            this.label13.TabIndex = 44;
+            this.label13.Text = "day(s)";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(190, 153);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(24, 13);
+            this.label14.TabIndex = 43;
+            this.label14.Text = "hrs.";
             // 
             // frmEmployeePayroll
             // 
@@ -881,7 +881,6 @@ namespace CCSPayrollBillingSystem
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -953,6 +952,11 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.DateTimePicker dtPayrollStartDate;
         private System.Windows.Forms.TextBox txtRegHolRestDayRate;
         private System.Windows.Forms.TextBox txtRegHolRestDay;
+        private System.Windows.Forms.Label lblRegHolRestDay;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }

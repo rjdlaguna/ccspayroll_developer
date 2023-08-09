@@ -16,5 +16,10 @@ namespace CCSPayrollBillingSystem
         {
             InitializeComponent();
         }
+
+        private void PrintForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
