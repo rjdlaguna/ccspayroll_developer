@@ -26,6 +26,8 @@ namespace CCSPayrollBillingSystem
             QueryProcessor billingProcessor = new QueryProcessor();
             billingProcessor.ExecuteSqlBillingViewQuery(projectTestingID, () =>
             {
+                
+                
                 dataGridView1.DataSource = billingProcessor.GetSqlReaderData();
             }, () =>
             {
