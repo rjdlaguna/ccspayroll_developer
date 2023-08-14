@@ -272,6 +272,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>mdlUser.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include=".editorconfig" />
     <None Include="mdlUser.edmx.diagram">
       <DependentUpon>mdlUser.edmx</DependentUpon>
     </None>

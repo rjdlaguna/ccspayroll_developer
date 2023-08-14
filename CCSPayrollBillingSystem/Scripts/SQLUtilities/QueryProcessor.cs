@@ -80,7 +80,6 @@ namespace CCSPayrollBillingSystem.Scripts
         //Updating tblUser for New Password
         private void ExecuteSqlUpdatePasswordQuery(string username, string newPassword)
         {
-
             string sqlUpdate = "UPDATE tblUser SET Password='" + newPassword + "' WHERE Username='" + username + "'";
 
             connection = new DatabaseConnection(connectionString);
@@ -508,31 +507,6 @@ namespace CCSPayrollBillingSystem.Scripts
 
 
         }
-        //Formatting retrieved employee into a table
-        public DataTable GetEmpData()
-        {
-            DataTable dataTable = new DataTable();
-
-            for (int i = 0; i < sqlDataReader.FieldCount; i++)
-            {
-                string columnName = sqlDataReader.GetName(i);
-                Type columnType = sqlDataReader.GetFieldType(i);
-                dataTable.Columns.Add(columnName, columnType);
-            }
-
-            while (sqlDataReader.Read())
-            {
-                DataRow row = dataTable.NewRow();
-                for (int i = 0; i < sqlDataReader.FieldCount; i++)
-                {
-                    row[i] = sqlDataReader[i];
-                }
-                dataTable.Rows.Add(row);
-            }
-            sqlDataReader.Close();
-
-            return dataTable;
-        }
 
         //Get JobID via First Name, Middle Name and Last Name
         public int ExecuteSQLGetJobIDThruEmployeeData(string fname, string mname, string lname, Action onSuccess, Action onFailure)
@@ -683,6 +657,60 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
         #endregion
-        //END......................
+
+        #region SQL Process for Billing Process
+
+        public void ExecuteSqlBillingViewQuery(int projectID, Action onSuccess, Action onFailure)
+        {
+            string sqlEmpDataSearch = string.Empty;
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                sqlEmpDataSearch = "SELECT EmpID FROM tblEPR WHERE ProjectID = @ProjectID";
+
+                using (command = new DatabaseCommand(sqlEmpDataSearch, connection))
+                {
+                    command.AddParameter("@ProjectID", projectID);
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+            #endregion
+            //END......................
+        }
+
+        //Formatting retrieved employee into a table
+        public DataTable GetSqlReaderData()
+        {
+            DataTable dataTable = new DataTable();
+
+            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+            {
+                string columnName = sqlDataReader.GetName(i);
+                Type columnType = sqlDataReader.GetFieldType(i);
+                dataTable.Columns.Add(columnName, columnType);
+            }
+
+            while (sqlDataReader.Read())
+            {
+                DataRow row = dataTable.NewRow();
+                for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                {
+                    row[i] = sqlDataReader[i];
+                }
+                dataTable.Rows.Add(row);
+            }
+            sqlDataReader.Close();
+
+            return dataTable;
+        }
     }
 }
