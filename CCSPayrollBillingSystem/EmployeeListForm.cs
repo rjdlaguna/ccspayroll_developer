@@ -25,6 +25,7 @@ namespace CCSPayrollBillingSystem
         private DateTime dateHired;
         private DateTime endOfContractDate;
 
+        QueryProcessor employeeProcessor = new QueryProcessor();
         //EmployeeListForm frmEmpList = new EmployeeListForm();
         IDictionary<int, string> jobInfo = new Dictionary<int, string>();
 
@@ -42,7 +43,6 @@ namespace CCSPayrollBillingSystem
         private void btnSearch_Click(object sender, EventArgs e)
         {
             SetEmployeeSearchValues();
-            QueryProcessor employeeProcessor = new QueryProcessor();
             employeeProcessor.ExecuteSqlEmpDataViewQuery(empFirstName,empLastName, () =>
             {
                 dgEmployeesList.DataSource = employeeProcessor.GetEmpData();
@@ -55,25 +55,14 @@ namespace CCSPayrollBillingSystem
         private void EmployeeListForm_Load(object sender, EventArgs e)
         {
             List<string[]> jobList = new List<string[]>();
-            QueryProcessor employeeProcessor = new QueryProcessor();
-            employeeProcessor.ExecuteSqlEmpDataViewQuery(empFirstName, empLastName, () =>
-             {
-                 dgEmployeesList.DataSource = employeeProcessor.GetEmpData();
-                 ConvertToDateValue();
-                 dgEmployeesList.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
-                 dgEmployeesList.Columns[0].Visible = false;
-             }, () =>
-             {
-                 MessageBox.Show("Problem listing all employees.");
-             });
-
+            ViewEmployees(empFirstName, empLastName);
             jobList = employeeProcessor.ExecuteSqlLoadJobsQuery(
             () =>   
             {
-
+                Console.WriteLine("Job list successfully retrieved.");
             }, () =>
             {
-
+                Console.WriteLine("Problem retrieving job list.");
             }
             );
 
@@ -87,7 +76,6 @@ namespace CCSPayrollBillingSystem
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             int jobID = 0;
-            QueryProcessor employeeProcessor = new QueryProcessor();
             jobID = employeeProcessor.ExecuteSqlFindJobID(cmbEditJob.Text.Trim(), () =>
             {
                 Console.WriteLine("Job title of Job ID successfully retrieved.");
@@ -100,7 +88,9 @@ namespace CCSPayrollBillingSystem
                                                       dteditcontractend.Value, jobID,() =>
                                                       {
                                                           MessageBox.Show("Employee Information successfully updated.");
-                                                          
+                                                          ClearTextFields();
+                                                          EnableDisableTextFields(false);
+                                                          ViewEmployees(empFirstName,empLastName);
                                                       }, () =>
                                                       {
                                                           Console.WriteLine("Problem updating employee information.");
@@ -142,7 +132,6 @@ namespace CCSPayrollBillingSystem
             lastName = txteditlastname.Text;
             middleName = txteditmiddlename.Text;
 
-            QueryProcessor employeeProcessor = new QueryProcessor();
             jobID = employeeProcessor.ExecuteSQLGetJobIDThruEmployeeData(firstName, middleName, lastName, () =>
             {
 
@@ -245,10 +234,10 @@ namespace CCSPayrollBillingSystem
             DialogResult deleteAction = MessageBox.Show("Are you sure you want to delete this employee?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (deleteAction == DialogResult.Yes)
             {
-                QueryProcessor employeeProcessor = new QueryProcessor();
                 employeeProcessor.ExecuteSqlEmpStatusUpdateQuery(empId, () =>
                 {
                     Console.WriteLine("Employee Status successfully updated.");
+                    ViewEmployees(empFirstName,empLastName);
                 }, () =>
                 {
                     Console.WriteLine("Problem updating Employee Status.");
@@ -265,6 +254,32 @@ namespace CCSPayrollBillingSystem
             empId = Convert.ToInt32(dgEmployeesList.SelectedRows[0].Cells[0].Value.ToString());
             btnEdit.Enabled = true;
             btnDelete.Enabled = true;
+        }
+
+        private void ClearTextFields()
+        {
+            txteditfirstname.Clear();
+            txteditmiddlename.Clear();
+            txteditlastname.Clear();
+            txtedithomeaddress.Clear();
+            txteditcontactno.Clear();
+            dteditbirthdate.Value = DateTime.Now;
+            dteditdatehired.Value = DateTime.Now;
+            dteditcontractend.Value = DateTime.Now;
+        }
+
+        private void ViewEmployees(string fname, string lname)
+        {
+            employeeProcessor.ExecuteSqlEmpDataViewQuery(fname, lname, () =>
+            {
+                dgEmployeesList.DataSource = employeeProcessor.GetEmpData();
+                ConvertToDateValue();
+                dgEmployeesList.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgEmployeesList.Columns[0].Visible = false;
+            }, () =>
+            {
+                MessageBox.Show("Problem listing all employees.");
+            });
         }
     }
 }

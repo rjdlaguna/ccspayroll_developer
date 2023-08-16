@@ -46,14 +46,14 @@ namespace CCSPayrollBillingSystem
             this.dtbirthdate = new System.Windows.Forms.DateTimePicker();
             this.dtdatehired = new System.Windows.Forms.DateTimePicker();
             this.dtcontractend = new System.Windows.Forms.DateTimePicker();
-            this.lblEmpDataPrompt = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnViewEmp = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbJob = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnViewEmp = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.txtEmpDataPrompt = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -198,59 +198,6 @@ namespace CCSPayrollBillingSystem
             this.dtcontractend.Size = new System.Drawing.Size(136, 20);
             this.dtcontractend.TabIndex = 23;
             // 
-            // lblEmpDataPrompt
-            // 
-            this.lblEmpDataPrompt.AutoSize = true;
-            this.lblEmpDataPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpDataPrompt.ForeColor = System.Drawing.Color.Red;
-            this.lblEmpDataPrompt.Location = new System.Drawing.Point(106, 22);
-            this.lblEmpDataPrompt.Name = "lblEmpDataPrompt";
-            this.lblEmpDataPrompt.Size = new System.Drawing.Size(55, 15);
-            this.lblEmpDataPrompt.TabIndex = 25;
-            this.lblEmpDataPrompt.Text = "label10";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(481, 207);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 40);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "CANCEL";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnViewEmp
-            // 
-            this.btnViewEmp.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewEmp.Image = global::CCSPayrollBillingSystem.Properties.Resources.file;
-            this.btnViewEmp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnViewEmp.Location = new System.Drawing.Point(481, 148);
-            this.btnViewEmp.Name = "btnViewEmp";
-            this.btnViewEmp.Size = new System.Drawing.Size(100, 40);
-            this.btnViewEmp.TabIndex = 3;
-            this.btnViewEmp.Text = "VIEW EMPLOYEES";
-            this.btnViewEmp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnViewEmp.UseVisualStyleBackColor = true;
-            this.btnViewEmp.Click += new System.EventHandler(this.btnViewEmp_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(481, 93);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 40);
-            this.btnSave.TabIndex = 24;
-            this.btnSave.Text = "SAVE";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cmbJob);
@@ -287,9 +234,9 @@ namespace CCSPayrollBillingSystem
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtEmpDataPrompt);
             this.groupBox2.Controls.Add(this.txtfirstname);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.lblEmpDataPrompt);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.dtbirthdate);
             this.groupBox2.Controls.Add(this.label3);
@@ -307,11 +254,66 @@ namespace CCSPayrollBillingSystem
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(437, 178);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(100, 40);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "CANCEL";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnViewEmp
+            // 
+            this.btnViewEmp.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewEmp.Image = global::CCSPayrollBillingSystem.Properties.Resources.file;
+            this.btnViewEmp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnViewEmp.Location = new System.Drawing.Point(437, 119);
+            this.btnViewEmp.Name = "btnViewEmp";
+            this.btnViewEmp.Size = new System.Drawing.Size(100, 40);
+            this.btnViewEmp.TabIndex = 3;
+            this.btnViewEmp.Text = "VIEW EMPLOYEES";
+            this.btnViewEmp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnViewEmp.UseVisualStyleBackColor = true;
+            this.btnViewEmp.Click += new System.EventHandler(this.btnViewEmp_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(437, 64);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(100, 40);
+            this.btnSave.TabIndex = 24;
+            this.btnSave.Text = "SAVE";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // txtEmpDataPrompt
+            // 
+            this.txtEmpDataPrompt.BackColor = System.Drawing.SystemColors.Control;
+            this.txtEmpDataPrompt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmpDataPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpDataPrompt.ForeColor = System.Drawing.Color.Red;
+            this.txtEmpDataPrompt.Location = new System.Drawing.Point(109, 19);
+            this.txtEmpDataPrompt.Multiline = true;
+            this.txtEmpDataPrompt.Name = "txtEmpDataPrompt";
+            this.txtEmpDataPrompt.Size = new System.Drawing.Size(254, 27);
+            this.txtEmpDataPrompt.TabIndex = 28;
+            this.txtEmpDataPrompt.Text = "EmpDataPrompt";
+            // 
             // EmployeeProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 450);
+            this.ClientSize = new System.Drawing.Size(566, 450);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -349,10 +351,10 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.DateTimePicker dtbirthdate;
         private System.Windows.Forms.DateTimePicker dtdatehired;
         private System.Windows.Forms.DateTimePicker dtcontractend;
-        private System.Windows.Forms.Label lblEmpDataPrompt;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbJob;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtEmpDataPrompt;
     }
 }

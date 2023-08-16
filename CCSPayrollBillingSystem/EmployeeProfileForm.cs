@@ -35,8 +35,8 @@ namespace CCSPayrollBillingSystem
         {
             string promptText = null;
             SetEmployeeValues();
-            lblEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID, empDeductionID);
-            promptText = lblEmpDataPrompt.Text;
+            txtEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID, empDeductionID);
+            promptText = txtEmpDataPrompt.Text;
             
             if(String.IsNullOrEmpty(promptText) || promptText == "")
             {
@@ -94,28 +94,28 @@ namespace CCSPayrollBillingSystem
             else if (GetAge(Convert.ToDateTime(bdate)) < 18)
             {
                 dtbirthdate.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
-                prompt = "Age should be 18 years old and above. Check the date of birth.";
+                txtEmpDataPrompt.Text = "";
+                txtEmpDataPrompt.Show();
+                prompt = "Age must be atleast 18 years old. Check date of birth.";
             } 
             else if (jobID == 0)
             {
                 cmbJob.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
+                txtEmpDataPrompt.Text = "";
+                txtEmpDataPrompt.Show();
                 prompt = "Job should be selected.";
             }
             else if (deductionID == 0)
             {
                 cmbJob.Focus();
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
+                txtEmpDataPrompt.Text = "";
+                txtEmpDataPrompt.Show();
                 prompt = "Selected job does not have a deduction.";
             }
             else
             {
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
+                txtEmpDataPrompt.Text = "";
+                txtEmpDataPrompt.Show();
                 prompt = "";
             }
             return prompt;
@@ -123,17 +123,17 @@ namespace CCSPayrollBillingSystem
 
         private void EmployeeProfileForm_Load(object sender, EventArgs e)
         {
-            lblEmpDataPrompt.Hide();
+            txtEmpDataPrompt.Hide();
             List<string[]>jobList = new List<string[]>();
 
             QueryProcessor jobsProcessor = new QueryProcessor();
             jobList = jobsProcessor.ExecuteSqlLoadJobsQuery(
             () =>
             {
-                //MessageBox.Show("Load jobs successfully.");
+                Console.WriteLine("Load jobs successfully.");
             }, () =>
             {
-                MessageBox.Show("Problem loading jobs.");
+                Console.WriteLine("Problem loading jobs.");
             });
 
             ExtractJobTitle(jobList);
@@ -155,8 +155,8 @@ namespace CCSPayrollBillingSystem
             bool isEmpty = false;
             if(String.IsNullOrEmpty(empValue))
             {
-                lblEmpDataPrompt.Text = "";
-                lblEmpDataPrompt.Show();
+                txtEmpDataPrompt.Text = "";
+                txtEmpDataPrompt.Show();
                 isEmpty = true;
             }
             return isEmpty;
@@ -169,6 +169,7 @@ namespace CCSPayrollBillingSystem
             txtlastname.Clear();
             txthomeaddress.Clear();
             txtcontactno.Clear();
+            cmbJob.Text = "Select";
             dtbirthdate.Value = DateTime.Now;
             dtdatehired.Value = DateTime.Now;
             dtcontractend.Value = DateTime.Now;
@@ -193,10 +194,10 @@ namespace CCSPayrollBillingSystem
             QueryProcessor deductionProcessor = new QueryProcessor();
             empDeductionID = deductionProcessor.ExecuteSQLGetDeductionIDbyJobID(empJobID, () =>
             {
-                MessageBox.Show("Successfully retrieved deduction ID.");
+                Console.WriteLine("Successfully retrieved deduction ID.");
             }, () =>
             {
-                MessageBox.Show("Deduction ID not found.");
+                Console.WriteLine("Deduction ID not found.");
             });
 
         }
@@ -232,7 +233,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

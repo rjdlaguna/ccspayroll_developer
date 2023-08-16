@@ -11,7 +11,9 @@ namespace CCSPayrollBillingSystem.Scripts
     {
         private string connectionString => SystemUtilities.GetConnectionString();
         private DatabaseConnection connection;
+        private SqlConnection sqlConnection;
         private DatabaseCommand command;
+        private SqlCommand sqlCommand;
         private DatabaseReader dataReader;
         private SqlDataReader sqlDataReader;
 
@@ -572,36 +574,40 @@ namespace CCSPayrollBillingSystem.Scripts
                                                string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract,
                                                int jobID, Action onSuccess, Action onFailure)
         {
-            using (connection = new DatabaseConnection(connectionString))
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
+
+                DatabaseReader databaseReader = new DatabaseReader(sqlDataReader);
+
                 string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," +
                                     "EmpHomeAddress=@homeaddress,EmpContactNo=@contactno,EmpBirthDate=@birthdate,EmploymentDate=@datehired," +
                                     "EndOfContractDate=@endofcontract,JobID=@jobID WHERE EmpID = @id";
-
-                using (command = new DatabaseCommand(sqlSearch, connection))
+                
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand(sqlSearch, sqlConnection))
                 {
-                    command.AddParameter("@id", id);
-                    command.AddParameter("@firstname", firstname);
-                    command.AddParameter("@middlename", middlename);
-                    command.AddParameter("@lastname", lastname);
-                    command.AddParameter("@homeaddress", homeaddress);
-                    command.AddParameter("@contactno", contactno);
-                    command.AddParameter("@birthdate", birthdate);
-                    command.AddParameter("@datehired", datehired);
-                    command.AddParameter("@endofcontract", endofcontract);
-                    command.AddParameter("@jobID", jobID);
+                    command.Parameters.AddWithValue("@firstname",firstname);
+                    command.Parameters.AddWithValue("@middlename", middlename);
+                    command.Parameters.AddWithValue("@lastname", lastname);
+                    command.Parameters.AddWithValue("@homeaddress", homeaddress);
+                    command.Parameters.AddWithValue("@contactno", contactno);
+                    command.Parameters.AddWithValue("@birthdate", birthdate);
+                    command.Parameters.AddWithValue("@datehired", datehired);
+                    command.Parameters.AddWithValue("@endofcontract", endofcontract);
+                    command.Parameters.AddWithValue("@jobID", jobID);
+                    command.Parameters.AddWithValue("@id", id);
 
-                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    if (command.ExecuteNonQuery() > 0)
                     {
-                        if (dataReader.Read())
-                        {
-                            onSuccess?.Invoke();
-                        }
-                        else
-                        {
-                            onFailure?.Invoke();
-                        }
+                        onSuccess?.Invoke();
                     }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                    sqlConnection.Close();
+
                 }
             }
         }
@@ -609,25 +615,24 @@ namespace CCSPayrollBillingSystem.Scripts
         //Update Employee Status
         public void ExecuteSqlEmpStatusUpdateQuery(int id, Action onSuccess, Action onFailure)
         {
-            using (connection = new DatabaseConnection(connectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 string sqlSearch = "UPDATE tblEmployee SET EmpStatus=0 WHERE EmpID = @id";
 
-                using (command = new DatabaseCommand(sqlSearch, connection))
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand(sqlSearch, sqlConnection))
                 {
-                    command.AddParameter("@id", id);
+                    command.Parameters.AddWithValue("@id", id);
 
-                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    if (command.ExecuteNonQuery() > 0)
                     {
-                        if (dataReader.Read())
-                        {
-                            onSuccess?.Invoke();
-                        }
-                        else
-                        {
-                            onFailure?.Invoke();
-                        }
+                        onSuccess?.Invoke();
                     }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                    sqlConnection.Close();
                 }
             }
         }
@@ -682,6 +687,136 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        #endregion
+
+        #region SQL Process for Project
+        //Inserting data to tblProject
+        public void ExecuteSQLProjectDataSaveQuery(string projName, string projDesc, string projAddress, string projInCharge, string projContactNo, string projEmail, Action onSuccess, Action onFailure)
+        {
+            int isActiveValue = 1;
+            string sqlInsert = "INSERT INTO tblProject(ProjectName, ProjectDescription, ProjectAddress, PersonInCharge, ProjectContactNo, ProjectEmail, IsActive) " +
+                                "VALUES ('" + projName + "','" + projDesc + "','" + projAddress + "', " +
+                                 " '" + projInCharge + "','" + projContactNo + "','" + projEmail + "', '" + isActiveValue + "')";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlInsert, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+
+            if (!dataReader.Read())
+            {
+                onSuccess?.Invoke();
+            }
+            else
+            {
+                onFailure?.Invoke();
+            }
+        }
+
+        public void ExecuteSqlProjectDataViewQuery(string projName, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlProjectDataSearch = "";
+                bool hasSearchValues = false;
+                if (projName == null)
+                {
+                    sqlProjectDataSearch = "SELECT ProjectID as 'Project ID', ProjectName as 'Project Name', ProjectDescription as 'Description', ProjectAddress as 'Address'," +
+                                        "PersonInCharge as 'Person In Charge', ProjectContactNo as 'Contact No.', ProjectEmail as 'Email'" +
+                                        " FROM tblProject WHERE IsActive = 1";
+                }
+                else
+                {
+                    sqlProjectDataSearch = "SELECT ProjectID as 'Project ID', ProjectName as 'Project Name', ProjectDescription as 'Description', ProjectAddress as 'Address'," +
+                                        "PersonInCharge as 'Person In Charge', ProjectContactNo as 'Contact No.', ProjectEmail as 'Email'" +
+                                        " FROM tblProject WHERE ProjectName = @projectname AND IsActive = 1";
+                    hasSearchValues = true;
+                }
+
+
+                using (command = new DatabaseCommand(sqlProjectDataSearch, connection))
+                {
+                    if (hasSearchValues)
+                    {
+                        command.AddParameter("@projectname", projName);
+                    }
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+
+
+        }
+        
+        public void ExecuteSqlProjectDataSearchProjectNameExistsQuery(string projName, Action onSuccess, Action onFailure)
+        {
+
+        }
+
+        public void ExecuteSqlProjectDataUpdate(int projID, string projName, string projDesc, string projAddress, string projInCharge, string projContact, string projEmail, Action onSuccess, Action onFailure)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                string sqlProjectUpdate = "UPDATE tblProject SET ProjectName=@projectname, ProjectDescription=@projectdesc, " +
+                                          "ProjectAddress=@projectaddress, PersonInCharge=@projectincharge, ProjectContactNo=@projectcontact, " +
+                                          "ProjectEmail=@projectemail WHERE ProjectID=@projId";
+
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand(sqlProjectUpdate, sqlConnection))
+                {
+                    command.Parameters.AddWithValue("@projId", projID);
+                    command.Parameters.AddWithValue("@projectname", projName);
+                    command.Parameters.AddWithValue("@projectdesc", projDesc);
+                    command.Parameters.AddWithValue("@projectaddress", projAddress);
+                    command.Parameters.AddWithValue("@projectincharge", projInCharge);
+                    command.Parameters.AddWithValue("@projectcontact", projContact);
+                    command.Parameters.AddWithValue("@projectemail", projEmail);
+
+                    if (command.ExecuteNonQuery() > 0)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                    sqlConnection.Close();
+
+                }
+            }
+        }
+        // Update Project Status
+        public void ExecuteSqlProjectStatusUpdateQuery(int id, Action onSuccess, Action onFailure)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                string sqlProjectSearch = "UPDATE tblProject SET IsActive=0 WHERE ProjectID = @id";
+
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand(sqlProjectSearch, sqlConnection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+                    if (command.ExecuteNonQuery() > 0)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                    sqlConnection.Close();
+                }
+            }
+        }
         #endregion
         //END......................
     }
