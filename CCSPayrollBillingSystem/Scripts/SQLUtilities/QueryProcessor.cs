@@ -660,37 +660,15 @@ namespace CCSPayrollBillingSystem.Scripts
 
         #region SQL Process for Billing Process
 
-        public void ExecuteSqlBillingViewQuery(int projectID, Action onSuccess, Action onFailure)
+        public List<Dictionary<string, object>> ExecuteSqlBillingViewQuery(int projectID)
         {
+            List<Dictionary<string, object>> resultRows = new List<Dictionary<string, object>>();
+
             string sqlEPRDataSearch = string.Empty;
             using (connection = new DatabaseConnection(connectionString))
             {
-                //sqlEPRDataSearch = "SELECT EmpID, ProjectRate FROM tblEPR WHERE ProjectID = @ProjectID";
-                sqlEPRDataSearch = "SELECT EMP.EmpID, EMP.EmpFirstName, EMP.EmpLastName, PROJ.ProjectName, EPR.ProjectRate, " +
-                                    "PAY.WorkDayID, " +
-                                    "WORK.RegularDays, WORK.RegularDaysOT, WORK.SplHolidays, WORK.SplHolidayOT, WORK.RegularHoliday, WORK.RegularHolidayOT, WORK.COLA, WORK.PDA, WORK.Others " +
-                                    //"COALESCE(WORK.RegularDays, WORK.RegularDaysOT, WORK.SplHolidays, WORK.SplHolidayOT, WORK.RegularHoliday, WORK.RegularHolidayOT, WORK.COLA, WORK.PDA, WORK.Others) AS HasValue " +
-                                    //"CASE WHEN WORK.RegularDays IS NOT NULL THEN WORK.RegularDays END AS RegularDays, " +
-                                    //"CASE WHEN WORK.RegularDaysOT IS NOT NULL THEN WORK.RegularDaysOT END AS RegularDaysOT, " +
-                                    //"CASE WHEN WORK.SplHolidays IS NOT NULL THEN WORK.SplHolidays END AS SplHolidays, " +
-                                    //"CASE WHEN WORK.SplHolidayOT IS NOT NULL THEN WORK.SplHolidayOT END AS SplHolidayOT, " +
-                                    //"CASE WHEN WORK.RegularHoliday IS NOT NULL THEN WORK.RegularHoliday END AS RegularHoliday, "+
-                                    //"CASE WHEN WORK.RegularHolidayOT IS NOT NULL THEN WORK.RegularHolidayOT END AS RegularHolidayOT, " +
-                                    //"CASE WHEN WORK.COLA IS NOT NULL THEN WORK.COLA END AS COLA, " +
-                                    //"CASE WHEN WORK.PDA IS NOT NULL THEN WORK.PDA END AS PDA, " +
-                                    //"CASE WHEN WORK.Others IS NOT NULL THEN WORK.Others END AS Others " +
-                                    //"CASE " +
-                                    //    "WHEN WORK.RegularDays IS NOT NULL THEN 'RegularDays' " + 
-                                    //    "WHEN WORK.RegularDaysOT IS NOT NULL THEN 'RegularDaysOT' " +
-                                    //    "WHEN WORK.SplHolidays IS NOT NULL THEN 'SplHolidays' " +
-                                    //    "WHEN WORK.SplHolidayOT IS NOT NULL THEN 'SplHolidayOT' " +
-                                    //    "WHEN WORK.RegularHoliday IS NOT NULL THEN 'RegularHoliday' " +
-                                    //    "WHEN WORK.RegularHolidayOT IS NOT NULL THEN 'RegularHolidayOT' " +
-                                    //    "WHEN WORK.COLA IS NOT NULL THEN 'COLA' " +
-                                    //    "WHEN WORK.PDA IS NOT NULL THEN 'PDA' " +
-                                    //    "WHEN WORK.Others IS NOT NULL THEN 'Others' " +
-                                    //    "ELSE NULL " +
-                                    //"END AS ColumnWithValues " +
+                sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
+                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
                                     "FROM tblEPR AS EPR " +
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
@@ -699,8 +677,44 @@ namespace CCSPayrollBillingSystem.Scripts
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
-                    //command.AddParameter("@ProjectID", projectID);
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            Dictionary<string, object> row = new Dictionary<string, object>();
+                            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                            {
+                                string columnName = sqlDataReader.GetName(i);
+                                object columnValue = sqlDataReader[i];
+                                row[columnName] = columnValue;
+                            }
+                            resultRows.Add(row);
+                        }
 
+                    }
+                    
+                }
+               
+            }
+            return resultRows;
+        }
+
+        public void ExecuteSqlBillingViewQuery4DataGrid(int projectID, Action onSuccess, Action onFailure)
+        {
+            string sqlEPRDataSearch = string.Empty;
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
+                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
+                                    "FROM tblEPR AS EPR " +
+                                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
+                                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
+                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID ";
+
+                using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
+                {
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)
                     {
@@ -712,10 +726,13 @@ namespace CCSPayrollBillingSystem.Scripts
                     }
 
                 }
+
             }
-            #endregion
-            //END......................
         }
+
+        #endregion
+        //END......................
+
 
         //Formatting retrieved employee into a table
         public DataTable GetSqlReaderData()
