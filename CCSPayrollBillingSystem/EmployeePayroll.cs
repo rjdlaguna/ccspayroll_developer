@@ -121,21 +121,21 @@ namespace CCSPayrollBillingSystem
         private void txtCOLA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCOLA.Text)) txtCOLA.Text = "0";
-            _COLARate = WorkDaysComputation.COLA(baseRate, float.Parse(txtCOLA.Text));
+            _COLARate = WorkDaysComputation.COLA(decimal.Parse(txtCOLA.Text));
             txtCOLARate.Text = _COLARate.ToString("C", nfi);
         }
 
         private void txtPDA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPDA.Text)) txtPDA.Text = "0";
-            _PDARate = WorkDaysComputation.PDA(baseRate, float.Parse(txtPDA.Text));
+            _PDARate = WorkDaysComputation.PDA(decimal.Parse(txtPDA.Text));
             txtPDARate.Text = _PDARate.ToString("C", nfi);
         }
 
         private void txtOthers_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtOthers.Text)) txtOthers.Text = "0";
-            _OthersRate = WorkDaysComputation.Others(baseRate, float.Parse(txtOthers.Text));
+            _OthersRate = WorkDaysComputation.Others(decimal.Parse(txtOthers.Text));
             txtOthersRate.Text = _OthersRate.ToString("C", nfi);
         }
 

@@ -16,7 +16,7 @@ namespace CCSPayrollBillingSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EmployeePrintForm());
+            Application.Run(new frmBilling());
         }
     }
 }

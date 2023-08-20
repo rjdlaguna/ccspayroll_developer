@@ -80,7 +80,6 @@ namespace CCSPayrollBillingSystem.Scripts
         //Updating tblUser for New Password
         private void ExecuteSqlUpdatePasswordQuery(string username, string newPassword)
         {
-
             string sqlUpdate = "UPDATE tblUser SET Password='" + newPassword + "' WHERE Username='" + username + "'";
 
             connection = new DatabaseConnection(connectionString);
@@ -508,31 +507,6 @@ namespace CCSPayrollBillingSystem.Scripts
 
 
         }
-        //Formatting retrieved employee into a table
-        public DataTable GetEmpData()
-        {
-            DataTable dataTable = new DataTable();
-
-            for (int i = 0; i < sqlDataReader.FieldCount; i++)
-            {
-                string columnName = sqlDataReader.GetName(i);
-                Type columnType = sqlDataReader.GetFieldType(i);
-                dataTable.Columns.Add(columnName, columnType);
-            }
-
-            while (sqlDataReader.Read())
-            {
-                DataRow row = dataTable.NewRow();
-                for (int i = 0; i < sqlDataReader.FieldCount; i++)
-                {
-                    row[i] = sqlDataReader[i];
-                }
-                dataTable.Rows.Add(row);
-            }
-            sqlDataReader.Close();
-
-            return dataTable;
-        }
 
         //Get JobID via First Name, Middle Name and Last Name
         public int ExecuteSQLGetJobIDThruEmployeeData(string fname, string mname, string lname, Action onSuccess, Action onFailure)
@@ -683,6 +657,107 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
         #endregion
+
+        #region SQL Process for Billing Process
+
+        public List<Dictionary<string, object>> ExecuteSqlBillingViewQuery(int projectID)
+        {
+            List<Dictionary<string, object>> resultRows = new List<Dictionary<string, object>>();
+
+            string sqlEPRDataSearch = string.Empty;
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
+                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
+                                    "FROM tblEPR AS EPR " +
+                                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
+                                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
+                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID ";
+
+                using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
+                {
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            Dictionary<string, object> row = new Dictionary<string, object>();
+                            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                            {
+                                string columnName = sqlDataReader.GetName(i);
+                                object columnValue = sqlDataReader[i];
+                                row[columnName] = columnValue;
+                            }
+                            resultRows.Add(row);
+                        }
+
+                    }
+                    
+                }
+               
+            }
+            return resultRows;
+        }
+
+        public void ExecuteSqlBillingViewQuery4DataGrid(int projectID, Action onSuccess, Action onFailure)
+        {
+            string sqlEPRDataSearch = string.Empty;
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
+                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
+                                    "FROM tblEPR AS EPR " +
+                                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
+                                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
+                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID ";
+
+                using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
+                {
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+
+            }
+        }
+
+        #endregion
         //END......................
+
+
+        //Formatting retrieved employee into a table
+        public DataTable GetSqlReaderData()
+        {
+            DataTable dataTable = new DataTable();
+
+            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+            {
+                string columnName = sqlDataReader.GetName(i);
+                Type columnType = sqlDataReader.GetFieldType(i);
+                dataTable.Columns.Add(columnName, columnType);
+            }
+
+            while (sqlDataReader.Read())
+            {
+                DataRow row = dataTable.NewRow();
+                for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                {
+                    row[i] = sqlDataReader[i];
+                }
+                dataTable.Rows.Add(row);
+            }
+            sqlDataReader.Close();
+
+            return dataTable;
+        }
     }
 }

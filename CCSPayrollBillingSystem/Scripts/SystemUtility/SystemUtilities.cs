@@ -64,17 +64,17 @@ namespace CCSPayrollBillingSystem.Scripts
             return (decimal)noOfDays * ((baseRate) * Constants.REST_REG_HOLIDAYS);
         }
 
-        public static decimal COLA(decimal baseRate, float valueCOLA)
+        public static decimal COLA(decimal valueCOLA)
         {
-            return baseRate * (decimal)valueCOLA;
+            return valueCOLA;
         }
-        public static decimal PDA(decimal baseRate, float valuePDA)
+        public static decimal PDA(decimal valuePDA)
         {
-            return baseRate * (decimal)valuePDA;
+            return valuePDA;
         }
-        public static decimal Others(decimal baseRate, float valueOthers)
+        public static decimal Others(decimal valueOthers)
         {
-            return baseRate * (decimal)valueOthers;
+            return valueOthers;
         }
 
         public static decimal NightShiftDifferential(decimal baseRate, float noOfHoursInNSD)
