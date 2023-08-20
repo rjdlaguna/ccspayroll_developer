@@ -45,7 +45,7 @@ namespace CCSPayrollBillingSystem
             SetEmployeeSearchValues();
             employeeProcessor.ExecuteSqlEmpDataViewQuery(empFirstName,empLastName, () =>
             {
-                dgEmployeesList.DataSource = employeeProcessor.GetEmpData();
+                dgEmployeesList.DataSource = employeeProcessor.GetSqlReaderData();
             }, () =>
             {
                 MessageBox.Show("No Accounts Available!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -55,7 +55,18 @@ namespace CCSPayrollBillingSystem
         private void EmployeeListForm_Load(object sender, EventArgs e)
         {
             List<string[]> jobList = new List<string[]>();
-            ViewEmployees(empFirstName, empLastName);
+            QueryProcessor employeeProcessor = new QueryProcessor();
+            employeeProcessor.ExecuteSqlEmpDataViewQuery(empFirstName, empLastName, () =>
+             {
+                 dgEmployeesList.DataSource = employeeProcessor.GetSqlReaderData();
+                 ConvertToDateValue();
+                 dgEmployeesList.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
+                 dgEmployeesList.Columns[0].Visible = false;
+             }, () =>
+             {
+                 MessageBox.Show("Problem listing all employees.");
+             });
+
             jobList = employeeProcessor.ExecuteSqlLoadJobsQuery(
             () =>   
             {
@@ -272,7 +283,7 @@ namespace CCSPayrollBillingSystem
         {
             employeeProcessor.ExecuteSqlEmpDataViewQuery(fname, lname, () =>
             {
-                dgEmployeesList.DataSource = employeeProcessor.GetEmpData();
+                dgEmployeesList.DataSource = employeeProcessor.GetSqlReaderData();
                 ConvertToDateValue();
                 dgEmployeesList.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
                 dgEmployeesList.Columns[0].Visible = false;

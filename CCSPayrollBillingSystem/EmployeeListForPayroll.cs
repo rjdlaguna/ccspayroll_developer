@@ -53,7 +53,7 @@ namespace CCSPayrollBillingSystem
             QueryProcessor payrollProcessor = new QueryProcessor();
             payrollProcessor.ExecuteSqlPayrollEmpLoadInfoQuery(fname, lname, () =>
             {
-                dgPayrollEmpList.DataSource = payrollProcessor.GetEmpData();
+                dgPayrollEmpList.DataSource = payrollProcessor.GetSqlReaderData();
                 dgPayrollEmpList.Columns[0].Visible = false;
                 Console.WriteLine("Loading Employee Payroll Information successful.");
             }, () =>
