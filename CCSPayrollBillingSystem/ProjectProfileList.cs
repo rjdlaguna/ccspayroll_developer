@@ -57,6 +57,7 @@ namespace CCSPayrollBillingSystem
         private void dgProjectProfileList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             LoadSelectedProjectToTextFields();
+            EnableDisableProjectTextFields(true);
             btnAddEmpToProject.Enabled = true;
         }
 
@@ -124,7 +125,8 @@ namespace CCSPayrollBillingSystem
 
         private void btnAddEmpToProject_Click(object sender, EventArgs e)
         {
-
+            ProjectEmployeeList frmProjectEmployeeList = new ProjectEmployeeList();
+            frmProjectEmployeeList.Show();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -152,7 +154,7 @@ namespace CCSPayrollBillingSystem
             projectProcessor.ExecuteSqlProjectDataViewQuery(project_name, () =>
             {
                 Console.WriteLine("Loading Project Profile Information successful.");
-                dgProjectProfileList.DataSource = projectProcessor.GetEmpData();
+                dgProjectProfileList.DataSource = projectProcessor.GetSqlReaderData();
                 dgProjectProfileList.Columns[0].Visible = false;
             }, () =>
             {
@@ -177,9 +179,12 @@ namespace CCSPayrollBillingSystem
 
         private void dgProjectProfileList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            LoadSelectedProjectToTextFields();
+            EnableDisableProjectTextFields(false);
             projectId = Convert.ToInt32(dgProjectProfileList.SelectedRows[0].Cells[0].Value.ToString());
             btnEdit.Enabled = true;
             btnDelete.Enabled = true;
+            btnAddEmpToProject.Enabled = true;
         }
     }
 }

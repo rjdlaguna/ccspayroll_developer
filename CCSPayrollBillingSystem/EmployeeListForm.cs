@@ -292,5 +292,10 @@ namespace CCSPayrollBillingSystem
                 MessageBox.Show("Problem listing all employees.");
             });
         }
+
+        private void cmbEditJob_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

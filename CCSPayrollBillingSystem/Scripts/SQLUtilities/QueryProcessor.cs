@@ -729,6 +729,127 @@ namespace CCSPayrollBillingSystem.Scripts
 
 
         }
+
+        public List<string[]> ExecuteSqlLoadProjectsQuery(Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                List<string[]> projectList = new List<string[]>();
+                string sqlLoadProjects = "SELECT ProjectID, ProjectName FROM tblProject";
+
+                using (command = new DatabaseCommand(sqlLoadProjects, connection))
+                {
+                    sqlDataReader = command.ExecuteReader();
+
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            string[] row = new string[sqlDataReader.FieldCount];
+
+                            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                            {
+                                row[i] = sqlDataReader[i].ToString();
+                            }
+
+                            projectList.Add(row);
+                        }
+                        onSuccess?.Invoke();
+                        return projectList;
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                        return null;
+                    }
+                }
+            }
+
+        }
+
+        public int ExecuteSQLCheckEmployeeExist(string fname, string lname, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlEmpDataSearch = "";
+                if (!String.IsNullOrEmpty(fname) || !String.IsNullOrEmpty(lname))
+                {
+                    sqlEmpDataSearch = "SELECT EmpID FROM tblEmployee " +
+                                        "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
+                }
+
+                using (command = new DatabaseCommand(sqlEmpDataSearch, connection))
+                {
+                    command.AddParameter("@firstname", fname);
+                    command.AddParameter("@lastname", lname);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+
+                            onSuccess?.Invoke();
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ExecuteSQLAddEmployeeToProject(int empId, int projId, decimal projRate, Action onSuccess, Action onFailure)
+        {
+            string sqlInsert = "INSERT INTO tblEPR(EmpID,ProjectID,ProjectRate) "
+                                + " VALUES('" + empId + "','" + projId + "','" + projRate + "')";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlInsert, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+
+            if (!dataReader.Read())
+            {
+                onSuccess?.Invoke();
+            }
+            else
+            {
+                onFailure?.Invoke();
+            }
+        }
+
+        public void ExecuteSQLLoadProjectEmployeesQuery(int projId, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlEmpProjectDataSearch = "";
+
+                sqlEmpProjectDataSearch = "SELECT E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate', " +
+                                    "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
+                                    "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @projId";
+
+                using (command = new DatabaseCommand(sqlEmpProjectDataSearch, connection))
+                {
+
+                    command.AddParameter("@projId", projId);
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+        }
         #endregion
 
         #region SQL Process for Billing Process

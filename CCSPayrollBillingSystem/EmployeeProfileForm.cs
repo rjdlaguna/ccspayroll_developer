@@ -235,5 +235,10 @@ namespace CCSPayrollBillingSystem
         {
             this.Close();
         }
+
+        private void dtbirthdate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

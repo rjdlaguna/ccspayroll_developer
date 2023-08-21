@@ -50,10 +50,10 @@ namespace CCSPayrollBillingSystem
             this.cmbJob = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtEmpDataPrompt = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnViewEmp = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtEmpDataPrompt = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -181,6 +181,7 @@ namespace CCSPayrollBillingSystem
             this.dtbirthdate.Name = "dtbirthdate";
             this.dtbirthdate.Size = new System.Drawing.Size(136, 20);
             this.dtbirthdate.TabIndex = 21;
+            this.dtbirthdate.ValueChanged += new System.EventHandler(this.dtbirthdate_ValueChanged);
             // 
             // dtdatehired
             // 
@@ -254,6 +255,19 @@ namespace CCSPayrollBillingSystem
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             // 
+            // txtEmpDataPrompt
+            // 
+            this.txtEmpDataPrompt.BackColor = System.Drawing.SystemColors.Control;
+            this.txtEmpDataPrompt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmpDataPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpDataPrompt.ForeColor = System.Drawing.Color.Red;
+            this.txtEmpDataPrompt.Location = new System.Drawing.Point(109, 19);
+            this.txtEmpDataPrompt.Multiline = true;
+            this.txtEmpDataPrompt.Name = "txtEmpDataPrompt";
+            this.txtEmpDataPrompt.Size = new System.Drawing.Size(254, 27);
+            this.txtEmpDataPrompt.TabIndex = 28;
+            this.txtEmpDataPrompt.Text = "EmpDataPrompt";
+            // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -295,19 +309,6 @@ namespace CCSPayrollBillingSystem
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // txtEmpDataPrompt
-            // 
-            this.txtEmpDataPrompt.BackColor = System.Drawing.SystemColors.Control;
-            this.txtEmpDataPrompt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtEmpDataPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpDataPrompt.ForeColor = System.Drawing.Color.Red;
-            this.txtEmpDataPrompt.Location = new System.Drawing.Point(109, 19);
-            this.txtEmpDataPrompt.Multiline = true;
-            this.txtEmpDataPrompt.Name = "txtEmpDataPrompt";
-            this.txtEmpDataPrompt.Size = new System.Drawing.Size(254, 27);
-            this.txtEmpDataPrompt.TabIndex = 28;
-            this.txtEmpDataPrompt.Text = "EmpDataPrompt";
             // 
             // EmployeeProfileForm
             // 
