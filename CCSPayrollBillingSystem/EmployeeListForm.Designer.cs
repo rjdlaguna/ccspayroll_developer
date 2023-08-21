@@ -355,6 +355,7 @@ namespace CCSPayrollBillingSystem
             this.cmbEditJob.Size = new System.Drawing.Size(121, 21);
             this.cmbEditJob.TabIndex = 52;
             this.cmbEditJob.Text = "Select";
+            this.cmbEditJob.SelectedIndexChanged += new System.EventHandler(this.cmbEditJob_SelectedIndexChanged);
             // 
             // label11
             // 
