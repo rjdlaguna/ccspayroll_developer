@@ -36,10 +36,10 @@ namespace CCSPayrollBillingSystem
             this.cmbProjectList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnEmpSearch = new System.Windows.Forms.Button();
             this.dgPayrollEmpList = new System.Windows.Forms.DataGridView();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnEmpSearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPayrollEmpList)).BeginInit();
             this.SuspendLayout();
@@ -117,6 +117,17 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SEARCH";
             // 
+            // btnEmpSearch
+            // 
+            this.btnEmpSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmpSearch.Location = new System.Drawing.Point(303, 47);
+            this.btnEmpSearch.Name = "btnEmpSearch";
+            this.btnEmpSearch.Size = new System.Drawing.Size(69, 37);
+            this.btnEmpSearch.TabIndex = 6;
+            this.btnEmpSearch.Text = "SEARCH";
+            this.btnEmpSearch.UseVisualStyleBackColor = true;
+            this.btnEmpSearch.Click += new System.EventHandler(this.btnEmpSearch_Click);
+            // 
             // dgPayrollEmpList
             // 
             this.dgPayrollEmpList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -125,6 +136,7 @@ namespace CCSPayrollBillingSystem
             this.dgPayrollEmpList.ReadOnly = true;
             this.dgPayrollEmpList.Size = new System.Drawing.Size(586, 175);
             this.dgPayrollEmpList.TabIndex = 7;
+            this.dgPayrollEmpList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPayrollEmpList_CellContentClick);
             // 
             // btnLoad
             // 
@@ -144,17 +156,6 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnEmpSearch
-            // 
-            this.btnEmpSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEmpSearch.Location = new System.Drawing.Point(303, 47);
-            this.btnEmpSearch.Name = "btnEmpSearch";
-            this.btnEmpSearch.Size = new System.Drawing.Size(69, 37);
-            this.btnEmpSearch.TabIndex = 6;
-            this.btnEmpSearch.Text = "SEARCH";
-            this.btnEmpSearch.UseVisualStyleBackColor = true;
-            this.btnEmpSearch.Click += new System.EventHandler(this.btnEmpSearch_Click);
             // 
             // EmployeeListForPayroll
             // 

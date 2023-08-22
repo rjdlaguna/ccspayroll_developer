@@ -72,5 +72,10 @@ namespace CCSPayrollBillingSystem
             this.Close();
             frmEmpPayroll.Show();
         }
+
+        private void dgPayrollEmpList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
