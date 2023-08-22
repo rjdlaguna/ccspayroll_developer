@@ -138,13 +138,13 @@ namespace CCSPayrollBillingSystem
                     if (key.Contains("Rate"))
                     {
                         rate = Math.Round(Convert.ToDecimal(value), 2);
-                        rtbBillingSlip.Text += rate + "a\n";
+                        rtbBillingSlip.Text += rate + "\n";
                     }
                     else
                     {
                         render = Convert.ToDecimal(value);
                         decimal amount = rate * render;
-                        rtbBillingSlip.Text += "    b" + key + "\t\t" + value + "\t";// + amount + "\t";
+                        rtbBillingSlip.Text += "    " + key + "\t\t" + value + "\t";// + amount + "\t";
                     }
                 }
                 rtbBillingSlip.Text += "\n";
