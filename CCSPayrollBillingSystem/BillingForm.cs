@@ -20,6 +20,7 @@ namespace CCSPayrollBillingSystem
         //private float rendered;
         //private decimal projectRate;
         private decimal employeeTotalAmount;
+        private decimal grandTotalAmount = 0;
         private decimal billingGrossTotalAmount;
         private decimal vat;
         private decimal billingNetTotalAmount;
@@ -44,72 +45,120 @@ namespace CCSPayrollBillingSystem
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projectTestingID, () =>
             {
                 dgvEmployeeList4Billing.DataSource = billingProcessor.GetSqlReaderData();
+                dgvEmployeeList4Billing.Columns[0].Visible = false;
             }, () =>
             {
                 MessageBox.Show("Problem listing all employees in the Project.");
             });
         }
 
-        private void BillingAttributeList()
+        private void BillingAttributeListProcessing()
         {
+            decimal employeeTotalOTAmount = 0;
+            decimal employeeTotalAmount = 0;
+            Dictionary<string, object> newEmployeeBillingData = null;
+
             foreach (DataGridViewRow dgvRow in dgvEmployeeList4Billing.Rows)
             {
-                //Dictionary<string, object> employeeAttributes = new Dictionary<string, object>();
                 var fname = dgvRow.Cells[1].Value;
                 var lname = dgvRow.Cells[2].Value;
-                string projectRate = dgvRow.Cells[4].Value.ToString();
-                string regDays = (dgvRow.Cells[5].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[5].Value.ToString();
-                string splHolidays = (dgvRow.Cells[7].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[7].Value.ToString();
-                string regHolidays = (dgvRow.Cells[8].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[8].Value.ToString();
+                decimal projectRate = Convert.ToDecimal(dgvRow.Cells[4].Value);
+                var regDays = dgvRow.Cells[5].Value != DBNull.Value ? dgvRow.Cells[5].Value : 0;
+                var splHolidays = dgvRow.Cells[7].Value != DBNull.Value ? dgvRow.Cells[7].Value : 0;
+                var regHolidays = dgvRow.Cells[8].Value != DBNull.Value ? dgvRow.Cells[8].Value : 0;
 
-                string cola = (dgvRow.Cells[10].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[10].Value.ToString();
-                string pda = (dgvRow.Cells[11].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[11].Value.ToString();
-                string others = (dgvRow.Cells[12].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[12].Value.ToString();
+                var cola = dgvRow.Cells[10].Value != DBNull.Value ? dgvRow.Cells[10].Value : 0;
+                var pda = dgvRow.Cells[11].Value != DBNull.Value ? dgvRow.Cells[11].Value : 0;
+                var others = dgvRow.Cells[12].Value != DBNull.Value ? dgvRow.Cells[5].Value : 0;
 
-                string regDaysOT = (dgvRow.Cells[6].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[6].Value.ToString();
+                var regDaysOT = dgvRow.Cells[6].Value != DBNull.Value ? dgvRow.Cells[6].Value : 0;
                 //string splHolidaysSunOT = (dgvRow.Cells[7].Value.ToString() == "NULL") ? "0" :dgvRow.Cells[?].ToString();
-                string regHolidaysOT = (dgvRow.Cells[9].Value.ToString() == "NULL") ? "0" : dgvRow.Cells[9].Value.ToString();
+                var regHolidaysOT = dgvRow.Cells[9].Value != DBNull.Value ? dgvRow.Cells[9].Value : 0;
 
-                decimal regDaysAmount = WorkDaysComputation.RegularDays(Convert.ToDecimal(projectRate), float.Parse(regDays));
-                decimal splHolAmount = WorkDaysComputation.SunOrSpecialHolidays(Convert.ToDecimal(projectRate), float.Parse(splHolidays));
-                decimal regHolAmount = WorkDaysComputation.RegularHolidays(Convert.ToDecimal(projectRate), float.Parse(regHolidays));
+                decimal regDaysAmount = WorkDaysComputation.RegularDays(projectRate, Convert.ToDouble(regDays));
+                decimal splHolAmount = WorkDaysComputation.SunOrSpecialHolidays(projectRate, Convert.ToDouble(splHolidays));
+                decimal regHolAmount = WorkDaysComputation.RegularHolidays(projectRate, Convert.ToDouble(regHolidays));
 
                 decimal colaAmount = WorkDaysComputation.COLA(Convert.ToDecimal(cola));
                 decimal pdaAmount = WorkDaysComputation.PDA(Convert.ToDecimal(pda));
                 decimal othersAmount = WorkDaysComputation.Others(Convert.ToDecimal(others));
 
-                decimal employeeTotalAmount = regDaysAmount + splHolAmount + regHolAmount + colaAmount + pdaAmount + othersAmount;
+                decimal regDaysOTAmount = WorkDaysComputation.RegularDaysOT(projectRate, Convert.ToDouble(regDaysOT));
+                //decimal regDaysOTRateAmount = WorkDaysComputation.RegularDaysOTRate(projectRate, );
+                
+                decimal splHolOTAmount = WorkDaysComputation.SpecialHolidaysOT(projectRate, Convert.ToDouble(regDaysOT));
 
-                rtbBillingSlip.Text += lname+", "+fname+"\n";
-                rtbBillingSlip.Text += ForDisplay(projectRate);
-                rtbBillingSlip.Text += ForDisplay(regDays);
-                rtbBillingSlip.Text += ForDisplay(splHolidays);
-                rtbBillingSlip.Text += ForDisplay(regHolidays);
+                employeeTotalOTAmount = regDaysOTAmount + splHolOTAmount;
+                employeeTotalAmount = regDaysAmount + splHolAmount + regHolAmount + colaAmount + pdaAmount + othersAmount + (employeeTotalOTAmount);
+               
+                grandTotalAmount += employeeTotalAmount;
 
-                //rtbBillingSlip.Text += ForDisplay(cola);
-                //rtbBillingSlip.Text += ForDisplay(pda);
-                //rtbBillingSlip.Text += ForDisplay(others);
+                string fullName = lname + ", " + fname;
 
-                //rtbBillingSlip.Text += ForDisplay(regDaysOT);
-                //rtbBillingSlip.Text += splHolidaysSunOT + "\n";
-                //rtbBillingSlip.Text += ForDisplay(regHolidaysOT);
-                rtbBillingSlip.Text += "Amount: \t" + employeeTotalAmount.ToString("C", nfi);
-                rtbBillingSlip.Text += "-------------\n";
+               newEmployeeBillingData = new Dictionary<string, object>
+                {
+                    { dgvEmployeeList4Billing.Columns[0].HeaderText, dgvRow.Cells[0].Value },//0
+                    { "FullName", fullName },//1
+                    { dgvEmployeeList4Billing.Columns[3].HeaderText, dgvRow.Cells[3].Value },//2
+                    { dgvEmployeeList4Billing.Columns[4].HeaderText, projectRate }//3
+                };
+
+
+                for (int i = 5; i < dgvRow.Cells.Count; i++)
+                {
+                    var columnName = dgvEmployeeList4Billing.Columns[i].HeaderText;
+                    var columnValue = dgvRow.Cells[i].Value;
+
+                    if (dgvRow.Cells[i].Value == DBNull.Value)
+                    {
+                        continue;
+                    }
+                    newEmployeeBillingData.Add(columnName, columnValue);
+                    newEmployeeBillingData.Add(columnName+" Rate", WorkDaysComputation.BillingRateState(columnName, projectRate, Convert.ToDouble(columnValue)));
+                }
+            employeeBillingDetails.Add(newEmployeeBillingData);
             }
+            
         }
 
-        private string ForDisplay(object attribute)
+        private void BillingAttributeList2Display()
         {
-            if (attribute != null)
+            rtbBillingSlip.Text += "Employee Name\t\t Hrs/Days\t Rate \t\t Amount" + "\n"; //Title
+
+            foreach (Dictionary<string, object> employeeBillingData in employeeBillingDetails)
             {
-                return attribute + "\n";
+                decimal rate = 0;
+                decimal render = 0;
+                rtbBillingSlip.Text += employeeBillingData["FullName"] + "\t";
+                rtbBillingSlip.Text += "   \t" + employeeBillingData["Regular Days"] + "\t\t" + employeeBillingData["ProjectRate"]+"\t\t";
+                for (int i = 5; i < employeeBillingData.Count; i++)
+                {
+                    string key = employeeBillingData.Keys.ElementAt(i);
+                    object value = employeeBillingData[key];
+                    if (key.Contains("Rate"))
+                    {
+                        rate = Math.Round(Convert.ToDecimal(value), 2);
+                        rtbBillingSlip.Text += rate + "\n";
+                    }
+                    else
+                    {
+                        render = Convert.ToDecimal(value);
+                        decimal amount = rate * render;
+                        rtbBillingSlip.Text += "    " + key + "\t\t" + value + "\t";// + amount + "\t";
+                    }
+                }
+                rtbBillingSlip.Text += "\n";
             }
-            return "object is null";
+
+            rtbBillingSlip.Text += "\n-------------\n";
+            rtbBillingSlip.Text += "Grand Total: " + "\t" + grandTotalAmount.ToString("C", nfi);
+            rtbBillingSlip.Text += "\n-------------\n";
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            BillingAttributeList();
+            BillingAttributeListProcessing();
+            BillingAttributeList2Display();
         }
     }
 }

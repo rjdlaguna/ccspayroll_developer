@@ -29,6 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
@@ -62,10 +63,13 @@ namespace CCSPayrollBillingSystem
             // 
             // dgvEmployeeList4Billing
             // 
+            this.dgvEmployeeList4Billing.AllowUserToAddRows = false;
             this.dgvEmployeeList4Billing.AllowUserToOrderColumns = true;
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 201);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
+            dataGridViewCellStyle1.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(594, 161);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
@@ -175,9 +179,9 @@ namespace CCSPayrollBillingSystem
             // 
             // rtbBillingSlip
             // 
-            this.rtbBillingSlip.Location = new System.Drawing.Point(631, 20);
+            this.rtbBillingSlip.Location = new System.Drawing.Point(625, 20);
             this.rtbBillingSlip.Name = "rtbBillingSlip";
-            this.rtbBillingSlip.Size = new System.Drawing.Size(377, 426);
+            this.rtbBillingSlip.Size = new System.Drawing.Size(460, 426);
             this.rtbBillingSlip.TabIndex = 69;
             this.rtbBillingSlip.Text = "";
             // 
@@ -199,9 +203,9 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 475);
-            this.Controls.Add(this.btnGenerate);
+            this.ClientSize = new System.Drawing.Size(1114, 475);
             this.Controls.Add(this.rtbBillingSlip);
+            this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.dgvEmployeeList4Billing);
             this.Controls.Add(this.txtVAT);
             this.Controls.Add(this.groupBox1);
