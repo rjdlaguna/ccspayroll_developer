@@ -84,12 +84,13 @@ namespace CCSPayrollBillingSystem
                 decimal othersAmount = WorkDaysComputation.Others(Convert.ToDecimal(others));
 
                 decimal regDaysOTAmount = WorkDaysComputation.RegularDaysOT(projectRate, Convert.ToDouble(regDaysOT));
-                decimal regDaysOTRateAmount = WorkOTRateComputation.RegularDaysOTRate(projectRate);
+                //decimal regDaysOTRateAmount = WorkDaysComputation.RegularDaysOTRate(projectRate, );
                 
                 decimal splHolOTAmount = WorkDaysComputation.SpecialHolidaysOT(projectRate, Convert.ToDouble(regDaysOT));
 
-                employeeTotalAmount = regDaysAmount + splHolAmount + regHolAmount + colaAmount + pdaAmount + othersAmount + (employeeTotalOTAmount);
                 employeeTotalOTAmount = regDaysOTAmount + splHolOTAmount;
+                employeeTotalAmount = regDaysAmount + splHolAmount + regHolAmount + colaAmount + pdaAmount + othersAmount + (employeeTotalOTAmount);
+               
                 grandTotalAmount += employeeTotalAmount;
 
                 string fullName = lname + ", " + fname;
@@ -113,10 +114,7 @@ namespace CCSPayrollBillingSystem
                         continue;
                     }
                     newEmployeeBillingData.Add(columnName, columnValue);
-                    newEmployeeBillingData.Add(columnName+"Rate", WorkOTRateComputation.BillingRateState(columnName, projectRate));
-                    Console.Write(columnName +"-"+ columnValue +"-");
-                    Console.WriteLine(columnName + "Rate", WorkOTRateComputation.BillingRateState(columnName, projectRate));
-                    //newEmployeeBillingData.Add("EmployeeTotalAmount", employeeTotalAmount);
+                    newEmployeeBillingData.Add(columnName+" Rate", WorkDaysComputation.BillingRateState(columnName, projectRate, Convert.ToDouble(columnValue)));
                 }
             employeeBillingDetails.Add(newEmployeeBillingData);
             }
@@ -125,20 +123,31 @@ namespace CCSPayrollBillingSystem
 
         private void BillingAttributeList2Display()
         {
-            rtbBillingSlip.Text += "Employee Name\t\t\t Hrs/Days \t Rate \t Amount" + "\n"; //Title
+            rtbBillingSlip.Text += "Employee Name\t\t Hrs/Days\t Rate \t\t Amount" + "\n"; //Title
 
             foreach (Dictionary<string, object> employeeBillingData in employeeBillingDetails)
             {
+                decimal rate = 0;
+                decimal render = 0;
                 rtbBillingSlip.Text += employeeBillingData["FullName"] + "\t";
-                rtbBillingSlip.Text += "   " + employeeBillingData["ProjectRate"]+"\t\t\n";
+                rtbBillingSlip.Text += "   \t" + employeeBillingData["Regular Days"] + "\t\t" + employeeBillingData["ProjectRate"]+"\t\t";
                 for (int i = 5; i < employeeBillingData.Count; i++)
                 {
                     string key = employeeBillingData.Keys.ElementAt(i);
                     object value = employeeBillingData[key];
-                    rtbBillingSlip.Text += "\t" + key + "\t\t" + value + "\n";
+                    if (key.Contains("Rate"))
+                    {
+                        rate = Math.Round(Convert.ToDecimal(value), 2);
+                        rtbBillingSlip.Text += rate + "a\n";
+                    }
+                    else
+                    {
+                        render = Convert.ToDecimal(value);
+                        decimal amount = rate * render;
+                        rtbBillingSlip.Text += "    b" + key + "\t\t" + value + "\t";// + amount + "\t";
+                    }
                 }
                 rtbBillingSlip.Text += "\n";
-                //rtbBillingSlip.Text += employeeTotalAmount.ToString("C", nfi) + "\n";
             }
 
             rtbBillingSlip.Text += "\n-------------\n";
