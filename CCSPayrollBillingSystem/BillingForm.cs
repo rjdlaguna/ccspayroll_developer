@@ -14,35 +14,79 @@ namespace CCSPayrollBillingSystem
 {
     public partial class frmBilling : Form
     {
-        private int projectTestingID = 1;
-        //private string empFirstName;
-        //private string empLastName;
-        //private float rendered;
-        //private decimal projectRate;
-        private decimal employeeTotalAmount;
-        private decimal grandTotalAmount = 0;
-        private decimal billingGrossTotalAmount;
+        private int projectID;
+        private string projectName;
+        private decimal projectRate;
+        private decimal gross;
+        private decimal net;
         private decimal vat;
-        private decimal billingNetTotalAmount;
+
+        private decimal grandTotalAmount;
+
         List<Dictionary<string, object>> employeeAttribList4Billing = new List<Dictionary<string, object>>();
         List<Dictionary<string, object>> employeeBillingDetails = new List<Dictionary<string, object>>();
 
+        QueryProcessor projectProcessor = new QueryProcessor();
+        IDictionary<int, string> projetInfo = new Dictionary<int, string>();
+
         private NumberFormatInfo nfi = new CultureInfo("en-PH", false).NumberFormat;
-        public frmBilling()
+        public frmBilling() => InitializeComponent();
+
+        private void frmBilling_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+            List<string[]> projectList = new List<string[]>();
+
+            projectList = projectProcessor.ExecuteSqlLoadProjectsQuery(
+                () =>
+                {
+                    Console.WriteLine("Projects successfully loaded.");
+                }, 
             
+                () =>
+                {
+                    Console.WriteLine("Problem loading projects.");
+                });
+
+            ExtractProjectName(projectList);
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void ExtractProjectName(List<string[]> projectList)
+        {
+            int[] projIds = new int[projectList.Count];
+            string projNameVal = "";
+            int projNameId = 0;
+            int count = 0;
+
+            foreach (string[] project in projectList)
+            {
+                // Access the elements within each row
+                foreach (string value in project)
+                {
+                    if (int.TryParse(value, out int id))
+                    {
+                        projIds[count] = id;
+                        projNameId = id;
+                        count++;
+                    }
+                    else
+                    {
+                        cmbProject.Items.Add(value);
+                        projNameVal = value;
+                    }
+
+                }
+                projetInfo.Add(projNameId, projNameVal);
+
+            }
+        }
+        private void LoadProjectEmployees(int projID)
         {
             QueryProcessor billingProcessor = new QueryProcessor();
-            employeeAttribList4Billing = billingProcessor.ExecuteSqlBillingViewQuery(projectTestingID);
+            employeeAttribList4Billing = billingProcessor.ExecuteSqlBillingViewQuery(projID);
 
             object projectName = employeeAttribList4Billing.FirstOrDefault().TryGetValue("ProjectName", out var value) ? value : null;
-            txtProjectName.Text = projectName.ToString();
 
-            billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projectTestingID, () =>
+            billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, () =>
             {
                 dgvEmployeeList4Billing.DataSource = billingProcessor.GetSqlReaderData();
                 dgvEmployeeList4Billing.Columns[0].Visible = false;
@@ -127,12 +171,13 @@ namespace CCSPayrollBillingSystem
 
             foreach (Dictionary<string, object> employeeBillingData in employeeBillingDetails)
             {
-                decimal rate = 0;
-                decimal render = 0;
                 rtbBillingSlip.Text += employeeBillingData["FullName"] + "\t";
                 rtbBillingSlip.Text += "   \t" + employeeBillingData["Regular Days"] + "\t\t" + employeeBillingData["ProjectRate"]+"\t\t";
                 for (int i = 5; i < employeeBillingData.Count; i++)
                 {
+                    decimal rate = 0;
+                    decimal render = 0;
+                    decimal amount = 0;
                     string key = employeeBillingData.Keys.ElementAt(i);
                     object value = employeeBillingData[key];
                     if (key.Contains("Rate"))
@@ -143,22 +188,45 @@ namespace CCSPayrollBillingSystem
                     else
                     {
                         render = Convert.ToDecimal(value);
-                        decimal amount = rate * render;
-                        rtbBillingSlip.Text += "    " + key + "\t\t" + value + "\t";// + amount + "\t";
+                        amount = rate * render;
+                        rtbBillingSlip.Text += "    " + key + "\t\t" + render + "\t\t" ;
                     }
+                    //rtbBillingSlip.Text += amount + "\n";
                 }
-                rtbBillingSlip.Text += "\n";
+                
             }
+            gross = grandTotalAmount;
 
-            rtbBillingSlip.Text += "\n-------------\n";
-            rtbBillingSlip.Text += "Grand Total: " + "\t" + grandTotalAmount.ToString("C", nfi);
-            rtbBillingSlip.Text += "\n-------------\n";
+            rtbBillingSlip.Text += "\n---------------------------------------------\n";
+            rtbBillingSlip.Text += "Grand Total: " + "\t" + StringToPeso(grandTotalAmount);
+            rtbBillingSlip.Text += "\n---------------------------------------------\n";
+        }
+
+        private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            projectName = cmbProject.Text;
+            projectID = projetInfo.FirstOrDefault(x => x.Value == projectName).Key;
+            dgvEmployeeList4Billing.DataSource = null;
+            LoadProjectEmployees(projectID);
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             BillingAttributeListProcessing();
             BillingAttributeList2Display();
+            txtGrossTotal.Text = StringToPeso(grandTotalAmount);
+        }
+
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            vat = Convert.ToDecimal(txtVAT.Text);
+            net = gross + vat;
+            txtNetTotal.Text = StringToPeso(net);
+        }
+
+        private string StringToPeso(decimal value)
+        {
+            return value.ToString("C", nfi);
         }
     }
 }

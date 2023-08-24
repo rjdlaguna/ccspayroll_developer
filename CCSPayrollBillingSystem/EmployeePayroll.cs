@@ -143,7 +143,7 @@ namespace CCSPayrollBillingSystem
         {
             gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
             deductions = decimal.Parse(txtSSS.Text) + decimal.Parse(txtPhilHealth.Text) + decimal.Parse(txtPagIbig.Text) + decimal.Parse(txtTax.Text);
-            //vat = decimal.Parse();
+            vat = decimal.Parse(txtVAT.Text);
             txtGrossPay.Text = gross.ToString("C", nfi);
             txtNetPay.Text = (gross - deductions).ToString("C", nfi);
         }

@@ -29,14 +29,13 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btnSearch = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
             this.txtProjectAddress = new System.Windows.Forms.TextBox();
-            this.txtProjectName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbProject = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNetTotal = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -45,31 +44,20 @@ namespace CCSPayrollBillingSystem
             this.label19 = new System.Windows.Forms.Label();
             this.rtbBillingSlip = new System.Windows.Forms.RichTextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
+            this.btnCalculate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe;
-            this.btnSearch.Location = new System.Drawing.Point(285, 16);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(40, 40);
-            this.btnSearch.TabIndex = 55;
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // dgvEmployeeList4Billing
             // 
             this.dgvEmployeeList4Billing.AllowUserToAddRows = false;
             this.dgvEmployeeList4Billing.AllowUserToOrderColumns = true;
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 201);
+            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 222);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(594, 161);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
@@ -90,15 +78,6 @@ namespace CCSPayrollBillingSystem
             this.txtProjectAddress.Size = new System.Drawing.Size(179, 78);
             this.txtProjectAddress.TabIndex = 7;
             // 
-            // txtProjectName
-            // 
-            this.txtProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProjectName.Location = new System.Drawing.Point(92, 16);
-            this.txtProjectName.Name = "txtProjectName";
-            this.txtProjectName.ReadOnly = true;
-            this.txtProjectName.Size = new System.Drawing.Size(179, 20);
-            this.txtProjectName.TabIndex = 6;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -111,18 +90,27 @@ namespace CCSPayrollBillingSystem
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbProject);
             this.groupBox1.Controls.Add(this.txtProjectAddress);
-            this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.txtProjectName);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(20, 20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(331, 137);
+            this.groupBox1.Size = new System.Drawing.Size(291, 137);
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PROJECT DETAILS";
+            // 
+            // cmbProject
+            // 
+            this.cmbProject.FormattingEnabled = true;
+            this.cmbProject.Location = new System.Drawing.Point(92, 15);
+            this.cmbProject.Name = "cmbProject";
+            this.cmbProject.Size = new System.Drawing.Size(179, 21);
+            this.cmbProject.TabIndex = 56;
+            this.cmbProject.Text = "Select";
+            this.cmbProject.SelectedIndexChanged += new System.EventHandler(this.cmbProject_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -181,7 +169,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.rtbBillingSlip.Location = new System.Drawing.Point(625, 20);
             this.rtbBillingSlip.Name = "rtbBillingSlip";
-            this.rtbBillingSlip.Size = new System.Drawing.Size(460, 426);
+            this.rtbBillingSlip.Size = new System.Drawing.Size(437, 426);
             this.rtbBillingSlip.TabIndex = 69;
             this.rtbBillingSlip.Text = "";
             // 
@@ -190,7 +178,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(478, 133);
+            this.btnGenerate.Location = new System.Drawing.Point(183, 163);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 70;
@@ -199,11 +187,26 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalculate.Image = global::CCSPayrollBillingSystem.Properties.Resources.calculator;
+            this.btnCalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCalculate.Location = new System.Drawing.Point(478, 132);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(128, 40);
+            this.btnCalculate.TabIndex = 71;
+            this.btnCalculate.Text = "CALCULATE";
+            this.btnCalculate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
+            // 
             // frmBilling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1114, 475);
+            this.ClientSize = new System.Drawing.Size(1085, 475);
+            this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.rtbBillingSlip);
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.dgvEmployeeList4Billing);
@@ -216,6 +219,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.label19);
             this.Name = "frmBilling";
             this.Text = "Billing Form";
+            this.Load += new System.EventHandler(this.frmBilling_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -225,11 +229,9 @@ namespace CCSPayrollBillingSystem
         }
 
         #endregion
-        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvEmployeeList4Billing;
         private System.Windows.Forms.TextBox txtVAT;
         private System.Windows.Forms.TextBox txtProjectAddress;
-        private System.Windows.Forms.TextBox txtProjectName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
@@ -240,5 +242,7 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.RichTextBox rtbBillingSlip;
         private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.ComboBox cmbProject;
+        private System.Windows.Forms.Button btnCalculate;
     }
 }
