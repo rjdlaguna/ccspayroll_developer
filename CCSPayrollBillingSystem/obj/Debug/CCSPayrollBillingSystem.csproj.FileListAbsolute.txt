@@ -133,3 +133,13 @@ C:\Users\rjdla\OneDrive\Documents\GitHub\ccs\ccspayroll_developer\CCSPayrollBill
 C:\Users\rjdla\OneDrive\Documents\GitHub\ccs\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.CopyComplete
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ProjectEmployeeList.resources
 D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.ProjectProfileList.resources
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\Interop.MSTSCLib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\Interop.RDPCOMAPILib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\AxInterop.MSTSCLib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\AxInterop.RDPCOMAPILib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\Interop.MSTSCLib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\Interop.RDPCOMAPILib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\AxInterop.MSTSCLib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\AxInterop.RDPCOMAPILib.dll
+D:\__SideHustles\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.ResolveComReference.cache

@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
             this.txtProjectAddress = new System.Windows.Forms.TextBox();
@@ -54,11 +54,11 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.AllowUserToAddRows = false;
             this.dgvEmployeeList4Billing.AllowUserToOrderColumns = true;
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 222);
+            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 180);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle5.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(594, 161);
+            dataGridViewCellStyle2.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(935, 203);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
             // txtVAT
@@ -167,9 +167,9 @@ namespace CCSPayrollBillingSystem
             // 
             // rtbBillingSlip
             // 
-            this.rtbBillingSlip.Location = new System.Drawing.Point(625, 20);
+            this.rtbBillingSlip.Location = new System.Drawing.Point(12, 388);
             this.rtbBillingSlip.Name = "rtbBillingSlip";
-            this.rtbBillingSlip.Size = new System.Drawing.Size(437, 426);
+            this.rtbBillingSlip.Size = new System.Drawing.Size(935, 58);
             this.rtbBillingSlip.TabIndex = 69;
             this.rtbBillingSlip.Text = "";
             // 
@@ -178,7 +178,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(183, 163);
+            this.btnGenerate.Location = new System.Drawing.Point(340, 117);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 70;
@@ -192,7 +192,7 @@ namespace CCSPayrollBillingSystem
             this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalculate.Image = global::CCSPayrollBillingSystem.Properties.Resources.calculator;
             this.btnCalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalculate.Location = new System.Drawing.Point(478, 132);
+            this.btnCalculate.Location = new System.Drawing.Point(635, 35);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(128, 40);
             this.btnCalculate.TabIndex = 71;
@@ -205,7 +205,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1085, 475);
+            this.ClientSize = new System.Drawing.Size(967, 475);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.rtbBillingSlip);
             this.Controls.Add(this.btnGenerate);

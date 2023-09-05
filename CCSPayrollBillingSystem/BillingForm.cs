@@ -23,6 +23,7 @@ namespace CCSPayrollBillingSystem
 
         private decimal grandTotalAmount;
 
+
         List<Dictionary<string, object>> employeeAttribList4Billing = new List<Dictionary<string, object>>();
         List<Dictionary<string, object>> employeeBillingDetails = new List<Dictionary<string, object>>();
 
@@ -88,12 +89,35 @@ namespace CCSPayrollBillingSystem
 
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, () =>
             {
+                //DataTable tempDataTableBilling = billingProcessor.GetSqlReaderData();
                 dgvEmployeeList4Billing.DataSource = billingProcessor.GetSqlReaderData();
-                dgvEmployeeList4Billing.Columns[0].Visible = false;
+                //dgvEmployeeList4Billing.DataSource = AddInputColumnsOnBillingDVG(tempDataTableBilling);
             }, () =>
             {
                 MessageBox.Show("Problem listing all employees in the Project.");
             });
+
+
+        }
+
+        private DataTable AddInputColumnsOnBillingDVG(DataTable dataTableBilling)
+        {
+            for (int i = 5; i < dataTableBilling.Columns.Count; i++)
+            {
+                var columnName = dataTableBilling.Columns[i].ColumnName;
+                var columnValue = dataTableBilling.Columns[i];
+
+                if (columnValue.Equals(DBNull.Value))
+                {
+                    continue;
+                }
+                else
+                {
+                    dataTableBilling.Columns.Add(columnName+"Rate", typeof(Decimal));
+                }
+              
+            }
+            return dataTableBilling;
         }
 
         private void BillingAttributeListProcessing()
@@ -228,5 +252,6 @@ namespace CCSPayrollBillingSystem
         {
             return value.ToString("C", nfi);
         }
+
     }
 }
