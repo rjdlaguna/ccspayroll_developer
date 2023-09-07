@@ -16,7 +16,6 @@ namespace CCSPayrollBillingSystem
     {
         private int projectID;
         private string projectName;
-        private decimal projectRate;
         private decimal gross = 0;
         private decimal net = 0;
         private decimal vat = 0;
@@ -155,7 +154,7 @@ namespace CCSPayrollBillingSystem
         }
 
         private string StringToPeso(decimal value)
-        {
+        {//Convert Peso 
             return value.ToString("C", nfi);
         }
 
@@ -196,7 +195,7 @@ namespace CCSPayrollBillingSystem
         }
 
         private void BillingAttributeList2Display()
-        {
+        {//Populate the RichTextBox with Billing Slip for Printing
             rtbBillingSlip.Text += "CCS - Manpower & Allied Services \n";
             rtbBillingSlip.Text += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
             rtbBillingSlip.Text += "ProjectName: "+ cmbProject.Text +"\n";
