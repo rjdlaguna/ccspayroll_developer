@@ -29,7 +29,8 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBilling));
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
             this.txtProjectAddress = new System.Windows.Forms.TextBox();
@@ -45,6 +46,9 @@ namespace CCSPayrollBillingSystem
             this.rtbBillingSlip = new System.Windows.Forms.RichTextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnCalculate = new System.Windows.Forms.Button();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.btnPrint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -54,11 +58,11 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.AllowUserToAddRows = false;
             this.dgvEmployeeList4Billing.AllowUserToOrderColumns = true;
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 180);
+            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 163);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle2.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(935, 203);
+            dataGridViewCellStyle1.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(1069, 220);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
             // txtVAT
@@ -67,6 +71,7 @@ namespace CCSPayrollBillingSystem
             this.txtVAT.Name = "txtVAT";
             this.txtVAT.Size = new System.Drawing.Size(144, 20);
             this.txtVAT.TabIndex = 67;
+            this.txtVAT.Text = "0.00";
             // 
             // txtProjectAddress
             // 
@@ -169,9 +174,10 @@ namespace CCSPayrollBillingSystem
             // 
             this.rtbBillingSlip.Location = new System.Drawing.Point(12, 388);
             this.rtbBillingSlip.Name = "rtbBillingSlip";
-            this.rtbBillingSlip.Size = new System.Drawing.Size(935, 58);
+            this.rtbBillingSlip.Size = new System.Drawing.Size(560, 126);
             this.rtbBillingSlip.TabIndex = 69;
             this.rtbBillingSlip.Text = "";
+            this.rtbBillingSlip.WordWrap = false;
             // 
             // btnGenerate
             // 
@@ -201,11 +207,40 @@ namespace CCSPayrollBillingSystem
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(602, 407);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(100, 40);
+            this.btnPrint.TabIndex = 72;
+            this.btnPrint.Text = "PRINT";
+            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // frmBilling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 475);
+            this.ClientSize = new System.Drawing.Size(1093, 526);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.rtbBillingSlip);
             this.Controls.Add(this.btnGenerate);
@@ -244,5 +279,8 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.ComboBox cmbProject;
         private System.Windows.Forms.Button btnCalculate;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.Button btnPrint;
     }
 }
