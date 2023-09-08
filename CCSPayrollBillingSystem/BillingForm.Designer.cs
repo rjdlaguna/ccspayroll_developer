@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBilling));
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
@@ -60,8 +60,8 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 163);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(1069, 220);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
@@ -184,7 +184,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(340, 117);
+            this.btnGenerate.Location = new System.Drawing.Point(592, 388);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 70;
@@ -226,9 +226,9 @@ namespace CCSPayrollBillingSystem
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(602, 407);
+            this.btnPrint.Location = new System.Drawing.Point(635, 81);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(100, 40);
+            this.btnPrint.Size = new System.Drawing.Size(128, 40);
             this.btnPrint.TabIndex = 72;
             this.btnPrint.Text = "PRINT";
             this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -253,7 +253,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label19);
             this.Name = "frmBilling";
-            this.Text = "Billing Form";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.frmBilling_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).EndInit();
             this.groupBox1.ResumeLayout(false);

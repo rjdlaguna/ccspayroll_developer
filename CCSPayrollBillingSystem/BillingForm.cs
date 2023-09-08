@@ -275,6 +275,7 @@ namespace CCSPayrollBillingSystem
             rtbBillingSlip.Text += "\n\t\tVat: " + "\t\t\t" + StringToPeso(vat);
             rtbBillingSlip.Text += "\n\t\t-----------------------------------------------------------------\n";
             rtbBillingSlip.Text += "\t\tGrand Total: " + "\t\t" + StringToPeso(net);
+            BillingSaveQuery();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -286,6 +287,23 @@ namespace CCSPayrollBillingSystem
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             e.Graphics.DrawString(rtbBillingSlip.Text, new Font("Microsoft Sans Serif", 8, FontStyle.Regular), Brushes.Black, new Point(10, 10));
+        }
+
+        private bool ValidateInput()
+        {
+            return !string.IsNullOrEmpty(txtVAT.Text) && !string.IsNullOrEmpty(txtGrossTotal.Text) && !string.IsNullOrEmpty(txtNetTotal.Text);
+        }
+
+        private void BillingSaveQuery()
+        {
+            QueryProcessor billingSaveQueryProcessor = new QueryProcessor();
+            billingSaveQueryProcessor.ExecuteSqlBillingInsertQuery(DateTime.Now, DateTime.Now, gross, vat, projectID, net, () =>
+            {
+                MessageBox.Show("Billing slip Saved.");
+            }, () =>
+            {
+                MessageBox.Show("Problem Saving the Billing slip of the Project.");
+            });
         }
     }
 }
