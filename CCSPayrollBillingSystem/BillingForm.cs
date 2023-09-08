@@ -297,7 +297,7 @@ namespace CCSPayrollBillingSystem
         private void BillingSaveQuery()
         {
             QueryProcessor billingSaveQueryProcessor = new QueryProcessor();
-            billingSaveQueryProcessor.ExecuteSqlBillingInsertQuery(DateTime.Now, DateTime.Now, gross, vat, projectID, net, () =>
+            billingSaveQueryProcessor.ExecuteSqlBillingInsertQuery(DateTime.Now, DateTime., gross, vat, projectID, net, () =>
             {
                 MessageBox.Show("Billing slip Saved.");
             }, () =>
