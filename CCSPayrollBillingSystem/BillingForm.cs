@@ -16,14 +16,13 @@ namespace CCSPayrollBillingSystem
     {
         private int projectID;
         private string projectName;
-        private decimal projectRate;
-        private decimal gross;
-        private decimal net;
-        private decimal vat;
+        private decimal gross = 0;
+        private decimal net = 0;
+        private decimal vat = 0;
 
         private decimal grandTotalAmount;
 
-        List<Dictionary<string, object>> employeeAttribList4Billing = new List<Dictionary<string, object>>();
+        List<Dictionary<string, object>> employeeAttribFromQuery = new List<Dictionary<string, object>>();
         List<Dictionary<string, object>> employeeBillingDetails = new List<Dictionary<string, object>>();
 
         QueryProcessor projectProcessor = new QueryProcessor();
@@ -76,30 +75,91 @@ namespace CCSPayrollBillingSystem
 
                 }
                 projetInfo.Add(projNameId, projNameVal);
-
             }
         }
         private void LoadProjectEmployees(int projID)
         {
             QueryProcessor billingProcessor = new QueryProcessor();
-            employeeAttribList4Billing = billingProcessor.ExecuteSqlBillingViewQuery(projID);
+            employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID);
 
-            object projectName = employeeAttribList4Billing.FirstOrDefault().TryGetValue("ProjectName", out var value) ? value : null;
+            object projectName = employeeAttribFromQuery.FirstOrDefault().TryGetValue("ProjectName", out var value) ? value : null;
 
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, () =>
             {
-                dgvEmployeeList4Billing.DataSource = billingProcessor.GetSqlReaderData();
+                DataTable tempDataTableBilling = billingProcessor.GetSqlReaderData();
+                dgvEmployeeList4Billing.DataSource = AddInputColumnsOnBillingDVG(tempDataTableBilling);
                 dgvEmployeeList4Billing.Columns[0].Visible = false;
+                ChangeStyleDGV();
             }, () =>
             {
                 MessageBox.Show("Problem listing all employees in the Project.");
             });
+
+        }
+
+        private DataTable AddInputColumnsOnBillingDVG(DataTable dataTableBilling)
+        {//Create the DataTable and insert Rate columns, 
+            DataTable tempDataTable = new DataTable();
+            
+            for (int i = 0; i < 5; i++)
+            {
+                tempDataTable.Columns.Add(dataTableBilling.Columns[i].ColumnName);
+            }
+
+            for (int i = 5; i < dataTableBilling.Columns.Count; i++)
+            {
+                tempDataTable.Columns.Add(dataTableBilling.Columns[i].ColumnName);
+                tempDataTable.Columns.Add(dataTableBilling.Columns[i].ColumnName + "Rate", typeof(Decimal));
+            }
+            //then add the DataTable result of the SQL query
+            foreach (DataRow row in dataTableBilling.Rows)
+            {
+                DataRow newRow = tempDataTable.NewRow();
+                foreach (DataColumn column in dataTableBilling.Columns)
+                {
+                    newRow[column.ColumnName] = row[column];
+                }
+                var regAmount = Convert.ToDecimal(newRow[4]) * Convert.ToDecimal(newRow[5]);
+                newRow[6] = regAmount;
+
+                tempDataTable.Rows.Add(newRow);
+            }
+
+            return tempDataTable;
+        }
+
+        private void ChangeStyleDGV()
+        {//To Color the DataGridView cells for Rates....
+            foreach (DataGridViewRow dgvRow in dgvEmployeeList4Billing.Rows)
+            {
+                int fifthColumn = 5;
+                for (int i = fifthColumn; i < dgvEmployeeList4Billing.Columns.Count; i++)
+                {
+                    if (dgvEmployeeList4Billing.Columns[i].HeaderText.Contains("Rate") && dgvRow.Cells[i-1].Value != DBNull.Value)
+                    {
+                        dgvRow.Cells[i].Style.BackColor = Color.CadetBlue;
+                    }
+                    else
+                    {
+                        dgvEmployeeList4Billing.Columns[i].DefaultCellStyle.Font = new Font(DefaultFont, FontStyle.Bold);
+                    }
+                }
+            }
+        }
+
+        private object ObjectValidation(object obj)
+        {//DBNull Validation
+            var _obj = (obj != DBNull.Value) ? obj : 0;
+            return _obj;
+        }
+
+        private string StringToPeso(decimal value)
+        {//Convert Peso 
+            return value.ToString("C", nfi);
         }
 
         private void BillingAttributeListProcessing()
         {
-            decimal employeeTotalOTAmount = 0;
-            decimal employeeTotalAmount = 0;
             Dictionary<string, object> newEmployeeBillingData = null;
 
             foreach (DataGridViewRow dgvRow in dgvEmployeeList4Billing.Rows)
@@ -107,99 +167,85 @@ namespace CCSPayrollBillingSystem
                 var fname = dgvRow.Cells[1].Value;
                 var lname = dgvRow.Cells[2].Value;
                 decimal projectRate = Convert.ToDecimal(dgvRow.Cells[4].Value);
-                var regDays = dgvRow.Cells[5].Value != DBNull.Value ? dgvRow.Cells[5].Value : 0;
-                var splHolidays = dgvRow.Cells[7].Value != DBNull.Value ? dgvRow.Cells[7].Value : 0;
-                var regHolidays = dgvRow.Cells[8].Value != DBNull.Value ? dgvRow.Cells[8].Value : 0;
-
-                var cola = dgvRow.Cells[10].Value != DBNull.Value ? dgvRow.Cells[10].Value : 0;
-                var pda = dgvRow.Cells[11].Value != DBNull.Value ? dgvRow.Cells[11].Value : 0;
-                var others = dgvRow.Cells[12].Value != DBNull.Value ? dgvRow.Cells[5].Value : 0;
-
-                var regDaysOT = dgvRow.Cells[6].Value != DBNull.Value ? dgvRow.Cells[6].Value : 0;
-                //string splHolidaysSunOT = (dgvRow.Cells[7].Value.ToString() == "NULL") ? "0" :dgvRow.Cells[?].ToString();
-                var regHolidaysOT = dgvRow.Cells[9].Value != DBNull.Value ? dgvRow.Cells[9].Value : 0;
-
-                decimal regDaysAmount = WorkDaysComputation.RegularDays(projectRate, Convert.ToDouble(regDays));
-                decimal splHolAmount = WorkDaysComputation.SunOrSpecialHolidays(projectRate, Convert.ToDouble(splHolidays));
-                decimal regHolAmount = WorkDaysComputation.RegularHolidays(projectRate, Convert.ToDouble(regHolidays));
-
-                decimal colaAmount = WorkDaysComputation.COLA(Convert.ToDecimal(cola));
-                decimal pdaAmount = WorkDaysComputation.PDA(Convert.ToDecimal(pda));
-                decimal othersAmount = WorkDaysComputation.Others(Convert.ToDecimal(others));
-
-                decimal regDaysOTAmount = WorkDaysComputation.RegularDaysOT(projectRate, Convert.ToDouble(regDaysOT));
-                //decimal regDaysOTRateAmount = WorkDaysComputation.RegularDaysOTRate(projectRate, );
-                
-                decimal splHolOTAmount = WorkDaysComputation.SpecialHolidaysOT(projectRate, Convert.ToDouble(regDaysOT));
-
-                employeeTotalOTAmount = regDaysOTAmount + splHolOTAmount;
-                employeeTotalAmount = regDaysAmount + splHolAmount + regHolAmount + colaAmount + pdaAmount + othersAmount + (employeeTotalOTAmount);
-               
-                grandTotalAmount += employeeTotalAmount;
 
                 string fullName = lname + ", " + fname;
 
-               newEmployeeBillingData = new Dictionary<string, object>
+                newEmployeeBillingData = new Dictionary<string, object>
                 {
-                    { dgvEmployeeList4Billing.Columns[0].HeaderText, dgvRow.Cells[0].Value },//0
-                    { "FullName", fullName },//1
-                    { dgvEmployeeList4Billing.Columns[3].HeaderText, dgvRow.Cells[3].Value },//2
-                    { dgvEmployeeList4Billing.Columns[4].HeaderText, projectRate }//3
+                    { dgvEmployeeList4Billing.Columns[0].HeaderText, dgvRow.Cells[0].Value },//0 - Employee ID
+                    { "FullName", fullName },                                                //1 - FullName
+                    { dgvEmployeeList4Billing.Columns[3].HeaderText, dgvRow.Cells[3].Value },//2 - ProjectName
+                    { dgvEmployeeList4Billing.Columns[4].HeaderText, projectRate }           //3 - ProjectRate
                 };
 
-
-                for (int i = 5; i < dgvRow.Cells.Count; i++)
+                for (int index = 5; index < dgvRow.Cells.Count; index++)
                 {
-                    var columnName = dgvEmployeeList4Billing.Columns[i].HeaderText;
-                    var columnValue = dgvRow.Cells[i].Value;
-
-                    if (dgvRow.Cells[i].Value == DBNull.Value)
+                    var columnName = dgvEmployeeList4Billing.Columns[index].HeaderText;
+                    var columnValue = ObjectValidation(dgvRow.Cells[index].Value);
+                    if (dgvRow.Cells[index].Value == DBNull.Value)
                     {
                         continue;
                     }
                     newEmployeeBillingData.Add(columnName, columnValue);
-                    newEmployeeBillingData.Add(columnName+" Rate", WorkDaysComputation.BillingRateState(columnName, projectRate, Convert.ToDouble(columnValue)));
                 }
+                   
             employeeBillingDetails.Add(newEmployeeBillingData);
             }
             
         }
 
         private void BillingAttributeList2Display()
-        {
-            rtbBillingSlip.Text += "Employee Name\t\t Hrs/Days\t Rate \t\t Amount" + "\n"; //Title
-
-            foreach (Dictionary<string, object> employeeBillingData in employeeBillingDetails)
+        {//Populate the RichTextBox with Billing Slip for Printing
+            rtbBillingSlip.Text += "CCS - Manpower & Allied Services \n";
+            rtbBillingSlip.Text += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
+            rtbBillingSlip.Text += "ProjectName: "+ cmbProject.Text +"\n";
+            rtbBillingSlip.Text += "Services rendered for the period: "+ DateTime.Now + "\n";
+            rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
+            rtbBillingSlip.Text += "Employee Name\t\t\t Hrs/Days\t Rate \t\t Amount"; //Title
+            rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
+            foreach (DataGridViewRow dgvRow in dgvEmployeeList4Billing.Rows)
             {
-                rtbBillingSlip.Text += employeeBillingData["FullName"] + "\t";
-                rtbBillingSlip.Text += "   \t" + employeeBillingData["Regular Days"] + "\t\t" + employeeBillingData["ProjectRate"]+"\t\t";
-                for (int i = 5; i < employeeBillingData.Count; i++)
+                var fname = dgvRow.Cells[1].Value;
+                var lname = dgvRow.Cells[2].Value;
+                decimal projectRate = Convert.ToDecimal(ObjectValidation(dgvRow.Cells[4].Value));
+                decimal regDaysAmount = Convert.ToDecimal(ObjectValidation(dgvRow.Cells[6].Value));
+                decimal total = 0;
+
+                rtbBillingSlip.Text += lname + ", " + fname + "\t";
+                rtbBillingSlip.Text += " \t\t" + dgvRow.Cells[5].Value + "\t\t" + dgvRow.Cells[4].Value + "\t\t" + regDaysAmount + "\n";
+                for (int i = 7; i < dgvRow.Cells.Count; i++)
                 {
                     decimal rate = 0;
                     decimal render = 0;
                     decimal amount = 0;
-                    string key = employeeBillingData.Keys.ElementAt(i);
-                    object value = employeeBillingData[key];
+                    
+
+                    string key = dgvEmployeeList4Billing.Columns[i].HeaderText;
+                    object value = ObjectValidation(dgvRow.Cells[i].Value);
+                    rate = Math.Round(Convert.ToDecimal(value), 2);
+                    if (dgvRow.Cells[i].Value == DBNull.Value)
+                    {
+                        continue;
+                    }
                     if (key.Contains("Rate"))
                     {
-                        rate = Math.Round(Convert.ToDecimal(value), 2);
-                        rtbBillingSlip.Text += rate + "\n";
+                        render = Convert.ToDecimal(ObjectValidation(dgvRow.Cells[i-1].Value));
+                        amount = rate * render;
+                        rtbBillingSlip.Text += rate + "\t\t" + amount + "\n";
                     }
                     else
-                    {
-                        render = Convert.ToDecimal(value);
-                        amount = rate * render;
-                        rtbBillingSlip.Text += "    " + key + "\t\t" + render + "\t\t" ;
+                    {                        
+                        rtbBillingSlip.Text += "    " + key + "\t\t\t" + rate + "\t\t";
                     }
-                    //rtbBillingSlip.Text += amount + "\n";
+                    total += amount;
                 }
-                
+                grandTotalAmount = total + regDaysAmount;
+                rtbBillingSlip.Text += "\n";
+                gross += grandTotalAmount;
             }
-            gross = grandTotalAmount;
 
-            rtbBillingSlip.Text += "\n---------------------------------------------\n";
-            rtbBillingSlip.Text += "Grand Total: " + "\t" + StringToPeso(grandTotalAmount);
-            rtbBillingSlip.Text += "\n---------------------------------------------\n";
+            rtbBillingSlip.Text += "\n\t\t-----------------------------------------------------------------\n";
+            rtbBillingSlip.Text += "\t\tSales: " + "\t\t\t" + StringToPeso(gross);
         }
 
         private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
@@ -212,9 +258,12 @@ namespace CCSPayrollBillingSystem
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
+            gross = 0;
+            grandTotalAmount = 0;
+            rtbBillingSlip.Clear();
             BillingAttributeListProcessing();
             BillingAttributeList2Display();
-            txtGrossTotal.Text = StringToPeso(grandTotalAmount);
+            txtGrossTotal.Text = StringToPeso(gross);
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -222,11 +271,39 @@ namespace CCSPayrollBillingSystem
             vat = Convert.ToDecimal(txtVAT.Text);
             net = gross + vat;
             txtNetTotal.Text = StringToPeso(net);
+
+            rtbBillingSlip.Text += "\n\t\tVat: " + "\t\t\t" + StringToPeso(vat);
+            rtbBillingSlip.Text += "\n\t\t-----------------------------------------------------------------\n";
+            rtbBillingSlip.Text += "\t\tGrand Total: " + "\t\t" + StringToPeso(net);
+            BillingSaveQuery();
         }
 
-        private string StringToPeso(decimal value)
+        private void btnPrint_Click(object sender, EventArgs e)
         {
-            return value.ToString("C", nfi);
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString(rtbBillingSlip.Text, new Font("Microsoft Sans Serif", 8, FontStyle.Regular), Brushes.Black, new Point(10, 10));
+        }
+
+        private bool ValidateInput()
+        {
+            return !string.IsNullOrEmpty(txtVAT.Text) && !string.IsNullOrEmpty(txtGrossTotal.Text) && !string.IsNullOrEmpty(txtNetTotal.Text);
+        }
+
+        private void BillingSaveQuery()
+        {
+            QueryProcessor billingSaveQueryProcessor = new QueryProcessor();
+            billingSaveQueryProcessor.ExecuteSqlBillingInsertQuery(DateTime.Now, DateTime., gross, vat, projectID, net, () =>
+            {
+                MessageBox.Show("Billing slip Saved.");
+            }, () =>
+            {
+                MessageBox.Show("Problem Saving the Billing slip of the Project.");
+            });
         }
     }
 }
