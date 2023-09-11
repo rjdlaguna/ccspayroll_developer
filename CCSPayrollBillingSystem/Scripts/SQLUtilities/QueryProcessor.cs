@@ -11,7 +11,9 @@ namespace CCSPayrollBillingSystem.Scripts
     {
         private string connectionString => SystemUtilities.GetConnectionString();
         private DatabaseConnection connection;
+        private SqlConnection sqlConnection;
         private DatabaseCommand command;
+        private SqlCommand sqlCommand;
         private DatabaseReader dataReader;
         private SqlDataReader sqlDataReader;
 
@@ -922,23 +924,9 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
         
-        public void ExecuteSqlBillingInsertQuery(DateTime billingStartDate, DateTime billingEndDate, decimal billingGrossTotal, decimal vat, int projectID, decimal billingNetTotal, Action onSuccess, Action onFailure)
+        public void ExecuteSqlProjectDataSearchProjectNameExistsQuery(string projName, Action onSuccess, Action onFailure)
         {
-            string sqlInsert = "INSERT INTO tblBilling(BillingStartDate, BillingEndDate, BillingGrossTotal, ComputedTax, ProjectID, BillingNetTotal) VALUES('" + billingStartDate + "','" + billingEndDate + "','" + billingGrossTotal + "','" + vat + "','" + projectID + "','" + billingNetTotal + "')";
 
-            connection = new DatabaseConnection(connectionString);
-            command = new DatabaseCommand(sqlInsert, connection);
-            dataReader = new DatabaseReader(command.ExecuteReader());
-            
-            if (dataReader.Read())
-            {
-                onSuccess?.Invoke();
-            }
-            else
-            {
-                onFailure?.Invoke();
-            }
-            
         }
 
         public void ExecuteSqlProjectDataUpdate(int projID, string projName, string projDesc, string projAddress, string projInCharge, string projContact, string projEmail, Action onSuccess, Action onFailure)
