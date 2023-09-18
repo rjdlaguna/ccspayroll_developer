@@ -32,7 +32,6 @@ namespace CCSPayrollBillingSystem
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.payrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeePayrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.billingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,18 +43,19 @@ namespace CCSPayrollBillingSystem
             this.deductionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBoxMenu = new System.Windows.Forms.GroupBox();
-            this.statusStripMain = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.payrollToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.billingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnProfileMenu = new System.Windows.Forms.Button();
+            this.billingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBoxMenu = new System.Windows.Forms.GroupBox();
+            this.btnProfilePromptProject = new System.Windows.Forms.Button();
+            this.btnProfilePromptEmployee = new System.Windows.Forms.Button();
             this.btnPrintMenu = new System.Windows.Forms.Button();
             this.btnBillingMenu = new System.Windows.Forms.Button();
             this.btnPayrollMenu = new System.Windows.Forms.Button();
+            this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.groupBoxMenu.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -80,8 +80,7 @@ namespace CCSPayrollBillingSystem
             // payrollToolStripMenuItem
             // 
             this.payrollToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.employeePayrollToolStripMenuItem,
-            this.projectToolStripMenuItem});
+            this.employeePayrollToolStripMenuItem});
             this.payrollToolStripMenuItem.Name = "payrollToolStripMenuItem";
             this.payrollToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.payrollToolStripMenuItem.Text = "Payroll";
@@ -89,20 +88,16 @@ namespace CCSPayrollBillingSystem
             // employeePayrollToolStripMenuItem
             // 
             this.employeePayrollToolStripMenuItem.Name = "employeePayrollToolStripMenuItem";
-            this.employeePayrollToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.employeePayrollToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.employeePayrollToolStripMenuItem.Text = "Employee Payroll";
-            // 
-            // projectToolStripMenuItem
-            // 
-            this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.projectToolStripMenuItem.Text = "Project-based Payroll";
+            this.employeePayrollToolStripMenuItem.Click += new System.EventHandler(this.employeePayrollToolStripMenuItem_Click);
             // 
             // billingToolStripMenuItem
             // 
             this.billingToolStripMenuItem.Name = "billingToolStripMenuItem";
             this.billingToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.billingToolStripMenuItem.Text = "Billing";
+            this.billingToolStripMenuItem.Click += new System.EventHandler(this.billingToolStripMenuItem_Click);
             // 
             // profileToolStripMenuItem
             // 
@@ -118,12 +113,14 @@ namespace CCSPayrollBillingSystem
             this.employeeToolStripMenuItem.Name = "employeeToolStripMenuItem";
             this.employeeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.employeeToolStripMenuItem.Text = "Employee";
+            this.employeeToolStripMenuItem.Click += new System.EventHandler(this.employeeToolStripMenuItem_Click);
             // 
             // projectToolStripMenuItem1
             // 
             this.projectToolStripMenuItem1.Name = "projectToolStripMenuItem1";
             this.projectToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
             this.projectToolStripMenuItem1.Text = "Project";
+            this.projectToolStripMenuItem1.Click += new System.EventHandler(this.projectToolStripMenuItem1_Click);
             // 
             // usersToolStripMenuItem
             // 
@@ -179,36 +176,6 @@ namespace CCSPayrollBillingSystem
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
-            // groupBoxMenu
-            // 
-            this.groupBoxMenu.Controls.Add(this.btnProfileMenu);
-            this.groupBoxMenu.Controls.Add(this.btnPrintMenu);
-            this.groupBoxMenu.Controls.Add(this.btnBillingMenu);
-            this.groupBoxMenu.Controls.Add(this.btnPayrollMenu);
-            this.groupBoxMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.groupBoxMenu.Location = new System.Drawing.Point(14, 27);
-            this.groupBoxMenu.Name = "groupBoxMenu";
-            this.groupBoxMenu.Size = new System.Drawing.Size(229, 373);
-            this.groupBoxMenu.TabIndex = 2;
-            this.groupBoxMenu.TabStop = false;
-            this.groupBoxMenu.Text = "MenuBox";
-            // 
-            // statusStripMain
-            // 
-            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelMainView});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 419);
-            this.statusStripMain.Name = "statusStripMain";
-            this.statusStripMain.Size = new System.Drawing.Size(934, 22);
-            this.statusStripMain.TabIndex = 3;
-            this.statusStripMain.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabelMainView
-            // 
-            this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
-            this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
-            // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -227,12 +194,6 @@ namespace CCSPayrollBillingSystem
             this.payrollToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.payrollToolStripMenuItem1.Text = "Payroll";
             // 
-            // billingToolStripMenuItem1
-            // 
-            this.billingToolStripMenuItem1.Name = "billingToolStripMenuItem1";
-            this.billingToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.billingToolStripMenuItem1.Text = "Billing";
-            // 
             // employeeToolStripMenuItem1
             // 
             this.employeeToolStripMenuItem1.Name = "employeeToolStripMenuItem1";
@@ -246,23 +207,63 @@ namespace CCSPayrollBillingSystem
             this.projectToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.projectToolStripMenuItem2.Text = "Project";
             // 
-            // btnProfileMenu
+            // billingToolStripMenuItem1
             // 
-            this.btnProfileMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnProfileMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProfileMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnProfileMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProfileMenu.Image = global::CCSPayrollBillingSystem.Properties.Resources.programmer1;
-            this.btnProfileMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfileMenu.Location = new System.Drawing.Point(3, 271);
-            this.btnProfileMenu.Name = "btnProfileMenu";
-            this.btnProfileMenu.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnProfileMenu.Size = new System.Drawing.Size(223, 86);
-            this.btnProfileMenu.TabIndex = 5;
-            this.btnProfileMenu.Text = "PROFILE";
-            this.btnProfileMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnProfileMenu.UseVisualStyleBackColor = true;
-            this.btnProfileMenu.Click += new System.EventHandler(this.btnProfileMenu_Click);
+            this.billingToolStripMenuItem1.Name = "billingToolStripMenuItem1";
+            this.billingToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.billingToolStripMenuItem1.Text = "Billing";
+            this.billingToolStripMenuItem1.Click += new System.EventHandler(this.billingToolStripMenuItem1_Click);
+            // 
+            // groupBoxMenu
+            // 
+            this.groupBoxMenu.Controls.Add(this.btnProfilePromptProject);
+            this.groupBoxMenu.Controls.Add(this.btnProfilePromptEmployee);
+            this.groupBoxMenu.Controls.Add(this.btnPrintMenu);
+            this.groupBoxMenu.Controls.Add(this.btnBillingMenu);
+            this.groupBoxMenu.Controls.Add(this.btnPayrollMenu);
+            this.groupBoxMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.groupBoxMenu.Location = new System.Drawing.Point(14, 27);
+            this.groupBoxMenu.Name = "groupBoxMenu";
+            this.groupBoxMenu.Size = new System.Drawing.Size(229, 453);
+            this.groupBoxMenu.TabIndex = 2;
+            this.groupBoxMenu.TabStop = false;
+            this.groupBoxMenu.Text = "MenuBox";
+            // 
+            // btnProfilePromptProject
+            // 
+            this.btnProfilePromptProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnProfilePromptProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnProfilePromptProject.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnProfilePromptProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePromptProject.Image = global::CCSPayrollBillingSystem.Properties.Resources.profit_growth;
+            this.btnProfilePromptProject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProfilePromptProject.Location = new System.Drawing.Point(3, 357);
+            this.btnProfilePromptProject.Name = "btnProfilePromptProject";
+            this.btnProfilePromptProject.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnProfilePromptProject.Size = new System.Drawing.Size(223, 86);
+            this.btnProfilePromptProject.TabIndex = 6;
+            this.btnProfilePromptProject.Text = "Add Project";
+            this.btnProfilePromptProject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnProfilePromptProject.UseVisualStyleBackColor = true;
+            this.btnProfilePromptProject.Click += new System.EventHandler(this.btnProfilePromptProject_Click);
+            // 
+            // btnProfilePromptEmployee
+            // 
+            this.btnProfilePromptEmployee.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnProfilePromptEmployee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnProfilePromptEmployee.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnProfilePromptEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePromptEmployee.Image = global::CCSPayrollBillingSystem.Properties.Resources.employee;
+            this.btnProfilePromptEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProfilePromptEmployee.Location = new System.Drawing.Point(3, 271);
+            this.btnProfilePromptEmployee.Name = "btnProfilePromptEmployee";
+            this.btnProfilePromptEmployee.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnProfilePromptEmployee.Size = new System.Drawing.Size(223, 86);
+            this.btnProfilePromptEmployee.TabIndex = 5;
+            this.btnProfilePromptEmployee.Text = "Add Employee";
+            this.btnProfilePromptEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnProfilePromptEmployee.UseVisualStyleBackColor = true;
+            this.btnProfilePromptEmployee.Click += new System.EventHandler(this.btnProfilePromptEmployee_Click);
             // 
             // btnPrintMenu
             // 
@@ -318,18 +319,35 @@ namespace CCSPayrollBillingSystem
             this.btnPayrollMenu.UseVisualStyleBackColor = true;
             this.btnPayrollMenu.Click += new System.EventHandler(this.btnPayrollMenu_Click);
             // 
+            // statusStripMain
+            // 
+            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelMainView});
+            this.statusStripMain.Location = new System.Drawing.Point(0, 496);
+            this.statusStripMain.Name = "statusStripMain";
+            this.statusStripMain.Size = new System.Drawing.Size(934, 22);
+            this.statusStripMain.TabIndex = 3;
+            this.statusStripMain.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelMainView
+            // 
+            this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
+            this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(934, 441);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(934, 518);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.groupBoxMenu);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
@@ -349,7 +367,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem payrollToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem employeePayrollToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem billingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem employeeToolStripMenuItem;
@@ -357,7 +374,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBoxMenu;
-        private System.Windows.Forms.Button btnProfileMenu;
         private System.Windows.Forms.Button btnPrintMenu;
         private System.Windows.Forms.Button btnBillingMenu;
         private System.Windows.Forms.StatusStrip statusStripMain;
@@ -372,6 +388,8 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.ToolStripMenuItem employeeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem billingToolStripMenuItem1;
+        private System.Windows.Forms.Button btnProfilePromptProject;
+        private System.Windows.Forms.Button btnProfilePromptEmployee;
     }
 }
 

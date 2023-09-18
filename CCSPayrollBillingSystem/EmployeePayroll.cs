@@ -33,10 +33,22 @@ namespace CCSPayrollBillingSystem
         public double empRatePayroll;
         public string empRankPayroll;
 
+        public bool IsEmployeeSearched { get; set; }
         public void Init(decimal baseRate)
         {
             this.baseRate = baseRate;
+            IsEmployeeSearched = false;
 
+            TextDefautValue();
+        }
+
+        public frmEmployeePayroll()
+        {
+            InitializeComponent();
+        }
+
+        private void TextDefautValue()
+        {
             txtRegDaysRate.Text = Constants.DEFAULT_VALUE;
             txtRegOTRate.Text = Constants.DEFAULT_VALUE;
             txtSplHolidaysRate.Text = Constants.DEFAULT_VALUE;
@@ -49,13 +61,21 @@ namespace CCSPayrollBillingSystem
             txtBaseRate.Text = baseRate.ToString();
         }
 
-        public frmEmployeePayroll()
-        {
-            InitializeComponent();
-        }
-
         private void frmEmployeePayroll_Load(object sender, EventArgs e)
         {
+            if (IsEmployeeSearched)
+            {
+                EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
+
+                employeeListForPayroll.OnEmployeeSearchedValues += (empIdPayroll, empFnamePayroll, empLnamePayroll, empRatePayroll, empRankPayroll) =>
+                {
+                    this.empIdPayroll = empIdPayroll;
+                    this.empFnamePayroll = empFnamePayroll;
+                    this.empLnamePayroll = empLnamePayroll;
+                    this.empRatePayroll = empRatePayroll;
+                    this.empRankPayroll = empRankPayroll;
+                };
+            }
             nfi = new CultureInfo("en-PH", false).NumberFormat;
             txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
             txtBaseRate.Text = empRatePayroll.ToString();
@@ -64,10 +84,10 @@ namespace CCSPayrollBillingSystem
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //Init(450);//initial testing 
+            IsEmployeeSearched = true;
+
             EmployeeListForPayroll frmEmployeeListPayroll = new EmployeeListForPayroll();
             frmEmployeeListPayroll.Show();
-            this.Close();
         }
 
         private void txtRegDays_TextChanged(object sender, EventArgs e)
@@ -163,6 +183,11 @@ namespace CCSPayrollBillingSystem
             if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolRestDay.Text = "0";
             _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
             txtRegHolRestDayRate.Text = _RegHolRestDayRate.ToString("C", nfi);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

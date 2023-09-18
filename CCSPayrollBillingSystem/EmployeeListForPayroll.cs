@@ -16,6 +16,14 @@ namespace CCSPayrollBillingSystem
         private string empFname;
         private string empLname;
 
+        private int empIdPayroll;
+        private string empFnamePayroll;
+        private string empLnamePayroll;
+        private double empRatePayroll;
+        private string empRankPayroll;
+
+        public event Action<int, string, string, double, string> OnEmployeeSearchedValues;
+
         frmEmployeePayroll frmEmpPayroll = new frmEmployeePayroll();
         public EmployeeListForPayroll()
         {
@@ -64,18 +72,22 @@ namespace CCSPayrollBillingSystem
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            frmEmpPayroll.empIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
-            frmEmpPayroll.empFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
-            frmEmpPayroll.empLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
-            frmEmpPayroll.empRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
-            frmEmpPayroll.empRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
+            empIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
+            empFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
+            empLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
+            empRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
+            empRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
+            
+            OnEmployeeSearchedValues?.Invoke(empIdPayroll, empFnamePayroll, empLnamePayroll, empRatePayroll, empRankPayroll);
+
             this.Close();
-            frmEmpPayroll.Show();
         }
 
         private void dgPayrollEmpList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+
     }
 }

@@ -163,7 +163,7 @@ namespace CCSPayrollBillingSystem
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(285, 13);
+            this.btnSearch.Location = new System.Drawing.Point(285, 9);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 40);
             this.btnSearch.TabIndex = 33;
@@ -177,7 +177,7 @@ namespace CCSPayrollBillingSystem
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdate.Location = new System.Drawing.Point(285, 182);
+            this.btnUpdate.Location = new System.Drawing.Point(285, 147);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 40);
             this.btnUpdate.TabIndex = 24;
@@ -191,7 +191,7 @@ namespace CCSPayrollBillingSystem
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.Image = global::CCSPayrollBillingSystem.Properties.Resources.bin;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(285, 238);
+            this.btnDelete.Location = new System.Drawing.Point(285, 193);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(100, 40);
             this.btnDelete.TabIndex = 23;
@@ -205,7 +205,7 @@ namespace CCSPayrollBillingSystem
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.Image = global::CCSPayrollBillingSystem.Properties.Resources.edit;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(285, 124);
+            this.btnEdit.Location = new System.Drawing.Point(285, 101);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(100, 40);
             this.btnEdit.TabIndex = 22;
@@ -218,7 +218,7 @@ namespace CCSPayrollBillingSystem
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(285, 71);
+            this.btnSave.Location = new System.Drawing.Point(285, 55);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
             this.btnSave.TabIndex = 21;
@@ -229,10 +229,11 @@ namespace CCSPayrollBillingSystem
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(170, 238);
+            this.btnCancel.Location = new System.Drawing.Point(285, 239);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 38;
@@ -244,6 +245,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(414, 306);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
