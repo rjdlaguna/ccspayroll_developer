@@ -137,7 +137,6 @@ namespace CCSPayrollBillingSystem
             this.txtBaseRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBaseRate.Location = new System.Drawing.Point(77, 67);
             this.txtBaseRate.Name = "txtBaseRate";
-            this.txtBaseRate.ReadOnly = true;
             this.txtBaseRate.Size = new System.Drawing.Size(179, 20);
             this.txtBaseRate.TabIndex = 8;
             this.txtBaseRate.TextChanged += new System.EventHandler(this.txtBaseRate_TextChanged);
@@ -147,7 +146,6 @@ namespace CCSPayrollBillingSystem
             this.txtRank.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRank.Location = new System.Drawing.Point(77, 41);
             this.txtRank.Name = "txtRank";
-            this.txtRank.ReadOnly = true;
             this.txtRank.Size = new System.Drawing.Size(179, 20);
             this.txtRank.TabIndex = 7;
             // 
@@ -156,7 +154,6 @@ namespace CCSPayrollBillingSystem
             this.txtEmployeeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.Location = new System.Drawing.Point(77, 18);
             this.txtEmployeeName.Name = "txtEmployeeName";
-            this.txtEmployeeName.ReadOnly = true;
             this.txtEmployeeName.Size = new System.Drawing.Size(179, 20);
             this.txtEmployeeName.TabIndex = 6;
             // 

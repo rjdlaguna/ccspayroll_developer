@@ -16,15 +16,8 @@ namespace CCSPayrollBillingSystem
         private string empFname;
         private string empLname;
 
-        private int empIdPayroll;
-        private string empFnamePayroll;
-        private string empLnamePayroll;
-        private double empRatePayroll;
-        private string empRankPayroll;
+        public event Action<Employee> OnEmployeeSearchedValues;
 
-        public event Action<int, string, string, double, string> OnEmployeeSearchedValues;
-
-        frmEmployeePayroll frmEmpPayroll = new frmEmployeePayroll();
         public EmployeeListForPayroll()
         {
             InitializeComponent();
@@ -54,6 +47,7 @@ namespace CCSPayrollBillingSystem
                 empLname = null;
             }
             LoadPayrollEmployeeINfo(empFname, empLname);
+
         }
 
         private void LoadPayrollEmployeeINfo(string fname, string lname)
@@ -72,15 +66,17 @@ namespace CCSPayrollBillingSystem
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            empIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
-            empFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
-            empLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
-            empRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
-            empRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
-            
-            OnEmployeeSearchedValues?.Invoke(empIdPayroll, empFnamePayroll, empLnamePayroll, empRatePayroll, empRankPayroll);
+            Employee SelectedEmployee = new Employee();
 
-            this.Close();
+            SelectedEmployee.EmpIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
+            SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
+            SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
+            SelectedEmployee.EmpRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
+            SelectedEmployee.EmpRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
+            
+            OnEmployeeSearchedValues?.Invoke(SelectedEmployee);
+
+            Close();
         }
 
         private void dgPayrollEmpList_CellContentClick(object sender, DataGridViewCellEventArgs e)

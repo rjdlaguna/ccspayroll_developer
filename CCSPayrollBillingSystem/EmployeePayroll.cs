@@ -33,11 +33,11 @@ namespace CCSPayrollBillingSystem
         public double empRatePayroll;
         public string empRankPayroll;
 
-        public bool IsEmployeeSearched { get; set; }
+        EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
+
         public void Init(decimal baseRate)
         {
             this.baseRate = baseRate;
-            IsEmployeeSearched = false;
 
             TextDefautValue();
         }
@@ -45,6 +45,7 @@ namespace CCSPayrollBillingSystem
         public frmEmployeePayroll()
         {
             InitializeComponent();
+            
         }
 
         private void TextDefautValue()
@@ -63,31 +64,26 @@ namespace CCSPayrollBillingSystem
 
         private void frmEmployeePayroll_Load(object sender, EventArgs e)
         {
-            if (IsEmployeeSearched)
-            {
-                EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
-
-                employeeListForPayroll.OnEmployeeSearchedValues += (empIdPayroll, empFnamePayroll, empLnamePayroll, empRatePayroll, empRankPayroll) =>
-                {
-                    this.empIdPayroll = empIdPayroll;
-                    this.empFnamePayroll = empFnamePayroll;
-                    this.empLnamePayroll = empLnamePayroll;
-                    this.empRatePayroll = empRatePayroll;
-                    this.empRankPayroll = empRankPayroll;
-                };
-            }
-            nfi = new CultureInfo("en-PH", false).NumberFormat;
-            txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
-            txtBaseRate.Text = empRatePayroll.ToString();
-            txtRank.Text = empRankPayroll;
+            employeeListForPayroll.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            IsEmployeeSearched = true;
+            employeeListForPayroll.Show();
+        }
 
-            EmployeeListForPayroll frmEmployeeListPayroll = new EmployeeListForPayroll();
-            frmEmployeeListPayroll.Show();
+        private void LoadSearchedEmployeeDetails(Employee emp)
+        {
+            empIdPayroll = emp.EmpIdPayroll;
+            empFnamePayroll = emp.EmpFnamePayroll;
+            empLnamePayroll = emp.EmpLnamePayroll;
+            empRatePayroll = emp.EmpRatePayroll;
+            empRankPayroll = emp.EmpRankPayroll;
+            
+            nfi = new CultureInfo("en-PH", false).NumberFormat;
+            txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
+            txtBaseRate.Text = empRatePayroll.ToString();
+            txtRank.Text = empRankPayroll;
         }
 
         private void txtRegDays_TextChanged(object sender, EventArgs e)
@@ -138,6 +134,18 @@ namespace CCSPayrollBillingSystem
             
         }
 
+        private void txtBaseRate_TextChanged(object sender, EventArgs e)
+        {
+            Init(Convert.ToDecimal(empRatePayroll));
+        }
+
+        private void txtRegHolRestDay_TextChanged_1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolRestDay.Text = "0";
+            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
+            txtRegHolRestDayRate.Text = _RegHolRestDayRate.ToString("C", nfi);
+        }
+
         private void txtCOLA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCOLA.Text)) txtCOLA.Text = "0";
@@ -171,18 +179,6 @@ namespace CCSPayrollBillingSystem
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void txtBaseRate_TextChanged(object sender, EventArgs e)
-        {
-            Init(Convert.ToDecimal(empRatePayroll));
-        }
-
-        private void txtRegHolRestDay_TextChanged_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolRestDay.Text = "0";
-            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
-            txtRegHolRestDayRate.Text = _RegHolRestDayRate.ToString("C", nfi);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
