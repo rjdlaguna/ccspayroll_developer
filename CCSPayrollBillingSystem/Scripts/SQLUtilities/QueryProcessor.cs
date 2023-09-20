@@ -47,7 +47,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
         #endregion
-
+         
         #region SQL Process for Change Password
         //Search for Username
         public void ExecuteSqlSearchChangePasswordQuery(string username, string currentPassword, string newPassword, string confirmPassword, Action onSuccess, Action onFailure)
@@ -924,21 +924,41 @@ namespace CCSPayrollBillingSystem.Scripts
         
         public void ExecuteSqlBillingInsertQuery(DateTime billingStartDate, DateTime billingEndDate, decimal billingGrossTotal, decimal vat, int projectID, decimal billingNetTotal, Action onSuccess, Action onFailure)
         {
-            string sqlInsert = "INSERT INTO tblBilling(BillingStartDate, BillingEndDate, BillingGrossTotal, ComputedTax, ProjectID, BillingNetTotal) VALUES('" + billingStartDate + "','" + billingEndDate + "','" + billingGrossTotal + "','" + vat + "','" + projectID + "','" + billingNetTotal + "')";
+            string sqlInsert = "INSERT INTO tblBilling (BillingStartDate, BillingEndDate, BillingGrossTotal, ComputedTax, ProjectID, BillingNetTotal) VALUES (@BillingStartDate, @BillingEndDate, @BillingGrossTotal, @Vat, @ProjectID, @BillingNetTotal)";
 
-            connection = new DatabaseConnection(connectionString);
-            command = new DatabaseCommand(sqlInsert, connection);
-            dataReader = new DatabaseReader(command.ExecuteReader());
-            
-            if (dataReader.Read())
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlInsert, connection))
             {
-                onSuccess?.Invoke();
+                // Add parameters with appropriate data types
+                command.AddParameter("@BillingStartDate", billingStartDate);
+                command.AddParameter("@BillingEndDate", billingEndDate);
+                command.AddParameter("@BillingGrossTotal", billingGrossTotal);
+                command.AddParameter("@Vat", vat);
+                command.AddParameter("@ProjectID", projectID);
+                command.AddParameter("@BillingNetTotal", billingNetTotal);
+
+                try
+                {
+                    dataReader = new DatabaseReader(command.ExecuteReader());
+
+                    if (dataReader.Read())
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions, e.g., log or display error message
+                    Console.WriteLine("Error: " + ex.Message);
+                    onFailure?.Invoke();
+                }
             }
-            else
-            {
-                onFailure?.Invoke();
-            }
-            
+
+
         }
 
         public void ExecuteSqlProjectDataUpdate(int projID, string projName, string projDesc, string projAddress, string projInCharge, string projContact, string projEmail, Action onSuccess, Action onFailure)

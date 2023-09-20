@@ -16,7 +16,8 @@ namespace CCSPayrollBillingSystem
         private string empFname;
         private string empLname;
 
-        frmEmployeePayroll frmEmpPayroll = new frmEmployeePayroll();
+        public event Action<Employee> OnEmployeeSearchedValues;
+
         public EmployeeListForPayroll()
         {
             InitializeComponent();
@@ -46,6 +47,7 @@ namespace CCSPayrollBillingSystem
                 empLname = null;
             }
             LoadPayrollEmployeeINfo(empFname, empLname);
+
         }
 
         private void LoadPayrollEmployeeINfo(string fname, string lname)
@@ -64,18 +66,24 @@ namespace CCSPayrollBillingSystem
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            frmEmpPayroll.empIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
-            frmEmpPayroll.empFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
-            frmEmpPayroll.empLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
-            frmEmpPayroll.empRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
-            frmEmpPayroll.empRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
-            this.Close();
-            frmEmpPayroll.Show();
+            Employee SelectedEmployee = new Employee();
+
+            SelectedEmployee.EmpIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
+            SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
+            SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
+            SelectedEmployee.EmpRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
+            SelectedEmployee.EmpRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
+            
+            OnEmployeeSearchedValues?.Invoke(SelectedEmployee);
+
+            Close();
         }
 
         private void dgPayrollEmpList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+
     }
 }

@@ -163,23 +163,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>mdlUser.edmx</DependentUpon>
     </Compile>
-    <Compile Include="PayrollPrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PayrollPrompt.Designer.cs">
-      <DependentUpon>PayrollPrompt.cs</DependentUpon>
-    </Compile>
     <Compile Include="PrintForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PrintForm.Designer.cs">
       <DependentUpon>PrintForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProfilePrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProfilePrompt.Designer.cs">
-      <DependentUpon>ProfilePrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectEmployeeList.cs">
@@ -187,12 +175,6 @@
     </Compile>
     <Compile Include="ProjectEmployeeList.Designer.cs">
       <DependentUpon>ProjectEmployeeList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectPayroll.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProjectPayroll.Designer.cs">
-      <DependentUpon>ProjectPayroll.cs</DependentUpon>
     </Compile>
     <Compile Include="ProjectProfileForm.cs">
       <SubType>Form</SubType>
@@ -207,6 +189,7 @@
       <DependentUpon>ProjectProfileList.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Employee.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseCommand.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseConnection.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseReader.cs" />
@@ -264,20 +247,11 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PayrollPrompt.resx">
-      <DependentUpon>PayrollPrompt.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PrintForm.resx">
       <DependentUpon>PrintForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProfilePrompt.resx">
-      <DependentUpon>ProfilePrompt.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProjectEmployeeList.resx">
       <DependentUpon>ProjectEmployeeList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProjectPayroll.resx">
-      <DependentUpon>ProjectPayroll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectProfileForm.resx">
       <DependentUpon>ProjectProfileForm.cs</DependentUpon>

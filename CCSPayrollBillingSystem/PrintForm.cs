@@ -21,5 +21,17 @@ namespace CCSPayrollBillingSystem
         {
 
         }
+
+        private void btnEmployeePrint_Click(object sender, EventArgs e)
+        {
+            EmployeePrintForm employeePrintForm = new EmployeePrintForm();
+            employeePrintForm.Show();
+        }
+
+        private void btnUserPromptUser2_Click(object sender, EventArgs e)
+        {
+            frmBilling frmBilling = new frmBilling();
+            frmBilling.Show();
+        }
     }
 }

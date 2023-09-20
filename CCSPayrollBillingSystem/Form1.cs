@@ -19,7 +19,6 @@ namespace CCSPayrollBillingSystem
         {
             toolStripStatusLabelMainView.Text = userLogged + " logged!";
             if (userLogged != Constants.ADMIN) { 
-                //menuStrip.Items[3].Visible = false;
                 usersToolStripMenuItem.Visible = false;
                 empSettingsToolStripMenuItem.Visible = false;
             }
@@ -28,37 +27,69 @@ namespace CCSPayrollBillingSystem
         #region Buttons for Prompts
         private void btnPayrollMenu_Click(object sender, EventArgs e)
         {
-            this.Close();
-            PayrollPrompt payrollPrompt = new PayrollPrompt();
-            payrollPrompt.Show();
+            frmEmployeePayroll frmEmployeePayroll = new frmEmployeePayroll();
+            frmEmployeePayroll.Show();
         }
 
-        private void btnProfileMenu_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            ProfilePrompt profilePrompt = new ProfilePrompt();
-            profilePrompt.Show();
-        }
+
 
         private void btnBillingMenu_Click(object sender, EventArgs e)
         {
-            this.Close();
+
             frmBilling frmBilling = new frmBilling();
             frmBilling.Show();
         }
 
         private void btnPrintMenu_Click(object sender, EventArgs e)
         {
-            this.Close();
             PrintForm frmPrint = new PrintForm();
             frmPrint.Show();
+        }
+
+        private void btnProfilePromptEmployee_Click(object sender, EventArgs e)
+        {
+            EmployeeProfileForm frmEmployeeProfile = new EmployeeProfileForm();
+            frmEmployeeProfile.Show();
+        }
+
+        private void btnProfilePromptProject_Click(object sender, EventArgs e)
+        {
+            ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
+            frmProjectProfile.Show();
         }
         #endregion
 
         #region Menu Strips
+        private void employeePayrollToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEmployeePayroll frmEmployeePayroll = new frmEmployeePayroll();
+            frmEmployeePayroll.Show();
+        }
+
+
+        private void billingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            frmBilling frmBilling = new frmBilling();
+            frmBilling.Show();
+        }
+
+        private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmployeeProfileForm frmEmployeeProfile = new EmployeeProfileForm();
+            frmEmployeeProfile.Show();
+        }
+
+        private void projectToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
+            frmProjectProfile.Show();
+        }
+
+
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+
             UsersPrompt usersPrompt = new UsersPrompt();
             usersPrompt.Show();
         }
@@ -72,7 +103,7 @@ namespace CCSPayrollBillingSystem
 
         private void passwordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+
             ChangePassword changePassword = new ChangePassword(userLogged);
             changePassword.Show();
         }
@@ -84,24 +115,25 @@ namespace CCSPayrollBillingSystem
         }
         private void deductionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+
             Deduction deduction = new Deduction();
             deduction.Show();
         }
 
         private void employeeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.Close();
+
             EmployeePrintForm employeePrintForm = new EmployeePrintForm();
             employeePrintForm.Show();
         }
         #endregion
 
-        public void OnApplicationExit()
-        {
-            Application.Exit();
-        }
+        public void OnApplicationExit() => Application.Exit();
 
-        
+        private void billingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmBilling frmBilling = new frmBilling();
+            frmBilling.Show();
+        }
     }
 }
