@@ -659,11 +659,131 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
-        #endregion
+        public void ExecuteSqlWorkDaysValidationQuery(Action<int> onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT WorkDayID FROM tblWorkDays ORDER BY WorkDayID DESC";
 
-        #region SQL Process for Project
-        //Inserting data to tblProject
-        public void ExecuteSQLProjectDataSaveQuery(string projName, string projDesc, string projAddress, string projInCharge, string projContactNo, string projEmail, Action onSuccess, Action onFailure)
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            onSuccess?.Invoke(Convert.ToInt32(dataReader.GetValue(0)));
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
+        //Insert tblJob
+        public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, Action onSuccess, Action onFailure)
+        {
+            string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @Tax)";
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlInsert, connection))
+            {
+                // Add parameters with appropriate data types
+                command.AddParameter("@PayrollStartDate", payrollData.PayrollStartDate);
+                command.AddParameter("@PayrollEndDate", payrollData.PayrollEndDate);
+                command.AddParameter("@EmpID", payrollData.EmpID);
+                command.AddParameter("@SSSAmount", payrollData.SSSAmount);
+                command.AddParameter("@PagIbigAmount", payrollData.PagIbigAmount);
+                command.AddParameter("@PhilHealthAmount", payrollData.PhilHealthAmount);
+                command.AddParameter("@GrossSalary", payrollData.GrossSalary);
+                command.AddParameter("@NetSalary", payrollData.NetSalary);
+                command.AddParameter("@WorkDayID", payrollData.WorkDayID);
+                command.AddParameter("@Tax", payrollData.Tax);
+
+                try
+                {
+                    dataReader = new DatabaseReader(command.ExecuteReader());
+
+                    if (dataReader.Read())
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions, e.g., log or display error message
+                    Console.WriteLine(ex);
+                }
+
+            }
+        }
+        public void ExecuteSqlWorkDaySaveQuery(WorkDays workDays, Action onSuccess, Action onFailure)
+        {
+            //string sqlWDInsert = "INSERT INTO tblWorkDays VALUES ('" + workDays.WorkDayID + "','" + workDays.RegularDays + "','" + workDays.RegularDaysOT + "','" +
+            //    workDays.SplHolidays + "','" + workDays.SplHolidayOT + "','" + workDays.RegularHoliday + "','" + workDays.RegularHolidayOT + "','" + workDays.COLA + "','" + workDays.PDA + "','" + workDays.Others + "')";
+
+            //using (connection = new DatabaseConnection(connectionString))
+            //using (command = new DatabaseCommand(sqlWDInsert, connection))
+            //{
+            //    // Add parameters with appropriate data types
+            //    command.AddParameter("@WorkDayID", workDays.WorkDayID);
+            //    command.AddParameter("@RegularDays", workDays.RegularDays);
+            //    command.AddParameter("@RegularDaysOT", workDays.RegularDaysOT);
+            //    command.AddParameter("@SplHolidays", workDays.SplHolidays);
+            //    command.AddParameter("@SplHolidayOT", workDays.SplHolidayOT);
+            //    command.AddParameter("@RegularHoliday", workDays.RegularHoliday);
+            //    command.AddParameter("@RegularHolidayOT", workDays.RegularHolidayOT);
+            //    command.AddParameter("@COLA", workDays.COLA);
+            //    command.AddParameter("@PDA", workDays.PDA);
+            //    command.AddParameter("@Others", workDays.Others);
+
+            //    dataReader = new DatabaseReader(command.ExecuteReader());
+
+            //    if (dataReader.Read())
+            //    {
+            //        Console.WriteLine("Loading WorkDayID Information successful.");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Problem loading WorkDay information.");
+            //    }
+
+               
+            //}
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlWDInsert = "INSERT INTO tblWorkDays VALUES ('" + workDays.WorkDayID + "','" + workDays.RegularDays + "','" + workDays.RegularDaysOT + "','" +
+                workDays.SplHolidays + "','" + workDays.SplHolidayOT + "','" + workDays.RegularHoliday + "','" + workDays.RegularHolidayOT + "','" + workDays.COLA + "','" + workDays.PDA + "','" + workDays.Others + "')"; ;
+
+                using (command = new DatabaseCommand(sqlWDInsert, connection))
+                {
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            Console.WriteLine("Loading WorkDayID Information successful.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Problem loading WorkDay information.");
+                        }
+                    }
+                }
+            }
+
+        }
+
+            #endregion
+
+            #region SQL Process for Project
+            //Inserting data to tblProject
+            public void ExecuteSQLProjectDataSaveQuery(string projName, string projDesc, string projAddress, string projInCharge, string projContactNo, string projEmail, Action onSuccess, Action onFailure)
         {
             int isActiveValue = 1;
             string sqlInsert = "INSERT INTO tblProject(ProjectName, ProjectDescription, ProjectAddress, PersonInCharge, ProjectContactNo, ProjectEmail, IsActive) " +

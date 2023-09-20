@@ -191,14 +191,14 @@ namespace CCSPayrollBillingSystem
             string jobTitle = cmbJob.Text.Trim();
             int jobTitleId = jobInfo.FirstOrDefault(x => x.Value.Trim() == jobTitle).Key;
             empJobID = GetJobIdAssigned(jobTitleId);
-            QueryProcessor deductionProcessor = new QueryProcessor();
-            empDeductionID = deductionProcessor.ExecuteSQLGetDeductionIDbyJobID(empJobID, () =>
-            {
-                Console.WriteLine("Successfully retrieved deduction ID.");
-            }, () =>
-            {
-                Console.WriteLine("Deduction ID not found.");
-            });
+            //QueryProcessor deductionProcessor = new QueryProcessor();
+            //empDeductionID = deductionProcessor.ExecuteSQLGetDeductionIDbyJobID(empJobID, () =>
+            //{
+            //    Console.WriteLine("Successfully retrieved deduction ID.");
+            //}, () =>
+            //{
+            //    Console.WriteLine("Deduction ID not found.");
+            //});
 
         }
 

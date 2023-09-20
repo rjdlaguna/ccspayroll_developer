@@ -8,6 +8,7 @@ namespace CCSPayrollBillingSystem
 
     public partial class frmEmployeePayroll : Form
     {
+        private int workDayID;
         private decimal baseRate;
         private decimal deductions;
         private decimal gross;
@@ -172,18 +173,93 @@ namespace CCSPayrollBillingSystem
             gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
             deductions = decimal.Parse(txtSSS.Text) + decimal.Parse(txtPhilHealth.Text) + decimal.Parse(txtPagIbig.Text) + decimal.Parse(txtTax.Text);
             vat = decimal.Parse(txtVAT.Text);
+            net = gross - deductions;
             txtGrossPay.Text = gross.ToString("C", nfi);
-            txtNetPay.Text = (gross - deductions).ToString("C", nfi);
+            txtNetPay.Text = net.ToString("C", nfi);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            QueryProcessor payrollWDProcessor = new QueryProcessor();
 
+            payrollWDProcessor.ExecuteSqlWorkDaysValidationQuery((int iD) =>
+            {
+                workDayID = iD;
+                Console.WriteLine("Loading WorkDayID Information successful.");
+            }, () =>
+            {
+                Console.WriteLine("Problem loading WorkDays information.");
+            });
+
+            PayrollData payroll = SetPayrollData();
+            WorkDays work = SetWorkDaysData();
+
+            payrollWDProcessor.ExecuteSqlPayrollSaveQuery(payroll, () =>
+            {
+                MessageBox.Show("Saving Payroll Information successful.");
+            }, () =>
+            {
+                MessageBox.Show("Problem saving Payroll information.");
+            });
+
+            payrollWDProcessor.ExecuteSqlWorkDaySaveQuery(work, () =>
+            {
+                MessageBox.Show("Saving Workdays Information successful.");
+            }, () =>
+            {
+                MessageBox.Show("Problem saving Workdays information.");
+            });
+
+
+        }
+
+        private PayrollData SetPayrollData()
+        {
+            PayrollData payrollData = new PayrollData();
+
+            payrollData.PayrollStartDate = dtPayrollStartDate.Value;
+            payrollData.PayrollEndDate = dtPayrollStartDate.Value;
+            payrollData.EmpID = empIdPayroll;
+            payrollData.SSSAmount = Convert.ToDecimal(txtSSS.Text);
+            payrollData.PagIbigAmount = Convert.ToDecimal(txtPhilHealth.Text);
+            payrollData.PhilHealthAmount = Convert.ToDecimal(txtPagIbig.Text);
+            payrollData.GrossSalary = gross;
+            payrollData.NetSalary = net;
+            payrollData.WorkDayID = workDayID + 1;
+            payrollData.Tax = Convert.ToDecimal(txtVAT.Text);
+
+            return payrollData;
+        }
+
+        private WorkDays SetWorkDaysData()
+        {
+            WorkDays workDays = new WorkDays();
+
+            workDays.WorkDayID = workDayID + 1;
+            workDays.RegularDays = float.Parse(txtRegDays.Text);
+            workDays.RegularDaysOT = float.Parse(txtRegOT.Text);
+            workDays.SplHolidays = float.Parse(txtSplHolidays.Text);
+            workDays.SplHolidayOT = float.Parse(txtSplHolidaysOT.Text);
+            workDays.RegularHoliday = float.Parse(txtRegHolidays.Text);
+            workDays.RegularHolidayOT = float.Parse(txtRegHolidaysOT.Text);
+            workDays.COLA = float.Parse(txtCOLA.Text);
+            workDays.PDA = float.Parse(txtPDA.Text);
+            workDays.Others = float.Parse(txtOthers.Text);
+
+            return workDays;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            gbWorkDays.Enabled = true;
+            gbDeductions.Enabled = true;
+
+            txtVAT.Enabled = true;
         }
     }
 }
