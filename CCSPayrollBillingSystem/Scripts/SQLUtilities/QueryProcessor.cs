@@ -683,86 +683,64 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
         //Insert tblJob
-        public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, Action onSuccess, Action onFailure)
+        public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
             string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @Tax)";
 
             using (connection = new DatabaseConnection(connectionString))
-            using (command = new DatabaseCommand(sqlInsert, connection))
             {
-                // Add parameters with appropriate data types
-                command.AddParameter("@PayrollStartDate", payrollData.PayrollStartDate);
-                command.AddParameter("@PayrollEndDate", payrollData.PayrollEndDate);
-                command.AddParameter("@EmpID", payrollData.EmpID);
-                command.AddParameter("@SSSAmount", payrollData.SSSAmount);
-                command.AddParameter("@PagIbigAmount", payrollData.PagIbigAmount);
-                command.AddParameter("@PhilHealthAmount", payrollData.PhilHealthAmount);
-                command.AddParameter("@GrossSalary", payrollData.GrossSalary);
-                command.AddParameter("@NetSalary", payrollData.NetSalary);
-                command.AddParameter("@WorkDayID", payrollData.WorkDayID);
-                command.AddParameter("@Tax", payrollData.Tax);
-
-                try
+                using (command = new DatabaseCommand(sqlInsert, connection))
                 {
-                    dataReader = new DatabaseReader(command.ExecuteReader());
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@PayrollStartDate", payrollData.PayrollStartDate);
+                    command.AddParameter("@PayrollEndDate", payrollData.PayrollEndDate);
+                    command.AddParameter("@EmpID", payrollData.EmpID);
+                    command.AddParameter("@SSSAmount", payrollData.SSSAmount);
+                    command.AddParameter("@PagIbigAmount", payrollData.PagIbigAmount);
+                    command.AddParameter("@PhilHealthAmount", payrollData.PhilHealthAmount);
+                    command.AddParameter("@GrossSalary", payrollData.GrossSalary);
+                    command.AddParameter("@NetSalary", payrollData.NetSalary);
+                    command.AddParameter("@WorkDayID", payrollData.WorkDayID);
+                    command.AddParameter("@Tax", payrollData.Tax);
 
-                    if (dataReader.Read())
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
                     {
-                        onSuccess?.Invoke();
-                    }
-                    else
-                    {
-                        onFailure?.Invoke();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle exceptions, e.g., log or display error message
-                    Console.WriteLine(ex);
-                }
+                        if (!dataReader.Read())
+                        {
+                            onSuccess?.Invoke();
+                            ExecuteSqlWorkDaySaveQuery(workDays);
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
 
+                    }
+
+                }
             }
         }
-        public void ExecuteSqlWorkDaySaveQuery(WorkDays workDays, Action onSuccess, Action onFailure)
+        public void ExecuteSqlWorkDaySaveQuery(WorkDays workDays)
         {
-            //string sqlWDInsert = "INSERT INTO tblWorkDays VALUES ('" + workDays.WorkDayID + "','" + workDays.RegularDays + "','" + workDays.RegularDaysOT + "','" +
-            //    workDays.SplHolidays + "','" + workDays.SplHolidayOT + "','" + workDays.RegularHoliday + "','" + workDays.RegularHolidayOT + "','" + workDays.COLA + "','" + workDays.PDA + "','" + workDays.Others + "')";
 
-            //using (connection = new DatabaseConnection(connectionString))
-            //using (command = new DatabaseCommand(sqlWDInsert, connection))
-            //{
-            //    // Add parameters with appropriate data types
-            //    command.AddParameter("@WorkDayID", workDays.WorkDayID);
-            //    command.AddParameter("@RegularDays", workDays.RegularDays);
-            //    command.AddParameter("@RegularDaysOT", workDays.RegularDaysOT);
-            //    command.AddParameter("@SplHolidays", workDays.SplHolidays);
-            //    command.AddParameter("@SplHolidayOT", workDays.SplHolidayOT);
-            //    command.AddParameter("@RegularHoliday", workDays.RegularHoliday);
-            //    command.AddParameter("@RegularHolidayOT", workDays.RegularHolidayOT);
-            //    command.AddParameter("@COLA", workDays.COLA);
-            //    command.AddParameter("@PDA", workDays.PDA);
-            //    command.AddParameter("@Others", workDays.Others);
-
-            //    dataReader = new DatabaseReader(command.ExecuteReader());
-
-            //    if (dataReader.Read())
-            //    {
-            //        Console.WriteLine("Loading WorkDayID Information successful.");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Problem loading WorkDay information.");
-            //    }
-
-               
-            //}
             using (connection = new DatabaseConnection(connectionString))
             {
-                string sqlWDInsert = "INSERT INTO tblWorkDays VALUES ('" + workDays.WorkDayID + "','" + workDays.RegularDays + "','" + workDays.RegularDaysOT + "','" +
-                workDays.SplHolidays + "','" + workDays.SplHolidayOT + "','" + workDays.RegularHoliday + "','" + workDays.RegularHolidayOT + "','" + workDays.COLA + "','" + workDays.PDA + "','" + workDays.Others + "')"; ;
+                string sqlWDInsert = "INSERT INTO tblWorkDays VALUES (" +
+                    "@WorkDayID, @RegularDays, @RegularDaysOT, @SplHolidays, @SplHolidayOT, @RegularHoliday, @RegularHolidayOT, @COLA, @PDA, @Others)";
 
                 using (command = new DatabaseCommand(sqlWDInsert, connection))
                 {
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@WorkDayID", workDays.WorkDayID);
+                    command.AddParameter("@RegularDays", workDays.RegularDays);
+                    command.AddParameter("@RegularDaysOT", workDays.RegularDaysOT);
+                    command.AddParameter("@SplHolidays", workDays.SplHolidays);
+                    command.AddParameter("@SplHolidayOT", workDays.SplHolidayOT);
+                    command.AddParameter("@RegularHoliday", workDays.RegularHoliday);
+                    command.AddParameter("@RegularHolidayOT", workDays.RegularHolidayOT);
+                    command.AddParameter("@COLA", workDays.COLA);
+                    command.AddParameter("@PDA", workDays.PDA);
+                    command.AddParameter("@Others", workDays.Others);
                     using (dataReader = new DatabaseReader(command.ExecuteReader()))
                     {
                         if (dataReader.Read())

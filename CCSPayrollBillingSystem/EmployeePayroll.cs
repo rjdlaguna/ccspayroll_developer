@@ -180,36 +180,31 @@ namespace CCSPayrollBillingSystem
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            QueryProcessor payrollWDProcessor = new QueryProcessor();
+            if (ValidationHelper.IfNullOrEmpty(txtGrossPay) && ValidationHelper.IfNullOrEmpty(txtNetPay))
+            {
+                QueryProcessor payrollWDProcessor = new QueryProcessor();
 
-            payrollWDProcessor.ExecuteSqlWorkDaysValidationQuery((int iD) =>
-            {
-                workDayID = iD;
-                Console.WriteLine("Loading WorkDayID Information successful.");
-            }, () =>
-            {
-                Console.WriteLine("Problem loading WorkDays information.");
-            });
+                payrollWDProcessor.ExecuteSqlWorkDaysValidationQuery((int iD) =>
+                {
+                    workDayID = iD;
+                    Console.WriteLine("Loading WorkDayID Information successful.");
+                }, () =>
+                {
+                    Console.WriteLine("Problem loading WorkDays information.");
+                });
 
-            PayrollData payroll = SetPayrollData();
-            WorkDays work = SetWorkDaysData();
+                PayrollData payroll = SetPayrollData();
+                WorkDays work = SetWorkDaysData();
 
-            payrollWDProcessor.ExecuteSqlPayrollSaveQuery(payroll, () =>
-            {
-                MessageBox.Show("Saving Payroll Information successful.");
-            }, () =>
-            {
-                MessageBox.Show("Problem saving Payroll information.");
-            });
-
-            payrollWDProcessor.ExecuteSqlWorkDaySaveQuery(work, () =>
-            {
-                MessageBox.Show("Saving Workdays Information successful.");
-            }, () =>
-            {
-                MessageBox.Show("Problem saving Workdays information.");
-            });
-
+                payrollWDProcessor.ExecuteSqlPayrollSaveQuery(payroll, work, () =>
+                {
+                    ClearUI(this);
+                    MessageBox.Show("Saving Payroll Information successful.");
+                }, () =>
+                {
+                    MessageBox.Show("Problem saving Payroll information.");
+                });
+            }
 
         }
 
@@ -260,6 +255,27 @@ namespace CCSPayrollBillingSystem
             gbDeductions.Enabled = true;
 
             txtVAT.Enabled = true;
+        }
+
+        private void ClearUI(Control control)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is TextBox)
+                {
+                    ((TextBox)controlItem).Clear();
+                }
+                if (controlItem is GroupBox)
+                {
+                    foreach (Control item in controlItem.Controls)
+                    {
+                        if (controlItem is TextBox)
+                        {
+                            ((TextBox)controlItem).Clear();
+                        }
+                    }
+                }
+            }
         }
     }
 }

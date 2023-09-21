@@ -200,6 +200,7 @@
     <Compile Include="Scripts\SystemUtility\SessionManager.cs" />
     <Compile Include="Scripts\SystemUtility\StaticInstance.cs" />
     <Compile Include="Scripts\SystemUtility\SystemUtilities.cs" />
+    <Compile Include="Scripts\ValidationHelper.cs" />
     <Compile Include="Scripts\WorkDays.cs" />
     <Compile Include="tblUser.cs">
       <DependentUpon>mdlUser.tt</DependentUpon>
