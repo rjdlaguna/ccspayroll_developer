@@ -17,7 +17,7 @@ namespace CCSPayrollBillingSystem
         private string empFname;
         private string empLname;
 
-        frmLoan frmLoanEmployee = new frmLoan();
+        LoanForm frmLoanEmployee = new LoanForm();
 
         QueryProcessor loanProcessor = new QueryProcessor();
         public LoanEmployeeListForm()
@@ -59,11 +59,31 @@ namespace CCSPayrollBillingSystem
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            LoadEmployeeDetailsToLoan();
+        }
+
+        private void dgLoanEmployeeList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgLoanEmployeeList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void LoadEmployeeDetailsToLoan()
+        {
             frmLoanEmployee.empIdLoan = Convert.ToInt32(dgLoanEmployeeList.SelectedRows[0].Cells[0].Value.ToString());
             frmLoanEmployee.empFnameLoan = dgLoanEmployeeList.SelectedRows[0].Cells[1].Value.ToString();
             frmLoanEmployee.empLnameLoan = dgLoanEmployeeList.SelectedRows[0].Cells[2].Value.ToString();
             this.Close();
             frmLoanEmployee.Show();
+        }
+
+        private void dgLoanEmployeeList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            LoadEmployeeDetailsToLoan();
         }
     }
 }
