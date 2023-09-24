@@ -135,5 +135,11 @@ namespace CCSPayrollBillingSystem
             frmBilling frmBilling = new frmBilling();
             frmBilling.Show();
         }
+
+        private void loanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoanForm frmLoan = new LoanForm();
+            frmLoan.Show();
+        }
     }
 }

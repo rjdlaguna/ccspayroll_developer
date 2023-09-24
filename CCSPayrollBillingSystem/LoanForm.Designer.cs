@@ -1,7 +1,7 @@
 ﻿
 namespace CCSPayrollBillingSystem
 {
-    partial class frmLoan
+    partial class LoanForm
     {
         /// <summary>
         /// Required designer variable.
@@ -39,10 +39,9 @@ namespace CCSPayrollBillingSystem
             this.label4 = new System.Windows.Forms.Label();
             this.txtLoanAmount = new System.Windows.Forms.TextBox();
             this.dgEmployeeLoanList = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDeleteLoan = new System.Windows.Forms.Button();
-            this.btnUpdateLoan = new System.Windows.Forms.Button();
-            this.btnEditLoan = new System.Windows.Forms.Button();
+            this.grpLoanList = new System.Windows.Forms.GroupBox();
+            this.btnPayLoan = new System.Windows.Forms.Button();
+            this.txtLoanDataPrompt = new System.Windows.Forms.TextBox();
             this.btnSaveLoan = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtLoanAmountToPay = new System.Windows.Forms.TextBox();
@@ -53,18 +52,14 @@ namespace CCSPayrollBillingSystem
             this.label8 = new System.Windows.Forms.Label();
             this.txtLoanRemainingAmount = new System.Windows.Forms.TextBox();
             this.dgLoanEmployeePaymentList = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnDeleteLoanPayment = new System.Windows.Forms.Button();
-            this.btnUpdateLoanPayment = new System.Windows.Forms.Button();
-            this.btnEditLoanPayment = new System.Windows.Forms.Button();
+            this.grpLoanPayment = new System.Windows.Forms.GroupBox();
             this.btnSaveLoanPayment = new System.Windows.Forms.Button();
             this.txtLoanAmountPaid = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtLoanDataPrompt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgEmployeeLoanList)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.grpLoanList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLoanEmployeePaymentList)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.grpLoanPayment.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -123,6 +118,7 @@ namespace CCSPayrollBillingSystem
             this.comboLoanType.Name = "comboLoanType";
             this.comboLoanType.Size = new System.Drawing.Size(136, 21);
             this.comboLoanType.TabIndex = 6;
+            this.comboLoanType.Text = "Select";
             // 
             // txtLoanDescription
             // 
@@ -153,68 +149,67 @@ namespace CCSPayrollBillingSystem
             // dgEmployeeLoanList
             // 
             this.dgEmployeeLoanList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgEmployeeLoanList.Location = new System.Drawing.Point(18, 220);
+            this.dgEmployeeLoanList.Location = new System.Drawing.Point(18, 231);
             this.dgEmployeeLoanList.Name = "dgEmployeeLoanList";
-            this.dgEmployeeLoanList.Size = new System.Drawing.Size(392, 150);
+            this.dgEmployeeLoanList.Size = new System.Drawing.Size(409, 150);
             this.dgEmployeeLoanList.TabIndex = 10;
+            this.dgEmployeeLoanList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeeLoanList_CellClick);
+            this.dgEmployeeLoanList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeeLoanList_CellContentClick);
             // 
-            // groupBox1
+            // grpLoanList
             // 
-            this.groupBox1.Controls.Add(this.txtLoanDataPrompt);
-            this.groupBox1.Controls.Add(this.btnDeleteLoan);
-            this.groupBox1.Controls.Add(this.btnUpdateLoan);
-            this.groupBox1.Controls.Add(this.btnEditLoan);
-            this.groupBox1.Controls.Add(this.btnSaveLoan);
-            this.groupBox1.Controls.Add(this.txtLoanEmpName);
-            this.groupBox1.Controls.Add(this.dgEmployeeLoanList);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtLoanAmount);
-            this.groupBox1.Controls.Add(this.btnSelectEmployee);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtLoanDescription);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboLoanType);
-            this.groupBox1.Location = new System.Drawing.Point(30, 22);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 416);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
+            this.grpLoanList.Controls.Add(this.btnPayLoan);
+            this.grpLoanList.Controls.Add(this.txtLoanDataPrompt);
+            this.grpLoanList.Controls.Add(this.btnSaveLoan);
+            this.grpLoanList.Controls.Add(this.txtLoanEmpName);
+            this.grpLoanList.Controls.Add(this.dgEmployeeLoanList);
+            this.grpLoanList.Controls.Add(this.label1);
+            this.grpLoanList.Controls.Add(this.txtLoanAmount);
+            this.grpLoanList.Controls.Add(this.btnSelectEmployee);
+            this.grpLoanList.Controls.Add(this.label4);
+            this.grpLoanList.Controls.Add(this.label2);
+            this.grpLoanList.Controls.Add(this.txtLoanDescription);
+            this.grpLoanList.Controls.Add(this.label3);
+            this.grpLoanList.Controls.Add(this.comboLoanType);
+            this.grpLoanList.Location = new System.Drawing.Point(30, 22);
+            this.grpLoanList.Name = "grpLoanList";
+            this.grpLoanList.Size = new System.Drawing.Size(463, 416);
+            this.grpLoanList.TabIndex = 11;
+            this.grpLoanList.TabStop = false;
             // 
-            // btnDeleteLoan
+            // btnPayLoan
             // 
-            this.btnDeleteLoan.Location = new System.Drawing.Point(294, 382);
-            this.btnDeleteLoan.Name = "btnDeleteLoan";
-            this.btnDeleteLoan.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteLoan.TabIndex = 14;
-            this.btnDeleteLoan.Text = "Delete";
-            this.btnDeleteLoan.UseVisualStyleBackColor = true;
+            this.btnPayLoan.Location = new System.Drawing.Point(169, 387);
+            this.btnPayLoan.Name = "btnPayLoan";
+            this.btnPayLoan.Size = new System.Drawing.Size(75, 23);
+            this.btnPayLoan.TabIndex = 16;
+            this.btnPayLoan.Text = "Pay Loan";
+            this.btnPayLoan.UseVisualStyleBackColor = true;
+            this.btnPayLoan.Click += new System.EventHandler(this.btnPayLoan_Click);
             // 
-            // btnUpdateLoan
+            // txtLoanDataPrompt
             // 
-            this.btnUpdateLoan.Location = new System.Drawing.Point(204, 382);
-            this.btnUpdateLoan.Name = "btnUpdateLoan";
-            this.btnUpdateLoan.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateLoan.TabIndex = 13;
-            this.btnUpdateLoan.Text = "Update";
-            this.btnUpdateLoan.UseVisualStyleBackColor = true;
-            // 
-            // btnEditLoan
-            // 
-            this.btnEditLoan.Location = new System.Drawing.Point(131, 381);
-            this.btnEditLoan.Name = "btnEditLoan";
-            this.btnEditLoan.Size = new System.Drawing.Size(67, 25);
-            this.btnEditLoan.TabIndex = 12;
-            this.btnEditLoan.Text = "Edit";
-            this.btnEditLoan.UseVisualStyleBackColor = true;
+            this.txtLoanDataPrompt.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLoanDataPrompt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLoanDataPrompt.ForeColor = System.Drawing.Color.Red;
+            this.txtLoanDataPrompt.Location = new System.Drawing.Point(108, 17);
+            this.txtLoanDataPrompt.Name = "txtLoanDataPrompt";
+            this.txtLoanDataPrompt.Size = new System.Drawing.Size(319, 13);
+            this.txtLoanDataPrompt.TabIndex = 15;
+            this.txtLoanDataPrompt.Text = "LoanDataPrompt";
+            this.txtLoanDataPrompt.Visible = false;
             // 
             // btnSaveLoan
             // 
-            this.btnSaveLoan.Location = new System.Drawing.Point(55, 381);
+            this.btnSaveLoan.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveLoan.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
+            this.btnSaveLoan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveLoan.Location = new System.Drawing.Point(325, 181);
             this.btnSaveLoan.Name = "btnSaveLoan";
-            this.btnSaveLoan.Size = new System.Drawing.Size(65, 24);
+            this.btnSaveLoan.Size = new System.Drawing.Size(102, 42);
             this.btnSaveLoan.TabIndex = 11;
-            this.btnSaveLoan.Text = "Save";
+            this.btnSaveLoan.Text = "SAVE";
+            this.btnSaveLoan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveLoan.UseVisualStyleBackColor = true;
             this.btnSaveLoan.Click += new System.EventHandler(this.btnAddLoan_Click);
             // 
@@ -267,6 +262,7 @@ namespace CCSPayrollBillingSystem
             this.dtLoanPayrollCutoffDate.Name = "dtLoanPayrollCutoffDate";
             this.dtLoanPayrollCutoffDate.Size = new System.Drawing.Size(120, 20);
             this.dtLoanPayrollCutoffDate.TabIndex = 17;
+            this.dtLoanPayrollCutoffDate.ValueChanged += new System.EventHandler(this.dtLoanPayrollCutoffDate_ValueChanged);
             // 
             // label8
             // 
@@ -287,69 +283,44 @@ namespace CCSPayrollBillingSystem
             // dgLoanEmployeePaymentList
             // 
             this.dgLoanEmployeePaymentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLoanEmployeePaymentList.Location = new System.Drawing.Point(37, 185);
+            this.dgLoanEmployeePaymentList.Location = new System.Drawing.Point(25, 228);
             this.dgLoanEmployeePaymentList.Name = "dgLoanEmployeePaymentList";
             this.dgLoanEmployeePaymentList.Size = new System.Drawing.Size(375, 157);
             this.dgLoanEmployeePaymentList.TabIndex = 20;
             // 
-            // groupBox2
+            // grpLoanPayment
             // 
-            this.groupBox2.Controls.Add(this.btnDeleteLoanPayment);
-            this.groupBox2.Controls.Add(this.btnUpdateLoanPayment);
-            this.groupBox2.Controls.Add(this.btnEditLoanPayment);
-            this.groupBox2.Controls.Add(this.btnSaveLoanPayment);
-            this.groupBox2.Controls.Add(this.txtLoanAmountPaid);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.dgLoanEmployeePaymentList);
-            this.groupBox2.Controls.Add(this.txtLoanAmountToPay);
-            this.groupBox2.Controls.Add(this.txtLoanRemainingAmount);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.dtLoanPayrollCutoffDate);
-            this.groupBox2.Controls.Add(this.dtLoanPayrollStartDate);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(526, 25);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(418, 388);
-            this.groupBox2.TabIndex = 15;
-            this.groupBox2.TabStop = false;
-            // 
-            // btnDeleteLoanPayment
-            // 
-            this.btnDeleteLoanPayment.Location = new System.Drawing.Point(294, 353);
-            this.btnDeleteLoanPayment.Name = "btnDeleteLoanPayment";
-            this.btnDeleteLoanPayment.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteLoanPayment.TabIndex = 26;
-            this.btnDeleteLoanPayment.Text = "Delete";
-            this.btnDeleteLoanPayment.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdateLoanPayment
-            // 
-            this.btnUpdateLoanPayment.Location = new System.Drawing.Point(204, 353);
-            this.btnUpdateLoanPayment.Name = "btnUpdateLoanPayment";
-            this.btnUpdateLoanPayment.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateLoanPayment.TabIndex = 25;
-            this.btnUpdateLoanPayment.Text = "Update";
-            this.btnUpdateLoanPayment.UseVisualStyleBackColor = true;
-            // 
-            // btnEditLoanPayment
-            // 
-            this.btnEditLoanPayment.Location = new System.Drawing.Point(131, 352);
-            this.btnEditLoanPayment.Name = "btnEditLoanPayment";
-            this.btnEditLoanPayment.Size = new System.Drawing.Size(67, 25);
-            this.btnEditLoanPayment.TabIndex = 24;
-            this.btnEditLoanPayment.Text = "Edit";
-            this.btnEditLoanPayment.UseVisualStyleBackColor = true;
+            this.grpLoanPayment.Controls.Add(this.btnSaveLoanPayment);
+            this.grpLoanPayment.Controls.Add(this.txtLoanAmountPaid);
+            this.grpLoanPayment.Controls.Add(this.label9);
+            this.grpLoanPayment.Controls.Add(this.dgLoanEmployeePaymentList);
+            this.grpLoanPayment.Controls.Add(this.txtLoanAmountToPay);
+            this.grpLoanPayment.Controls.Add(this.txtLoanRemainingAmount);
+            this.grpLoanPayment.Controls.Add(this.label5);
+            this.grpLoanPayment.Controls.Add(this.label8);
+            this.grpLoanPayment.Controls.Add(this.label6);
+            this.grpLoanPayment.Controls.Add(this.dtLoanPayrollCutoffDate);
+            this.grpLoanPayment.Controls.Add(this.dtLoanPayrollStartDate);
+            this.grpLoanPayment.Controls.Add(this.label7);
+            this.grpLoanPayment.Location = new System.Drawing.Point(526, 25);
+            this.grpLoanPayment.Name = "grpLoanPayment";
+            this.grpLoanPayment.Size = new System.Drawing.Size(418, 413);
+            this.grpLoanPayment.TabIndex = 15;
+            this.grpLoanPayment.TabStop = false;
             // 
             // btnSaveLoanPayment
             // 
-            this.btnSaveLoanPayment.Location = new System.Drawing.Point(55, 352);
+            this.btnSaveLoanPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveLoanPayment.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
+            this.btnSaveLoanPayment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveLoanPayment.Location = new System.Drawing.Point(316, 184);
             this.btnSaveLoanPayment.Name = "btnSaveLoanPayment";
-            this.btnSaveLoanPayment.Size = new System.Drawing.Size(65, 24);
+            this.btnSaveLoanPayment.Size = new System.Drawing.Size(84, 38);
             this.btnSaveLoanPayment.TabIndex = 23;
-            this.btnSaveLoanPayment.Text = "Save";
+            this.btnSaveLoanPayment.Text = "SAVE";
+            this.btnSaveLoanPayment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveLoanPayment.UseVisualStyleBackColor = true;
+            this.btnSaveLoanPayment.Click += new System.EventHandler(this.btnSaveLoanPayment_Click);
             // 
             // txtLoanAmountPaid
             // 
@@ -357,6 +328,7 @@ namespace CCSPayrollBillingSystem
             this.txtLoanAmountPaid.Name = "txtLoanAmountPaid";
             this.txtLoanAmountPaid.Size = new System.Drawing.Size(121, 20);
             this.txtLoanAmountPaid.TabIndex = 22;
+            this.txtLoanAmountPaid.TextChanged += new System.EventHandler(this.txtLoanAmountPaid_TextChanged);
             // 
             // label9
             // 
@@ -367,34 +339,22 @@ namespace CCSPayrollBillingSystem
             this.label9.TabIndex = 21;
             this.label9.Text = "Amount Paid:";
             // 
-            // txtLoanDataPrompt
-            // 
-            this.txtLoanDataPrompt.BackColor = System.Drawing.SystemColors.Control;
-            this.txtLoanDataPrompt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLoanDataPrompt.ForeColor = System.Drawing.Color.Red;
-            this.txtLoanDataPrompt.Location = new System.Drawing.Point(108, 17);
-            this.txtLoanDataPrompt.Name = "txtLoanDataPrompt";
-            this.txtLoanDataPrompt.Size = new System.Drawing.Size(319, 13);
-            this.txtLoanDataPrompt.TabIndex = 15;
-            this.txtLoanDataPrompt.Text = "LoanDataPrompt";
-            this.txtLoanDataPrompt.Visible = false;
-            // 
-            // frmLoan
+            // LoanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 450);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Name = "frmLoan";
+            this.ClientSize = new System.Drawing.Size(969, 450);
+            this.Controls.Add(this.grpLoanPayment);
+            this.Controls.Add(this.grpLoanList);
+            this.Name = "LoanForm";
             this.Text = "LoanForm";
             this.Load += new System.EventHandler(this.LoanForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgEmployeeLoanList)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpLoanList.ResumeLayout(false);
+            this.grpLoanList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLoanEmployeePaymentList)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpLoanPayment.ResumeLayout(false);
+            this.grpLoanPayment.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -411,10 +371,7 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtLoanAmount;
         private System.Windows.Forms.DataGridView dgEmployeeLoanList;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnDeleteLoan;
-        private System.Windows.Forms.Button btnUpdateLoan;
-        private System.Windows.Forms.Button btnEditLoan;
+        private System.Windows.Forms.GroupBox grpLoanList;
         private System.Windows.Forms.Button btnSaveLoan;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLoanAmountToPay;
@@ -425,13 +382,11 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtLoanRemainingAmount;
         private System.Windows.Forms.DataGridView dgLoanEmployeePaymentList;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnDeleteLoanPayment;
-        private System.Windows.Forms.Button btnUpdateLoanPayment;
-        private System.Windows.Forms.Button btnEditLoanPayment;
+        private System.Windows.Forms.GroupBox grpLoanPayment;
         private System.Windows.Forms.Button btnSaveLoanPayment;
         private System.Windows.Forms.TextBox txtLoanAmountPaid;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtLoanDataPrompt;
+        private System.Windows.Forms.Button btnPayLoan;
     }
 }

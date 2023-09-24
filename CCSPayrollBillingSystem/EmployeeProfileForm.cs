@@ -35,14 +35,14 @@ namespace CCSPayrollBillingSystem
         {
             string promptText = null;
             SetEmployeeValues();
-            txtEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID, empDeductionID);
+            txtEmpDataPrompt.Text = ValidateEmpDataFields(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID);
             promptText = txtEmpDataPrompt.Text;
             
             if(String.IsNullOrEmpty(promptText) || promptText == "")
             {
 
                 QueryProcessor empDataProcessor = new QueryProcessor();
-                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID,empStatus, empDeductionID,() =>
+                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID,empStatus,() =>
                 {
                     // Successful Job action
                     ClearEmpDataTextFields();
@@ -67,7 +67,7 @@ namespace CCSPayrollBillingSystem
             empContractEnd = dtcontractend.Value;
         }
 
-        private string ValidateEmpDataFields(string fname, string mname, string lname, string homeadd, string contactno, DateTime bdate, DateTime dhired, DateTime contractend, int jobID, int deductionID)
+        private string ValidateEmpDataFields(string fname, string mname, string lname, string homeadd, string contactno, DateTime bdate, DateTime dhired, DateTime contractend, int jobID)
         {
             string prompt = "";
 
@@ -104,13 +104,6 @@ namespace CCSPayrollBillingSystem
                 txtEmpDataPrompt.Text = "";
                 txtEmpDataPrompt.Show();
                 prompt = "Job should be selected.";
-            }
-            else if (deductionID == 0)
-            {
-                cmbJob.Focus();
-                txtEmpDataPrompt.Text = "";
-                txtEmpDataPrompt.Show();
-                prompt = "Selected job does not have a deduction.";
             }
             else
             {
@@ -192,13 +185,6 @@ namespace CCSPayrollBillingSystem
             int jobTitleId = jobInfo.FirstOrDefault(x => x.Value.Trim() == jobTitle).Key;
             empJobID = GetJobIdAssigned(jobTitleId);
             QueryProcessor deductionProcessor = new QueryProcessor();
-            empDeductionID = deductionProcessor.ExecuteSQLGetDeductionIDbyJobID(empJobID, () =>
-            {
-                Console.WriteLine("Successfully retrieved deduction ID.");
-            }, () =>
-            {
-                Console.WriteLine("Deduction ID not found.");
-            });
 
         }
 
