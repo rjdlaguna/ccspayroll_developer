@@ -105,13 +105,6 @@ namespace CCSPayrollBillingSystem
                 txtEmpDataPrompt.Show();
                 prompt = "Job should be selected.";
             }
-            else if (deductionID == 0)
-            {
-                cmbJob.Focus();
-                txtEmpDataPrompt.Text = "";
-                txtEmpDataPrompt.Show();
-                prompt = "Selected job does not have a deduction.";
-            }
             else
             {
                 txtEmpDataPrompt.Text = "";
@@ -191,15 +184,6 @@ namespace CCSPayrollBillingSystem
             string jobTitle = cmbJob.Text.Trim();
             int jobTitleId = jobInfo.FirstOrDefault(x => x.Value.Trim() == jobTitle).Key;
             empJobID = GetJobIdAssigned(jobTitleId);
-            QueryProcessor deductionProcessor = new QueryProcessor();
-            empDeductionID = deductionProcessor.ExecuteSQLGetDeductionIDbyJobID(empJobID, () =>
-            {
-                Console.WriteLine("Successfully retrieved deduction ID.");
-            }, () =>
-            {
-                Console.WriteLine("Deduction ID not found.");
-            });
-
         }
 
         private void ExtractJobTitle(List<string[]> jobList)
