@@ -659,6 +659,105 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        public void ExecuteSqlWorkDaysValidationQuery(Action<int> onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT WorkDayID FROM tblWorkDays ORDER BY WorkDayID DESC";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            onSuccess?.Invoke(Convert.ToInt32(dataReader.GetValue(0)));
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+                    }
+                }
+            }
+        }
+
+        //Insert tblJob
+        public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
+        {
+            string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @Tax)";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                using (command = new DatabaseCommand(sqlInsert, connection))
+                {
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@PayrollStartDate", payrollData.PayrollStartDate);
+                    command.AddParameter("@PayrollEndDate", payrollData.PayrollEndDate);
+                    command.AddParameter("@EmpID", payrollData.EmpID);
+                    command.AddParameter("@SSSAmount", payrollData.SSSAmount);
+                    command.AddParameter("@PagIbigAmount", payrollData.PagIbigAmount);
+                    command.AddParameter("@PhilHealthAmount", payrollData.PhilHealthAmount);
+                    command.AddParameter("@GrossSalary", payrollData.GrossSalary);
+                    command.AddParameter("@NetSalary", payrollData.NetSalary);
+                    command.AddParameter("@WorkDayID", payrollData.WorkDayID);
+                    command.AddParameter("@Tax", payrollData.Tax);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (!dataReader.Read())
+                        {
+                            onSuccess?.Invoke();
+                            ExecuteSqlWorkDaySaveQuery(workDays);
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+
+                    }
+
+                }
+            }
+        }
+        public void ExecuteSqlWorkDaySaveQuery(WorkDays workDays)
+        {
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlWDInsert = "INSERT INTO tblWorkDays VALUES (" +
+                    "@WorkDayID, @RegularDays, @RegularDaysOT, @SplHolidays, @SplHolidayOT, @RegularHoliday, @RegularHolidayOT, @RegHolRestDay, @COLA, @PDA, @Others)";
+
+                using (command = new DatabaseCommand(sqlWDInsert, connection))
+                {
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@WorkDayID", workDays.WorkDayID);
+                    command.AddParameter("@RegularDays", workDays.RegularDays);
+                    command.AddParameter("@RegularDaysOT", workDays.RegularDaysOT);
+                    command.AddParameter("@SplHolidays", workDays.SplHolidays);
+                    command.AddParameter("@SplHolidayOT", workDays.SplHolidayOT);
+                    command.AddParameter("@RegularHoliday", workDays.RegularHoliday);
+                    command.AddParameter("@RegularHolidayOT", workDays.RegularHolidayOT);
+                    command.AddParameter("@RegHolRestDay", workDays.RegHolRestDay);
+                    command.AddParameter("@COLA", workDays.COLA);
+                    command.AddParameter("@PDA", workDays.PDA);
+                    command.AddParameter("@Others", workDays.Others);
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            Console.WriteLine("Loading WorkDayID Information successful.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Problem loading WorkDay information.");
+                        }
+                    }
+                }
+            }
+
+        }
+
         #endregion
 
         #region SQL Process for Project
