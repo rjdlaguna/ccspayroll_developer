@@ -8,6 +8,7 @@ namespace CCSPayrollBillingSystem
 
     public partial class frmEmployeePayroll : Form
     {
+        private int workDayID;
         private decimal baseRate;
         private decimal deductions;
         private decimal gross;
@@ -45,7 +46,7 @@ namespace CCSPayrollBillingSystem
         public frmEmployeePayroll()
         {
             InitializeComponent();
-            
+
         }
 
         private void TextDefautValue()
@@ -79,7 +80,7 @@ namespace CCSPayrollBillingSystem
             empLnamePayroll = emp.EmpLnamePayroll;
             empRatePayroll = emp.EmpRatePayroll;
             empRankPayroll = emp.EmpRankPayroll;
-            
+
             nfi = new CultureInfo("en-PH", false).NumberFormat;
             txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
             txtBaseRate.Text = empRatePayroll.ToString();
@@ -91,7 +92,7 @@ namespace CCSPayrollBillingSystem
             if (string.IsNullOrWhiteSpace(txtRegDays.Text)) txtRegDays.Text = "0";
             _RegDaysRate = WorkDaysComputation.RegularDays(baseRate, float.Parse(txtRegDays.Text));
             txtRegDaysRate.Text = _RegDaysRate.ToString("C", nfi);
-            
+
         }
 
         private void txtRegOT_TextChanged(object sender, EventArgs e)
@@ -131,7 +132,7 @@ namespace CCSPayrollBillingSystem
 
         private void txtRegHolRestDay_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtBaseRate_TextChanged(object sender, EventArgs e)
@@ -141,8 +142,8 @@ namespace CCSPayrollBillingSystem
 
         private void txtRegHolRestDay_TextChanged_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolRestDay.Text = "0";
-            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
+            if (string.IsNullOrWhiteSpace(txtRegHolRestDay.Text)) txtRegHolRestDay.Text = "0";
+            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolRestDay.Text));
             txtRegHolRestDayRate.Text = _RegHolRestDayRate.ToString("C", nfi);
         }
 
@@ -172,18 +173,111 @@ namespace CCSPayrollBillingSystem
             gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
             deductions = decimal.Parse(txtSSS.Text) + decimal.Parse(txtPhilHealth.Text) + decimal.Parse(txtPagIbig.Text) + decimal.Parse(txtTax.Text);
             vat = decimal.Parse(txtVAT.Text);
+            net = gross - deductions;
             txtGrossPay.Text = gross.ToString("C", nfi);
-            txtNetPay.Text = (gross - deductions).ToString("C", nfi);
+            txtNetPay.Text = net.ToString("C", nfi);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!(ValidationHelper.IfNullOrEmpty(txtGrossPay)) && !(ValidationHelper.IfNullOrEmpty(txtNetPay)))
+            {
+                QueryProcessor payrollWDProcessor = new QueryProcessor();
 
+                payrollWDProcessor.ExecuteSqlWorkDaysValidationQuery((int iD) =>
+                {
+                    workDayID = iD;
+                    Console.WriteLine("Loading WorkDayID Information successful.");
+                }, () =>
+                {
+                    Console.WriteLine("Problem loading WorkDays information.");
+                });
+
+                PayrollData payroll = SetPayrollData();
+                WorkDays work = SetWorkDaysData();
+
+                payrollWDProcessor.ExecuteSqlPayrollSaveQuery(payroll, work, () =>
+                {
+                    ClearUI(this);
+                    MessageBox.Show("Saving Payroll Information successful.");
+                }, () =>
+                {
+                    MessageBox.Show("Problem saving Payroll information.");
+                });
+            }
+
+        }
+
+        private PayrollData SetPayrollData()
+        {
+            PayrollData payrollData = new PayrollData();
+
+            payrollData.PayrollStartDate = dtPayrollStartDate.Value;
+            payrollData.PayrollEndDate = dtPayrollStartDate.Value;
+            payrollData.EmpID = empIdPayroll;
+            payrollData.SSSAmount = Convert.ToDecimal(txtSSS.Text);
+            payrollData.PagIbigAmount = Convert.ToDecimal(txtPhilHealth.Text);
+            payrollData.PhilHealthAmount = Convert.ToDecimal(txtPagIbig.Text);
+            payrollData.GrossSalary = gross;
+            payrollData.NetSalary = net;
+            payrollData.WorkDayID = workDayID + 1;
+            payrollData.Tax = Convert.ToDecimal(txtVAT.Text);
+
+            return payrollData;
+        }
+
+        private WorkDays SetWorkDaysData()
+        {
+            WorkDays workDays = new WorkDays();
+
+            workDays.WorkDayID = workDayID + 1;
+            workDays.RegularDays = float.Parse(txtRegDays.Text);
+            workDays.RegularDaysOT = float.Parse(txtRegOT.Text);
+            workDays.SplHolidays = float.Parse(txtSplHolidays.Text);
+            workDays.SplHolidayOT = float.Parse(txtSplHolidaysOT.Text);
+            workDays.RegularHoliday = float.Parse(txtRegHolidays.Text);
+            workDays.RegularHolidayOT = float.Parse(txtRegHolidaysOT.Text);
+            workDays.RegHolRestDay = float.Parse(txtRegHolRestDay.Text);
+            workDays.COLA = float.Parse(txtCOLA.Text);
+            workDays.PDA = float.Parse(txtPDA.Text);
+            workDays.Others = float.Parse(txtOthers.Text);
+
+            return workDays;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            gbWorkDays.Enabled = true;
+            gbDeductions.Enabled = true;
+
+            txtVAT.Enabled = true;
+        }
+
+        private void ClearUI(Control control)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is TextBox)
+                {
+                    ((TextBox)controlItem).Clear();
+                }
+                if (controlItem is GroupBox)
+                {
+                    foreach (Control item in controlItem.Controls)
+                    {
+                        if (controlItem is TextBox)
+                        {
+                            ((TextBox)controlItem).Clear();
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
