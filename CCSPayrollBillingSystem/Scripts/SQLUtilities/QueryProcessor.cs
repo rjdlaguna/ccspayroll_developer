@@ -47,7 +47,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
         #endregion
-         
+
         #region SQL Process for Change Password
         //Search for Username
         public void ExecuteSqlSearchChangePasswordQuery(string username, string currentPassword, string newPassword, string confirmPassword, Action onSuccess, Action onFailure)
@@ -555,11 +555,11 @@ namespace CCSPayrollBillingSystem.Scripts
                 string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," +
                                     "EmpHomeAddress=@homeaddress,EmpContactNo=@contactno,EmpBirthDate=@birthdate,EmploymentDate=@datehired," +
                                     "EndOfContractDate=@endofcontract,JobID=@jobID WHERE EmpID = @id";
-                
+
                 sqlConnection.Open();
                 using (SqlCommand command = new SqlCommand(sqlSearch, sqlConnection))
                 {
-                    command.Parameters.AddWithValue("@firstname",firstname);
+                    command.Parameters.AddWithValue("@firstname", firstname);
                     command.Parameters.AddWithValue("@middlename", middlename);
                     command.Parameters.AddWithValue("@lastname", lastname);
                     command.Parameters.AddWithValue("@homeaddress", homeaddress);
@@ -682,7 +682,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
-        //Insert tblJob
+        //Insert tblPayroll
         public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
             string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @Tax)";
@@ -756,12 +756,200 @@ namespace CCSPayrollBillingSystem.Scripts
             }
 
         }
+        //Searching on tblPayroll
+        public void ExecuteSqlPayrollSearchQuery(int empID, Action<PayrollData, WorkDays> onSuccess, Action onFailure)
+        {
 
-            #endregion
+            string sqlSearch = "SELECT TOP 1 * FROM tblPayroll WHERE EmpID='" + empID + "'";
 
-            #region SQL Process for Project
-            //Inserting data to tblProject
-            public void ExecuteSQLProjectDataSaveQuery(string projName, string projDesc, string projAddress, string projInCharge, string projContactNo, string projEmail, Action onSuccess, Action onFailure)
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlSearch, connection))
+            {
+                using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                {
+                    if (dataReader.Read())
+                    {
+                        PayrollData payroll = new PayrollData();
+                        payroll.Payroll_ID = (int)dataReader.GetValue(0);
+                        payroll.PayrollStartDate = DateTime.Parse(dataReader.GetValue(1).ToString());
+                        payroll.PayrollEndDate = DateTime.Parse(dataReader.GetValue(2).ToString());
+                        payroll.EmpID = (int)dataReader.GetValue(3);
+
+                        payroll.SSSAmount = dataReader.GetValue(4) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(4).ToString());
+                        payroll.PagIbigAmount = dataReader.GetValue(5) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(5).ToString());
+                        payroll.PhilHealthAmount = dataReader.GetValue(6) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(6).ToString());
+                        payroll.GrossSalary = dataReader.GetValue(7) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(7).ToString());
+                        payroll.NetSalary = dataReader.GetValue(8) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(8).ToString());
+
+                        payroll.WorkDayID = (int)dataReader.GetValue(9);
+                        payroll.Tax = dataReader.GetValue(10) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(10).ToString());
+
+                        WorkDays work = ExecuteSqlWorkDaysQuery(payroll.WorkDayID);
+                        onSuccess?.Invoke(payroll, work);
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+        }
+
+        private WorkDays ExecuteSqlWorkDaysQuery(int id)
+        {
+            string sqlWorkDays = "SELECT * FROM tblWorkDays WHERE WorkDayID='" + id + "'";
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlWorkDays, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    WorkDays work = new WorkDays();
+
+                    work.WorkDayID = id;
+                    work.RegularDays = dataReader.GetValue(1) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(1).ToString());
+                    work.RegularDaysOT = dataReader.GetValue(2) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(2).ToString());
+                    work.SplHolidays = dataReader.GetValue(3) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(3).ToString());
+                    work.SplHolidayOT = dataReader.GetValue(4) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(4).ToString());
+                    work.RegularHoliday = dataReader.GetValue(5) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(5).ToString());
+                    work.RegularHolidayOT = dataReader.GetValue(6) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(6).ToString());
+                    work.COLA = dataReader.GetValue(7) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(7).ToString());
+                    work.PDA = dataReader.GetValue(8) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(8).ToString());
+                    work.Others = dataReader.GetValue(9) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(9).ToString());
+
+                    return work;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+
+        }
+
+        public void ExecuteSqlPayrollUpdateQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
+        {
+
+            string sqlUpdatePayroll = "UPDATE tblPayroll SET PayrollStartDate=@PayrollStartDate, PayrollEndDate=@PayrollEndDate, EmpID=@EmpID, SSSAmount=@SSSAmount, " +
+                "PagIbigAmount=@PagIbigAmount, PhilHealthAmount=@PhilHealthAmount, GrossSalary=@GrossSalary, NetSalary=@NetSalary, " +
+                "WorkDayID=@WorkDayID, Tax=@Tax WHERE Payroll_ID=@Payroll_ID";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                using (command = new DatabaseCommand(sqlUpdatePayroll, connection)) { 
+
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@Payroll_ID", payrollData.Payroll_ID);
+                    command.AddParameter("@PayrollStartDate", payrollData.PayrollStartDate);
+                    command.AddParameter("@PayrollEndDate", payrollData.PayrollEndDate);
+                    command.AddParameter("@EmpID", payrollData.EmpID);
+                    command.AddParameter("@SSSAmount", payrollData.SSSAmount);
+                    command.AddParameter("@PagIbigAmount", payrollData.PagIbigAmount);
+                    command.AddParameter("@PhilHealthAmount", payrollData.PhilHealthAmount);
+                    command.AddParameter("@GrossSalary", payrollData.GrossSalary);
+                    command.AddParameter("@NetSalary", payrollData.NetSalary);
+                    command.AddParameter("@WorkDayID", payrollData.WorkDayID);
+                    command.AddParameter("@Tax", payrollData.Tax);
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (!dataReader.Read())
+                        {
+                            ExecuteSqlWorkDaysUpdateQuery(workDays);
+                            onSuccess?.Invoke();
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+
+                    }
+                }
+            }
+
+        }
+        public void ExecuteSqlWorkDaysUpdateQuery(WorkDays workDays)
+        {
+            string sqlUpdateWorkDays = "UPDATE tblWorkDays SET RegularDays=@RegularDays, RegularDaysOT=@RegularDaysOT, SplHolidays=@SplHolidays, SplHolidayOT=@SplHolidayOT, " +
+                "RegularHoliday=@RegularHoliday, RegularHolidayOT=@RegularHolidayOT, COLA=@COLA, PDA=@PDA, Others=@Others WHERE WorkDayID=@WorkDayID";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                using (command = new DatabaseCommand(sqlUpdateWorkDays, connection))
+                {
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@WorkDayID", workDays.WorkDayID);
+                    command.AddParameter("@RegularDays", workDays.RegularDays);
+                    command.AddParameter("@RegularDaysOT", workDays.RegularDaysOT);
+                    command.AddParameter("@SplHolidays", workDays.SplHolidays);
+                    command.AddParameter("@SplHolidayOT", workDays.SplHolidayOT);
+                    command.AddParameter("@RegularHoliday", workDays.RegularHoliday);
+                    command.AddParameter("@RegularHolidayOT", workDays.RegularHolidayOT);
+                    command.AddParameter("@COLA", workDays.COLA);
+                    command.AddParameter("@PDA", workDays.PDA);
+                    command.AddParameter("@Others", workDays.Others);
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            Console.WriteLine("Loading WorkDayID Information successful.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Problem loading WorkDay information.");
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ExecuteSqlPayrollDeleteQuery(int empID, int payrollID, int workdayID, Action onSuccess, Action onFailure)
+        {
+
+            string sqlDelete = "DELETE FROM tblPayroll WHERE Payroll_ID=@Payroll_ID AND EmpID=@EmpID AND WorkDayID=@WorkDayID";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                using (command = new DatabaseCommand(sqlDelete, connection))
+                {
+                    command.AddParameter("@EmpID", empID);
+                    command.AddParameter("@Payroll_ID", payrollID);
+                    command.AddParameter("@WorkDayID", workdayID);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (!dataReader.Read())
+                        {
+                            ExecuteSqlWorkDaysDeleteQuery(workdayID);
+                            onSuccess?.Invoke();
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                        }
+
+                    }
+                }
+            }
+        }
+        public void ExecuteSqlWorkDaysDeleteQuery(int workdayID)
+        {
+
+            string sqlDelete = "DELETE FROM tblWorkDays WHERE WorkDayID='" + workdayID + "'";
+
+            connection = new DatabaseConnection(connectionString);
+            command = new DatabaseCommand(sqlDelete, connection);
+            dataReader = new DatabaseReader(command.ExecuteReader());
+        }
+
+
+        #endregion
+
+        #region SQL Process for Project
+        //Inserting data to tblProject
+        public void ExecuteSQLProjectDataSaveQuery(string projName, string projDesc, string projAddress, string projInCharge, string projContactNo, string projEmail, Action onSuccess, Action onFailure)
         {
             int isActiveValue = 1;
             string sqlInsert = "INSERT INTO tblProject(ProjectName, ProjectDescription, ProjectAddress, PersonInCharge, ProjectContactNo, ProjectEmail, IsActive) " +

@@ -183,3 +183,5 @@ D:\__SideHustles\_CCS_References_Docu\ccspayroll_developer\CCSPayrollBillingSyst
 D:\__SideHustles\_CCS_References_Docu\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\AxInterop.MSTSCLib.dll
 D:\__SideHustles\_CCS_References_Docu\ccspayroll_developer\CCSPayrollBillingSystem\bin\Debug\AxInterop.RDPCOMAPILib.dll
 D:\__SideHustles\_CCS_References_Docu\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.csproj.CopyComplete
+D:\__SideHustles\_CCS_References_Docu\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.EmployeeUpdatePayroll.resources
+D:\__SideHustles\_CCS_References_Docu\ccspayroll_developer\CCSPayrollBillingSystem\obj\Debug\CCSPayrollBillingSystem.PayrollPrompt.resources

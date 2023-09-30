@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBilling));
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
@@ -60,8 +60,8 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 163);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(1069, 220);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
@@ -239,6 +239,8 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1093, 526);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCalculate);

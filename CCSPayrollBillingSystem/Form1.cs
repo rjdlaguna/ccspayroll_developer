@@ -27,11 +27,9 @@ namespace CCSPayrollBillingSystem
         #region Buttons for Prompts
         private void btnPayrollMenu_Click(object sender, EventArgs e)
         {
-            frmEmployeePayroll frmEmployeePayroll = new frmEmployeePayroll();
-            frmEmployeePayroll.Show();
+            PayrollPrompt payrollPrompt = new PayrollPrompt();
+            payrollPrompt.Show();
         }
-
-
 
         private void btnBillingMenu_Click(object sender, EventArgs e)
         {
@@ -135,5 +133,7 @@ namespace CCSPayrollBillingSystem
             frmBilling frmBilling = new frmBilling();
             frmBilling.Show();
         }
+
+
     }
 }

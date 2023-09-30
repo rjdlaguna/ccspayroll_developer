@@ -46,7 +46,6 @@ namespace CCSPayrollBillingSystem
         public frmEmployeePayroll()
         {
             InitializeComponent();
-            
         }
 
         private void TextDefautValue()
@@ -171,7 +170,7 @@ namespace CCSPayrollBillingSystem
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
-            deductions = decimal.Parse(txtSSS.Text) + decimal.Parse(txtPhilHealth.Text) + decimal.Parse(txtPagIbig.Text) + decimal.Parse(txtTax.Text);
+            deductions = Convert.ToDecimal(txtSSS.Text) + Convert.ToDecimal(txtPhilHealth.Text) + Convert.ToDecimal(txtPagIbig.Text) + Convert.ToDecimal(txtTax.Text);
             vat = decimal.Parse(txtVAT.Text);
             net = gross - deductions;
             txtGrossPay.Text = gross.ToString("C", nfi);
@@ -180,7 +179,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidationHelper.IfNullOrEmpty(txtGrossPay) && ValidationHelper.IfNullOrEmpty(txtNetPay))
+            if (!ValidationHelper.IfNullOrEmpty(txtGrossPay) && !ValidationHelper.IfNullOrEmpty(txtNetPay))
             {
                 QueryProcessor payrollWDProcessor = new QueryProcessor();
 
@@ -198,7 +197,8 @@ namespace CCSPayrollBillingSystem
 
                 payrollWDProcessor.ExecuteSqlPayrollSaveQuery(payroll, work, () =>
                 {
-                    ClearUI(this);
+                    ClearControls(this);
+                    EnableControls(this, false);
                     MessageBox.Show("Saving Payroll Information successful.");
                 }, () =>
                 {
@@ -206,6 +206,27 @@ namespace CCSPayrollBillingSystem
                 });
             }
 
+        }
+
+
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
+
+        private void btnEdit_Click(object sender, EventArgs e) => EnableControls(this, true);
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            QueryProcessor payrollDeleteProcessor = new QueryProcessor();
+
+            if (!ValidationHelper.IfNullOrEmpty(txtEmployeeName))
+            {
+                //payrollDeleteProcessor.ExecuteSqlPayrollDeleteQuery( ,() =>
+                //{
+                //    MessageBox.Show("Deleting Payroll Information successful.");
+                //}, () =>
+                //{
+                //    MessageBox.Show("Errors in deleting Payroll information.");
+                //});
+            }
         }
 
         private PayrollData SetPayrollData()
@@ -244,20 +265,7 @@ namespace CCSPayrollBillingSystem
             return workDays;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            gbWorkDays.Enabled = true;
-            gbDeductions.Enabled = true;
-
-            txtVAT.Enabled = true;
-        }
-
-        private void ClearUI(Control control)
+        public static void ClearControls(Control control)
         {
             foreach (Control controlItem in control.Controls)
             {
@@ -277,5 +285,29 @@ namespace CCSPayrollBillingSystem
                 }
             }
         }
+
+        public static void EnableControls(Control control, bool status)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is TextBox)
+                {
+                    ((TextBox)controlItem).Enabled = status;
+                }
+                if (controlItem is GroupBox)
+                {
+                    controlItem.Enabled = status;
+                    foreach (Control item in controlItem.Controls)
+                    {
+                        if (controlItem is TextBox)
+                        {
+                            ((TextBox)controlItem).Enabled = status;
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }
