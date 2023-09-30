@@ -42,7 +42,7 @@ namespace CCSPayrollBillingSystem
             {
 
                 QueryProcessor empDataProcessor = new QueryProcessor();
-                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID,empStatus, empDeductionID,() =>
+                empDataProcessor.ExecuteSqlEmpDataSaveQuery(empFirstName, empMiddleName, empLastName, empHomeAddress, empContactNo, empBirthDate, empDateHired, empContractEnd, empJobID,empStatus, () =>
                 {
                     // Successful Job action
                     ClearEmpDataTextFields();
