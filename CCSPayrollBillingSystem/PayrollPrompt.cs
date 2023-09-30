@@ -17,14 +17,14 @@ namespace CCSPayrollBillingSystem
             InitializeComponent();
         }
 
-        private void btnUserPromptUser1_Click(object sender, EventArgs e)
+        private void btnPayPromptEmployee_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmEmployeePayroll frmEmployeePayroll = new frmEmployeePayroll();
-            frmEmployeePayroll.Show();
+            frmEmployeePayroll employeePayroll = new frmEmployeePayroll();
+            employeePayroll.Show();
         }
 
-        private void btnUserPromptUser2_Click(object sender, EventArgs e)
+        private void btnPayPromptProject_Click(object sender, EventArgs e)
         {
             this.Close();
             EmployeeUpdatePayroll employeeUpdatePayroll = new EmployeeUpdatePayroll();
