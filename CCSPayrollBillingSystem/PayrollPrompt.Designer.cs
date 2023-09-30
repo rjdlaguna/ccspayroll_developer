@@ -29,77 +29,80 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnUserPromptUser2 = new System.Windows.Forms.Button();
-            this.btnUserPromptUser1 = new System.Windows.Forms.Button();
-            this.groupBoxUser = new System.Windows.Forms.GroupBox();
-            this.groupBoxUser.SuspendLayout();
+            this.groupBoxPayroll = new System.Windows.Forms.GroupBox();
+            this.btnPayPromptProject = new System.Windows.Forms.Button();
+            this.btnPayPromptEmployee = new System.Windows.Forms.Button();
+            this.groupBoxPayroll.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnUserPromptUser2
+            // groupBoxPayroll
             // 
-            this.btnUserPromptUser2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUserPromptUser2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnUserPromptUser2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUserPromptUser2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUserPromptUser2.Image = global::CCSPayrollBillingSystem.Properties.Resources.user2;
-            this.btnUserPromptUser2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUserPromptUser2.Location = new System.Drawing.Point(3, 106);
-            this.btnUserPromptUser2.Name = "btnUserPromptUser2";
-            this.btnUserPromptUser2.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnUserPromptUser2.Size = new System.Drawing.Size(336, 86);
-            this.btnUserPromptUser2.TabIndex = 3;
-            this.btnUserPromptUser2.Text = "Update Employee Payroll";
-            this.btnUserPromptUser2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnUserPromptUser2.UseVisualStyleBackColor = true;
-            this.btnUserPromptUser2.Click += new System.EventHandler(this.btnUserPromptUser2_Click);
+            this.groupBoxPayroll.Controls.Add(this.btnPayPromptProject);
+            this.groupBoxPayroll.Controls.Add(this.btnPayPromptEmployee);
+            this.groupBoxPayroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.groupBoxPayroll.Location = new System.Drawing.Point(42, 12);
+            this.groupBoxPayroll.Name = "groupBoxPayroll";
+            this.groupBoxPayroll.Size = new System.Drawing.Size(322, 193);
+            this.groupBoxPayroll.TabIndex = 3;
+            this.groupBoxPayroll.TabStop = false;
+            this.groupBoxPayroll.Text = "Payroll Type";
             // 
-            // btnUserPromptUser1
+            // btnPayPromptProject
             // 
-            this.btnUserPromptUser1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUserPromptUser1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnUserPromptUser1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUserPromptUser1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUserPromptUser1.Image = global::CCSPayrollBillingSystem.Properties.Resources.user1;
-            this.btnUserPromptUser1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUserPromptUser1.Location = new System.Drawing.Point(3, 20);
-            this.btnUserPromptUser1.Name = "btnUserPromptUser1";
-            this.btnUserPromptUser1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnUserPromptUser1.Size = new System.Drawing.Size(336, 86);
-            this.btnUserPromptUser1.TabIndex = 0;
-            this.btnUserPromptUser1.Text = "Add Employee Payroll";
-            this.btnUserPromptUser1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnUserPromptUser1.UseVisualStyleBackColor = true;
-            this.btnUserPromptUser1.Click += new System.EventHandler(this.btnUserPromptUser1_Click);
+            this.btnPayPromptProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPayPromptProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPayPromptProject.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPayPromptProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPayPromptProject.Image = global::CCSPayrollBillingSystem.Properties.Resources.salaries;
+            this.btnPayPromptProject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPayPromptProject.Location = new System.Drawing.Point(3, 106);
+            this.btnPayPromptProject.Name = "btnPayPromptProject";
+            this.btnPayPromptProject.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnPayPromptProject.Size = new System.Drawing.Size(316, 86);
+            this.btnPayPromptProject.TabIndex = 3;
+            this.btnPayPromptProject.Text = "Update Payroll";
+            this.btnPayPromptProject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPayPromptProject.UseVisualStyleBackColor = true;
+            this.btnPayPromptProject.Click += new System.EventHandler(this.btnPayPromptProject_Click);
             // 
-            // groupBoxUser
+            // btnPayPromptEmployee
             // 
-            this.groupBoxUser.Controls.Add(this.btnUserPromptUser2);
-            this.groupBoxUser.Controls.Add(this.btnUserPromptUser1);
-            this.groupBoxUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.groupBoxUser.Location = new System.Drawing.Point(33, 26);
-            this.groupBoxUser.Name = "groupBoxUser";
-            this.groupBoxUser.Size = new System.Drawing.Size(342, 193);
-            this.groupBoxUser.TabIndex = 5;
-            this.groupBoxUser.TabStop = false;
-            this.groupBoxUser.Text = "Payroll Actions";
+            this.btnPayPromptEmployee.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnPayPromptEmployee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPayPromptEmployee.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPayPromptEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPayPromptEmployee.Image = global::CCSPayrollBillingSystem.Properties.Resources.salary;
+            this.btnPayPromptEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPayPromptEmployee.Location = new System.Drawing.Point(3, 20);
+            this.btnPayPromptEmployee.Name = "btnPayPromptEmployee";
+            this.btnPayPromptEmployee.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnPayPromptEmployee.Size = new System.Drawing.Size(316, 86);
+            this.btnPayPromptEmployee.TabIndex = 0;
+            this.btnPayPromptEmployee.Text = "Add Payroll";
+            this.btnPayPromptEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPayPromptEmployee.UseVisualStyleBackColor = true;
+            this.btnPayPromptEmployee.Click += new System.EventHandler(this.btnPayPromptEmployee_Click);
             // 
             // PayrollPrompt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 231);
-            this.Controls.Add(this.groupBoxUser);
+            this.Controls.Add(this.groupBoxPayroll);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PayrollPrompt";
             this.Text = "PayrollPrompt";
-            this.groupBoxUser.ResumeLayout(false);
+            this.groupBoxPayroll.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnUserPromptUser2;
-        private System.Windows.Forms.Button btnUserPromptUser1;
-        private System.Windows.Forms.GroupBox groupBoxUser;
+        private System.Windows.Forms.GroupBox groupBoxPayroll;
+        private System.Windows.Forms.Button btnPayPromptProject;
+        private System.Windows.Forms.Button btnPayPromptEmployee;
     }
 }
