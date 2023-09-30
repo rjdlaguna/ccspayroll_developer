@@ -54,6 +54,9 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>2833645.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -141,6 +144,18 @@
     </Compile>
     <Compile Include="Job.Designer.cs">
       <DependentUpon>Job.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoanEmployeeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoanEmployeeListForm.Designer.cs">
+      <DependentUpon>LoanEmployeeListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoanForm.Designer.cs">
+      <DependentUpon>LoanForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -247,6 +262,12 @@
     <EmbeddedResource Include="Job.resx">
       <DependentUpon>Job.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoanEmployeeListForm.resx">
+      <DependentUpon>LoanEmployeeListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoanForm.resx">
+      <DependentUpon>LoanForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -351,6 +372,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="2833645.ico" />
     <Content Include="mdlUser.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>mdlUser.Context.cs</LastGenOutput>
