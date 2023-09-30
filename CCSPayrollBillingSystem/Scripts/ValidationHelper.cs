@@ -12,35 +12,5 @@ namespace CCSPayrollBillingSystem.Scripts
             }
             return true;
         }
-
-        public static void SingleEnableControls(Control control, bool status)
-        {
-            control.Enabled = status;
-        }
-
-        public static Control ClearControls(Control control)
-        {
-            foreach (Control controlItem in control.Controls)
-            {
-                if (controlItem is TextBox)
-                {
-                    ((TextBox)controlItem).Clear();
-                }
-                if (controlItem is GroupBox)
-                {
-                    foreach (Control item in controlItem.Controls)
-                    {
-                        if (controlItem is TextBox)
-                        {
-                            ((TextBox)controlItem).Clear();
-                        }
-                    }
-                }
-            }
-
-            return control;
-        }
-
     }
-    
 }

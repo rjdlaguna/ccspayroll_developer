@@ -130,12 +130,6 @@
     <Compile Include="EmployeeProfileForm.Designer.cs">
       <DependentUpon>EmployeeProfileForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EmployeeUpdatePayroll.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmployeeUpdatePayroll.Designer.cs">
-      <DependentUpon>EmployeeUpdatePayroll.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,12 +162,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>mdlUser.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="PayrollPrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PayrollPrompt.Designer.cs">
-      <DependentUpon>PayrollPrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="PrintForm.cs">
       <SubType>Form</SubType>
@@ -253,9 +241,6 @@
     <EmbeddedResource Include="EmployeeProfileForm.resx">
       <DependentUpon>EmployeeProfileForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeUpdatePayroll.resx">
-      <DependentUpon>EmployeeUpdatePayroll.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -264,9 +249,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PayrollPrompt.resx">
-      <DependentUpon>PayrollPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrintForm.resx">
       <DependentUpon>PrintForm.cs</DependentUpon>
@@ -379,8 +361,6 @@
       <DependentUpon>mdlUser.edmx</DependentUpon>
       <LastGenOutput>mdlUser.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\loupe2.png" />
-    <None Include="Resources\small_loupe.png" />
     <None Include="Resources\calculator.png" />
     <None Include="Resources\file.png" />
     <None Include="Resources\bin.png" />

@@ -15,7 +15,6 @@ namespace CCSPayrollBillingSystem.Scripts
         public float SplHolidayOT { get; set; }
         public float RegularHoliday { get; set; }
         public float RegularHolidayOT { get; set; }
-        public float RegHolRestDay { get; set; }
         public float COLA { get; set; }
         public float PDA { get; set; }
         public float Others { get; set; }
