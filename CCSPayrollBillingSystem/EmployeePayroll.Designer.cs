@@ -37,6 +37,7 @@ namespace CCSPayrollBillingSystem
             this.txtEmployeeName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.gbDeductions = new System.Windows.Forms.GroupBox();
             this.txtTax = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -99,7 +100,6 @@ namespace CCSPayrollBillingSystem
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbDeductions.SuspendLayout();
             this.gbWorkDays.SuspendLayout();
@@ -180,6 +180,19 @@ namespace CCSPayrollBillingSystem
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Rank :";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(262, 18);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(30, 30);
+            this.btnSearch.TabIndex = 1;
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // gbDeductions
             // 
@@ -854,25 +867,12 @@ namespace CCSPayrollBillingSystem
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
-            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(262, 18);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(30, 30);
-            this.btnSearch.TabIndex = 1;
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // frmEmployeePayroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(746, 475);
+            this.ClientSize = new System.Drawing.Size(1011, 475);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.btnCalculate);
