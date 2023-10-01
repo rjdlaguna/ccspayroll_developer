@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 using CCSPayrollBillingSystem.Scripts;
 
@@ -27,11 +25,9 @@ namespace CCSPayrollBillingSystem
         #region Buttons for Prompts
         private void btnPayrollMenu_Click(object sender, EventArgs e)
         {
-            frmEmployeePayroll frmEmployeePayroll = new frmEmployeePayroll();
-            frmEmployeePayroll.Show();
+            PayrollPrompt payrollPrompt = new PayrollPrompt();
+            payrollPrompt.Show();
         }
-
-
 
         private void btnBillingMenu_Click(object sender, EventArgs e)
         {
@@ -136,10 +132,6 @@ namespace CCSPayrollBillingSystem
             frmBilling.Show();
         }
 
-        private void loanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoanForm frmLoan = new LoanForm();
-            frmLoan.Show();
-        }
+
     }
 }
