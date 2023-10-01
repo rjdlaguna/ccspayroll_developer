@@ -684,7 +684,7 @@ namespace CCSPayrollBillingSystem.Scripts
         //Insert tblJob
         public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
-            string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @Tax)";
+            string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @PayrollOthers)";
 
             using (connection = new DatabaseConnection(connectionString))
             {
@@ -700,7 +700,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     command.AddParameter("@GrossSalary", payrollData.GrossSalary);
                     command.AddParameter("@NetSalary", payrollData.NetSalary);
                     command.AddParameter("@WorkDayID", payrollData.WorkDayID);
-                    command.AddParameter("@Tax", payrollData.Tax);
+                    command.AddParameter("@PayrollOthers", payrollData.PayrollOthers);
 
                     using (dataReader = new DatabaseReader(command.ExecuteReader()))
                     {
@@ -783,7 +783,7 @@ namespace CCSPayrollBillingSystem.Scripts
                         payroll.NetSalary = dataReader.GetValue(8) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(8).ToString());
 
                         payroll.WorkDayID = (int)dataReader.GetValue(9);
-                        payroll.Tax = dataReader.GetValue(10) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(10).ToString());
+                        payroll.PayrollOthers = dataReader.GetValue(10) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(10).ToString());
 
                         WorkDays work = ExecuteSqlWorkDaysQuery(payroll.WorkDayID);
                         onSuccess?.Invoke(payroll, work);
@@ -816,9 +816,10 @@ namespace CCSPayrollBillingSystem.Scripts
                     work.SplHolidayOT = dataReader.GetValue(4) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(4).ToString());
                     work.RegularHoliday = dataReader.GetValue(5) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(5).ToString());
                     work.RegularHolidayOT = dataReader.GetValue(6) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(6).ToString());
-                    work.COLA = dataReader.GetValue(7) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(7).ToString());
-                    work.PDA = dataReader.GetValue(8) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(8).ToString());
-                    work.Others = dataReader.GetValue(9) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(9).ToString());
+                    work.RegHolRestDay = dataReader.GetValue(7) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(7).ToString());
+                    work.COLA = dataReader.GetValue(8) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(8).ToString());
+                    work.PDA = dataReader.GetValue(9) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(9).ToString());
+                    work.Others = dataReader.GetValue(10) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(10).ToString());
 
                     return work;
                 }
@@ -836,7 +837,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
             string sqlUpdatePayroll = "UPDATE tblPayroll SET PayrollStartDate=@PayrollStartDate, PayrollEndDate=@PayrollEndDate, EmpID=@EmpID, SSSAmount=@SSSAmount, " +
                 "PagIbigAmount=@PagIbigAmount, PhilHealthAmount=@PhilHealthAmount, GrossSalary=@GrossSalary, NetSalary=@NetSalary, " +
-                "WorkDayID=@WorkDayID, Tax=@Tax WHERE Payroll_ID=@Payroll_ID";
+                "WorkDayID=@WorkDayID, PayrollOthers=@PayrollOthers WHERE Payroll_ID=@Payroll_ID";
 
             using (connection = new DatabaseConnection(connectionString))
             {
@@ -854,7 +855,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     command.AddParameter("@GrossSalary", payrollData.GrossSalary);
                     command.AddParameter("@NetSalary", payrollData.NetSalary);
                     command.AddParameter("@WorkDayID", payrollData.WorkDayID);
-                    command.AddParameter("@Tax", payrollData.Tax);
+                    command.AddParameter("@PayrollOthers", payrollData.PayrollOthers);
                     using (dataReader = new DatabaseReader(command.ExecuteReader()))
                     {
                         if (!dataReader.Read())
@@ -875,7 +876,7 @@ namespace CCSPayrollBillingSystem.Scripts
         public void ExecuteSqlWorkDaysUpdateQuery(WorkDays workDays)
         {
             string sqlUpdateWorkDays = "UPDATE tblWorkDays SET RegularDays=@RegularDays, RegularDaysOT=@RegularDaysOT, SplHolidays=@SplHolidays, SplHolidayOT=@SplHolidayOT, " +
-                "RegularHoliday=@RegularHoliday, RegularHolidayOT=@RegularHolidayOT, COLA=@COLA, PDA=@PDA, Others=@Others WHERE WorkDayID=@WorkDayID";
+                "RegularHoliday=@RegularHoliday, RegularHolidayOT=@RegularHolidayOT, RegHolRestDay=@RegHolRestDay, COLA=@COLA, PDA=@PDA, Others=@Others WHERE WorkDayID=@WorkDayID";
 
             using (connection = new DatabaseConnection(connectionString))
             {
@@ -889,6 +890,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     command.AddParameter("@SplHolidayOT", workDays.SplHolidayOT);
                     command.AddParameter("@RegularHoliday", workDays.RegularHoliday);
                     command.AddParameter("@RegularHolidayOT", workDays.RegularHolidayOT);
+                    command.AddParameter("@RegHolRestDay", workDays.RegHolRestDay);
                     command.AddParameter("@COLA", workDays.COLA);
                     command.AddParameter("@PDA", workDays.PDA);
                     command.AddParameter("@Others", workDays.Others);

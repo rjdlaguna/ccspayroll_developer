@@ -64,7 +64,7 @@ namespace CCSPayrollBillingSystem
             SelectedEmployee.EmpIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
             SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
             SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
-            SelectedEmployee.EmpRatePayroll = Convert.ToDouble(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
+            SelectedEmployee.EmpRatePayroll = Convert.ToDecimal(dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString());
             SelectedEmployee.EmpRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
             
             OnEmployeeSearchedValues?.Invoke(SelectedEmployee);

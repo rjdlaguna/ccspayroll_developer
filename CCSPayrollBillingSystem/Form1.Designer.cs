@@ -118,14 +118,14 @@ namespace CCSPayrollBillingSystem
             // employeeToolStripMenuItem
             // 
             this.employeeToolStripMenuItem.Name = "employeeToolStripMenuItem";
-            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.employeeToolStripMenuItem.Text = "Employee";
             this.employeeToolStripMenuItem.Click += new System.EventHandler(this.employeeToolStripMenuItem_Click);
             // 
             // projectToolStripMenuItem1
             // 
             this.projectToolStripMenuItem1.Name = "projectToolStripMenuItem1";
-            this.projectToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.projectToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
             this.projectToolStripMenuItem1.Text = "Project";
             this.projectToolStripMenuItem1.Click += new System.EventHandler(this.projectToolStripMenuItem1_Click);
             // 
@@ -151,27 +151,27 @@ namespace CCSPayrollBillingSystem
             this.empSettingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.jobToolStripMenuItem});
             this.empSettingsToolStripMenuItem.Name = "empSettingsToolStripMenuItem";
-            this.empSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.empSettingsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.empSettingsToolStripMenuItem.Text = "Employee Settings";
             // 
             // jobToolStripMenuItem
             // 
             this.jobToolStripMenuItem.Name = "jobToolStripMenuItem";
-            this.jobToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.jobToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.jobToolStripMenuItem.Text = "Job";
             this.jobToolStripMenuItem.Click += new System.EventHandler(this.jobToolStripMenuItem_Click);
             // 
             // passwordToolStripMenuItem
             // 
             this.passwordToolStripMenuItem.Name = "passwordToolStripMenuItem";
-            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.passwordToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.passwordToolStripMenuItem.Text = "Change Password";
             this.passwordToolStripMenuItem.Click += new System.EventHandler(this.passwordToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
@@ -215,6 +215,10 @@ namespace CCSPayrollBillingSystem
             // 
             // groupBoxMenu
             // 
+            this.groupBoxMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxMenu.AutoSize = true;
+            this.groupBoxMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBoxMenu.Controls.Add(this.btnProfilePromptProject);
             this.groupBoxMenu.Controls.Add(this.btnProfilePromptEmployee);
             this.groupBoxMenu.Controls.Add(this.btnPrintMenu);
@@ -223,7 +227,7 @@ namespace CCSPayrollBillingSystem
             this.groupBoxMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.groupBoxMenu.Location = new System.Drawing.Point(14, 27);
             this.groupBoxMenu.Name = "groupBoxMenu";
-            this.groupBoxMenu.Size = new System.Drawing.Size(229, 453);
+            this.groupBoxMenu.Size = new System.Drawing.Size(232, 459);
             this.groupBoxMenu.TabIndex = 2;
             this.groupBoxMenu.TabStop = false;
             this.groupBoxMenu.Text = "MenuBox";
@@ -232,7 +236,6 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnProfilePromptProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnProfilePromptProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProfilePromptProject.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnProfilePromptProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProfilePromptProject.Image = global::CCSPayrollBillingSystem.Properties.Resources.profit_growth;
             this.btnProfilePromptProject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -250,7 +253,6 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnProfilePromptEmployee.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnProfilePromptEmployee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProfilePromptEmployee.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnProfilePromptEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProfilePromptEmployee.Image = global::CCSPayrollBillingSystem.Properties.Resources.employee;
             this.btnProfilePromptEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -268,7 +270,6 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnPrintMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPrintMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPrintMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnPrintMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrintMenu.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
             this.btnPrintMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -286,7 +287,6 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnBillingMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnBillingMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBillingMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnBillingMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBillingMenu.Image = global::CCSPayrollBillingSystem.Properties.Resources.bill1;
             this.btnBillingMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -304,7 +304,6 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnPayrollMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPayrollMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPayrollMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnPayrollMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPayrollMenu.Image = global::CCSPayrollBillingSystem.Properties.Resources.invoice3;
             this.btnPayrollMenu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -320,11 +319,6 @@ namespace CCSPayrollBillingSystem
             // 
             // statusStripMain
             // 
-            this.statusStripMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.statusStripMain.AutoSize = false;
-            this.statusStripMain.Dock = System.Windows.Forms.DockStyle.None;
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelMainView});
             this.statusStripMain.Location = new System.Drawing.Point(0, 496);
@@ -342,7 +336,6 @@ namespace CCSPayrollBillingSystem
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(934, 518);
             this.Controls.Add(this.statusStripMain);

@@ -18,7 +18,7 @@ namespace CCSPayrollBillingSystem.Scripts
             control.Enabled = status;
         }
 
-        public static Control ClearControls(Control control)
+        public static void ClearControls(Control control)
         {
             foreach (Control controlItem in control.Controls)
             {
@@ -30,15 +30,62 @@ namespace CCSPayrollBillingSystem.Scripts
                 {
                     foreach (Control item in controlItem.Controls)
                     {
-                        if (controlItem is TextBox)
+                        if (item is TextBox)
                         {
-                            ((TextBox)controlItem).Clear();
+                            ((TextBox)item).Clear();
                         }
                     }
                 }
             }
+        }
 
-            return control;
+        public static void ResetControls(Control control)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is TextBox)
+                {
+                    ((TextBox)controlItem).Text = "0";
+                }
+                if (controlItem is GroupBox)
+                {
+                    foreach (Control item in controlItem.Controls)
+                    {
+                        if (item is TextBox)
+                        {
+                            ((TextBox)item).Text = "0";
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        public static void EnableControls(Control control, bool status)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is TextBox)
+                {
+                    ((TextBox)controlItem).Enabled = status;
+                }
+                if (controlItem is GroupBox)
+                {
+                    controlItem.Enabled = status;
+                    foreach (Control item in controlItem.Controls)
+                    {
+                        if (controlItem is TextBox)
+                        {
+                            ((TextBox)controlItem).Enabled = status;
+                        }
+                    }
+                    if (controlItem.Name is "groupBox1")
+                    {
+                        controlItem.Enabled = !status;
+                    }
+                }
+            }
+            
         }
 
     }

@@ -10,11 +10,6 @@ namespace CCSPayrollBillingSystem
             InitializeComponent();
         }
 
-        private void PrintForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnEmployeePrint_Click(object sender, EventArgs e)
         {
             EmployeePrintForm employeePrintForm = new EmployeePrintForm();

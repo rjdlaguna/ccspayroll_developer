@@ -91,7 +91,6 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.groupBoxUser);
             this.Name = "PrintForm";
             this.Text = "Print Form";
-            this.Load += new System.EventHandler(this.PrintForm_Load);
             this.groupBoxUser.ResumeLayout(false);
             this.ResumeLayout(false);
 
