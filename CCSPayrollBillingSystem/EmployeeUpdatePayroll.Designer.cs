@@ -55,8 +55,6 @@ namespace CCSPayrollBillingSystem
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dtPayrollCutOffDate = new System.Windows.Forms.DateTimePicker();
             this.dtPayrollStartDate = new System.Windows.Forms.DateTimePicker();
-            this.txtVAT = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.txtNetPay = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txtGrossPay = new System.Windows.Forms.TextBox();
@@ -71,7 +69,7 @@ namespace CCSPayrollBillingSystem
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.gbDeductions = new System.Windows.Forms.GroupBox();
-            this.txtTax = new System.Windows.Forms.TextBox();
+            this.txtPayrollOthers = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtPagIbig = new System.Windows.Forms.TextBox();
             this.txtPhilHealth = new System.Windows.Forms.TextBox();
@@ -232,6 +230,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolRestDay.Size = new System.Drawing.Size(67, 20);
             this.txtRegHolRestDay.TabIndex = 37;
             this.txtRegHolRestDay.Text = "0";
+            this.txtRegHolRestDay.TextChanged += new System.EventHandler(this.txtRegHolRestDay_TextChanged);
             // 
             // txtRegDaysRate
             // 
@@ -352,6 +351,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegDays.Size = new System.Drawing.Size(67, 20);
             this.txtRegDays.TabIndex = 1;
             this.txtRegDays.Text = "0";
+            this.txtRegDays.TextChanged += new System.EventHandler(this.txtRegDays_TextChanged);
             // 
             // txtOthers
             // 
@@ -364,6 +364,7 @@ namespace CCSPayrollBillingSystem
             this.txtOthers.Size = new System.Drawing.Size(67, 20);
             this.txtOthers.TabIndex = 26;
             this.txtOthers.Text = "0";
+            this.txtOthers.TextChanged += new System.EventHandler(this.txtOthers_TextChanged);
             // 
             // lblRegDays
             // 
@@ -416,29 +417,6 @@ namespace CCSPayrollBillingSystem
             this.dtPayrollStartDate.Name = "dtPayrollStartDate";
             this.dtPayrollStartDate.Size = new System.Drawing.Size(131, 20);
             this.dtPayrollStartDate.TabIndex = 0;
-            // 
-            // txtVAT
-            // 
-            this.txtVAT.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtVAT.Enabled = false;
-            this.txtVAT.Location = new System.Drawing.Point(352, 326);
-            this.txtVAT.Name = "txtVAT";
-            this.txtVAT.Size = new System.Drawing.Size(144, 20);
-            this.txtVAT.TabIndex = 54;
-            this.txtVAT.Text = "0";
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(349, 304);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(39, 15);
-            this.label19.TabIndex = 53;
-            this.label19.Text = "VAT :";
             // 
             // txtNetPay
             // 
@@ -593,7 +571,7 @@ namespace CCSPayrollBillingSystem
             // gbDeductions
             // 
             this.gbDeductions.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.gbDeductions.Controls.Add(this.txtTax);
+            this.gbDeductions.Controls.Add(this.txtPayrollOthers);
             this.gbDeductions.Controls.Add(this.label8);
             this.gbDeductions.Controls.Add(this.txtPagIbig);
             this.gbDeductions.Controls.Add(this.txtPhilHealth);
@@ -609,18 +587,18 @@ namespace CCSPayrollBillingSystem
             this.gbDeductions.TabStop = false;
             this.gbDeductions.Text = "DEDUCTIONS :";
             // 
-            // txtTax
+            // txtPayrollOthers
             // 
-            this.txtTax.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txtPayrollOthers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTax.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTax.Location = new System.Drawing.Point(77, 93);
-            this.txtTax.Name = "txtTax";
-            this.txtTax.Size = new System.Drawing.Size(179, 20);
-            this.txtTax.TabIndex = 5;
-            this.txtTax.Text = "0";
+            this.txtPayrollOthers.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtPayrollOthers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPayrollOthers.Location = new System.Drawing.Point(77, 93);
+            this.txtPayrollOthers.Name = "txtPayrollOthers";
+            this.txtPayrollOthers.Size = new System.Drawing.Size(179, 20);
+            this.txtPayrollOthers.TabIndex = 5;
+            this.txtPayrollOthers.Text = "0";
             // 
             // label8
             // 
@@ -629,11 +607,11 @@ namespace CCSPayrollBillingSystem
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(40, 96);
+            this.label8.Location = new System.Drawing.Point(27, 96);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(31, 13);
+            this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 9;
-            this.label8.Text = "Tax :";
+            this.label8.Text = "Others :";
             // 
             // txtPagIbig
             // 
@@ -782,6 +760,7 @@ namespace CCSPayrollBillingSystem
             this.txtPDA.Size = new System.Drawing.Size(67, 20);
             this.txtPDA.TabIndex = 24;
             this.txtPDA.Text = "0";
+            this.txtPDA.TextChanged += new System.EventHandler(this.txtPDA_TextChanged);
             // 
             // txtRegOT
             // 
@@ -794,6 +773,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegOT.Size = new System.Drawing.Size(67, 20);
             this.txtRegOT.TabIndex = 12;
             this.txtRegOT.Text = "0";
+            this.txtRegOT.TextChanged += new System.EventHandler(this.txtRegOT_TextChanged);
             // 
             // lblPDA
             // 
@@ -832,6 +812,7 @@ namespace CCSPayrollBillingSystem
             this.txtCOLA.Size = new System.Drawing.Size(67, 20);
             this.txtCOLA.TabIndex = 22;
             this.txtCOLA.Text = "0";
+            this.txtCOLA.TextChanged += new System.EventHandler(this.txtCOLA_TextChanged);
             // 
             // txtSplHolidays
             // 
@@ -844,6 +825,7 @@ namespace CCSPayrollBillingSystem
             this.txtSplHolidays.Size = new System.Drawing.Size(67, 20);
             this.txtSplHolidays.TabIndex = 14;
             this.txtSplHolidays.Text = "0";
+            this.txtSplHolidays.TextChanged += new System.EventHandler(this.txtSplHolidays_TextChanged);
             // 
             // lblCOLA
             // 
@@ -882,6 +864,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolidaysOT.Size = new System.Drawing.Size(67, 20);
             this.txtRegHolidaysOT.TabIndex = 20;
             this.txtRegHolidaysOT.Text = "0";
+            this.txtRegHolidaysOT.TextChanged += new System.EventHandler(this.txtRegHolidaysOT_TextChanged);
             // 
             // txtSplHolidaysOT
             // 
@@ -894,6 +877,7 @@ namespace CCSPayrollBillingSystem
             this.txtSplHolidaysOT.Size = new System.Drawing.Size(67, 20);
             this.txtSplHolidaysOT.TabIndex = 16;
             this.txtSplHolidaysOT.Text = "0";
+            this.txtSplHolidaysOT.TextChanged += new System.EventHandler(this.txtSplHolidaysOT_TextChanged);
             // 
             // lblRegHolidaysOT
             // 
@@ -932,6 +916,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolidays.Size = new System.Drawing.Size(67, 20);
             this.txtRegHolidays.TabIndex = 18;
             this.txtRegHolidays.Text = "0";
+            this.txtRegHolidays.TextChanged += new System.EventHandler(this.txtRegHolidays_TextChanged);
             // 
             // btnEdit
             // 
@@ -962,6 +947,7 @@ namespace CCSPayrollBillingSystem
             this.btnCalculate.Text = "CALCULATE";
             this.btnCalculate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
             // btnDelete
             // 
@@ -994,6 +980,7 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnUpdate
             // 
@@ -1018,8 +1005,6 @@ namespace CCSPayrollBillingSystem
             this.ClientSize = new System.Drawing.Size(675, 450);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.txtVAT);
-            this.Controls.Add(this.label19);
             this.Controls.Add(this.txtNetPay);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txtGrossPay);
@@ -1073,8 +1058,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DateTimePicker dtPayrollCutOffDate;
         private System.Windows.Forms.DateTimePicker dtPayrollStartDate;
-        private System.Windows.Forms.TextBox txtVAT;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtNetPay;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtGrossPay;
@@ -1092,7 +1075,7 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.GroupBox gbDeductions;
-        private System.Windows.Forms.TextBox txtTax;
+        private System.Windows.Forms.TextBox txtPayrollOthers;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtPagIbig;
         private System.Windows.Forms.TextBox txtPhilHealth;

@@ -31,7 +31,7 @@ namespace CCSPayrollBillingSystem
         public int empIdPayroll;
         public string empFnamePayroll;
         public string empLnamePayroll;
-        public double empRatePayroll;
+        public decimal empRatePayroll;
         public string empRankPayroll;
 
         EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
@@ -69,7 +69,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            employeeListForPayroll.Show();
+            employeeListForPayroll.ShowDialog();
         }
 
         private void LoadSearchedEmployeeDetails(Employee emp)
@@ -129,10 +129,7 @@ namespace CCSPayrollBillingSystem
             txtRegHolidaysOTRate.Text = _RegHolidaysOTRate.ToString("C", nfi);
         }
 
-        private void txtRegHolRestDay_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void txtBaseRate_TextChanged(object sender, EventArgs e)
         {
@@ -141,8 +138,8 @@ namespace CCSPayrollBillingSystem
 
         private void txtRegHolRestDay_TextChanged_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolRestDay.Text = "0";
-            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
+            if (string.IsNullOrWhiteSpace(txtRegHolRestDay.Text)) txtRegHolRestDay.Text = "0";
+            _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolRestDay.Text));
             txtRegHolRestDayRate.Text = _RegHolRestDayRate.ToString("C", nfi);
         }
 
@@ -170,8 +167,7 @@ namespace CCSPayrollBillingSystem
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
-            deductions = Convert.ToDecimal(txtSSS.Text) + Convert.ToDecimal(txtPhilHealth.Text) + Convert.ToDecimal(txtPagIbig.Text) + Convert.ToDecimal(txtTax.Text);
-            vat = decimal.Parse(txtVAT.Text);
+            deductions = Convert.ToDecimal(txtSSS.Text) + Convert.ToDecimal(txtPhilHealth.Text) + Convert.ToDecimal(txtPagIbig.Text) + Convert.ToDecimal(txtPayrollOthers.Text);
             net = gross - deductions;
             txtGrossPay.Text = gross.ToString("C", nfi);
             txtNetPay.Text = net.ToString("C", nfi);
@@ -197,8 +193,8 @@ namespace CCSPayrollBillingSystem
 
                 payrollWDProcessor.ExecuteSqlPayrollSaveQuery(payroll, work, () =>
                 {
-                    ClearControls(this);
-                    EnableControls(this, false);
+                    ValidationHelper.ClearControls(this);
+                    ValidationHelper.EnableControls(this, false);
                     MessageBox.Show("Saving Payroll Information successful.");
                 }, () =>
                 {
@@ -211,23 +207,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
-        private void btnEdit_Click(object sender, EventArgs e) => EnableControls(this, true);
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            QueryProcessor payrollDeleteProcessor = new QueryProcessor();
-
-            if (!ValidationHelper.IfNullOrEmpty(txtEmployeeName))
-            {
-                //payrollDeleteProcessor.ExecuteSqlPayrollDeleteQuery( ,() =>
-                //{
-                //    MessageBox.Show("Deleting Payroll Information successful.");
-                //}, () =>
-                //{
-                //    MessageBox.Show("Errors in deleting Payroll information.");
-                //});
-            }
-        }
+        private void btnEdit_Click(object sender, EventArgs e) => ValidationHelper.EnableControls(this, true);
 
         private PayrollData SetPayrollData()
         {
@@ -242,7 +222,7 @@ namespace CCSPayrollBillingSystem
             payrollData.GrossSalary = gross;
             payrollData.NetSalary = net;
             payrollData.WorkDayID = workDayID + 1;
-            payrollData.Tax = Convert.ToDecimal(txtVAT.Text);
+            payrollData.PayrollOthers = Convert.ToDecimal(txtPayrollOthers.Text);
 
             return payrollData;
         }
@@ -263,49 +243,6 @@ namespace CCSPayrollBillingSystem
             workDays.Others = float.Parse(txtOthers.Text);
 
             return workDays;
-        }
-
-        public static void ClearControls(Control control)
-        {
-            foreach (Control controlItem in control.Controls)
-            {
-                if (controlItem is TextBox)
-                {
-                    ((TextBox)controlItem).Clear();
-                }
-                if (controlItem is GroupBox)
-                {
-                    foreach (Control item in controlItem.Controls)
-                    {
-                        if (controlItem is TextBox)
-                        {
-                            ((TextBox)controlItem).Clear();
-                        }
-                    }
-                }
-            }
-        }
-
-        public static void EnableControls(Control control, bool status)
-        {
-            foreach (Control controlItem in control.Controls)
-            {
-                if (controlItem is TextBox)
-                {
-                    ((TextBox)controlItem).Enabled = status;
-                }
-                if (controlItem is GroupBox)
-                {
-                    controlItem.Enabled = status;
-                    foreach (Control item in controlItem.Controls)
-                    {
-                        if (controlItem is TextBox)
-                        {
-                            ((TextBox)controlItem).Enabled = status;
-                        }
-                    }
-                }
-            }
         }
 
 

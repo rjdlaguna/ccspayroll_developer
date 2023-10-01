@@ -14,6 +14,6 @@ namespace CCSPayrollBillingSystem.Scripts
         public decimal GrossSalary { get; set; }
         public decimal NetSalary { get; set; }
         public int WorkDayID { get; set; }
-        public decimal Tax { get; set; }
+        public decimal PayrollOthers { get; set; }
     }
 }
