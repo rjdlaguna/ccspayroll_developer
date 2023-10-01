@@ -89,12 +89,15 @@ namespace CCSPayrollBillingSystem
             this.dgLoanEmployeeList.Name = "dgLoanEmployeeList";
             this.dgLoanEmployeeList.Size = new System.Drawing.Size(546, 235);
             this.dgLoanEmployeeList.TabIndex = 5;
+            this.dgLoanEmployeeList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLoanEmployeeList_CellClick);
+            this.dgLoanEmployeeList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLoanEmployeeList_CellContentClick);
+            this.dgLoanEmployeeList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLoanEmployeeList_CellDoubleClick);
             // 
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(654, 199);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(87, 33);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -104,7 +107,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnLoad.Location = new System.Drawing.Point(654, 156);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnLoad.Size = new System.Drawing.Size(87, 37);
             this.btnLoad.TabIndex = 7;
             this.btnLoad.Text = "Load";
             this.btnLoad.UseVisualStyleBackColor = true;
