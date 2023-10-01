@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace CCSPayrollBillingSystem
