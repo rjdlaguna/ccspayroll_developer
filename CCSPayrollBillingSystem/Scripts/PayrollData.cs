@@ -2,6 +2,7 @@
 
 namespace CCSPayrollBillingSystem.Scripts
 {
+    [Serializable]
     public class PayrollData
     {
         public int Payroll_ID { get; set; }
