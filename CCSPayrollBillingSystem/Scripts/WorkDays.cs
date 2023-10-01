@@ -1,5 +1,7 @@
-﻿namespace CCSPayrollBillingSystem.Scripts
+﻿using System;
+namespace CCSPayrollBillingSystem.Scripts
 {
+    [Serializable]
     public class WorkDays
     {
         public int WorkDayID { get; set; }

@@ -1,7 +1,19 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using System.Globalization;
 
 namespace CCSPayrollBillingSystem.Scripts
 {
+    public class CurrencyFormatter
+    {
+        public static string ToCurrencyFormat(decimal currency)
+        {
+            NumberFormatInfo nfi = new CultureInfo("en-PH", false).NumberFormat;
+            string curr = currency.ToString("C", nfi);
+            return curr;
+        }
+    }
+
     public class ValidationHelper
     {
         public static bool IfNullOrEmpty(Control control)
