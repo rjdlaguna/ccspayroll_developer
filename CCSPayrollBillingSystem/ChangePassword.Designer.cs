@@ -149,6 +149,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.btnCancel);
             this.Name = "ChangePassword";
             this.Text = "Change Password";
+            this.Load += new System.EventHandler(this.ChangePassword_Load);
             this.groupBoxPayroll.ResumeLayout(false);
             this.groupBoxPayroll.PerformLayout();
             this.ResumeLayout(false);

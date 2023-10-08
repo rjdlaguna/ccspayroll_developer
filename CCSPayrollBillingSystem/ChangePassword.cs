@@ -16,8 +16,6 @@ namespace CCSPayrollBillingSystem
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-            FormMain formMain = new FormMain();
-            formMain.Show();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -52,6 +50,13 @@ namespace CCSPayrollBillingSystem
         private bool ValidateInput()
         {
             return !string.IsNullOrEmpty(txtCurrentPassword.Text) && !string.IsNullOrEmpty(txtNewPassword.Text) && !string.IsNullOrEmpty(txtConfirmPassword.Text);
+        }
+
+        private void ChangePassword_Load(object sender, EventArgs e)
+        {
+            txtCurrentPassword.PasswordChar = '*';
+            txtNewPassword.PasswordChar = '*';
+            txtConfirmPassword.PasswordChar = '*';
         }
     }
 }

@@ -98,6 +98,7 @@ namespace CCSPayrollBillingSystem
             this.updateEmployeePayrollToolStripMenuItem.Name = "updateEmployeePayrollToolStripMenuItem";
             this.updateEmployeePayrollToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.updateEmployeePayrollToolStripMenuItem.Text = "Update Employee Payroll";
+            this.updateEmployeePayrollToolStripMenuItem.Click += new System.EventHandler(this.updateEmployeePayrollToolStripMenuItem_Click);
             // 
             // billingToolStripMenuItem
             // 
@@ -347,6 +348,7 @@ namespace CCSPayrollBillingSystem
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

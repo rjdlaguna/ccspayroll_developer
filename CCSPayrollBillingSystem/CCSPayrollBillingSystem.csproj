@@ -218,6 +218,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Employee.cs" />
     <Compile Include="Scripts\PayrollData.cs" />
+    <Compile Include="Scripts\PaySlipData.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseCommand.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseConnection.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseReader.cs" />
