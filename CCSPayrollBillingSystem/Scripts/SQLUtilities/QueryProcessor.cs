@@ -33,8 +33,6 @@ namespace CCSPayrollBillingSystem.Scripts
                         if (dataReader.Read())
                         {
                             //EventManager.InvokeOnAdminLogged(username);
-
-                            MessageBox.Show("Hi - " + dataReader.GetValue(1));
                             onSuccess?.Invoke();
                         }
                         else

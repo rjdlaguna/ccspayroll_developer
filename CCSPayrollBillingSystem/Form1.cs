@@ -26,32 +26,37 @@ namespace CCSPayrollBillingSystem
         private void btnPayrollMenu_Click(object sender, EventArgs e)
         {
             PayrollPrompt payrollPrompt = new PayrollPrompt();
-            payrollPrompt.Show();
+            payrollPrompt.StartPosition = FormStartPosition.CenterScreen;
+            payrollPrompt.ShowDialog();
         }
 
         private void btnBillingMenu_Click(object sender, EventArgs e)
         {
 
             frmBilling frmBilling = new frmBilling();
-            frmBilling.Show();
+            frmBilling.StartPosition = FormStartPosition.CenterScreen;
+            frmBilling.ShowDialog();
         }
 
         private void btnPrintMenu_Click(object sender, EventArgs e)
         {
             PrintForm frmPrint = new PrintForm();
-            frmPrint.Show();
+            frmPrint.StartPosition = FormStartPosition.CenterScreen;
+            frmPrint.ShowDialog();
         }
 
         private void btnProfilePromptEmployee_Click(object sender, EventArgs e)
         {
             EmployeeProfileForm frmEmployeeProfile = new EmployeeProfileForm();
-            frmEmployeeProfile.Show();
+            frmEmployeeProfile.StartPosition = FormStartPosition.CenterScreen;
+            frmEmployeeProfile.ShowDialog();
         }
 
         private void btnProfilePromptProject_Click(object sender, EventArgs e)
         {
             ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
-            frmProjectProfile.Show();
+            frmProjectProfile.StartPosition = FormStartPosition.CenterScreen;
+            frmProjectProfile.ShowDialog();
         }
         #endregion
 
@@ -59,7 +64,8 @@ namespace CCSPayrollBillingSystem
         private void employeePayrollToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmEmployeePayroll frmEmployeePayroll = new frmEmployeePayroll();
-            frmEmployeePayroll.Show();
+            frmEmployeePayroll.StartPosition = FormStartPosition.CenterScreen;
+            frmEmployeePayroll.ShowDialog();
         }
 
 
@@ -67,19 +73,22 @@ namespace CCSPayrollBillingSystem
         {
 
             frmBilling frmBilling = new frmBilling();
-            frmBilling.Show();
+            frmBilling.StartPosition = FormStartPosition.CenterScreen;
+            frmBilling.ShowDialog();
         }
 
         private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EmployeeProfileForm frmEmployeeProfile = new EmployeeProfileForm();
-            frmEmployeeProfile.Show();
+            frmEmployeeProfile.StartPosition = FormStartPosition.CenterScreen;
+            frmEmployeeProfile.ShowDialog();
         }
 
         private void projectToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
-            frmProjectProfile.Show();
+            frmProjectProfile.StartPosition = FormStartPosition.CenterScreen;
+            frmProjectProfile.ShowDialog();
         }
 
 
@@ -87,7 +96,8 @@ namespace CCSPayrollBillingSystem
         {
 
             UsersPrompt usersPrompt = new UsersPrompt();
-            usersPrompt.Show();
+            usersPrompt.StartPosition = FormStartPosition.CenterScreen;
+            usersPrompt.ShowDialog();
         }
 
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,7 +111,8 @@ namespace CCSPayrollBillingSystem
         {
 
             ChangePassword changePassword = new ChangePassword(userLogged);
-            changePassword.Show();
+            changePassword.StartPosition = FormStartPosition.CenterScreen;
+            changePassword.ShowDialog();
         }
         private void jobToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -113,14 +124,16 @@ namespace CCSPayrollBillingSystem
         {
 
             Deduction deduction = new Deduction();
-            deduction.Show();
+            deduction.StartPosition = FormStartPosition.CenterScreen;
+            deduction.ShowDialog();
         }
 
         private void employeeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
             EmployeePrintForm employeePrintForm = new EmployeePrintForm();
-            employeePrintForm.Show();
+            employeePrintForm.StartPosition = FormStartPosition.CenterScreen;
+            employeePrintForm.ShowDialog();
         }
         #endregion
 
@@ -129,9 +142,23 @@ namespace CCSPayrollBillingSystem
         private void billingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmBilling frmBilling = new frmBilling();
-            frmBilling.Show();
+            frmBilling.StartPosition = FormStartPosition.CenterScreen;
+            frmBilling.ShowDialog();
         }
 
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+            }
+        }
 
+        private void updateEmployeePayrollToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmployeeUpdatePayroll employeeUpdatePayroll = new EmployeeUpdatePayroll();
+            employeeUpdatePayroll.StartPosition = FormStartPosition.CenterScreen;
+            employeeUpdatePayroll.ShowDialog();
+        }
     }
 }

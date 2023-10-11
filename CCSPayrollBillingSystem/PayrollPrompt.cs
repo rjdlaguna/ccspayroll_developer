@@ -14,14 +14,16 @@ namespace CCSPayrollBillingSystem
         {
             this.Close();
             frmEmployeePayroll employeePayroll = new frmEmployeePayroll();
-            employeePayroll.Show();
+            employeePayroll.StartPosition = FormStartPosition.CenterScreen;
+            employeePayroll.ShowDialog();
         }
 
         private void btnPayPromptProject_Click(object sender, EventArgs e)
         {
             this.Close();
             EmployeeUpdatePayroll employeeUpdatePayroll = new EmployeeUpdatePayroll();
-            employeeUpdatePayroll.Show();
+            employeeUpdatePayroll.StartPosition = FormStartPosition.CenterScreen;
+            employeeUpdatePayroll.ShowDialog();
         }
     }
 }

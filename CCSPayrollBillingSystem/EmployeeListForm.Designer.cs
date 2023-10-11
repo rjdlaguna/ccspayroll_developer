@@ -369,7 +369,7 @@ namespace CCSPayrollBillingSystem
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
+            this.btnDelete.Image = global::CCSPayrollBillingSystem.Properties.Resources.bin;
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDelete.Location = new System.Drawing.Point(900, 236);
             this.btnDelete.Name = "btnDelete";
