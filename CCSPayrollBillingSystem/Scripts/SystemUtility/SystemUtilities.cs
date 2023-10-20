@@ -129,19 +129,19 @@
 
         public static decimal NightShiftDifferential(decimal baseRate, float noOfHoursInNSD)
         {
-            return (((baseRate) / (decimal)(Constants.MAX_HRS_WORKED_RATE * Constants.NSD_RATE)) * (decimal)noOfHoursInNSD);
+            return ((baseRate / (decimal)Constants.MAX_HRS_WORKED_RATE) * (decimal)Constants.NSD_RATE) * (decimal)noOfHoursInNSD;
         }
 
 
         //Rates................
         public static decimal RegularDaysOTRate(decimal baseRate, double no)
         {
-            return ((baseRate) / (decimal)Constants.MAX_HRS_WORKED_RATE) * (decimal)Constants.REG_OT_RATE;
+            return (baseRate / (decimal)Constants.MAX_HRS_WORKED_RATE) * (decimal)Constants.REG_OT_RATE;
         }
 
         public static decimal SpecialHolidaysOTRate(decimal baseRate, double no)
         {
-            return ((baseRate) / (decimal)Constants.MAX_HRS_WORKED_RATE) * (decimal)Constants.SP_HOLIDAYS_OT_RATE;
+            return (baseRate / (decimal)Constants.MAX_HRS_WORKED_RATE) * (decimal)Constants.SP_HOLIDAYS_OT_RATE;
         }
 
         public static decimal SunOrSpecialHolidaysRate(decimal baseRate, double no)

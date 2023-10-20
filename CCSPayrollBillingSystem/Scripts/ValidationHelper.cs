@@ -4,9 +4,9 @@ using System.Globalization;
 
 namespace CCSPayrollBillingSystem.Scripts
 {
-    public class CurrencyFormatter
+    public static class CurrencyFormatter
     {
-        public static string ToCurrencyFormat(decimal currency)
+        public static string ToCurrencyFormat(this decimal currency)
         {
             NumberFormatInfo nfi = new CultureInfo("en-PH", false).NumberFormat;
             string curr = currency.ToString("C", nfi);
@@ -21,6 +21,11 @@ namespace CCSPayrollBillingSystem.Scripts
             if (control is TextBox textBox)
             {
                 return string.IsNullOrEmpty(textBox.Text);
+            }
+
+            if (control is ComboBox cmb)
+            {
+                return string.IsNullOrEmpty(cmb.Text);
             }
             return true;
         }

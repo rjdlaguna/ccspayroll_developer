@@ -832,6 +832,55 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        public void ExecuteSqlPayrollAllSearchQuery(Action<List<PaySlipData>> onSuccess, Action onFailure)
+        {
+            List<PaySlipData> dataItems = new List<PaySlipData>();
+            PaySlipData _payslip = new PaySlipData();
+            
+            string sqlSearch = "SELECT * FROM tblPayroll";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        while (dataReader.Read())
+                        {
+                            _payslip.PayrollData.Payroll_ID = (int)dataReader.GetValue(0);
+                            _payslip.PayrollData.PayrollStartDate = DateTime.Parse(dataReader.GetValue(1).ToString());
+                            _payslip.PayrollData.PayrollEndDate = DateTime.Parse(dataReader.GetValue(2).ToString());
+                            _payslip.PayrollData.EmpID = (int)dataReader.GetValue(3);
+
+                            _payslip.PayrollData.SSSAmount = dataReader.GetValue(4) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(4).ToString());
+                            _payslip.PayrollData.PagIbigAmount = dataReader.GetValue(5) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(5).ToString());
+                            _payslip.PayrollData.PhilHealthAmount = dataReader.GetValue(6) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(6).ToString());
+                            _payslip.PayrollData.GrossSalary = dataReader.GetValue(7) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(7).ToString());
+                            _payslip.PayrollData.NetSalary = dataReader.GetValue(8) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(8).ToString());
+
+                            _payslip.PayrollData.WorkDayID = (int)dataReader.GetValue(9);
+                            _payslip.PayrollData.PayrollOthers = dataReader.GetValue(10) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(10).ToString());
+
+                            _payslip.WorkDays = ExecuteSqlWorkDaysQuery(_payslip.PayrollData.WorkDayID);
+                            dataItems.Add(_payslip);
+                        }
+
+                    }
+                }
+            }
+
+            if (dataItems.Count > 0)
+            {
+                onSuccess?.Invoke(dataItems);
+            }
+            else
+            {
+                onFailure?.Invoke();
+            }
+        }
+
+        
+
         public void ExecuteSqlPayrollUpdateQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
 
