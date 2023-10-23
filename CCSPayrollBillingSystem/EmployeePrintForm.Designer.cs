@@ -36,6 +36,8 @@ namespace CCSPayrollBillingSystem
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbPrintFilter = new System.Windows.Forms.ComboBox();
             this.txtBaseRate = new System.Windows.Forms.TextBox();
             this.txtRank = new System.Windows.Forms.TextBox();
             this.txtEmployeeName = new System.Windows.Forms.TextBox();
@@ -48,9 +50,9 @@ namespace CCSPayrollBillingSystem
             // 
             // rtbPayrollSlip
             // 
-            this.rtbPayrollSlip.Location = new System.Drawing.Point(411, 12);
+            this.rtbPayrollSlip.Location = new System.Drawing.Point(356, 12);
             this.rtbPayrollSlip.Name = "rtbPayrollSlip";
-            this.rtbPayrollSlip.Size = new System.Drawing.Size(377, 426);
+            this.rtbPayrollSlip.Size = new System.Drawing.Size(432, 426);
             this.rtbPayrollSlip.TabIndex = 4;
             this.rtbPayrollSlip.Text = "";
             // 
@@ -59,7 +61,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(35, 388);
+            this.btnGenerate.Location = new System.Drawing.Point(205, 325);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 40;
@@ -73,9 +75,9 @@ namespace CCSPayrollBillingSystem
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(178, 388);
+            this.btnPrint.Location = new System.Drawing.Point(205, 382);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(100, 40);
+            this.btnPrint.Size = new System.Drawing.Size(128, 40);
             this.btnPrint.TabIndex = 41;
             this.btnPrint.Text = "PRINT";
             this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -99,6 +101,8 @@ namespace CCSPayrollBillingSystem
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cmbPrintFilter);
             this.groupBox1.Controls.Add(this.txtBaseRate);
             this.groupBox1.Controls.Add(this.txtRank);
             this.groupBox1.Controls.Add(this.txtEmployeeName);
@@ -109,16 +113,40 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(26, 24);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(307, 106);
+            this.groupBox1.Size = new System.Drawing.Size(307, 159);
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "EMPLOYEE DETAILS";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(15, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Print Filter:";
+            // 
+            // cmbPrintFilter
+            // 
+            this.cmbPrintFilter.FormattingEnabled = true;
+            this.cmbPrintFilter.Items.AddRange(new object[] {
+            "None",
+            "Single",
+            "All"});
+            this.cmbPrintFilter.Location = new System.Drawing.Point(77, 26);
+            this.cmbPrintFilter.Name = "cmbPrintFilter";
+            this.cmbPrintFilter.Size = new System.Drawing.Size(175, 21);
+            this.cmbPrintFilter.TabIndex = 9;
+            this.cmbPrintFilter.SelectedIndexChanged += new System.EventHandler(this.cmbPrintFilter_SelectedIndexChanged);
             // 
             // txtBaseRate
             // 
             this.txtBaseRate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBaseRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBaseRate.Location = new System.Drawing.Point(77, 67);
+            this.txtBaseRate.Location = new System.Drawing.Point(77, 116);
             this.txtBaseRate.Name = "txtBaseRate";
             this.txtBaseRate.ReadOnly = true;
             this.txtBaseRate.Size = new System.Drawing.Size(179, 20);
@@ -128,7 +156,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.txtRank.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtRank.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRank.Location = new System.Drawing.Point(77, 41);
+            this.txtRank.Location = new System.Drawing.Point(77, 90);
             this.txtRank.Name = "txtRank";
             this.txtRank.ReadOnly = true;
             this.txtRank.Size = new System.Drawing.Size(179, 20);
@@ -138,7 +166,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.txtEmployeeName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtEmployeeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployeeName.Location = new System.Drawing.Point(77, 18);
+            this.txtEmployeeName.Location = new System.Drawing.Point(77, 67);
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.ReadOnly = true;
             this.txtEmployeeName.Size = new System.Drawing.Size(179, 20);
@@ -149,7 +177,7 @@ namespace CCSPayrollBillingSystem
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 68);
+            this.label3.Location = new System.Drawing.Point(8, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 5;
@@ -160,7 +188,7 @@ namespace CCSPayrollBillingSystem
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(32, 44);
+            this.label1.Location = new System.Drawing.Point(32, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 4;
@@ -171,7 +199,7 @@ namespace CCSPayrollBillingSystem
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(30, 21);
+            this.label2.Location = new System.Drawing.Point(30, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 3;
@@ -201,6 +229,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.rtbPayrollSlip);
             this.Name = "EmployeePrintForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EmployeePrintForm";
             this.Load += new System.EventHandler(this.EmployeePrintForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -225,5 +254,7 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbPrintFilter;
     }
 }

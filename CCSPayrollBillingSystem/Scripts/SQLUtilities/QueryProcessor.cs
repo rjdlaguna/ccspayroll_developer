@@ -830,6 +830,95 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        private EmployeePayrollData ExecuteSqlEmployeeQuery(int id)
+        {
+            string sqlWorkDays = "SELECT EmpID, EmpFirstName, EmpLastName, EmpMiddleName FROM tblEmployee WHERE EmpID='" + id + "'";
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlWorkDays, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    EmployeePayrollData employeePayrollData = new EmployeePayrollData();
+                    employeePayrollData.EmpID = id;
+                    employeePayrollData.EmpFirstName = dataReader.GetValue(1).ToString();
+                    employeePayrollData.EmpLastName = dataReader.GetValue(2).ToString();
+                    employeePayrollData.EmpMiddleName = dataReader.GetValue(3).ToString();
+
+                    return employeePayrollData;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+
+        }
+
+
+        public void ExecuteSqlPayrollAllSearchQuery(Action<List<PaySlipData>> onSuccess, Action onFailure)
+        {
+            List<PaySlipData> dataItems = new List<PaySlipData>();
+            
+            
+            string sqlSearch = "SELECT * FROM tblPayroll";
+
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+                    sqlDataReader = command.ExecuteReader();
+                    if(sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            PaySlipData _payslip = new PaySlipData();
+                            PayrollData _paySlipPayrollData = new PayrollData();
+                            WorkDays _paySlipWorkdays = new WorkDays();
+                            EmployeePayrollData _employeePayrollData = new EmployeePayrollData();
+
+                            _paySlipPayrollData.Payroll_ID = (int)sqlDataReader.GetValue(0);
+                            _paySlipPayrollData.PayrollStartDate = DateTime.Parse(sqlDataReader.GetValue(1).ToString());
+                            _paySlipPayrollData.PayrollEndDate = DateTime.Parse(sqlDataReader.GetValue(2).ToString());
+                            _paySlipPayrollData.EmpID = (int)sqlDataReader.GetValue(3);
+
+                            _paySlipPayrollData.SSSAmount = sqlDataReader.GetValue(4) == DBNull.Value ? 0M : Convert.ToDecimal(sqlDataReader.GetValue(4).ToString());
+                            _paySlipPayrollData.PagIbigAmount = sqlDataReader.GetValue(5) == DBNull.Value ? 0M : Convert.ToDecimal(sqlDataReader.GetValue(5).ToString());
+                            _paySlipPayrollData.PhilHealthAmount = sqlDataReader.GetValue(6) == DBNull.Value ? 0M : Convert.ToDecimal(sqlDataReader.GetValue(6).ToString());
+                            _paySlipPayrollData.GrossSalary = sqlDataReader.GetValue(7) == DBNull.Value ? 0M : Convert.ToDecimal(sqlDataReader.GetValue(7).ToString());
+                            _paySlipPayrollData.NetSalary = sqlDataReader.GetValue(8) == DBNull.Value ? 0M : Convert.ToDecimal(sqlDataReader.GetValue(8).ToString());
+
+                            _paySlipPayrollData.WorkDayID = (int)sqlDataReader.GetValue(9);
+                            _paySlipPayrollData.PayrollOthers = sqlDataReader.GetValue(10) == DBNull.Value ? 0M : Convert.ToDecimal(sqlDataReader.GetValue(10).ToString());
+
+                            _paySlipWorkdays = ExecuteSqlWorkDaysQuery(_paySlipPayrollData.WorkDayID);
+                            _employeePayrollData = ExecuteSqlEmployeeQuery(_paySlipPayrollData.EmpID);
+
+                            _payslip.PayrollData = _paySlipPayrollData;
+                            _payslip.WorkDays = _paySlipWorkdays;
+                            _payslip.Employee = _employeePayrollData;
+
+                            dataItems.Add(_payslip);
+                        }
+
+                    }
+                }
+            }
+
+            if (dataItems.Count > 0)
+            {
+                onSuccess?.Invoke(dataItems);
+            }
+            else
+            {
+                onFailure?.Invoke();
+            }
+        }
+
+        
+
         public void ExecuteSqlPayrollUpdateQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
 
