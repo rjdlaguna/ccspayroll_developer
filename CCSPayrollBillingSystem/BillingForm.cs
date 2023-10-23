@@ -30,24 +30,28 @@ namespace CCSPayrollBillingSystem
 
         private void frmBilling_Load(object sender, EventArgs e)
         {
+            
             List<string[]> projectList = new List<string[]>();
 
             projectList = projectProcessor.ExecuteSqlLoadProjectsQuery(
                 () =>
                 {
                     Console.WriteLine("Projects successfully loaded.");
-                }, 
-            
+                },
+
                 () =>
                 {
                     Console.WriteLine("Problem loading projects.");
                 });
 
             ExtractProjectName(projectList);
+            
+            
         }
 
         private void ExtractProjectName(List<string[]> projectList)
         {
+
             int[] projIds = new int[projectList.Count];
             string projNameVal = "";
             int projNameId = 0;

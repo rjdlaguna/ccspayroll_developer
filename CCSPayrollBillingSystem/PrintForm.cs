@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using CCSPayrollBillingSystem.Scripts;
 
 namespace CCSPayrollBillingSystem
 {
@@ -18,8 +19,25 @@ namespace CCSPayrollBillingSystem
 
         private void btnUserPromptUser2_Click(object sender, EventArgs e)
         {
-            frmBilling frmBilling = new frmBilling();
-            frmBilling.Show();
+            QueryProcessor projectProcessor = new QueryProcessor();
+            int projectNum = projectProcessor.ExcuteSQLCheckCountProjecrtsQuery(
+               () =>
+               {
+                   Console.WriteLine("Projects are added.");
+               },
+               () =>
+               {
+                   Console.WriteLine("No projects were added.");
+               });
+            if(projectNum > 0)
+            {
+                frmBilling frmBilling = new frmBilling();
+                frmBilling.Show();
+            }
+            else
+            {
+                MessageBox.Show("There are no projects found. Please add.", "Billing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
