@@ -1226,7 +1226,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
-        public int ExcuteSQLCheckCountProjecrtsQuery(Action onSuccess, Action onFailure)
+        public int ExecuteSQLCheckCountProjecrtsQuery(Action onSuccess, Action onFailure)
         {
             using (connection = new DatabaseConnection(connectionString))
             {
