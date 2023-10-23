@@ -43,7 +43,7 @@ namespace CCSPayrollBillingSystem
                {
                    Console.WriteLine("No projects were added.");
                });
-            if(projectNum > 1)
+            if(projectNum > 0)
             {
                 frmBilling frmBilling = new frmBilling();
                 frmBilling.StartPosition = FormStartPosition.CenterScreen;
