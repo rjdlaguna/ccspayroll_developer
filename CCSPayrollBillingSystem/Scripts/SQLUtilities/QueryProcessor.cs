@@ -1225,6 +1225,36 @@ namespace CCSPayrollBillingSystem.Scripts
                 }
             }
         }
+
+        public int ExcuteSQLCheckCountProjecrtsQuery(Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT COUNT(ProjectID) FROM tblProject WHERE IsActive = 1";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+
+                            onSuccess?.Invoke();
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region SQL Process for Billing Process
