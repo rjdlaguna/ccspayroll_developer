@@ -40,7 +40,7 @@ namespace CCSPayrollBillingSystem
             payrolSlipText += "-------------------------------------------------------------------------------------\n";
             payrolSlipText += "-----                                CCS Payslip                       -----\n";
             payrolSlipText += "-------------------------------------------------------------------------------------\n";
-            payrolSlipText += "From: " + DateTime.Now + "\n";
+            payrolSlipText += "From: " + _paySlipData.PayrollData.PayrollEndDate + "\n";
             payrolSlipText += "Name: " + empLnamePayroll + ", " + empFnamePayroll + "\n";
             payrolSlipText += "Project: \n\n";
 
@@ -127,6 +127,7 @@ namespace CCSPayrollBillingSystem
                 payrollSearchAllProcessor.ExecuteSqlPayrollAllSearchQuery((payslipListFromQuery) =>
                 {
                     _paySlipDataListItems = payslipListFromQuery;
+                    GenerateAllPaySlip();
                 }, () =>
                 {
                     MessageBox.Show("Problem loading All employee payroll information.");
@@ -144,20 +145,20 @@ namespace CCSPayrollBillingSystem
                 payrolSlipText += "-------------------------------------------------------------------------------------\n";
                 payrolSlipText += "-----                                CCS Payslip                       -----\n";
                 payrolSlipText += "-------------------------------------------------------------------------------------\n";
-                payrolSlipText += "From: " + DateTime.Now + "\n";
-                payrolSlipText += "Name: " + paySlipData.PayrollData.EmpID + ", Firstname \n";
+                payrolSlipText += "From: " + paySlipData.PayrollData.PayrollEndDate + "\n";
+                payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", "+ paySlipData.Employee.EmpFirstName + " "+ paySlipData.Employee.EmpMiddleName + " \n";
                 payrolSlipText += "Project: \n\n";
 
-                payrolSlipText += "Regular Days\t: \t" + paySlipData.WorkDays.RegularDays + "\t" + (WorkDaysComputation.RegularDays(empRatePayroll, _paySlipData.WorkDays.RegularDays).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "Regular OT\t: \t" + paySlipData.WorkDays.RegularDaysOT + "\t" + (WorkDaysComputation.RegularDaysOT(empRatePayroll, _paySlipData.WorkDays.RegularDaysOT).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "Sp Hol Sun\t: \t" + paySlipData.WorkDays.SplHolidays + "\t" + (WorkDaysComputation.SunOrSpecialHolidays(empRatePayroll, _paySlipData.WorkDays.SplHolidays).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "Sp Hol OT\t: \t" + paySlipData.WorkDays.SplHolidayOT + "\t" + (WorkDaysComputation.SpecialHolidaysOT(empRatePayroll, _paySlipData.WorkDays.SplHolidayOT).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "Regular Holiday\t: \t" + paySlipData.WorkDays.RegularHoliday + "\t" + (WorkDaysComputation.RegularHolidays(empRatePayroll, _paySlipData.WorkDays.RegularHoliday).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "Reg Hol OT\t: \t" + paySlipData.WorkDays.RegularHolidayOT + "\t" + (WorkDaysComputation.RegularHolidaysOT(empRatePayroll, _paySlipData.WorkDays.RegularHolidayOT).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "Reg Hol Rest Day\t: \t" + paySlipData.WorkDays.RegHolRestDay + "\t" + (WorkDaysComputation.RestDayAndRegularHolidays(empRatePayroll, _paySlipData.WorkDays.RegHolRestDay).ToCurrencyFormat()) + "\n";
-                payrolSlipText += "COLA\t: \t\t" + paySlipData.WorkDays.COLA + "\t" + (WorkDaysComputation.COLA(decimal.Parse(_paySlipData.WorkDays.COLA.ToString()))).ToCurrencyFormat() + "\n";
-                payrolSlipText += "PDA\t: \t\t" + paySlipData.WorkDays.PDA + "\t" + WorkDaysComputation.PDA(decimal.Parse(_paySlipData.WorkDays.PDA.ToString())).ToCurrencyFormat() + "\n";
-                payrolSlipText += "Others\t: \t\t" + paySlipData.WorkDays.Others + "\t" + (WorkDaysComputation.Others(decimal.Parse(_paySlipData.WorkDays.Others.ToString())).ToCurrencyFormat()) + "\n\n";
+                payrolSlipText += "Regular Days\t: \t" + paySlipData.WorkDays.RegularDays + "\t" + (WorkDaysComputation.RegularDays(empRatePayroll, paySlipData.WorkDays.RegularDays).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "Regular OT\t: \t" + paySlipData.WorkDays.RegularDaysOT + "\t" + (WorkDaysComputation.RegularDaysOT(empRatePayroll, paySlipData.WorkDays.RegularDaysOT).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "Sp Hol Sun\t: \t" + paySlipData.WorkDays.SplHolidays + "\t" + (WorkDaysComputation.SunOrSpecialHolidays(empRatePayroll, paySlipData.WorkDays.SplHolidays).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "Sp Hol OT\t: \t" + paySlipData.WorkDays.SplHolidayOT + "\t" + (WorkDaysComputation.SpecialHolidaysOT(empRatePayroll, paySlipData.WorkDays.SplHolidayOT).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "Regular Holiday\t: \t" + paySlipData.WorkDays.RegularHoliday + "\t" + (WorkDaysComputation.RegularHolidays(empRatePayroll, paySlipData.WorkDays.RegularHoliday).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "Reg Hol OT\t: \t" + paySlipData.WorkDays.RegularHolidayOT + "\t" + (WorkDaysComputation.RegularHolidaysOT(empRatePayroll, paySlipData.WorkDays.RegularHolidayOT).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "Reg Hol Rest Day\t: \t" + paySlipData.WorkDays.RegHolRestDay + "\t" + (WorkDaysComputation.RestDayAndRegularHolidays(empRatePayroll, paySlipData.WorkDays.RegHolRestDay).ToCurrencyFormat()) + "\n";
+                payrolSlipText += "COLA\t: \t\t" + paySlipData.WorkDays.COLA + "\t" + (WorkDaysComputation.COLA(decimal.Parse(paySlipData.WorkDays.COLA.ToString()))).ToCurrencyFormat() + "\n";
+                payrolSlipText += "PDA\t: \t\t" + paySlipData.WorkDays.PDA + "\t" + WorkDaysComputation.PDA(decimal.Parse(paySlipData.WorkDays.PDA.ToString())).ToCurrencyFormat() + "\n";
+                payrolSlipText += "Others\t: \t\t" + paySlipData.WorkDays.Others + "\t" + (WorkDaysComputation.Others(decimal.Parse(paySlipData.WorkDays.Others.ToString())).ToCurrencyFormat()) + "\n\n";
                 payrolSlipText += "GROSS PAY\t: " + (paySlipData.PayrollData.GrossSalary).ToCurrencyFormat() + "\n\n";
                 payrolSlipText += "Less: \n";
                 payrolSlipText += "  SSS/MED\t: " + paySlipData.PayrollData.SSSAmount + "\n";
@@ -166,6 +167,7 @@ namespace CCSPayrollBillingSystem
                 payrolSlipText += "  Others\t\t: " + paySlipData.PayrollData.PayrollOthers + "\n\n";
                 payrolSlipText += "NET PAY\t\t: " + (paySlipData.PayrollData.NetSalary).ToCurrencyFormat() + "\n\n";
                 payrolSlipText += "I certify that I have received the above amount.\n";
+                payrolSlipText += "-------------------------------------------------------------------------------------\n";
             }
             
             rtbPayrollSlip.Text = payrolSlipText;
