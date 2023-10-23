@@ -34,7 +34,7 @@ namespace CCSPayrollBillingSystem
         {
 
             QueryProcessor projectProcessor = new QueryProcessor();
-            int projectNum = projectProcessor.ExcuteSQLCheckCountProjecrtsQuery(
+            int projectNum = projectProcessor.ExecuteSQLCheckCountProjecrtsQuery(
                () =>
                {
                    Console.WriteLine("Projects are added.");
@@ -90,7 +90,7 @@ namespace CCSPayrollBillingSystem
         private void billingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QueryProcessor projectProcessor = new QueryProcessor();
-            int projectNum = projectProcessor.ExcuteSQLCheckCountProjecrtsQuery(
+            int projectNum = projectProcessor.ExecuteSQLCheckCountProjecrtsQuery(
                () =>
                {
                    Console.WriteLine("Projects are added.");
