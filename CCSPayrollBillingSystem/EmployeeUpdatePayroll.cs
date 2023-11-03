@@ -114,7 +114,7 @@ namespace CCSPayrollBillingSystem
 
             QueryProcessor payrollSearchProcessor = new QueryProcessor();
 
-            payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, (payroll, work) =>
+            payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, dtPayrollStartDate.Value.ToShortDateString(), dtPayrollCutOffDate.Value.ToShortDateString(), (payroll, work) =>
             {
                 SetUIValues(payroll, work);
 

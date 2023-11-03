@@ -6,5 +6,6 @@
         public PayrollData PayrollData;
         public WorkDays WorkDays;
         public EmployeePayrollData Employee;
+        public decimal PayRate;
     }
 }

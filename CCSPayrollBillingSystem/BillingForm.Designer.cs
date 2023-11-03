@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBilling));
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
@@ -60,14 +60,14 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 163);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(1069, 220);
+            dataGridViewCellStyle3.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(452, 308);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
             // txtVAT
             // 
-            this.txtVAT.Location = new System.Drawing.Point(428, 62);
+            this.txtVAT.Location = new System.Drawing.Point(378, 39);
             this.txtVAT.Name = "txtVAT";
             this.txtVAT.Size = new System.Drawing.Size(144, 20);
             this.txtVAT.TabIndex = 67;
@@ -100,7 +100,7 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(20, 20);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(291, 137);
             this.groupBox1.TabIndex = 56;
@@ -129,7 +129,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtNetTotal
             // 
-            this.txtNetTotal.Location = new System.Drawing.Point(428, 88);
+            this.txtNetTotal.Location = new System.Drawing.Point(378, 65);
             this.txtNetTotal.Name = "txtNetTotal";
             this.txtNetTotal.ReadOnly = true;
             this.txtNetTotal.Size = new System.Drawing.Size(144, 20);
@@ -138,7 +138,7 @@ namespace CCSPayrollBillingSystem
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(371, 88);
+            this.label18.Location = new System.Drawing.Point(321, 65);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(51, 13);
             this.label18.TabIndex = 64;
@@ -146,7 +146,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtGrossTotal
             // 
-            this.txtGrossTotal.Location = new System.Drawing.Point(428, 35);
+            this.txtGrossTotal.Location = new System.Drawing.Point(378, 12);
             this.txtGrossTotal.Name = "txtGrossTotal";
             this.txtGrossTotal.ReadOnly = true;
             this.txtGrossTotal.Size = new System.Drawing.Size(178, 20);
@@ -155,7 +155,7 @@ namespace CCSPayrollBillingSystem
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(361, 38);
+            this.label17.Location = new System.Drawing.Point(311, 15);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(61, 13);
             this.label17.TabIndex = 62;
@@ -164,7 +164,7 @@ namespace CCSPayrollBillingSystem
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(388, 65);
+            this.label19.Location = new System.Drawing.Point(338, 42);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(34, 13);
             this.label19.TabIndex = 66;
@@ -172,9 +172,9 @@ namespace CCSPayrollBillingSystem
             // 
             // rtbBillingSlip
             // 
-            this.rtbBillingSlip.Location = new System.Drawing.Point(12, 388);
+            this.rtbBillingSlip.Location = new System.Drawing.Point(616, 15);
             this.rtbBillingSlip.Name = "rtbBillingSlip";
-            this.rtbBillingSlip.Size = new System.Drawing.Size(560, 126);
+            this.rtbBillingSlip.Size = new System.Drawing.Size(465, 445);
             this.rtbBillingSlip.TabIndex = 69;
             this.rtbBillingSlip.Text = "";
             this.rtbBillingSlip.WordWrap = false;
@@ -184,7 +184,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(592, 388);
+            this.btnGenerate.Location = new System.Drawing.Point(336, 109);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 70;
@@ -198,7 +198,7 @@ namespace CCSPayrollBillingSystem
             this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalculate.Image = global::CCSPayrollBillingSystem.Properties.Resources.calculator;
             this.btnCalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalculate.Location = new System.Drawing.Point(635, 35);
+            this.btnCalculate.Location = new System.Drawing.Point(482, 246);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(128, 40);
             this.btnCalculate.TabIndex = 71;
@@ -226,7 +226,7 @@ namespace CCSPayrollBillingSystem
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(635, 81);
+            this.btnPrint.Location = new System.Drawing.Point(482, 292);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(128, 40);
             this.btnPrint.TabIndex = 72;
@@ -255,7 +255,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label19);
             this.Name = "frmBilling";
-            this.Text = " ";
+            this.Text = " Billing";
             this.Load += new System.EventHandler(this.frmBilling_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).EndInit();
             this.groupBox1.ResumeLayout(false);
