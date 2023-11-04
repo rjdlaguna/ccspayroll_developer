@@ -207,45 +207,26 @@ namespace CCSPayrollBillingSystem
             payrolSlipText += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
             payrolSlipText += "Payroll Preview \n";
             payrolSlipText += "Payroll for the period: " + dateFrom + " to " + dateTo + "\n";
-            payrolSlipText += "-----------------------------------------------------------------------------------------\n";
+            payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
             payrolSlipText += "EMPLOYEE NAME                Hrs/Days                Amount  \n";
-            payrolSlipText += "-----------------------------------------------------------------------------------------\n";
+            payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
             foreach (PaySlipData paySlipData in _paySlipDataListItems)
             {
-                FieldInfo[] fields = null;
                 payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " \n";
-                if (paySlipData.WorkDays != null)
+                foreach (var property in typeof(WorkDays).GetProperties())
                 {
-                   fields  = paySlipData.WorkDays.GetType().GetFields();
+                    float temp = 0f;
+                    if (property.PropertyType == typeof(float) && (property.Name != "WorkDayID"))
+                    {
+                        temp = (float)property.GetValue(paySlipData.WorkDays);
+                        if (temp == 0)
+                        {
+                            continue;
+                        }
+                        payrolSlipText += property.Name + "\t: \t" + temp + "\t\t" + WorkDaysComputation.BillingRateState(property.Name, paySlipData.PayRate, temp).ToCurrencyFormat() + "\n";
+                    }
                 }
-                    
-
-                foreach (FieldInfo fieldInfo in fields)
-                {
-                    string fieldName = fieldInfo.Name;
-                    object fieldValue = fieldInfo.GetValue(paySlipData.WorkDays);
-                    payrolSlipText += fieldName + " - " + fieldValue + "\n";
-                    Console.WriteLine($"Field Name: {fieldName}, Value: {fieldValue}");
-                }
-                
-                //payrolSlipText += nameof(paySlipData.WorkDays.RegularDays) + "\t: \t" + paySlipData.WorkDays.RegularDays + "\t" + (WorkDaysComputation.RegularDays(paySlipData.PayRate, paySlipData.WorkDays.RegularDays).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "Regular OT\t: \t" + paySlipData.WorkDays.RegularDaysOT + "\t" + (WorkDaysComputation.RegularDaysOT(paySlipData.PayRate, paySlipData.WorkDays.RegularDaysOT).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "Sp Hol Sun\t: \t" + paySlipData.WorkDays.SplHolidays + "\t" + (WorkDaysComputation.SunOrSpecialHolidays(paySlipData.PayRate, paySlipData.WorkDays.SplHolidays).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "Sp Hol OT\t: \t" + paySlipData.WorkDays.SplHolidayOT + "\t" + (WorkDaysComputation.SpecialHolidaysOT(paySlipData.PayRate, paySlipData.WorkDays.SplHolidayOT).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "Regular Holiday\t: \t" + paySlipData.WorkDays.RegularHoliday + "\t" + (WorkDaysComputation.RegularHolidays(paySlipData.PayRate, paySlipData.WorkDays.RegularHoliday).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "Reg Hol OT\t: \t" + paySlipData.WorkDays.RegularHolidayOT + "\t" + (WorkDaysComputation.RegularHolidaysOT(paySlipData.PayRate, paySlipData.WorkDays.RegularHolidayOT).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "Reg Hol Rest Day\t: \t" + paySlipData.WorkDays.RegHolRestDay + "\t" + (WorkDaysComputation.RestDayAndRegularHolidays(paySlipData.PayRate, paySlipData.WorkDays.RegHolRestDay).ToCurrencyFormat()) + "\n";
-                //payrolSlipText += "COLA\t: \t\t" + paySlipData.WorkDays.COLA + "\t" + (WorkDaysComputation.COLA(decimal.Parse(paySlipData.WorkDays.COLA.ToString()))).ToCurrencyFormat() + "\n";
-                //payrolSlipText += "PDA\t: \t\t" + paySlipData.WorkDays.PDA + "\t" + WorkDaysComputation.PDA(decimal.Parse(paySlipData.WorkDays.PDA.ToString())).ToCurrencyFormat() + "\n";
-                //payrolSlipText += "Others\t: \t\t" + paySlipData.WorkDays.Others + "\t" + (WorkDaysComputation.Others(decimal.Parse(paySlipData.WorkDays.Others.ToString())).ToCurrencyFormat()) + "\n\n";
-                //payrolSlipText += "GROSS PAY\t: " + (paySlipData.PayrollData.GrossSalary).ToCurrencyFormat() + "\n\n";
-                //payrolSlipText += "Less: \n";
-                //payrolSlipText += "  SSS/MED\t: " + paySlipData.PayrollData.SSSAmount + "\n";
-                //payrolSlipText += "  PagIbig\t\t: " + paySlipData.PayrollData.PagIbigAmount + "\n";
-                //payrolSlipText += "  PhilHealth\t: " + paySlipData.PayrollData.PhilHealthAmount + "\n";
-                //payrolSlipText += "  Others\t\t: " + paySlipData.PayrollData.PayrollOthers + "\n\n";
-                //payrolSlipText += "NET PAY\t\t: " + (paySlipData.PayrollData.NetSalary).ToCurrencyFormat() + "\n\n";
-                payrolSlipText += "-----------------------------------------------------------------------------------------\n";
+                payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
 
 
             }
