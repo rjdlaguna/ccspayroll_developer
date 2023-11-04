@@ -55,19 +55,19 @@
                     billingOTResult = RegularDays(baseRate, n);
                     break;
                 case BillingConstants.REG_DAYS_OT:
-                    billingOTResult = RegularDaysOTRate(baseRate, n);
+                    billingOTResult = RegularDaysOT(baseRate, n);
                     break;
                 case BillingConstants.SPL_DAYS:
                     billingOTResult = SunOrSpecialHolidays(baseRate, n);
                     break;
                 case BillingConstants.SPL_DAYS_OT:
-                    billingOTResult = SpecialHolidaysOTRate(baseRate, n);
+                    billingOTResult = SpecialHolidaysOT(baseRate, n);
                     break;
                 case BillingConstants.REG_HOLIDAY:
                     billingOTResult = RegularHolidays(baseRate, n);
                     break;
                 case BillingConstants.REG_HOLIDAY_OT:
-                    billingOTResult = RegularHolidaysOTRate(baseRate, n);
+                    billingOTResult = RegularHolidaysOT(baseRate, n);
                     break;
                 case BillingConstants.REG_HOL_RESTDAY:
                     billingOTResult = RestDayAndRegularHolidays(baseRate, n);
