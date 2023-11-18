@@ -6,5 +6,6 @@
         public string EmpFirstName { get; set; }
         public string EmpLastName { get; set; }
         public string EmpMiddleName { get; set; }
+        public int JobID { get; set; }
     }
 }

@@ -756,14 +756,18 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
         //Searching on tblPayroll
-        public void ExecuteSqlPayrollSearchQuery(int empID, Action<PayrollData, WorkDays> onSuccess, Action onFailure)
+        public void ExecuteSqlPayrollSearchQuery(int empID, string from, string to, Action<PayrollData, WorkDays> onSuccess, Action onFailure)
         {
-
-            string sqlSearch = "SELECT TOP 1 * FROM tblPayroll WHERE EmpID='" + empID + "'";
+            string sqlSearch = "SELECT * FROM tblPayroll WHERE EmpID=@EmpID AND PayrollStartDate=@PayrollStartDate AND PayrollEndDate=@PayrollEndDate";
+            
 
             using (connection = new DatabaseConnection(connectionString))
             using (command = new DatabaseCommand(sqlSearch, connection))
             {
+                // Add parameters with appropriate data types
+                command.AddParameter("@EmpID", empID);
+                command.AddParameter("@PayrollStartDate", Convert.ToDateTime(from).Date);
+                command.AddParameter("@PayrollEndDate", Convert.ToDateTime(to).Date);
                 using (dataReader = new DatabaseReader(command.ExecuteReader()))
                 {
                     if (dataReader.Read())
@@ -832,7 +836,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
         private EmployeePayrollData ExecuteSqlEmployeeQuery(int id)
         {
-            string sqlWorkDays = "SELECT EmpID, EmpFirstName, EmpLastName, EmpMiddleName FROM tblEmployee WHERE EmpID='" + id + "'";
+            string sqlWorkDays = "SELECT EmpID, EmpFirstName, EmpLastName, EmpMiddleName, JobID FROM tblEmployee WHERE EmpID='" + id + "'";
 
             using (connection = new DatabaseConnection(connectionString))
             using (command = new DatabaseCommand(sqlWorkDays, connection))
@@ -845,6 +849,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     employeePayrollData.EmpFirstName = dataReader.GetValue(1).ToString();
                     employeePayrollData.EmpLastName = dataReader.GetValue(2).ToString();
                     employeePayrollData.EmpMiddleName = dataReader.GetValue(3).ToString();
+                    employeePayrollData.JobID = int.Parse(dataReader.GetValue(4).ToString());
 
                     return employeePayrollData;
                 }
@@ -857,18 +862,38 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        private decimal ExecuteSqlJobRateQuery(int id)
+        {
+            string sqlJobRate = "SELECT PayRate FROM tblJob WHERE JobID='" + id + "'";
+            decimal jobRate = 0M;
 
-        public void ExecuteSqlPayrollAllSearchQuery(Action<List<PaySlipData>> onSuccess, Action onFailure)
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlJobRate, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    jobRate = dataReader.GetValue(0) == DBNull.Value ? 0M : Convert.ToDecimal(dataReader.GetValue(0).ToString());
+                }
+
+                return jobRate;
+            }
+
+        }
+
+        public void ExecuteSqlPayrollAllSearchQuery(string from, string to, Action<List<PaySlipData>> onSuccess, Action onFailure)
         {
             List<PaySlipData> dataItems = new List<PaySlipData>();
-            
-            
-            string sqlSearch = "SELECT * FROM tblPayroll";
+
+            string sqlSearch = "SELECT * FROM tblPayroll WHERE PayrollStartDate=@PayrollStartDate AND PayrollEndDate=@PayrollEndDate";
 
             using (connection = new DatabaseConnection(connectionString))
             {
                 using (command = new DatabaseCommand(sqlSearch, connection))
                 {
+                    // Add parameters with appropriate data types
+                    command.AddParameter("@PayrollStartDate", Convert.ToDateTime(from).Date);
+                    command.AddParameter("@PayrollEndDate", Convert.ToDateTime(to).Date);
                     sqlDataReader = command.ExecuteReader();
                     if(sqlDataReader.HasRows)
                     {
@@ -878,6 +903,7 @@ namespace CCSPayrollBillingSystem.Scripts
                             PayrollData _paySlipPayrollData = new PayrollData();
                             WorkDays _paySlipWorkdays = new WorkDays();
                             EmployeePayrollData _employeePayrollData = new EmployeePayrollData();
+                            decimal _jobRate = 0M;
 
                             _paySlipPayrollData.Payroll_ID = (int)sqlDataReader.GetValue(0);
                             _paySlipPayrollData.PayrollStartDate = DateTime.Parse(sqlDataReader.GetValue(1).ToString());
@@ -895,10 +921,12 @@ namespace CCSPayrollBillingSystem.Scripts
 
                             _paySlipWorkdays = ExecuteSqlWorkDaysQuery(_paySlipPayrollData.WorkDayID);
                             _employeePayrollData = ExecuteSqlEmployeeQuery(_paySlipPayrollData.EmpID);
+                            _jobRate = ExecuteSqlJobRateQuery(_employeePayrollData.JobID);
 
                             _payslip.PayrollData = _paySlipPayrollData;
                             _payslip.WorkDays = _paySlipWorkdays;
                             _payslip.Employee = _employeePayrollData;
+                            _payslip.PayRate = _jobRate;
 
                             dataItems.Add(_payslip);
                         }
@@ -1314,7 +1342,8 @@ namespace CCSPayrollBillingSystem.Scripts
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
-        sqlDataReader = command.ExecuteReader();
+                    sqlDataReader = command.ExecuteReader();
+
                     if (sqlDataReader.HasRows)
                     {
                         onSuccess?.Invoke();

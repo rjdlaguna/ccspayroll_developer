@@ -49,7 +49,9 @@ namespace CCSPayrollBillingSystem
             
         }
 
-        private void ExtractProjectName(List<string[]> projectList)
+        
+
+    private void ExtractProjectName(List<string[]> projectList)
         {
 
             int[] projIds = new int[projectList.Count];
@@ -265,6 +267,8 @@ namespace CCSPayrollBillingSystem
             BillingAttributeListProcessing();
             BillingAttributeList2Display();
             txtGrossTotal.Text = StringToPeso(gross);
+
+            
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -276,6 +280,7 @@ namespace CCSPayrollBillingSystem
             rtbBillingSlip.Text += "\n\t\tVat: " + "\t\t\t" + StringToPeso(vat);
             rtbBillingSlip.Text += "\n\t\t-----------------------------------------------------------------\n";
             rtbBillingSlip.Text += "\t\tGrand Total: " + "\t\t" + StringToPeso(net);
+            
             BillingSaveQuery();
         }
 
