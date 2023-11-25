@@ -85,7 +85,7 @@ namespace CCSPayrollBillingSystem
         {
             if (string.IsNullOrWhiteSpace(txtRegDays.Text)) txtRegDays.Text = "0";
             _RegDaysRate = WorkDaysComputation.RegularDays(baseRate, float.Parse(txtRegDays.Text));
-            txtRegDaysRate.Text = CurrencyFormatter.ToCurrencyFormat(_RegDaysRate);
+            txtRegDaysRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_RegDaysRate);
             
         }
 
@@ -93,35 +93,35 @@ namespace CCSPayrollBillingSystem
         {
             if (string.IsNullOrWhiteSpace(txtRegOT.Text)) txtRegOT.Text = "0";
             _RegOTRate = WorkDaysComputation.RegularDaysOT(baseRate, float.Parse(txtRegOT.Text));
-            txtRegOTRate.Text = CurrencyFormatter.ToCurrencyFormat(_RegOTRate);
+            txtRegOTRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_RegOTRate);
         }
 
         private void txtSplHolidays_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSplHolidays.Text)) txtSplHolidays.Text = "0";
             _SplHolidaysRate = WorkDaysComputation.SunOrSpecialHolidays(baseRate, float.Parse(txtSplHolidays.Text));
-            txtSplHolidaysRate.Text = CurrencyFormatter.ToCurrencyFormat(_SplHolidaysRate);
+            txtSplHolidaysRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_SplHolidaysRate);
         }
 
         private void txtSplHolidaysOT_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSplHolidaysOT.Text)) txtSplHolidaysOT.Text = "0";
             _SplHolidaysOTRate = WorkDaysComputation.SpecialHolidaysOT(baseRate, float.Parse(txtSplHolidaysOT.Text));
-            txtSplHolidaysOTRate.Text = CurrencyFormatter.ToCurrencyFormat(_SplHolidaysOTRate);
+            txtSplHolidaysOTRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_SplHolidaysOTRate);
         }
 
         private void txtRegHolidays_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtRegHolidays.Text)) txtRegHolidays.Text = "0";
             _RegHolidaysRate = WorkDaysComputation.RegularHolidays(baseRate, float.Parse(txtRegHolidays.Text));
-            txtRegHolidaysRate.Text = CurrencyFormatter.ToCurrencyFormat(_RegHolidaysRate);
+            txtRegHolidaysRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_RegHolidaysRate);
         }
 
         private void txtRegHolidaysOT_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtRegHolidaysOT.Text)) txtRegHolidaysOT.Text = "0";
             _RegHolidaysOTRate = WorkDaysComputation.RegularHolidaysOT(baseRate, float.Parse(txtRegHolidaysOT.Text));
-            txtRegHolidaysOTRate.Text = CurrencyFormatter.ToCurrencyFormat(_RegHolidaysOTRate);
+            txtRegHolidaysOTRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_RegHolidaysOTRate);
         }
 
         
@@ -135,28 +135,28 @@ namespace CCSPayrollBillingSystem
         {
             if (string.IsNullOrWhiteSpace(txtRegHolRestDay.Text)) txtRegHolRestDay.Text = "0";
             _RegHolRestDayRate = WorkDaysComputation.RestDayAndRegularHolidays(baseRate, float.Parse(txtRegHolRestDay.Text));
-            txtRegHolRestDayRate.Text = CurrencyFormatter.ToCurrencyFormat(_RegHolRestDayRate);
+            txtRegHolRestDayRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_RegHolRestDayRate);
         }
 
         private void txtCOLA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCOLA.Text)) txtCOLA.Text = "0";
             _COLARate = WorkDaysComputation.COLA(decimal.Parse(txtCOLA.Text));
-            txtCOLARate.Text = CurrencyFormatter.ToCurrencyFormat(_COLARate);
+            txtCOLARate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_COLARate);
         }
 
         private void txtPDA_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPDA.Text)) txtPDA.Text = "0";
             _PDARate = WorkDaysComputation.PDA(decimal.Parse(txtPDA.Text));
-            txtPDARate.Text = CurrencyFormatter.ToCurrencyFormat(_PDARate);
+            txtPDARate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_PDARate);
         }
 
         private void txtOthers_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtOthers.Text)) txtOthers.Text = "0";
             _OthersRate = WorkDaysComputation.Others(decimal.Parse(txtOthers.Text));
-            txtOthersRate.Text = CurrencyFormatter.ToCurrencyFormat(_OthersRate);
+            txtOthersRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_OthersRate);
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -164,8 +164,8 @@ namespace CCSPayrollBillingSystem
             gross = _RegDaysRate + _RegOTRate + _SplHolidaysRate + _SplHolidaysOTRate + _RegHolidaysRate + _RegHolidaysOTRate + _RegHolRestDayRate + _COLARate + _PDARate + _OthersRate;
             deductions = Convert.ToDecimal(txtSSS.Text) + Convert.ToDecimal(txtPhilHealth.Text) + Convert.ToDecimal(txtPagIbig.Text) + Convert.ToDecimal(txtPayrollOthers.Text);
             net = gross - deductions;
-            txtGrossPay.Text = CurrencyFormatter.ToCurrencyFormat(gross);
-            txtNetPay.Text = CurrencyFormatter.ToCurrencyFormat(net);
+            txtGrossPay.Text = CurrencyFormatter.ToPhpCurrencyFormat(gross);
+            txtNetPay.Text = CurrencyFormatter.ToPhpCurrencyFormat(net);
         }
 
         private void btnSave_Click(object sender, EventArgs e)

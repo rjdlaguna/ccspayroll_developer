@@ -1305,7 +1305,7 @@ namespace CCSPayrollBillingSystem.Scripts
             using (connection = new DatabaseConnection(connectionString))
             {
                 sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
-                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
+                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.RegHolRestDay AS 'Regular Holiday | Rest Day', WORK.COLA, WORK.PDA, WORK.Others " +
                                     "FROM tblEPR AS EPR " +
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +

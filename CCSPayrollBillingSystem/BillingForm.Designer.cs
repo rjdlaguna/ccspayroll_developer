@@ -49,8 +49,51 @@ namespace CCSPayrollBillingSystem
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.gbWorkDays = new System.Windows.Forms.GroupBox();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.txtFullName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblRegHolRestDay = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtRegHolRestDayRate = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtRegHolRestDay = new System.Windows.Forms.TextBox();
+            this.txtRegDaysRate = new System.Windows.Forms.TextBox();
+            this.txtOthersRate = new System.Windows.Forms.TextBox();
+            this.txtPDARate = new System.Windows.Forms.TextBox();
+            this.txtRegOTRate = new System.Windows.Forms.TextBox();
+            this.txtCOLARate = new System.Windows.Forms.TextBox();
+            this.txtSplHolidaysRate = new System.Windows.Forms.TextBox();
+            this.txtRegHolidaysOTRate = new System.Windows.Forms.TextBox();
+            this.txtSplHolidaysOTRate = new System.Windows.Forms.TextBox();
+            this.txtRegHolidaysRate = new System.Windows.Forms.TextBox();
+            this.txtRegDays = new System.Windows.Forms.TextBox();
+            this.txtOthers = new System.Windows.Forms.TextBox();
+            this.lblRegDays = new System.Windows.Forms.Label();
+            this.lblOthers = new System.Windows.Forms.Label();
+            this.lblRegOT = new System.Windows.Forms.Label();
+            this.txtPDA = new System.Windows.Forms.TextBox();
+            this.txtRegOT = new System.Windows.Forms.TextBox();
+            this.lblPDA = new System.Windows.Forms.Label();
+            this.lblSplHolidays = new System.Windows.Forms.Label();
+            this.txtCOLA = new System.Windows.Forms.TextBox();
+            this.txtSplHolidays = new System.Windows.Forms.TextBox();
+            this.lblCOLA = new System.Windows.Forms.Label();
+            this.lblSplHolidaysOT = new System.Windows.Forms.Label();
+            this.txtRegHolidaysOT = new System.Windows.Forms.TextBox();
+            this.txtSplHolidaysOT = new System.Windows.Forms.TextBox();
+            this.lblRegHolidaysOT = new System.Windows.Forms.Label();
+            this.lblRegHolidays = new System.Windows.Forms.Label();
+            this.txtRegHolidays = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.gbWorkDays.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvEmployeeList4Billing
@@ -58,11 +101,11 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.AllowUserToAddRows = false;
             this.dgvEmployeeList4Billing.AllowUserToOrderColumns = true;
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(12, 163);
+            this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(549, 285);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
             dataGridViewCellStyle3.NullValue = "0";
             this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(452, 308);
+            this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(465, 171);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
             // txtVAT
@@ -109,6 +152,7 @@ namespace CCSPayrollBillingSystem
             // 
             // cmbProject
             // 
+            this.cmbProject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbProject.FormattingEnabled = true;
             this.cmbProject.Location = new System.Drawing.Point(92, 15);
             this.cmbProject.Name = "cmbProject";
@@ -149,7 +193,7 @@ namespace CCSPayrollBillingSystem
             this.txtGrossTotal.Location = new System.Drawing.Point(378, 12);
             this.txtGrossTotal.Name = "txtGrossTotal";
             this.txtGrossTotal.ReadOnly = true;
-            this.txtGrossTotal.Size = new System.Drawing.Size(178, 20);
+            this.txtGrossTotal.Size = new System.Drawing.Size(144, 20);
             this.txtGrossTotal.TabIndex = 63;
             // 
             // label17
@@ -172,9 +216,9 @@ namespace CCSPayrollBillingSystem
             // 
             // rtbBillingSlip
             // 
-            this.rtbBillingSlip.Location = new System.Drawing.Point(616, 15);
+            this.rtbBillingSlip.Location = new System.Drawing.Point(549, 12);
             this.rtbBillingSlip.Name = "rtbBillingSlip";
-            this.rtbBillingSlip.Size = new System.Drawing.Size(465, 445);
+            this.rtbBillingSlip.Size = new System.Drawing.Size(465, 257);
             this.rtbBillingSlip.TabIndex = 69;
             this.rtbBillingSlip.Text = "";
             this.rtbBillingSlip.WordWrap = false;
@@ -184,7 +228,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(336, 109);
+            this.btnGenerate.Location = new System.Drawing.Point(350, 109);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 70;
@@ -198,7 +242,7 @@ namespace CCSPayrollBillingSystem
             this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalculate.Image = global::CCSPayrollBillingSystem.Properties.Resources.calculator;
             this.btnCalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalculate.Location = new System.Drawing.Point(482, 246);
+            this.btnCalculate.Location = new System.Drawing.Point(350, 169);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(128, 40);
             this.btnCalculate.TabIndex = 71;
@@ -226,7 +270,7 @@ namespace CCSPayrollBillingSystem
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Image = global::CCSPayrollBillingSystem.Properties.Resources.printer;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(482, 292);
+            this.btnPrint.Location = new System.Drawing.Point(350, 229);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(128, 40);
             this.btnPrint.TabIndex = 72;
@@ -235,13 +279,564 @@ namespace CCSPayrollBillingSystem
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // gbWorkDays
+            // 
+            this.gbWorkDays.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.gbWorkDays.Controls.Add(this.btnNext);
+            this.gbWorkDays.Controls.Add(this.btnPrevious);
+            this.gbWorkDays.Controls.Add(this.txtFullName);
+            this.gbWorkDays.Controls.Add(this.label3);
+            this.gbWorkDays.Controls.Add(this.label13);
+            this.gbWorkDays.Controls.Add(this.label14);
+            this.gbWorkDays.Controls.Add(this.label11);
+            this.gbWorkDays.Controls.Add(this.label12);
+            this.gbWorkDays.Controls.Add(this.label10);
+            this.gbWorkDays.Controls.Add(this.lblRegHolRestDay);
+            this.gbWorkDays.Controls.Add(this.label9);
+            this.gbWorkDays.Controls.Add(this.txtRegHolRestDayRate);
+            this.gbWorkDays.Controls.Add(this.label7);
+            this.gbWorkDays.Controls.Add(this.txtRegHolRestDay);
+            this.gbWorkDays.Controls.Add(this.txtRegDaysRate);
+            this.gbWorkDays.Controls.Add(this.txtOthersRate);
+            this.gbWorkDays.Controls.Add(this.txtPDARate);
+            this.gbWorkDays.Controls.Add(this.txtRegOTRate);
+            this.gbWorkDays.Controls.Add(this.txtCOLARate);
+            this.gbWorkDays.Controls.Add(this.txtSplHolidaysRate);
+            this.gbWorkDays.Controls.Add(this.txtRegHolidaysOTRate);
+            this.gbWorkDays.Controls.Add(this.txtSplHolidaysOTRate);
+            this.gbWorkDays.Controls.Add(this.txtRegHolidaysRate);
+            this.gbWorkDays.Controls.Add(this.txtRegDays);
+            this.gbWorkDays.Controls.Add(this.txtOthers);
+            this.gbWorkDays.Controls.Add(this.lblRegDays);
+            this.gbWorkDays.Controls.Add(this.lblOthers);
+            this.gbWorkDays.Controls.Add(this.lblRegOT);
+            this.gbWorkDays.Controls.Add(this.txtPDA);
+            this.gbWorkDays.Controls.Add(this.txtRegOT);
+            this.gbWorkDays.Controls.Add(this.lblPDA);
+            this.gbWorkDays.Controls.Add(this.lblSplHolidays);
+            this.gbWorkDays.Controls.Add(this.txtCOLA);
+            this.gbWorkDays.Controls.Add(this.txtSplHolidays);
+            this.gbWorkDays.Controls.Add(this.lblCOLA);
+            this.gbWorkDays.Controls.Add(this.lblSplHolidaysOT);
+            this.gbWorkDays.Controls.Add(this.txtRegHolidaysOT);
+            this.gbWorkDays.Controls.Add(this.txtSplHolidaysOT);
+            this.gbWorkDays.Controls.Add(this.lblRegHolidaysOT);
+            this.gbWorkDays.Controls.Add(this.lblRegHolidays);
+            this.gbWorkDays.Controls.Add(this.txtRegHolidays);
+            this.gbWorkDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbWorkDays.Location = new System.Drawing.Point(12, 162);
+            this.gbWorkDays.Name = "gbWorkDays";
+            this.gbWorkDays.Size = new System.Drawing.Size(305, 362);
+            this.gbWorkDays.TabIndex = 73;
+            this.gbWorkDays.TabStop = false;
+            this.gbWorkDays.Text = "BILLING EMPLOYEE";
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(175, 24);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 77;
+            this.btnNext.Text = ">>";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Location = new System.Drawing.Point(94, 24);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevious.TabIndex = 76;
+            this.btnPrevious.Text = "<<";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // txtFullName
+            // 
+            this.txtFullName.Location = new System.Drawing.Point(62, 54);
+            this.txtFullName.Name = "txtFullName";
+            this.txtFullName.ReadOnly = true;
+            this.txtFullName.Size = new System.Drawing.Size(216, 20);
+            this.txtFullName.TabIndex = 75;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 74;
+            this.label3.Text = "Name :";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(174, 247);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(35, 13);
+            this.label13.TabIndex = 44;
+            this.label13.Text = "day(s)";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(177, 221);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(24, 13);
+            this.label14.TabIndex = 43;
+            this.label14.Text = "hrs.";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(174, 194);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 13);
+            this.label11.TabIndex = 42;
+            this.label11.Text = "day(s)";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(177, 168);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(24, 13);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "hrs.";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(174, 142);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 40;
+            this.label10.Text = "day(s)";
+            // 
+            // lblRegHolRestDay
+            // 
+            this.lblRegHolRestDay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRegHolRestDay.AutoSize = true;
+            this.lblRegHolRestDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegHolRestDay.Location = new System.Drawing.Point(6, 247);
+            this.lblRegHolRestDay.Name = "lblRegHolRestDay";
+            this.lblRegHolRestDay.Size = new System.Drawing.Size(107, 13);
+            this.lblRegHolRestDay.TabIndex = 39;
+            this.lblRegHolRestDay.Text = "Reg. Hol. | Rest Day:";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(177, 116);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(24, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "hrs.";
+            // 
+            // txtRegHolRestDayRate
+            // 
+            this.txtRegHolRestDayRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegHolRestDayRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolRestDayRate.Location = new System.Drawing.Point(215, 244);
+            this.txtRegHolRestDayRate.Name = "txtRegHolRestDayRate";
+            this.txtRegHolRestDayRate.Size = new System.Drawing.Size(82, 20);
+            this.txtRegHolRestDayRate.TabIndex = 38;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(172, 89);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 36;
+            this.label7.Text = "day(s)";
+            // 
+            // txtRegHolRestDay
+            // 
+            this.txtRegHolRestDay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegHolRestDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolRestDay.Location = new System.Drawing.Point(118, 244);
+            this.txtRegHolRestDay.Name = "txtRegHolRestDay";
+            this.txtRegHolRestDay.ReadOnly = true;
+            this.txtRegHolRestDay.Size = new System.Drawing.Size(44, 20);
+            this.txtRegHolRestDay.TabIndex = 37;
+            this.txtRegHolRestDay.Text = "0";
+            // 
+            // txtRegDaysRate
+            // 
+            this.txtRegDaysRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegDaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegDaysRate.Location = new System.Drawing.Point(215, 87);
+            this.txtRegDaysRate.Name = "txtRegDaysRate";
+            this.txtRegDaysRate.Size = new System.Drawing.Size(82, 20);
+            this.txtRegDaysRate.TabIndex = 27;
+            // 
+            // txtOthersRate
+            // 
+            this.txtOthersRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOthersRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOthersRate.Location = new System.Drawing.Point(215, 329);
+            this.txtOthersRate.Name = "txtOthersRate";
+            this.txtOthersRate.Size = new System.Drawing.Size(82, 20);
+            this.txtOthersRate.TabIndex = 35;
+            // 
+            // txtPDARate
+            // 
+            this.txtPDARate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPDARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPDARate.Location = new System.Drawing.Point(215, 303);
+            this.txtPDARate.Name = "txtPDARate";
+            this.txtPDARate.Size = new System.Drawing.Size(82, 20);
+            this.txtPDARate.TabIndex = 34;
+            // 
+            // txtRegOTRate
+            // 
+            this.txtRegOTRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegOTRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegOTRate.Location = new System.Drawing.Point(215, 113);
+            this.txtRegOTRate.Name = "txtRegOTRate";
+            this.txtRegOTRate.Size = new System.Drawing.Size(82, 20);
+            this.txtRegOTRate.TabIndex = 28;
+            // 
+            // txtCOLARate
+            // 
+            this.txtCOLARate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCOLARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCOLARate.Location = new System.Drawing.Point(215, 277);
+            this.txtCOLARate.Name = "txtCOLARate";
+            this.txtCOLARate.Size = new System.Drawing.Size(82, 20);
+            this.txtCOLARate.TabIndex = 33;
+            // 
+            // txtSplHolidaysRate
+            // 
+            this.txtSplHolidaysRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSplHolidaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSplHolidaysRate.Location = new System.Drawing.Point(215, 139);
+            this.txtSplHolidaysRate.Name = "txtSplHolidaysRate";
+            this.txtSplHolidaysRate.Size = new System.Drawing.Size(82, 20);
+            this.txtSplHolidaysRate.TabIndex = 29;
+            // 
+            // txtRegHolidaysOTRate
+            // 
+            this.txtRegHolidaysOTRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegHolidaysOTRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolidaysOTRate.Location = new System.Drawing.Point(215, 217);
+            this.txtRegHolidaysOTRate.Name = "txtRegHolidaysOTRate";
+            this.txtRegHolidaysOTRate.Size = new System.Drawing.Size(82, 20);
+            this.txtRegHolidaysOTRate.TabIndex = 32;
+            // 
+            // txtSplHolidaysOTRate
+            // 
+            this.txtSplHolidaysOTRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSplHolidaysOTRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSplHolidaysOTRate.Location = new System.Drawing.Point(215, 165);
+            this.txtSplHolidaysOTRate.Name = "txtSplHolidaysOTRate";
+            this.txtSplHolidaysOTRate.Size = new System.Drawing.Size(82, 20);
+            this.txtSplHolidaysOTRate.TabIndex = 30;
+            // 
+            // txtRegHolidaysRate
+            // 
+            this.txtRegHolidaysRate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegHolidaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolidaysRate.Location = new System.Drawing.Point(215, 191);
+            this.txtRegHolidaysRate.Name = "txtRegHolidaysRate";
+            this.txtRegHolidaysRate.Size = new System.Drawing.Size(82, 20);
+            this.txtRegHolidaysRate.TabIndex = 31;
+            // 
+            // txtRegDays
+            // 
+            this.txtRegDays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegDays.Location = new System.Drawing.Point(118, 87);
+            this.txtRegDays.Name = "txtRegDays";
+            this.txtRegDays.ReadOnly = true;
+            this.txtRegDays.Size = new System.Drawing.Size(44, 20);
+            this.txtRegDays.TabIndex = 1;
+            this.txtRegDays.Text = "0";
+            // 
+            // txtOthers
+            // 
+            this.txtOthers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOthers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOthers.Location = new System.Drawing.Point(118, 329);
+            this.txtOthers.Name = "txtOthers";
+            this.txtOthers.ReadOnly = true;
+            this.txtOthers.Size = new System.Drawing.Size(44, 20);
+            this.txtOthers.TabIndex = 26;
+            this.txtOthers.Text = "0";
+            // 
+            // lblRegDays
+            // 
+            this.lblRegDays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRegDays.AutoSize = true;
+            this.lblRegDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegDays.Location = new System.Drawing.Point(38, 90);
+            this.lblRegDays.Name = "lblRegDays";
+            this.lblRegDays.Size = new System.Drawing.Size(77, 13);
+            this.lblRegDays.TabIndex = 9;
+            this.lblRegDays.Text = "Regular Days :";
+            // 
+            // lblOthers
+            // 
+            this.lblOthers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblOthers.AutoSize = true;
+            this.lblOthers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOthers.Location = new System.Drawing.Point(71, 332);
+            this.lblOthers.Name = "lblOthers";
+            this.lblOthers.Size = new System.Drawing.Size(44, 13);
+            this.lblOthers.TabIndex = 25;
+            this.lblOthers.Text = "Others :";
+            // 
+            // lblRegOT
+            // 
+            this.lblRegOT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRegOT.AutoSize = true;
+            this.lblRegOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegOT.Location = new System.Drawing.Point(47, 116);
+            this.lblRegOT.Name = "lblRegOT";
+            this.lblRegOT.Size = new System.Drawing.Size(68, 13);
+            this.lblRegOT.TabIndex = 11;
+            this.lblRegOT.Text = "Regular OT :";
+            // 
+            // txtPDA
+            // 
+            this.txtPDA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPDA.Location = new System.Drawing.Point(118, 303);
+            this.txtPDA.Name = "txtPDA";
+            this.txtPDA.ReadOnly = true;
+            this.txtPDA.Size = new System.Drawing.Size(44, 20);
+            this.txtPDA.TabIndex = 24;
+            this.txtPDA.Text = "0";
+            // 
+            // txtRegOT
+            // 
+            this.txtRegOT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegOT.Location = new System.Drawing.Point(118, 113);
+            this.txtRegOT.Name = "txtRegOT";
+            this.txtRegOT.ReadOnly = true;
+            this.txtRegOT.Size = new System.Drawing.Size(44, 20);
+            this.txtRegOT.TabIndex = 12;
+            this.txtRegOT.Text = "0";
+            // 
+            // lblPDA
+            // 
+            this.lblPDA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPDA.AutoSize = true;
+            this.lblPDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPDA.Location = new System.Drawing.Point(80, 306);
+            this.lblPDA.Name = "lblPDA";
+            this.lblPDA.Size = new System.Drawing.Size(35, 13);
+            this.lblPDA.TabIndex = 23;
+            this.lblPDA.Text = "PDA :";
+            // 
+            // lblSplHolidays
+            // 
+            this.lblSplHolidays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSplHolidays.AutoSize = true;
+            this.lblSplHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSplHolidays.Location = new System.Drawing.Point(24, 142);
+            this.lblSplHolidays.Name = "lblSplHolidays";
+            this.lblSplHolidays.Size = new System.Drawing.Size(91, 13);
+            this.lblSplHolidays.TabIndex = 13;
+            this.lblSplHolidays.Text = "Special Holidays :";
+            // 
+            // txtCOLA
+            // 
+            this.txtCOLA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCOLA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCOLA.Location = new System.Drawing.Point(118, 277);
+            this.txtCOLA.Name = "txtCOLA";
+            this.txtCOLA.ReadOnly = true;
+            this.txtCOLA.Size = new System.Drawing.Size(44, 20);
+            this.txtCOLA.TabIndex = 22;
+            this.txtCOLA.Text = "0";
+            // 
+            // txtSplHolidays
+            // 
+            this.txtSplHolidays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSplHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSplHolidays.Location = new System.Drawing.Point(118, 139);
+            this.txtSplHolidays.Name = "txtSplHolidays";
+            this.txtSplHolidays.ReadOnly = true;
+            this.txtSplHolidays.Size = new System.Drawing.Size(44, 20);
+            this.txtSplHolidays.TabIndex = 14;
+            this.txtSplHolidays.Text = "0";
+            // 
+            // lblCOLA
+            // 
+            this.lblCOLA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCOLA.AutoSize = true;
+            this.lblCOLA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCOLA.Location = new System.Drawing.Point(74, 280);
+            this.lblCOLA.Name = "lblCOLA";
+            this.lblCOLA.Size = new System.Drawing.Size(41, 13);
+            this.lblCOLA.TabIndex = 21;
+            this.lblCOLA.Text = "COLA :";
+            // 
+            // lblSplHolidaysOT
+            // 
+            this.lblSplHolidaysOT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSplHolidaysOT.AutoSize = true;
+            this.lblSplHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSplHolidaysOT.Location = new System.Drawing.Point(6, 168);
+            this.lblSplHolidaysOT.Name = "lblSplHolidaysOT";
+            this.lblSplHolidaysOT.Size = new System.Drawing.Size(109, 13);
+            this.lblSplHolidaysOT.TabIndex = 15;
+            this.lblSplHolidaysOT.Text = "Special Holidays OT :";
+            // 
+            // txtRegHolidaysOT
+            // 
+            this.txtRegHolidaysOT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolidaysOT.Location = new System.Drawing.Point(118, 217);
+            this.txtRegHolidaysOT.Name = "txtRegHolidaysOT";
+            this.txtRegHolidaysOT.ReadOnly = true;
+            this.txtRegHolidaysOT.Size = new System.Drawing.Size(44, 20);
+            this.txtRegHolidaysOT.TabIndex = 20;
+            this.txtRegHolidaysOT.Text = "0";
+            // 
+            // txtSplHolidaysOT
+            // 
+            this.txtSplHolidaysOT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSplHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSplHolidaysOT.Location = new System.Drawing.Point(118, 165);
+            this.txtSplHolidaysOT.Name = "txtSplHolidaysOT";
+            this.txtSplHolidaysOT.ReadOnly = true;
+            this.txtSplHolidaysOT.Size = new System.Drawing.Size(44, 20);
+            this.txtSplHolidaysOT.TabIndex = 16;
+            this.txtSplHolidaysOT.Text = "0";
+            // 
+            // lblRegHolidaysOT
+            // 
+            this.lblRegHolidaysOT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRegHolidaysOT.AutoSize = true;
+            this.lblRegHolidaysOT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegHolidaysOT.Location = new System.Drawing.Point(9, 220);
+            this.lblRegHolidaysOT.Name = "lblRegHolidaysOT";
+            this.lblRegHolidaysOT.Size = new System.Drawing.Size(106, 13);
+            this.lblRegHolidaysOT.TabIndex = 19;
+            this.lblRegHolidaysOT.Text = "Regular Holiday OT :";
+            // 
+            // lblRegHolidays
+            // 
+            this.lblRegHolidays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRegHolidays.AutoSize = true;
+            this.lblRegHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegHolidays.Location = new System.Drawing.Point(22, 194);
+            this.lblRegHolidays.Name = "lblRegHolidays";
+            this.lblRegHolidays.Size = new System.Drawing.Size(93, 13);
+            this.lblRegHolidays.TabIndex = 17;
+            this.lblRegHolidays.Text = "Regular Holidays :";
+            // 
+            // txtRegHolidays
+            // 
+            this.txtRegHolidays.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRegHolidays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegHolidays.Location = new System.Drawing.Point(118, 191);
+            this.txtRegHolidays.Name = "txtRegHolidays";
+            this.txtRegHolidays.ReadOnly = true;
+            this.txtRegHolidays.Size = new System.Drawing.Size(44, 20);
+            this.txtRegHolidays.TabIndex = 18;
+            this.txtRegHolidays.Text = "0";
+            // 
             // frmBilling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1093, 526);
+            this.ClientSize = new System.Drawing.Size(1028, 536);
+            this.Controls.Add(this.gbWorkDays);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.rtbBillingSlip);
@@ -260,6 +855,8 @@ namespace CCSPayrollBillingSystem
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gbWorkDays.ResumeLayout(false);
+            this.gbWorkDays.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,5 +881,47 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.GroupBox gbWorkDays;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblRegHolRestDay;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtRegHolRestDayRate;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtRegHolRestDay;
+        private System.Windows.Forms.TextBox txtRegDaysRate;
+        private System.Windows.Forms.TextBox txtOthersRate;
+        private System.Windows.Forms.TextBox txtPDARate;
+        private System.Windows.Forms.TextBox txtRegOTRate;
+        private System.Windows.Forms.TextBox txtCOLARate;
+        private System.Windows.Forms.TextBox txtSplHolidaysRate;
+        private System.Windows.Forms.TextBox txtRegHolidaysOTRate;
+        private System.Windows.Forms.TextBox txtSplHolidaysOTRate;
+        private System.Windows.Forms.TextBox txtRegHolidaysRate;
+        private System.Windows.Forms.TextBox txtRegDays;
+        private System.Windows.Forms.TextBox txtOthers;
+        private System.Windows.Forms.Label lblRegDays;
+        private System.Windows.Forms.Label lblOthers;
+        private System.Windows.Forms.Label lblRegOT;
+        private System.Windows.Forms.TextBox txtPDA;
+        private System.Windows.Forms.TextBox txtRegOT;
+        private System.Windows.Forms.Label lblPDA;
+        private System.Windows.Forms.Label lblSplHolidays;
+        private System.Windows.Forms.TextBox txtCOLA;
+        private System.Windows.Forms.TextBox txtSplHolidays;
+        private System.Windows.Forms.Label lblCOLA;
+        private System.Windows.Forms.Label lblSplHolidaysOT;
+        private System.Windows.Forms.TextBox txtRegHolidaysOT;
+        private System.Windows.Forms.TextBox txtSplHolidaysOT;
+        private System.Windows.Forms.Label lblRegHolidaysOT;
+        private System.Windows.Forms.Label lblRegHolidays;
+        private System.Windows.Forms.TextBox txtRegHolidays;
+        private System.Windows.Forms.TextBox txtFullName;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrevious;
     }
 }
