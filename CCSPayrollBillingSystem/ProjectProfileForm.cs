@@ -99,7 +99,7 @@ namespace CCSPayrollBillingSystem
         private void btnViewProjects_Click(object sender, EventArgs e)
         {
             ProjectProfileList frmProjectProfileList = new ProjectProfileList();
-            frmProjectProfileList.Show();
+            frmProjectProfileList.ShowDialog();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

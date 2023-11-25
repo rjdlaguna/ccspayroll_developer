@@ -438,10 +438,13 @@ namespace CCSPayrollBillingSystem.Scripts
                                                string contactno, DateTime birthdate, DateTime datehired, DateTime endofcontract,
                                                int jobID, int empStatus, Action onSuccess, Action onFailure)
         {
-            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContractDate,JobID,EmpStatus,DeductionID) "
+            string converted_bdate = birthdate.ToString("yyyy-MM-dd");
+            string converted_datehired = datehired.ToString("yyyy-MM-dd");
+            string converted_endofcontract = endofcontract.ToString("yyyy-MM-dd");
+            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContractDate,JobID,EmpStatus) "
                                 + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','"
-                                                                + homeaddress + "', '" + contactno + "','" + birthdate + "','"
-                                                                + datehired + "','" + endofcontract + "','" + jobID + "','" +
+                                                                + homeaddress + "', '" + contactno + "','" + converted_bdate + "','"
+                                                                + converted_datehired + "','" + converted_endofcontract + "','" + jobID + "','" +
                                                                 +empStatus + "')";
 
             connection = new DatabaseConnection(connectionString);
