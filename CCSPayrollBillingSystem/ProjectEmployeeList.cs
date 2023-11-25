@@ -8,12 +8,17 @@ namespace CCSPayrollBillingSystem
 {
     public partial class ProjectEmployeeList : Form
     {
-        private int empId;
-        private string empFname;
-        private string empLname;
-        private int projId;
-        private string projName;
-        private decimal projRate;
+        public int empId;
+        public string empFname;
+        public string empLname;
+        public decimal empRate;
+        public string empRank;
+
+        public int projId;
+        public string projName;
+        public decimal projRate;
+
+        EmployeeListForPayroll employeeList = new EmployeeListForPayroll();
 
         QueryProcessor projectProcessor = new QueryProcessor();
         IDictionary<int, string> projetInfo = new Dictionary<int, string>();
@@ -36,6 +41,8 @@ namespace CCSPayrollBillingSystem
             });
 
             ExtractProjectName(projectList);
+
+            employeeList.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
 
         }
 
@@ -73,6 +80,7 @@ namespace CCSPayrollBillingSystem
             empFname = txtaddfirstname.Text;
             empLname = txtaddlastname.Text;
             projRate = Convert.ToDecimal(txtprojectrate.Text);
+            projName = cmbProject.Text;
             if (String.IsNullOrEmpty(empFname))
             {
                 MessageBox.Show("First name cannot be empty.");
@@ -84,25 +92,37 @@ namespace CCSPayrollBillingSystem
             else if (projRate <= 0)
             {
                 MessageBox.Show("Project rate cannot be 0 or negative.");
+                txtprojectrate.Focus();
+            }
+            else if (projName == "Select" || String.IsNullOrEmpty(projName))
+            {
+                MessageBox.Show("Please select a project.");
+                cmbProject.Focus();
             }
             else
             {
-                projName = cmbProject.Text;
-                CheckEmployeeInfoExists(empFname, empLname);
-                projId = projetInfo.FirstOrDefault(x => x.Value == projName).Key;
-                projectProcessor.ExecuteSQLAddEmployeeToProject(empId, projId, projRate, () =>
-                  {
-                      MessageBox.Show("Employee successfully added in project.");
-                      ResetAddEmployeeToProjectTextFields();
-                  }, () =>
-                  {
-                      MessageBox.Show("Problem adding employee in the project.");
-                  });
+                if (CheckEmployeeInfoExists(empFname, empLname) != 1)
+                {
+                    projId = projetInfo.FirstOrDefault(x => x.Value == projName).Key;
+                    projectProcessor.ExecuteSQLAddEmployeeToProject(empId, projId, projRate, () =>
+                    {
+                        MessageBox.Show("Employee successfully added in project.");
+                        ResetAddEmployeeToProjectTextFields();
+                    }, () =>
+                    {
+                        MessageBox.Show("Problem adding employee in the project.");
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Employee already added in project.");
+                    txtaddlastname.Focus();
+                }
             }
             
         }
 
-        private void CheckEmployeeInfoExists(string fname, string lname)
+        private int CheckEmployeeInfoExists(string fname, string lname)
         {
             empId = projectProcessor.ExecuteSQLCheckEmployeeExist(fname, lname, () =>
             {
@@ -111,6 +131,8 @@ namespace CCSPayrollBillingSystem
             {
                 Console.WriteLine("Employee information ot existing.");
             });
+
+            return empId;
 
         }
 
@@ -140,6 +162,21 @@ namespace CCSPayrollBillingSystem
             projId = projetInfo.FirstOrDefault(x => x.Value == projName).Key;
             dgEmployeeInProjectList.DataSource = null;
             LoadProjectEmployees(projId);
+        }
+
+        private void btnSearchEmployee_Click(object sender, EventArgs e)
+        {
+            employeeList.Show();
+        }
+
+        private void LoadSearchedEmployeeDetails(Employee emp)
+        {
+            empId = emp.EmpIdPayroll;
+            empLname = emp.EmpFnamePayroll;
+            empFname = emp.EmpLnamePayroll;
+
+            txtaddfirstname.Text = empFname;
+            txtaddlastname.Text = empLname;
         }
     }
 }

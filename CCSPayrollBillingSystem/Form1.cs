@@ -176,9 +176,26 @@ namespace CCSPayrollBillingSystem
 
         private void billingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmBilling frmBilling = new frmBilling();
-            frmBilling.StartPosition = FormStartPosition.CenterScreen;
-            frmBilling.ShowDialog();
+            QueryProcessor projectProcessor = new QueryProcessor();
+            int projectNum = projectProcessor.ExecuteSQLCheckCountProjecrtsQuery(
+               () =>
+               {
+                   Console.WriteLine("Projects are added.");
+               },
+               () =>
+               {
+                   Console.WriteLine("No projects were added.");
+               });
+            if (projectNum > 0)
+            {
+                frmBilling frmBilling = new frmBilling();
+                frmBilling.StartPosition = FormStartPosition.CenterScreen;
+                frmBilling.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("There are no projects found. Please add.", "Billing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

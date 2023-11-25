@@ -64,20 +64,22 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtProjectEmailAddress);
             this.groupBox1.Controls.Add(this.txtProjectName);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(26, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(326, 334);
+            this.groupBox1.Size = new System.Drawing.Size(381, 334);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "PROJECT DETAILS";
             // 
             // lblProjectPrompt
             // 
             this.lblProjectPrompt.AutoSize = true;
-            this.lblProjectPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProjectPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProjectPrompt.ForeColor = System.Drawing.Color.Red;
             this.lblProjectPrompt.Location = new System.Drawing.Point(110, 26);
             this.lblProjectPrompt.Name = "lblProjectPrompt";
-            this.lblProjectPrompt.Size = new System.Drawing.Size(86, 13);
+            this.lblProjectPrompt.Size = new System.Drawing.Size(73, 13);
             this.lblProjectPrompt.TabIndex = 22;
             this.lblProjectPrompt.Text = "ProjectPrompt";
             this.lblProjectPrompt.Visible = false;
@@ -85,6 +87,7 @@ namespace CCSPayrollBillingSystem
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 145);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
@@ -94,6 +97,7 @@ namespace CCSPayrollBillingSystem
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 13);
@@ -102,6 +106,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtProjectContactNo
             // 
+            this.txtProjectContactNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProjectContactNo.Location = new System.Drawing.Point(113, 235);
             this.txtProjectContactNo.Name = "txtProjectContactNo";
             this.txtProjectContactNo.Size = new System.Drawing.Size(138, 20);
@@ -110,6 +115,7 @@ namespace CCSPayrollBillingSystem
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(6, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 13);
@@ -118,6 +124,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtPersonInCharge
             // 
+            this.txtPersonInCharge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPersonInCharge.Location = new System.Drawing.Point(113, 189);
             this.txtPersonInCharge.Name = "txtPersonInCharge";
             this.txtPersonInCharge.Size = new System.Drawing.Size(138, 20);
@@ -126,6 +133,7 @@ namespace CCSPayrollBillingSystem
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 196);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
@@ -134,6 +142,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtProjectAddress
             // 
+            this.txtProjectAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProjectAddress.Location = new System.Drawing.Point(113, 138);
             this.txtProjectAddress.Multiline = true;
             this.txtProjectAddress.Name = "txtProjectAddress";
@@ -143,6 +152,7 @@ namespace CCSPayrollBillingSystem
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 242);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 13);
@@ -151,6 +161,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtProjectDescription
             // 
+            this.txtProjectDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProjectDescription.Location = new System.Drawing.Point(113, 95);
             this.txtProjectDescription.Name = "txtProjectDescription";
             this.txtProjectDescription.Size = new System.Drawing.Size(138, 20);
@@ -159,6 +170,7 @@ namespace CCSPayrollBillingSystem
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(6, 289);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
@@ -167,6 +179,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtProjectEmailAddress
             // 
+            this.txtProjectEmailAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProjectEmailAddress.Location = new System.Drawing.Point(113, 282);
             this.txtProjectEmailAddress.Name = "txtProjectEmailAddress";
             this.txtProjectEmailAddress.Size = new System.Drawing.Size(138, 20);
@@ -174,6 +187,7 @@ namespace CCSPayrollBillingSystem
             // 
             // txtProjectName
             // 
+            this.txtProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProjectName.Location = new System.Drawing.Point(113, 54);
             this.txtProjectName.Name = "txtProjectName";
             this.txtProjectName.Size = new System.Drawing.Size(138, 20);
@@ -184,7 +198,7 @@ namespace CCSPayrollBillingSystem
             this.btnViewProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnViewProjects.Image = global::CCSPayrollBillingSystem.Properties.Resources.file;
             this.btnViewProjects.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnViewProjects.Location = new System.Drawing.Point(384, 151);
+            this.btnViewProjects.Location = new System.Drawing.Point(442, 238);
             this.btnViewProjects.Name = "btnViewProjects";
             this.btnViewProjects.Size = new System.Drawing.Size(100, 40);
             this.btnViewProjects.TabIndex = 26;
@@ -198,7 +212,7 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(384, 209);
+            this.btnCancel.Location = new System.Drawing.Point(442, 150);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 25;
@@ -212,7 +226,7 @@ namespace CCSPayrollBillingSystem
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Image = global::CCSPayrollBillingSystem.Properties.Resources.floppy_disk;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(384, 97);
+            this.btnSave.Location = new System.Drawing.Point(442, 94);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
             this.btnSave.TabIndex = 24;
@@ -225,13 +239,13 @@ namespace CCSPayrollBillingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 450);
+            this.ClientSize = new System.Drawing.Size(554, 402);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnViewProjects);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "ProjectProfileForm";
-            this.Text = "ProjectProfileForm";
+            this.Text = "Project Profile";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
