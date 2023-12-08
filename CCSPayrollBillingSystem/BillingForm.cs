@@ -23,6 +23,7 @@ namespace CCSPayrollBillingSystem
 
         List<Dictionary<string, object>> employeeAttribFromQuery = new List<Dictionary<string, object>>();
         List<Dictionary<string, object>> employeeBillingDetails = new List<Dictionary<string, object>>();
+
         List<WorkDays> employeeListWorkdays = new List<WorkDays>();
         List<WorkDaysRate> employeeListWorkdaysRate = new List<WorkDaysRate>();
 
@@ -89,14 +90,13 @@ namespace CCSPayrollBillingSystem
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, () =>
             {
                 DataTable tempDataTableBilling = billingProcessor.GetSqlReaderData();
-                dgvEmployeeList4Billing.DataSource = tempDataTableBilling;
-                WorkDaysBillingInitialization();
-                LoadBillingWorkdaysOnGroupbox(0);
-                //AddInputColumnsOnBillingDVG(tempDataTableBilling);
+                dgvEmployeeList4Billing.DataSource = AddInputColumnsOnBillingDVG(tempDataTableBilling); 
+                //WorkDaysBillingInitialization();
                 dgvEmployeeList4Billing.Columns[0].Visible = false;
                 dgvEmployeeList4Billing.Columns[3].Visible = false;
                 //ChangeStyleDGV();
                 dgvEmployeeList4Billing.Columns["LastName"].Frozen = true;
+                LoadBillingWorkdaysOnGroupbox(currentID);
             }, () =>
             {
                 MessageBox.Show("Problem listing all employees in the Project.");
@@ -134,30 +134,26 @@ namespace CCSPayrollBillingSystem
 
             txtFullName.Text = dataGridViewRow.Cells[2].Value.ToString()+", "+ dataGridViewRow.Cells[1].Value.ToString();
             txtRegDays.Text = dataGridViewRow.Cells[5].Value.ToString();
-            txtRegOT.Text = dataGridViewRow.Cells[6].Value.ToString();
-            txtSplHolidays.Text = dataGridViewRow.Cells[7].Value.ToString();
-            txtSplHolidaysOT.Text = dataGridViewRow.Cells[8].Value.ToString();
-            txtRegHolidays.Text = dataGridViewRow.Cells[9].Value.ToString();
-            txtRegHolidaysOT.Text = dataGridViewRow.Cells[10].Value.ToString();
-            txtRegHolRestDay.Text = dataGridViewRow.Cells[11].Value.ToString();
-            txtCOLA.Text = dataGridViewRow.Cells[12].Value.ToString();
-            txtPDA.Text = dataGridViewRow.Cells[13].Value.ToString();
-            txtOthers.Text = dataGridViewRow.Cells[14].Value.ToString();
-        }
+            txtRegOT.Text = dataGridViewRow.Cells[7].Value.ToString();
+            txtSplHolidays.Text = dataGridViewRow.Cells[9].Value.ToString();
+            txtSplHolidaysOT.Text = dataGridViewRow.Cells[11].Value.ToString();
+            txtRegHolidays.Text = dataGridViewRow.Cells[13].Value.ToString();
+            txtRegHolidaysOT.Text = dataGridViewRow.Cells[15].Value.ToString();
+            txtRegHolRestDay.Text = dataGridViewRow.Cells[17].Value.ToString();
+            txtCOLA.Text = dataGridViewRow.Cells[19].Value.ToString();
+            txtPDA.Text = dataGridViewRow.Cells[21].Value.ToString();
+            txtOthers.Text = dataGridViewRow.Cells[23].Value.ToString();
 
-        private void LoadBillingWorkdaysRateOnGroupbox(int rowID)
-        {
-
-            txtRegDaysRate.Text = employeeListWorkdaysRate[rowID].RegularDaysRate.ToString();
-            txtRegOTRate.Text = employeeListWorkdaysRate[rowID].RegularDaysOTRate.ToString();
-            txtSplHolidaysRate.Text = employeeListWorkdaysRate[rowID].SplHolidaysRate.ToString();
-            txtSplHolidaysOTRate.Text = employeeListWorkdaysRate[rowID].SplHolidaysRate.ToString();
-            txtRegHolidaysRate.Text = employeeListWorkdaysRate[rowID].RegularDaysRate.ToString();
-            txtRegHolidaysOTRate.Text = employeeListWorkdaysRate[rowID].RegularDaysOTRate.ToString();
-            txtRegHolRestDayRate.Text = employeeListWorkdaysRate[rowID].RegHolRestDayRate.ToString();
-            txtCOLARate.Text = employeeListWorkdaysRate[rowID].COLARate.ToString();
-            txtPDARate.Text = employeeListWorkdaysRate[rowID].PDARate.ToString();
-            txtOthersRate.Text = employeeListWorkdaysRate[rowID].OthersRate.ToString();
+            txtRegDaysRate.Text = ObjectValidation(dataGridViewRow.Cells[6].Value).ToString();
+            txtRegOTRate.Text = ObjectValidation(dataGridViewRow.Cells[8].Value).ToString();
+            txtSplHolidaysRate.Text = ObjectValidation(dataGridViewRow.Cells[10].Value).ToString();
+            txtSplHolidaysOTRate.Text = ObjectValidation(dataGridViewRow.Cells[12].Value).ToString();
+            txtRegHolidaysRate.Text = ObjectValidation(dataGridViewRow.Cells[14].Value).ToString();
+            txtRegHolidaysOTRate.Text = ObjectValidation(dataGridViewRow.Cells[16].Value).ToString();
+            txtRegHolRestDayRate.Text = ObjectValidation(dataGridViewRow.Cells[18].Value).ToString();
+            txtCOLARate.Text = ObjectValidation(dataGridViewRow.Cells[20].Value).ToString();
+            txtPDARate.Text = ObjectValidation(dataGridViewRow.Cells[22].Value).ToString();
+            txtOthersRate.Text = ObjectValidation(dataGridViewRow.Cells[24].Value).ToString();
         }
 
         private void SetInputWorkDaysRate(int rowID)
@@ -166,7 +162,7 @@ namespace CCSPayrollBillingSystem
 
             WorkDaysRate _workDaysRate = new WorkDaysRate()
             {
-                WorkDayID = employeeListWorkdays[rowID].WorkDayID,
+                RowID = employeeListWorkdays[rowID].WorkDayID,
                 RegularDaysRate = txtRegDaysRate.Text.ToDecimal(),
                 RegularDaysOTRate = txtRegOTRate.Text.ToDecimal(),
                 SplHolidaysRate = txtSplHolidaysRate.Text.ToDecimal(),
@@ -184,7 +180,7 @@ namespace CCSPayrollBillingSystem
 
         private void SetDefaultWorkDaysRate()
         {
-            txtRegDaysRate.Text = Constants.DEFAULT_VALUE;
+            //txtRegDaysRate.Text = Constants.DEFAULT_VALUE;
             txtRegOTRate.Text = Constants.DEFAULT_VALUE;
             txtSplHolidaysRate.Text = Constants.DEFAULT_VALUE;
             txtSplHolidaysOTRate.Text = Constants.DEFAULT_VALUE;
@@ -309,41 +305,43 @@ namespace CCSPayrollBillingSystem
             {
                 var fname = dgvRow.Cells[1].Value;
                 var lname = dgvRow.Cells[2].Value;
-                decimal projectRate = Convert.ToDecimal(ObjectValidation(dgvRow.Cells[4].Value));
-                decimal regDaysAmount = Convert.ToDecimal(ObjectValidation(dgvRow.Cells[6].Value));
+                decimal projectRate = (dgvRow.Cells[4].Value).ToString().ToDecimal();
+                decimal regDaysAmount = (dgvRow.Cells[6].Value).ToString().ToDecimal();
                 decimal total = 0;
 
                 rtbBillingSlip.Text += lname + ", " + fname + "\t";
                 rtbBillingSlip.Text += " \t\t" + dgvRow.Cells[5].Value + "\t\t" + dgvRow.Cells[4].Value + "\t\t" + regDaysAmount + "\n";
                 for (int i = 7; i < dgvRow.Cells.Count; i++)
                 {
-                    decimal rate = 0;
-                    decimal render = 0;
                     decimal amount = 0;
-                    
-
                     string key = dgvEmployeeList4Billing.Columns[i].HeaderText;
-                    object value = ObjectValidation(dgvRow.Cells[i].Value);
-                    rate = Math.Round(Convert.ToDecimal(value), 2);
+                    object value = dgvRow.Cells[i].Value;
+                    decimal rate = Convert.ToDecimal(ObjectValidation(value));
                     if (rate == 0)
                     {
+                        grandTotalAmount = total + regDaysAmount;
                         continue;
                     }
-                    if (key.Contains("Rate"))
-                    {
-                        render = Convert.ToDecimal(ObjectValidation(dgvRow.Cells[i-1].Value));
-                        amount = rate * render;
-                        rtbBillingSlip.Text += rate + "\t\t" + amount + "\n";
-                    }
                     else
-                    {                        
-                        rtbBillingSlip.Text += "    " + key + "\t\t\t" + rate + "\t\t";
+                    {
+                        
+                        if (key.Contains("Rate"))
+                        {
+                            decimal render = Convert.ToDecimal(dgvRow.Cells[i - 1].Value.ToString());
+                            amount = rate * render;
+                            rtbBillingSlip.Text += rate + "\t\t" + amount + "\n";
+                        }
+                        else
+                        {
+                            rtbBillingSlip.Text += "    " + key + "\t\t\t" + rate + "\t\t";
+                        }
                     }
                     total += amount;
-                    rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
-                    rtbBillingSlip.Text += "                                                                                                            Subtotal: "+ total.ToPhpCurrencyFormat()+"\n";
+                    grandTotalAmount = total + regDaysAmount;
                 }
-                grandTotalAmount = total + regDaysAmount;
+                rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
+                rtbBillingSlip.Text += "                                                                                                            Subtotal: " + grandTotalAmount.ToPhpCurrencyFormat() + "\n";
+                
                 rtbBillingSlip.Text += "\n";
                 gross += grandTotalAmount;
             }
@@ -440,6 +438,31 @@ namespace CCSPayrollBillingSystem
             {
                 SetDefaultWorkDaysRate();
             }*/
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            if (!txtRegDays.Text.Equals("0.0"))
+            {
+                dgvEmployeeList4Billing.Rows[currentID].Cells[6].Value = txtRegDaysRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[8].Value = txtRegOTRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[10].Value = txtSplHolidaysRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[12].Value = txtSplHolidaysOTRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[14].Value = txtRegHolidaysRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[16].Value = txtRegHolidaysOTRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[18].Value = txtRegHolRestDayRate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[20].Value = txtCOLARate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[22].Value = txtPDARate.Text;
+                dgvEmployeeList4Billing.Rows[currentID].Cells[24].Value = txtOthersRate.Text;
+
+                currentID = (currentID >= (dgvEmployeeList4Billing.Rows.Count - slideValue)) ? (dgvEmployeeList4Billing.Rows.Count - slideValue) : (currentID + slideValue);
+
+                LoadBillingWorkdaysOnGroupbox(currentID);
+            }
+            else
+            {
+                MessageBox.Show("Please input proper Workdays rate","Try Again",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

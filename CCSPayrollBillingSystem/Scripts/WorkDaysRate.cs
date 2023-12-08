@@ -8,7 +8,7 @@ namespace CCSPayrollBillingSystem.Scripts
 {
     public class WorkDaysRate
     {
-        public int WorkDayID { get; set; }
+        public int RowID { get; set; }
         public decimal RegularDaysRate { get; set; }
         public decimal RegularDaysOTRate { get; set; }
         public decimal SplHolidaysRate { get; set; }

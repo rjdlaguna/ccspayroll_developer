@@ -1345,23 +1345,14 @@ namespace CCSPayrollBillingSystem.Scripts
                 command.AddParameter("@ProjectID", projectID);
                 command.AddParameter("@BillingNetTotal", billingNetTotal);
 
-                try
-                {
-                    dataReader = new DatabaseReader(command.ExecuteReader());
+                dataReader = new DatabaseReader(command.ExecuteReader());
 
-                    if (dataReader.Read())
-                    {
-                        onSuccess?.Invoke();
-                    }
-                    else
-                    {
-                        onFailure?.Invoke();
-                    }
-                }
-                catch (Exception ex)
+                if (dataReader.Read())
                 {
-                    // Handle exceptions, e.g., log or display error message
-                    Console.WriteLine("Error: " + ex.Message);
+                    onSuccess?.Invoke();
+                }
+                else
+                {
                     onFailure?.Invoke();
                 }
             }

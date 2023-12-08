@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBilling));
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
@@ -91,6 +91,7 @@ namespace CCSPayrollBillingSystem
             this.lblRegHolidaysOT = new System.Windows.Forms.Label();
             this.lblRegHolidays = new System.Windows.Forms.Label();
             this.txtRegHolidays = new System.Windows.Forms.TextBox();
+            this.btnOK = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gbWorkDays.SuspendLayout();
@@ -99,12 +100,13 @@ namespace CCSPayrollBillingSystem
             // dgvEmployeeList4Billing
             // 
             this.dgvEmployeeList4Billing.AllowUserToAddRows = false;
-            this.dgvEmployeeList4Billing.AllowUserToOrderColumns = true;
+            this.dgvEmployeeList4Billing.AllowUserToDeleteRows = false;
             this.dgvEmployeeList4Billing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(549, 285);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvEmployeeList4Billing.ReadOnly = true;
+            dataGridViewCellStyle1.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(465, 171);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
@@ -282,6 +284,7 @@ namespace CCSPayrollBillingSystem
             // gbWorkDays
             // 
             this.gbWorkDays.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.gbWorkDays.Controls.Add(this.btnOK);
             this.gbWorkDays.Controls.Add(this.btnNext);
             this.gbWorkDays.Controls.Add(this.btnPrevious);
             this.gbWorkDays.Controls.Add(this.txtFullName);
@@ -333,9 +336,9 @@ namespace CCSPayrollBillingSystem
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(175, 24);
+            this.btnNext.Location = new System.Drawing.Point(118, 22);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.Size = new System.Drawing.Size(75, 25);
             this.btnNext.TabIndex = 77;
             this.btnNext.Text = ">>";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -343,9 +346,9 @@ namespace CCSPayrollBillingSystem
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(94, 24);
+            this.btnPrevious.Location = new System.Drawing.Point(36, 22);
             this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevious.Size = new System.Drawing.Size(75, 25);
             this.btnPrevious.TabIndex = 76;
             this.btnPrevious.Text = "<<";
             this.btnPrevious.UseVisualStyleBackColor = true;
@@ -504,6 +507,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegDaysRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRegDaysRate.Location = new System.Drawing.Point(215, 87);
             this.txtRegDaysRate.Name = "txtRegDaysRate";
+            this.txtRegDaysRate.ReadOnly = true;
             this.txtRegDaysRate.Size = new System.Drawing.Size(82, 20);
             this.txtRegDaysRate.TabIndex = 27;
             // 
@@ -829,6 +833,16 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolidays.TabIndex = 18;
             this.txtRegHolidays.Text = "0";
             // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(234, 23);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(63, 25);
+            this.btnOK.TabIndex = 78;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
             // frmBilling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -923,5 +937,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.Button btnOK;
     }
 }
