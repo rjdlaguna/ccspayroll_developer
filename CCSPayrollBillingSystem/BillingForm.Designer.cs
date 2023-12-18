@@ -29,11 +29,10 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBilling));
             this.dgvEmployeeList4Billing = new System.Windows.Forms.DataGridView();
             this.txtVAT = new System.Windows.Forms.TextBox();
-            this.txtProjectAddress = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbProject = new System.Windows.Forms.ComboBox();
@@ -50,6 +49,7 @@ namespace CCSPayrollBillingSystem
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.btnPrint = new System.Windows.Forms.Button();
             this.gbWorkDays = new System.Windows.Forms.GroupBox();
+            this.btnOK = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.txtFullName = new System.Windows.Forms.TextBox();
@@ -91,7 +91,7 @@ namespace CCSPayrollBillingSystem
             this.lblRegHolidaysOT = new System.Windows.Forms.Label();
             this.lblRegHolidays = new System.Windows.Forms.Label();
             this.txtRegHolidays = new System.Windows.Forms.TextBox();
-            this.btnOK = new System.Windows.Forms.Button();
+            this.dateBillingPicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeList4Billing)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gbWorkDays.SuspendLayout();
@@ -105,8 +105,8 @@ namespace CCSPayrollBillingSystem
             this.dgvEmployeeList4Billing.Location = new System.Drawing.Point(549, 285);
             this.dgvEmployeeList4Billing.Name = "dgvEmployeeList4Billing";
             this.dgvEmployeeList4Billing.ReadOnly = true;
-            dataGridViewCellStyle1.NullValue = "0";
-            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.NullValue = "0";
+            this.dgvEmployeeList4Billing.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvEmployeeList4Billing.Size = new System.Drawing.Size(465, 171);
             this.dgvEmployeeList4Billing.TabIndex = 68;
             // 
@@ -118,30 +118,21 @@ namespace CCSPayrollBillingSystem
             this.txtVAT.TabIndex = 67;
             this.txtVAT.Text = "0.00";
             // 
-            // txtProjectAddress
-            // 
-            this.txtProjectAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProjectAddress.Location = new System.Drawing.Point(92, 42);
-            this.txtProjectAddress.Multiline = true;
-            this.txtProjectAddress.Name = "txtProjectAddress";
-            this.txtProjectAddress.ReadOnly = true;
-            this.txtProjectAddress.Size = new System.Drawing.Size(179, 78);
-            this.txtProjectAddress.TabIndex = 7;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(35, 45);
+            this.label1.Location = new System.Drawing.Point(50, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Address :";
+            this.label1.Text = "Date :";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dateBillingPicker);
             this.groupBox1.Controls.Add(this.cmbProject);
-            this.groupBox1.Controls.Add(this.txtProjectAddress);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -156,7 +147,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.cmbProject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbProject.FormattingEnabled = true;
-            this.cmbProject.Location = new System.Drawing.Point(92, 15);
+            this.cmbProject.Location = new System.Drawing.Point(92, 51);
             this.cmbProject.Name = "cmbProject";
             this.cmbProject.Size = new System.Drawing.Size(179, 21);
             this.cmbProject.TabIndex = 56;
@@ -167,11 +158,12 @@ namespace CCSPayrollBillingSystem
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 22);
+            this.label2.Location = new System.Drawing.Point(9, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Project Name :";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtNetTotal
             // 
@@ -333,6 +325,16 @@ namespace CCSPayrollBillingSystem
             this.gbWorkDays.TabIndex = 73;
             this.gbWorkDays.TabStop = false;
             this.gbWorkDays.Text = "BILLING EMPLOYEE";
+            // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(234, 23);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(63, 25);
+            this.btnOK.TabIndex = 78;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnNext
             // 
@@ -833,15 +835,14 @@ namespace CCSPayrollBillingSystem
             this.txtRegHolidays.TabIndex = 18;
             this.txtRegHolidays.Text = "0";
             // 
-            // btnOK
+            // dateBillingPicker
             // 
-            this.btnOK.Location = new System.Drawing.Point(234, 23);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(63, 25);
-            this.btnOK.TabIndex = 78;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.dateBillingPicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateBillingPicker.Location = new System.Drawing.Point(92, 25);
+            this.dateBillingPicker.Name = "dateBillingPicker";
+            this.dateBillingPicker.Size = new System.Drawing.Size(179, 20);
+            this.dateBillingPicker.TabIndex = 57;
+            this.dateBillingPicker.ValueChanged += new System.EventHandler(this.dateBillingPicker_ValueChanged);
             // 
             // frmBilling
             // 
@@ -879,7 +880,6 @@ namespace CCSPayrollBillingSystem
         #endregion
         private System.Windows.Forms.DataGridView dgvEmployeeList4Billing;
         private System.Windows.Forms.TextBox txtVAT;
-        private System.Windows.Forms.TextBox txtProjectAddress;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
@@ -938,5 +938,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.DateTimePicker dateBillingPicker;
     }
 }

@@ -1290,7 +1290,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
         #region SQL Process for Billing Process
 
-        public List<Dictionary<string, object>> ExecuteSqlBillingViewQuery(int projectID)
+        public List<Dictionary<string, object>> ExecuteSqlBillingViewQuery(int projectID, DateTime dateTime)
         {
             List<Dictionary<string, object>> resultRows = new List<Dictionary<string, object>>();
 
@@ -1303,10 +1303,13 @@ namespace CCSPayrollBillingSystem.Scripts
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
                                     "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID ";
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollEndDate = @Date";
+               
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
+                    command.AddParameter("@Date", dateTime);
+
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)
                     {
