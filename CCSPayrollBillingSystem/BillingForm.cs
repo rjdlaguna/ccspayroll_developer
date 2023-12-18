@@ -84,10 +84,10 @@ namespace CCSPayrollBillingSystem
                 projetInfo.Add(projNameId, projNameVal);
             }
         }
-        private void LoadProjectEmployees(int projID)
+        private void LoadProjectEmployees(int projID, DateTime date)
         {
             QueryProcessor billingProcessor = new QueryProcessor();
-            employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID);
+            employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID, date);
 
             object projectName = employeeAttribFromQuery.FirstOrDefault().TryGetValue("ProjectName", out var value) ? value : null;
 
@@ -359,7 +359,7 @@ namespace CCSPayrollBillingSystem
             projectName = cmbProject.Text;
             projectID = projetInfo.FirstOrDefault(x => x.Value == projectName).Key;
             dgvEmployeeList4Billing.DataSource = null;
-            LoadProjectEmployees(projectID);
+            LoadProjectEmployees(projectID, dateBillingPicker.Value);
             SetDefaultWorkDaysRate();
         }
 
@@ -467,6 +467,21 @@ namespace CCSPayrollBillingSystem
             {
                 MessageBox.Show("Please input proper Workdays rate","Try Again",MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateBillingPicker_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
