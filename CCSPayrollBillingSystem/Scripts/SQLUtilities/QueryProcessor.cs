@@ -1336,7 +1336,7 @@ namespace CCSPayrollBillingSystem.Scripts
             using (connection = new DatabaseConnection(connectionString))
             {
                 sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
-                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
+                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.RegHolRestDay AS 'Regular Holiday | Rest Day', WORK.COLA, WORK.PDA, WORK.Others " +
                                     "FROM tblEPR AS EPR " +
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
@@ -1376,23 +1376,14 @@ namespace CCSPayrollBillingSystem.Scripts
                 command.AddParameter("@ProjectID", projectID);
                 command.AddParameter("@BillingNetTotal", billingNetTotal);
 
-                try
-                {
-                    dataReader = new DatabaseReader(command.ExecuteReader());
+                dataReader = new DatabaseReader(command.ExecuteReader());
 
-                    if (dataReader.Read())
-                    {
-                        onSuccess?.Invoke();
-                    }
-                    else
-                    {
-                        onFailure?.Invoke();
-                    }
-                }
-                catch (Exception ex)
+                if (dataReader.Read())
                 {
-                    // Handle exceptions, e.g., log or display error message
-                    Console.WriteLine("Error: " + ex.Message);
+                    onSuccess?.Invoke();
+                }
+                else
+                {
                     onFailure?.Invoke();
                 }
             }

@@ -6,7 +6,7 @@ namespace CCSPayrollBillingSystem.Scripts
 {
     public static class CurrencyFormatter
     {
-        public static string ToCurrencyFormat(this decimal currency)
+        public static string ToPhpCurrencyFormat(this decimal currency)
         {
             NumberFormatInfo nfi = new CultureInfo("en-PH", false).NumberFormat;
             string curr = currency.ToString("C", nfi);
@@ -14,8 +14,37 @@ namespace CCSPayrollBillingSystem.Scripts
         }
     }
 
+    public static class Helper
+    {
+        public static bool IsNullOrValue(this float? value, float valueToCheck)
+        {
+            return (value ?? valueToCheck) == valueToCheck;
+        }
+
+        public static float ToFloat(this string numberValue)
+        {
+            if (float.TryParse(numberValue, out float result))
+            {
+                return result;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid numberValue");
+            }
+        }
+
+        public static decimal ToDecimal(this string numberValue)
+        {
+            return Convert.ToDecimal(numberValue);
+        }
+    }
+
     public class ValidationHelper
     {
+        public static void InputControlValues(Control control)
+        {
+
+        }
         public static bool IfNullOrEmpty(Control control)
         {
             if (control is TextBox textBox)
@@ -33,6 +62,17 @@ namespace CCSPayrollBillingSystem.Scripts
         public static void SingleEnableControls(Control control, bool status)
         {
             control.Enabled = status;
+        }
+
+        public static void MultipleEnablingControls(Control control, bool status)
+        {
+            if (control is TextBox textBox)
+            {
+                if (textBox.Text.Equals("0"))
+                {
+                    textBox.Enabled = status;
+                }
+            }
         }
 
         public static void ClearControls(Control control)
