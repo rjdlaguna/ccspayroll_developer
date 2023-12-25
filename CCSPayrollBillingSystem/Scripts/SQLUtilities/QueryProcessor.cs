@@ -289,6 +289,36 @@ namespace CCSPayrollBillingSystem.Scripts
             }
 
         }
+
+        //Check if there is/are Jobs in the table
+        public int ExecuteSQLCountJobsQuery(Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSearch = "SELECT COUNT(*) FROM tblJob";
+
+                using (command = new DatabaseCommand(sqlSearch, connection))
+                {
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+
+                            onSuccess?.Invoke();
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
         #endregion
 
         #region SQL Process for Deduction CRUD Management
