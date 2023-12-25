@@ -77,6 +77,9 @@ namespace CCSPayrollBillingSystem
 
         }
 
+        private void dgPayrollEmpList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
     }
 }

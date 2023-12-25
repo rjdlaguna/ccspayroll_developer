@@ -66,7 +66,6 @@ namespace CCSPayrollBillingSystem
             this.dgProjectProfileList.Size = new System.Drawing.Size(581, 366);
             this.dgProjectProfileList.TabIndex = 0;
             this.dgProjectProfileList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProjectProfileList_CellClick);
-            this.dgProjectProfileList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProjectProfileList_CellContentClick);
             this.dgProjectProfileList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProjectProfileList_CellDoubleClick);
             // 
             // txtsearchprojectname

@@ -136,6 +136,7 @@ namespace CCSPayrollBillingSystem
             this.dgPayrollEmpList.ReadOnly = true;
             this.dgPayrollEmpList.Size = new System.Drawing.Size(586, 175);
             this.dgPayrollEmpList.TabIndex = 7;
+            this.dgPayrollEmpList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPayrollEmpList_CellClick);
             this.dgPayrollEmpList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPayrollEmpList_CellContentClick);
             // 
             // btnCancel
