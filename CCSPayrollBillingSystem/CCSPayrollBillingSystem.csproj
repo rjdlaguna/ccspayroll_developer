@@ -121,6 +121,13 @@
     <Compile Include="EmployeePayroll.Designer.cs">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeePayrollData.cs" />
+    <Compile Include="EmployeePayrollDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeePayrollDate.Designer.cs">
+      <DependentUpon>EmployeePayrollDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeePrintForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,21 +176,6 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="mdlUser.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mdlUser.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="mdlUser.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mdlUser.tt</DependentUpon>
-    </Compile>
-    <Compile Include="mdlUser.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mdlUser.edmx</DependentUpon>
-    </Compile>
     <Compile Include="PayrollPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,9 +222,6 @@
     <Compile Include="Scripts\SystemUtility\SystemUtilities.cs" />
     <Compile Include="Scripts\ValidationHelper.cs" />
     <Compile Include="Scripts\WorkDays.cs" />
-    <Compile Include="tblUser.cs">
-      <DependentUpon>mdlUser.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +234,7 @@
     <Compile Include="UsersPrompt.Designer.cs">
       <DependentUpon>UsersPrompt.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorkDaysRate.cs" />
     <EmbeddedResource Include="BillingForm.resx">
       <DependentUpon>BillingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeePayroll.resx">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeePayrollDate.resx">
+      <DependentUpon>EmployeePayrollDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeePrintForm.resx">
       <DependentUpon>EmployeePrintForm.cs</DependentUpon>
@@ -313,13 +306,6 @@
     <EmbeddedResource Include="UsersPrompt.resx">
       <DependentUpon>UsersPrompt.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="mdlUser.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>mdlUser.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="mdlUser.edmx.diagram">
-      <DependentUpon>mdlUser.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -392,16 +378,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="2833645.ico" />
-    <Content Include="mdlUser.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>mdlUser.Context.cs</LastGenOutput>
-      <DependentUpon>mdlUser.edmx</DependentUpon>
-    </Content>
-    <Content Include="mdlUser.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>mdlUser.edmx</DependentUpon>
-      <LastGenOutput>mdlUser.cs</LastGenOutput>
-    </Content>
     <None Include="Resources\loupe2.png" />
     <None Include="Resources\small_loupe.png" />
     <None Include="Resources\calculator.png" />

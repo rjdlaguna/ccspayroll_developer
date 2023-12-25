@@ -89,7 +89,7 @@ namespace CCSPayrollBillingSystem
             QueryProcessor billingProcessor = new QueryProcessor();
             employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID, date);
 
-            object projectName = employeeAttribFromQuery.FirstOrDefault().TryGetValue("ProjectName", out var value) ? value : null;
+            object projectName = employeeAttribFromQuery.FirstOrDefault().TryGetValue("ProjectName", out object value) ? value : null;
 
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, () =>
             {
