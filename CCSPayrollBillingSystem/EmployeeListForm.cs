@@ -76,6 +76,7 @@ namespace CCSPayrollBillingSystem
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             btnUpdate.Enabled = false;
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -256,9 +257,16 @@ namespace CCSPayrollBillingSystem
 
         private void dgEmployeesList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            empId = Convert.ToInt32(dgEmployeesList.SelectedRows[0].Cells[0].Value.ToString());
-            btnEdit.Enabled = true;
-            btnDelete.Enabled = true;
+            foreach (DataGridViewRow row in dgEmployeesList.Rows)
+            {
+                if (this.dgEmployeesList.SelectedRows.Count == 1)
+                {
+                    empId = Convert.ToInt32(dgEmployeesList.SelectedRows[0].Cells[0].Value.ToString());
+                    btnEdit.Enabled = true;
+                    btnDelete.Enabled = true;
+                }
+            }
+           
         }
 
         private void ClearTextFields()
