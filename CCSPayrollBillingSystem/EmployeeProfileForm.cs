@@ -76,7 +76,7 @@ namespace CCSPayrollBillingSystem
                 txtlastname.Focus();
                 prompt = "Last Name cannot be empty.";
             }
-            else if (IsEmptyEmpDataFields(homeadd))
+            /*else if (IsEmptyEmpDataFields(homeadd))
             {
                 txthomeaddress.Focus();
                 prompt = "Home Address cannot be empty.";
@@ -92,7 +92,7 @@ namespace CCSPayrollBillingSystem
                 txtEmpDataPrompt.Text = "";
                 txtEmpDataPrompt.Show();
                 prompt = "Age must be atleast 18 years old. Check date of birth.";
-            } 
+            } */
             else if (jobID == 0)
             {
                 cmbJob.Focus();
