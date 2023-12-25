@@ -120,6 +120,7 @@ namespace CCSPayrollBillingSystem
             // btnEmpSearch
             // 
             this.btnEmpSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmpSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
             this.btnEmpSearch.Location = new System.Drawing.Point(301, 79);
             this.btnEmpSearch.Name = "btnEmpSearch";
             this.btnEmpSearch.Size = new System.Drawing.Size(32, 30);
@@ -154,6 +155,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.btnLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoad.Image = global::CCSPayrollBillingSystem.Properties.Resources.select1;
+            this.btnLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLoad.Location = new System.Drawing.Point(651, 200);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(93, 36);
