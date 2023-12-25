@@ -261,11 +261,11 @@ namespace CCSPayrollBillingSystem
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe;
+            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(433, 13);
+            this.btnSearch.Location = new System.Drawing.Point(425, 20);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(44, 45);
+            this.btnSearch.Size = new System.Drawing.Size(31, 30);
             this.btnSearch.TabIndex = 6;
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.UseVisualStyleBackColor = true;
