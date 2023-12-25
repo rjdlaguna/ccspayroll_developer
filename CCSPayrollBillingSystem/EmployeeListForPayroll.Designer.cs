@@ -38,8 +38,8 @@ namespace CCSPayrollBillingSystem
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnEmpSearch = new System.Windows.Forms.Button();
             this.dgPayrollEmpList = new System.Windows.Forms.DataGridView();
-            this.btnLoad = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPayrollEmpList)).BeginInit();
             this.SuspendLayout();
@@ -120,11 +120,10 @@ namespace CCSPayrollBillingSystem
             // btnEmpSearch
             // 
             this.btnEmpSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEmpSearch.Location = new System.Drawing.Point(303, 47);
+            this.btnEmpSearch.Location = new System.Drawing.Point(301, 79);
             this.btnEmpSearch.Name = "btnEmpSearch";
-            this.btnEmpSearch.Size = new System.Drawing.Size(69, 37);
+            this.btnEmpSearch.Size = new System.Drawing.Size(32, 30);
             this.btnEmpSearch.TabIndex = 6;
-            this.btnEmpSearch.Text = "SEARCH";
             this.btnEmpSearch.UseVisualStyleBackColor = true;
             this.btnEmpSearch.Click += new System.EventHandler(this.btnEmpSearch_Click);
             // 
@@ -138,30 +137,37 @@ namespace CCSPayrollBillingSystem
             this.dgPayrollEmpList.TabIndex = 7;
             this.dgPayrollEmpList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPayrollEmpList_CellContentClick);
             // 
-            // btnLoad
-            // 
-            this.btnLoad.Location = new System.Drawing.Point(651, 200);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(75, 23);
-            this.btnLoad.TabIndex = 8;
-            this.btnLoad.Text = "Load";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(651, 238);
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(651, 252);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(93, 40);
             this.btnCancel.TabIndex = 9;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "CANCEL";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoad.Image = global::CCSPayrollBillingSystem.Properties.Resources.select1;
+            this.btnLoad.Location = new System.Drawing.Point(651, 200);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(93, 36);
+            this.btnLoad.TabIndex = 8;
+            this.btnLoad.Text = "LOAD";
+            this.btnLoad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // EmployeeListForPayroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 357);
+            this.ClientSize = new System.Drawing.Size(756, 357);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.dgPayrollEmpList);
