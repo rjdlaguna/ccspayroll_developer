@@ -834,35 +834,39 @@ namespace CCSPayrollBillingSystem.Scripts
 
         private WorkDays ExecuteSqlWorkDaysQuery(int id)
         {
-            string sqlWorkDays = "SELECT * FROM tblWorkDays WHERE WorkDayID='" + id + "'";
+            string sqlWorkDays = "SELECT * FROM tblWorkDays WHERE WorkDayID = @WorkDayID";
+
 
             using (connection = new DatabaseConnection(connectionString))
             using (command = new DatabaseCommand(sqlWorkDays, connection))
-            using (dataReader = new DatabaseReader(command.ExecuteReader()))
             {
-                if (dataReader.Read())
+                command.AddParameter("@WorkDayID", id);
+                using (dataReader = new DatabaseReader(command.ExecuteReader()))
                 {
-                    WorkDays work = new WorkDays();
+                    if (dataReader.Read())
+                    {
+                        WorkDays work = new WorkDays();
 
-                    work.WorkDayID = id;
-                    work.RegularDays = dataReader.GetValue(1) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(1).ToString());
-                    work.RegularDaysOT = dataReader.GetValue(2) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(2).ToString());
-                    work.SplHolidays = dataReader.GetValue(3) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(3).ToString());
-                    work.SplHolidayOT = dataReader.GetValue(4) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(4).ToString());
-                    work.RegularHoliday = dataReader.GetValue(5) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(5).ToString());
-                    work.RegularHolidayOT = dataReader.GetValue(6) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(6).ToString());
-                    work.RegHolRestDay = dataReader.GetValue(7) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(7).ToString());
-                    work.COLA = dataReader.GetValue(8) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(8).ToString());
-                    work.PDA = dataReader.GetValue(9) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(9).ToString());
-                    work.Others = dataReader.GetValue(10) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(10).ToString());
+                        work.WorkDayID = id;
+                        work.RegularDays = dataReader.GetValue(1) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(1).ToString());
+                        work.RegularDaysOT = dataReader.GetValue(2) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(2).ToString());
+                        work.SplHolidays = dataReader.GetValue(3) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(3).ToString());
+                        work.SplHolidayOT = dataReader.GetValue(4) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(4).ToString());
+                        work.RegularHoliday = dataReader.GetValue(5) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(5).ToString());
+                        work.RegularHolidayOT = dataReader.GetValue(6) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(6).ToString());
+                        work.RegHolRestDay = dataReader.GetValue(7) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(7).ToString());
+                        work.COLA = dataReader.GetValue(8) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(8).ToString());
+                        work.PDA = dataReader.GetValue(9) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(9).ToString());
+                        work.Others = dataReader.GetValue(10) == DBNull.Value ? 0f : float.Parse(dataReader.GetValue(10).ToString());
 
-                    return work;
+                        return work;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
                 }
-                else
-                {
-                    return null;
-                }
-
             }
 
         }
@@ -985,7 +989,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
             string sqlUpdatePayroll = "UPDATE tblPayroll SET PayrollStartDate=@PayrollStartDate, PayrollEndDate=@PayrollEndDate, EmpID=@EmpID, SSSAmount=@SSSAmount, " +
                 "PagIbigAmount=@PagIbigAmount, PhilHealthAmount=@PhilHealthAmount, GrossSalary=@GrossSalary, NetSalary=@NetSalary, " +
-                "WorkDayID=@WorkDayID, PayrollOthers=@PayrollOthers WHERE Payroll_ID=@Payroll_ID";
+                "WorkDayID=@WorkDayID, Tax=@PayrollOthers WHERE Payroll_ID=@Payroll_ID";
 
             using (connection = new DatabaseConnection(connectionString))
             {

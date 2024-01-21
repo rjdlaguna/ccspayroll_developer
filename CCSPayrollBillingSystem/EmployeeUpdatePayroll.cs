@@ -111,18 +111,6 @@ namespace CCSPayrollBillingSystem
             txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
             txtBaseRate.Text = empRatePayroll.ToString();
             txtRank.Text = empRankPayroll;
-
-            QueryProcessor payrollSearchProcessor = new QueryProcessor();
-
-            payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, dtPayrollStartDate.Value.ToShortDateString(), dtPayrollCutOffDate.Value.ToShortDateString(), (payroll, work) =>
-            {
-                SetUIValues(payroll, work);
-
-                Console.WriteLine("Loading Employee Payroll Information successful.");
-            }, () =>
-            {
-                Console.WriteLine("Problem loading employee payroll information.");
-            });
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -165,14 +153,33 @@ namespace CCSPayrollBillingSystem
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            QueryProcessor payrollSearchProcessor = new QueryProcessor();
+            DateTime dtFrom = Convert.ToDateTime(dtPayrollStartDate.Value);
+            DateTime dtTo = Convert.ToDateTime(dtPayrollCutOffDate.Value);
+
+            payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, dtFrom.ToShortDateString(), dtTo.ToShortDateString(), (payroll, work) =>
+            {
+                SetUIValues(payroll, work);
+
+                Console.WriteLine("Loading Employee Payroll Information successful.");
+            }, () =>
+            {
+                Console.WriteLine("Problem loading employee payroll information.");
+            });
+
             ValidationHelper.EnableControls(this, true);
+            ValidationHelper.SingleEnableControls(btnUpdate, true);
             ValidationHelper.SingleEnableControls(btnCalculate, true);
+
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             employeeListForPayroll.ShowDialog();
+            ValidationHelper.SingleEnableControls(gbPayrollDate, true);
             ValidationHelper.SingleEnableControls(btnEdit, true);
+            
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)

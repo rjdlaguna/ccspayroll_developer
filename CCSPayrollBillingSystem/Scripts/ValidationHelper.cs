@@ -145,6 +145,21 @@ namespace CCSPayrollBillingSystem.Scripts
             
         }
 
+        public static void EnableGroupBoxControls(Control control, bool status)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is GroupBox)
+                {
+                    controlItem.Enabled = status;
+                    if (controlItem.Name.Contains("gb"))
+                    {
+                        controlItem.Enabled = status;
+                    }
+                }
+            }
+
+        }
     }
     
 }
