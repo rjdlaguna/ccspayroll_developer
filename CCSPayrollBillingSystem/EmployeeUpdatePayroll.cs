@@ -171,7 +171,6 @@ namespace CCSPayrollBillingSystem
             ValidationHelper.SingleEnableControls(btnUpdate, true);
             ValidationHelper.SingleEnableControls(btnCalculate, true);
 
-
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

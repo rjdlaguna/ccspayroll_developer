@@ -922,7 +922,10 @@ namespace CCSPayrollBillingSystem.Scripts
         {
             List<PaySlipData> dataItems = new List<PaySlipData>();
 
-            string sqlSearch = "SELECT * FROM tblPayroll WHERE PayrollStartDate=@PayrollStartDate AND PayrollEndDate=@PayrollEndDate";
+            string sqlSearch = "SELECT * FROM tblPayroll WHERE " +
+                    "(PayrollStartDate >= @PayrollStartDate AND PayrollStartDate < DATEADD(DAY, 1, @PayrollEndDate))" +
+                    "OR (PayrollEndDate >= @PayrollStartDate AND PayrollEndDate < DATEADD(DAY, 1, @PayrollEndDate))" +
+                    "OR (PayrollStartDate <= @PayrollStartDate AND PayrollEndDate >= @PayrollEndDate)";
 
             using (connection = new DatabaseConnection(connectionString))
             {
@@ -975,6 +978,10 @@ namespace CCSPayrollBillingSystem.Scripts
             if (dataItems.Count > 0)
             {
                 onSuccess?.Invoke(dataItems);
+                if (sqlDataReader != null && !sqlDataReader.IsClosed)
+                {
+                    sqlDataReader.Close();
+                }
             }
             else
             {
