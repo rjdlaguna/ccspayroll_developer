@@ -52,7 +52,7 @@ namespace CCSPayrollBillingSystem
             this.txtRegDays = new System.Windows.Forms.TextBox();
             this.txtOthers = new System.Windows.Forms.TextBox();
             this.lblRegDays = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.gbPayrollDate = new System.Windows.Forms.GroupBox();
             this.dtPayrollCutOffDate = new System.Windows.Forms.DateTimePicker();
             this.dtPayrollStartDate = new System.Windows.Forms.DateTimePicker();
             this.txtNetPay = new System.Windows.Forms.TextBox();
@@ -97,7 +97,7 @@ namespace CCSPayrollBillingSystem
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.groupBox4.SuspendLayout();
+            this.gbPayrollDate.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbDeductions.SuspendLayout();
             this.gbWorkDays.SuspendLayout();
@@ -379,19 +379,19 @@ namespace CCSPayrollBillingSystem
             this.lblRegDays.TabIndex = 9;
             this.lblRegDays.Text = "Regular Days :";
             // 
-            // groupBox4
+            // gbPayrollDate
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.AutoSize = true;
-            this.groupBox4.Controls.Add(this.dtPayrollCutOffDate);
-            this.groupBox4.Controls.Add(this.dtPayrollStartDate);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(368, 13);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(286, 98);
-            this.groupBox4.TabIndex = 56;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "PAYROLL PERIOD";
+            this.gbPayrollDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbPayrollDate.AutoSize = true;
+            this.gbPayrollDate.Controls.Add(this.dtPayrollCutOffDate);
+            this.gbPayrollDate.Controls.Add(this.dtPayrollStartDate);
+            this.gbPayrollDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbPayrollDate.Location = new System.Drawing.Point(368, 13);
+            this.gbPayrollDate.Name = "gbPayrollDate";
+            this.gbPayrollDate.Size = new System.Drawing.Size(286, 98);
+            this.gbPayrollDate.TabIndex = 56;
+            this.gbPayrollDate.TabStop = false;
+            this.gbPayrollDate.Text = "PAYROLL PERIOD";
             // 
             // dtPayrollCutOffDate
             // 
@@ -1004,7 +1004,7 @@ namespace CCSPayrollBillingSystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 450);
             this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.gbPayrollDate);
             this.Controls.Add(this.txtNetPay);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txtGrossPay);
@@ -1019,7 +1019,7 @@ namespace CCSPayrollBillingSystem
             this.Name = "EmployeeUpdatePayroll";
             this.Text = "EmployeeUpdatePayroll";
             this.Load += new System.EventHandler(this.EmployeeUpdatePayroll_Load);
-            this.groupBox4.ResumeLayout(false);
+            this.gbPayrollDate.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gbDeductions.ResumeLayout(false);
@@ -1055,7 +1055,7 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.TextBox txtRegDays;
         private System.Windows.Forms.TextBox txtOthers;
         private System.Windows.Forms.Label lblRegDays;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox gbPayrollDate;
         private System.Windows.Forms.DateTimePicker dtPayrollCutOffDate;
         private System.Windows.Forms.DateTimePicker dtPayrollStartDate;
         private System.Windows.Forms.TextBox txtNetPay;
