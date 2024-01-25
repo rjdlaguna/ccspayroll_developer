@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using CCSPayrollBillingSystem.Scripts;
+using CCSPayrollBillingSystem.Scripts.SystemUtility;
 
 namespace CCSPayrollBillingSystem
 {
@@ -19,60 +20,28 @@ namespace CCSPayrollBillingSystem
         public decimal projRate;
 
         EmployeeListForPayroll employeeList = new EmployeeListForPayroll();
-
         QueryProcessor projectProcessor = new QueryProcessor();
-        IDictionary<int, string> projetInfo = new Dictionary<int, string>();
+
+
         public ProjectEmployeeList()
         {
             InitializeComponent();
+            _projectProcessor = new ProjectProcessor();
         }
+
+        private ProjectProcessor _projectProcessor;
+        private IDictionary<int, string> projectInfo;
 
         private void ProjectEmployeeList_Load(object sender, EventArgs e)
         {
-            List<string[]> projectList = new List<string[]>();
-            
-            projectList = projectProcessor.ExecuteSqlLoadProjectsQuery(
-            () =>
-            {
-                Console.WriteLine("Projects successfully loaded.");
-            }, () =>
-            {
-                Console.WriteLine("Problem loading projects.");
-            });
+            projectInfo = _projectProcessor.ProjectInfo;
 
-            ExtractProjectName(projectList);
+            cmbProject.DataSource = new BindingSource(projectInfo, null);
+            cmbProject.DisplayMember = "Value";
+            cmbProject.ValueMember = "Key";
 
             employeeList.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
 
-        }
-
-        private void ExtractProjectName(List<string[]> projectList)
-        {
-            int[] projIds = new int[projectList.Count];
-            string projNameVal = "";
-            int projNameId = 0;
-            int count = 0;
-            foreach (string[] project in projectList)
-            {
-                // Access the elements within each row
-                foreach (string value in project)
-                {
-                    if (int.TryParse(value, out int id))
-                    {
-                        projIds[count] = id;
-                        projNameId = id;
-                        count++;
-                    }
-                    else
-                    {
-                        cmbProject.Items.Add(value);
-                        projNameVal = value;
-                    }
-
-                }
-                projetInfo.Add(projNameId, projNameVal);
-
-            }
         }
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
@@ -103,7 +72,7 @@ namespace CCSPayrollBillingSystem
             {
                 if (CheckEmployeeInfoExists(empFname, empLname) != 1)
                 {
-                    projId = projetInfo.FirstOrDefault(x => x.Value == projName).Key;
+                    projId = projectInfo.FirstOrDefault(x => x.Value == projName).Key;
                     projectProcessor.ExecuteSQLAddEmployeeToProject(empId, projId, projRate, () =>
                     {
                         MessageBox.Show("Employee successfully added in project.");
@@ -159,7 +128,7 @@ namespace CCSPayrollBillingSystem
         private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             projName = cmbProject.Text;
-            projId = projetInfo.FirstOrDefault(x => x.Value == projName).Key;
+            projId = projectInfo.FirstOrDefault(x => x.Value == projName).Key;
             dgEmployeeInProjectList.DataSource = null;
             LoadProjectEmployees(projId);
         }

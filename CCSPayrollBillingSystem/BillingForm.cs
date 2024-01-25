@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CCSPayrollBillingSystem.Scripts;
+using CCSPayrollBillingSystem.Scripts.SystemUtility;
 
 namespace CCSPayrollBillingSystem
 {
@@ -27,63 +27,24 @@ namespace CCSPayrollBillingSystem
         List<WorkDays> employeeListWorkdays = new List<WorkDays>();
         List<WorkDaysRate> employeeListWorkdaysRate = new List<WorkDaysRate>();
 
-        QueryProcessor projectProcessor = new QueryProcessor();
-        IDictionary<int, string> projetInfo = new Dictionary<int, string>();
+        private ProjectProcessor projectProcessor;
+        IDictionary<int, string> projectInfo;
 
-        public frmBilling() => InitializeComponent();
+        public frmBilling()
+        {
+            InitializeComponent();
+            projectProcessor = new ProjectProcessor();
+        }
 
         private void frmBilling_Load(object sender, EventArgs e)
         {
-            
-            List<string[]> projectList = new List<string[]>();
+            projectInfo = projectProcessor.ProjectInfo;
 
-            projectList = projectProcessor.ExecuteSqlLoadProjectsQuery(
-                () =>
-                {
-                    Console.WriteLine("Projects successfully loaded.");
-                },
-
-                () =>
-                {
-                    Console.WriteLine("Problem loading projects.");
-                });
-
-            ExtractProjectName(projectList);
-            
-            
+            cmbProject.DataSource = new BindingSource(projectInfo, null);
+            cmbProject.DisplayMember = "Value";
+            cmbProject.ValueMember = "Key";
         }
 
-        
-
-    private void ExtractProjectName(List<string[]> projectList)
-        {
-
-            int[] projIds = new int[projectList.Count];
-            string projNameVal = "";
-            int projNameId = 0;
-            int count = 0;
-
-            foreach (string[] project in projectList)
-            {
-                // Access the elements within each row
-                foreach (string value in project)
-                {
-                    if (int.TryParse(value, out int id))
-                    {
-                        projIds[count] = id;
-                        projNameId = id;
-                        count++;
-                    }
-                    else
-                    {
-                        cmbProject.Items.Add(value);
-                        projNameVal = value;
-                    }
-
-                }
-                projetInfo.Add(projNameId, projNameVal);
-            }
-        }
         private void LoadProjectEmployees(int projID, DateTime date)
         {
             QueryProcessor billingProcessor = new QueryProcessor();
@@ -91,7 +52,7 @@ namespace CCSPayrollBillingSystem
 
             object projectName = employeeAttribFromQuery.FirstOrDefault().TryGetValue("ProjectName", out object value) ? value : null;
 
-            billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, () =>
+            billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, date, () =>
             {
                 DataTable tempDataTableBilling = billingProcessor.GetSqlReaderData();
                 dgvEmployeeList4Billing.DataSource = AddInputColumnsOnBillingDVG(tempDataTableBilling); 
@@ -356,8 +317,13 @@ namespace CCSPayrollBillingSystem
 
         private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            projectName = cmbProject.Text;
-            projectID = projetInfo.FirstOrDefault(x => x.Value == projectName).Key;
+            // Get the selected item from the ComboBox
+            KeyValuePair<int, string> selectedProject = (KeyValuePair<int, string>)cmbProject.SelectedItem;
+
+            // Access the selected project ID and name
+            projectID = selectedProject.Key;
+            projectName = selectedProject.Value;
+
             dgvEmployeeList4Billing.DataSource = null;
             LoadProjectEmployees(projectID, dateBillingPicker.Value);
             SetDefaultWorkDaysRate();
@@ -483,5 +449,7 @@ namespace CCSPayrollBillingSystem
         {
 
         }
+
+
     }
 }

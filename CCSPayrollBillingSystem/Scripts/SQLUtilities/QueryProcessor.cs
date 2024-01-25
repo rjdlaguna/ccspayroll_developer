@@ -1338,18 +1338,25 @@ namespace CCSPayrollBillingSystem.Scripts
             string sqlEPRDataSearch = string.Empty;
             using (connection = new DatabaseConnection(connectionString))
             {
-                sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
-                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
-                                    "FROM tblEPR AS EPR " +
-                                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
-                                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
-                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollEndDate = @Date";
-               
+                sqlEPRDataSearch = 
+                    "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', " +
+                    "       PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
+                    "       WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', " +
+                    "       WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', " +
+                    "       WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', " +
+                    "       WORK.COLA, WORK.PDA, WORK.Others " +
+                    "FROM tblEPR AS EPR " +
+                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
+                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
+                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollEndDate = @Date " +
+                    "WHERE PROJ.ProjectID = @ProjectID";
+
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
                     command.AddParameter("@Date", dateTime);
+                    command.AddParameter("@ProjectID", projectID);
 
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)
@@ -1368,13 +1375,13 @@ namespace CCSPayrollBillingSystem.Scripts
 
                     }
                     
-                }
+                }  
                
             }
             return resultRows;
         }
 
-        public void ExecuteSqlBillingViewQuery4DataGrid(int projectID, Action onSuccess, Action onFailure)
+        public void ExecuteSqlBillingViewQuery4DataGrid(int projectID, DateTime dateTime, Action onSuccess, Action onFailure)
         {
             string sqlEPRDataSearch = string.Empty;
             using (connection = new DatabaseConnection(connectionString))
@@ -1385,10 +1392,14 @@ namespace CCSPayrollBillingSystem.Scripts
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
                                     "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID ";
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID "+
+                                    "WHERE PROJ.ProjectID = @ProjectID";
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
+                    command.AddParameter("@Date", dateTime);
+                    command.AddParameter("@ProjectID", projectID);
+
                     sqlDataReader = command.ExecuteReader();
 
                     if (sqlDataReader.HasRows)
