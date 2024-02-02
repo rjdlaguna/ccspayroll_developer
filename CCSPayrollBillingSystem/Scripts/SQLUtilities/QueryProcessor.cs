@@ -871,6 +871,44 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        public string ExecuteSqlEPRQueryReturnProjectID(int empId)
+        {
+            string sqlEPR = "SELECT ProjectID FROM tblEPR WHERE EmpID='" + empId + "' ORDER BY EPRID DESC";
+            int projectID = 0;
+            string projectName = string.Empty;
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlEPR, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    projectID = dataReader.GetValue(0) == DBNull.Value ? 0 : Convert.ToInt32(dataReader.GetValue(0).ToString());
+                    projectName = ExecuteSqlReturnProjectName(projectID);
+                }
+                Console.WriteLine(projectName);
+                return projectName;
+            }
+        }
+
+        private string ExecuteSqlReturnProjectName(int pID)
+        {
+            string sqlProject = "SELECT ProjectName FROM tblProject WHERE ProjectID='" + pID + "'";
+            string projectName = string.Empty;
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlProject, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    projectName = dataReader.GetValue(0) == DBNull.Value ? string.Empty : dataReader.GetValue(0).ToString();
+                }
+                Console.WriteLine(projectName);
+                return projectName;
+            }
+        }
+
         private EmployeePayrollData ExecuteSqlEmployeeQuery(int id)
         {
             string sqlWorkDays = "SELECT EmpID, EmpFirstName, EmpLastName, EmpMiddleName, JobID FROM tblEmployee WHERE EmpID='" + id + "'";
@@ -944,6 +982,7 @@ namespace CCSPayrollBillingSystem.Scripts
                             WorkDays _paySlipWorkdays = new WorkDays();
                             EmployeePayrollData _employeePayrollData = new EmployeePayrollData();
                             decimal _jobRate = 0M;
+                            string _projectName = string.Empty;
 
                             _paySlipPayrollData.Payroll_ID = (int)sqlDataReader.GetValue(0);
                             _paySlipPayrollData.PayrollStartDate = DateTime.Parse(sqlDataReader.GetValue(1).ToString());
@@ -962,11 +1001,13 @@ namespace CCSPayrollBillingSystem.Scripts
                             _paySlipWorkdays = ExecuteSqlWorkDaysQuery(_paySlipPayrollData.WorkDayID);
                             _employeePayrollData = ExecuteSqlEmployeeQuery(_paySlipPayrollData.EmpID);
                             _jobRate = ExecuteSqlJobRateQuery(_employeePayrollData.JobID);
+                            _projectName = ExecuteSqlEPRQueryReturnProjectID(_paySlipPayrollData.EmpID);
 
                             _payslip.PayrollData = _paySlipPayrollData;
                             _payslip.WorkDays = _paySlipWorkdays;
                             _payslip.Employee = _employeePayrollData;
                             _payslip.PayRate = _jobRate;
+                            _payslip.ProjectName = _projectName;
 
                             dataItems.Add(_payslip);
                         }
@@ -989,7 +1030,6 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
-        
 
         public void ExecuteSqlPayrollUpdateQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
@@ -1338,18 +1378,25 @@ namespace CCSPayrollBillingSystem.Scripts
             string sqlEPRDataSearch = string.Empty;
             using (connection = new DatabaseConnection(connectionString))
             {
-                sqlEPRDataSearch = "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
-                                    "WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', WORK.COLA, WORK.PDA, WORK.Others " +
-                                    "FROM tblEPR AS EPR " +
-                                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
-                                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
-                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollEndDate = @Date";
-               
+                sqlEPRDataSearch = 
+                    "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', " +
+                    "       PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
+                    "       WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', " +
+                    "       WORK.SplHolidays AS 'Special Holidays', WORK.SplHolidayOT AS 'Special Holiday OT', " +
+                    "       WORK.RegularHoliday AS 'Regular Holiday', WORK.RegularHolidayOT AS 'Regular Holiday OT', " +
+                    "       WORK.COLA, WORK.PDA, WORK.Others " +
+                    "FROM tblEPR AS EPR " +
+                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
+                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
+                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollEndDate = @Date " +
+                    "WHERE PROJ.ProjectID = @ProjectID";
+
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
                     command.AddParameter("@Date", dateTime);
+                    command.AddParameter("@ProjectID", projectID);
 
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)
@@ -1368,13 +1415,13 @@ namespace CCSPayrollBillingSystem.Scripts
 
                     }
                     
-                }
+                }  
                
             }
             return resultRows;
         }
 
-        public void ExecuteSqlBillingViewQuery4DataGrid(int projectID, Action onSuccess, Action onFailure)
+        public void ExecuteSqlBillingViewQuery4DataGrid(int projectID, DateTime dateTime, Action onSuccess, Action onFailure)
         {
             string sqlEPRDataSearch = string.Empty;
             using (connection = new DatabaseConnection(connectionString))
@@ -1385,10 +1432,14 @@ namespace CCSPayrollBillingSystem.Scripts
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
                                     "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID ";
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID "+
+                                    "WHERE PROJ.ProjectID = @ProjectID";
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
+                    command.AddParameter("@Date", dateTime);
+                    command.AddParameter("@ProjectID", projectID);
+
                     sqlDataReader = command.ExecuteReader();
 
                     if (sqlDataReader.HasRows)
