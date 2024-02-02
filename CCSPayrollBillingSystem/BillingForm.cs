@@ -47,10 +47,10 @@ namespace CCSPayrollBillingSystem
 
         private void LoadProjectEmployees(int projID, DateTime date)
         {
+            ExtractProjectBySelectedID(projID);
+
             QueryProcessor billingProcessor = new QueryProcessor();
             employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID, date);
-
-            object projectName = employeeAttribFromQuery.FirstOrDefault().TryGetValue("ProjectName", out object value) ? value : null;
 
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, date, () =>
             {
@@ -67,6 +67,15 @@ namespace CCSPayrollBillingSystem
                 MessageBox.Show("Problem listing all employees in the Project.");
             });
 
+        }
+
+        private void ExtractProjectBySelectedID(int projectID)
+        {
+            // Find the KeyValuePair with the specified ProjectID
+            KeyValuePair<int, string> selectedProject = projectInfo.FirstOrDefault(pair => pair.Key == projectID);
+
+            // Set the selected item in the ComboBox
+            projectName = selectedProject.Value;
         }
 
         private void WorkDaysBillingInitialization()//Initialize the WorkDays property based on the datagridview source
@@ -116,9 +125,9 @@ namespace CCSPayrollBillingSystem
             txtRegHolidaysRate.Text = ObjectValidation(dataGridViewRow.Cells[14].Value).ToString();
             txtRegHolidaysOTRate.Text = ObjectValidation(dataGridViewRow.Cells[16].Value).ToString();
             txtRegHolRestDayRate.Text = ObjectValidation(dataGridViewRow.Cells[18].Value).ToString();
-            txtCOLARate.Text = ObjectValidation(dataGridViewRow.Cells[20].Value).ToString();
-            txtPDARate.Text = ObjectValidation(dataGridViewRow.Cells[22].Value).ToString();
-            txtOthersRate.Text = ObjectValidation(dataGridViewRow.Cells[24].Value).ToString();
+            txtCOLARate.Text = txtCOLA.Text;
+            txtPDARate.Text = txtPDA.Text;
+            txtOthersRate.Text = txtOthers.Text;
         }
 
         private void SetInputWorkDaysRate(int rowID)
@@ -216,7 +225,7 @@ namespace CCSPayrollBillingSystem
 
         private object ObjectValidation(object obj)
         {//DBNull Validation
-            var _obj = (obj != DBNull.Value) ? obj : 0;
+            var _obj = (obj != DBNull.Value) ? obj : 0f;
             return _obj;
         }
 
@@ -261,7 +270,7 @@ namespace CCSPayrollBillingSystem
         {//Populate the RichTextBox with Billing Slip for Printing
             rtbBillingSlip.Text += "CCS - Manpower & Allied Services \n";
             rtbBillingSlip.Text += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
-            rtbBillingSlip.Text += "ProjectName: "+ cmbProject.Text +"\n";
+            rtbBillingSlip.Text += "ProjectName: "+ projectName + "\n";
             rtbBillingSlip.Text += "Services rendered for the period: "+ DateTime.Now + "\n";
             rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
             rtbBillingSlip.Text += "Employee Name\t\t\t Hrs/Days\t Rate \t\t Amount"; //Title
@@ -325,8 +334,9 @@ namespace CCSPayrollBillingSystem
             projectName = selectedProject.Value;
 
             dgvEmployeeList4Billing.DataSource = null;
-            LoadProjectEmployees(projectID, dateBillingPicker.Value);
             SetDefaultWorkDaysRate();
+            LoadProjectEmployees(projectID, dateBillingPicker.Value);
+            
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -352,17 +362,6 @@ namespace CCSPayrollBillingSystem
             BillingSaveQuery();
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
-        }
-
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            e.Graphics.DrawString(rtbBillingSlip.Text, new Font("Microsoft Sans Serif", 8, FontStyle.Regular), Brushes.Black, new Point(10, 10));
-        }
-
         private bool ValidateInput()
         {
             return !string.IsNullOrEmpty(txtVAT.Text) && !string.IsNullOrEmpty(txtGrossTotal.Text) && !string.IsNullOrEmpty(txtNetTotal.Text);
@@ -380,19 +379,23 @@ namespace CCSPayrollBillingSystem
             });
         }
 
+
+
+        #region GroupBox Button Logics
+        private void EndOfRecordCheck(int currentID)//Validation on End of Record
+        {
+            if ((currentID > slideValue) || (currentID <= 0) || (currentID > slideValue))
+            {
+                MessageBox.Show("End of the Record.");
+            }
+        }
         private void btnNext_Click(object sender, EventArgs e)
         {
             currentID = (currentID >= (dgvEmployeeList4Billing.Rows.Count - slideValue)) ? (dgvEmployeeList4Billing.Rows.Count - slideValue) : (currentID + slideValue);
 
             LoadBillingWorkdaysOnGroupbox(currentID);
-            /*if (!txtRegDaysRate.Text.Equals("0.0"))
-            {
-                LoadBillingWorkdaysRateOnGroupbox(currentID);
-            }
-            else
-            {
-                SetDefaultWorkDaysRate();
-            }*/
+
+            EndOfRecordCheck(currentID);
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
@@ -400,14 +403,8 @@ namespace CCSPayrollBillingSystem
             currentID = (currentID <= 0) ? 0 : (currentID - slideValue);
 
             LoadBillingWorkdaysOnGroupbox(currentID);
-            /*if (!txtRegDaysRate.Text.Equals("0.0"))
-            {
-                LoadBillingWorkdaysRateOnGroupbox(currentID);
-            }
-            else
-            {
-                SetDefaultWorkDaysRate();
-            }*/
+
+            EndOfRecordCheck(currentID);
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -433,23 +430,23 @@ namespace CCSPayrollBillingSystem
             {
                 MessageBox.Show("Please input proper Workdays rate","Try Again",MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
 
-        private void label2_Click(object sender, EventArgs e)
+            EndOfRecordCheck(currentID);
+        }
+        #endregion
+
+
+        #region Printing Section
+        private void btnPrint_Click(object sender, EventArgs e)
         {
-
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-
+            e.Graphics.DrawString(rtbBillingSlip.Text, new Font("Microsoft Sans Serif", 8, FontStyle.Regular), Brushes.Black, new Point(10, 10));
         }
-
-        private void dateBillingPicker_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
+        #endregion
     }
 }

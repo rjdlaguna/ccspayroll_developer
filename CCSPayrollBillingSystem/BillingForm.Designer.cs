@@ -127,7 +127,6 @@ namespace CCSPayrollBillingSystem
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Date :";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // groupBox1
             // 
@@ -150,7 +149,6 @@ namespace CCSPayrollBillingSystem
             this.dateBillingPicker.Name = "dateBillingPicker";
             this.dateBillingPicker.Size = new System.Drawing.Size(179, 20);
             this.dateBillingPicker.TabIndex = 57;
-            this.dateBillingPicker.ValueChanged += new System.EventHandler(this.dateBillingPicker_ValueChanged);
             // 
             // cmbProject
             // 
@@ -172,7 +170,6 @@ namespace CCSPayrollBillingSystem
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Project Name :";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtNetTotal
             // 
@@ -530,6 +527,7 @@ namespace CCSPayrollBillingSystem
             this.txtOthersRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOthersRate.Location = new System.Drawing.Point(215, 329);
             this.txtOthersRate.Name = "txtOthersRate";
+            this.txtOthersRate.ReadOnly = true;
             this.txtOthersRate.Size = new System.Drawing.Size(82, 20);
             this.txtOthersRate.TabIndex = 35;
             // 
@@ -541,6 +539,7 @@ namespace CCSPayrollBillingSystem
             this.txtPDARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPDARate.Location = new System.Drawing.Point(215, 303);
             this.txtPDARate.Name = "txtPDARate";
+            this.txtPDARate.ReadOnly = true;
             this.txtPDARate.Size = new System.Drawing.Size(82, 20);
             this.txtPDARate.TabIndex = 34;
             // 
@@ -563,6 +562,7 @@ namespace CCSPayrollBillingSystem
             this.txtCOLARate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCOLARate.Location = new System.Drawing.Point(215, 277);
             this.txtCOLARate.Name = "txtCOLARate";
+            this.txtCOLARate.ReadOnly = true;
             this.txtCOLARate.Size = new System.Drawing.Size(82, 20);
             this.txtCOLARate.TabIndex = 33;
             // 

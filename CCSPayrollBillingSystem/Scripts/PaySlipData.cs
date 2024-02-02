@@ -7,5 +7,6 @@
         public WorkDays WorkDays;
         public EmployeePayrollData Employee;
         public decimal PayRate;
+        public string ProjectName;
     }
 }

@@ -871,6 +871,44 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
+        public string ExecuteSqlEPRQueryReturnProjectID(int empId)
+        {
+            string sqlEPR = "SELECT ProjectID FROM tblEPR WHERE EmpID='" + empId + "' ORDER BY EPRID DESC";
+            int projectID = 0;
+            string projectName = string.Empty;
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlEPR, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    projectID = dataReader.GetValue(0) == DBNull.Value ? 0 : Convert.ToInt32(dataReader.GetValue(0).ToString());
+                    projectName = ExecuteSqlReturnProjectName(projectID);
+                }
+                Console.WriteLine(projectName);
+                return projectName;
+            }
+        }
+
+        private string ExecuteSqlReturnProjectName(int pID)
+        {
+            string sqlProject = "SELECT ProjectName FROM tblProject WHERE ProjectID='" + pID + "'";
+            string projectName = string.Empty;
+
+            using (connection = new DatabaseConnection(connectionString))
+            using (command = new DatabaseCommand(sqlProject, connection))
+            using (dataReader = new DatabaseReader(command.ExecuteReader()))
+            {
+                if (dataReader.Read())
+                {
+                    projectName = dataReader.GetValue(0) == DBNull.Value ? string.Empty : dataReader.GetValue(0).ToString();
+                }
+                Console.WriteLine(projectName);
+                return projectName;
+            }
+        }
+
         private EmployeePayrollData ExecuteSqlEmployeeQuery(int id)
         {
             string sqlWorkDays = "SELECT EmpID, EmpFirstName, EmpLastName, EmpMiddleName, JobID FROM tblEmployee WHERE EmpID='" + id + "'";
@@ -944,6 +982,7 @@ namespace CCSPayrollBillingSystem.Scripts
                             WorkDays _paySlipWorkdays = new WorkDays();
                             EmployeePayrollData _employeePayrollData = new EmployeePayrollData();
                             decimal _jobRate = 0M;
+                            string _projectName = string.Empty;
 
                             _paySlipPayrollData.Payroll_ID = (int)sqlDataReader.GetValue(0);
                             _paySlipPayrollData.PayrollStartDate = DateTime.Parse(sqlDataReader.GetValue(1).ToString());
@@ -962,11 +1001,13 @@ namespace CCSPayrollBillingSystem.Scripts
                             _paySlipWorkdays = ExecuteSqlWorkDaysQuery(_paySlipPayrollData.WorkDayID);
                             _employeePayrollData = ExecuteSqlEmployeeQuery(_paySlipPayrollData.EmpID);
                             _jobRate = ExecuteSqlJobRateQuery(_employeePayrollData.JobID);
+                            _projectName = ExecuteSqlEPRQueryReturnProjectID(_paySlipPayrollData.EmpID);
 
                             _payslip.PayrollData = _paySlipPayrollData;
                             _payslip.WorkDays = _paySlipWorkdays;
                             _payslip.Employee = _employeePayrollData;
                             _payslip.PayRate = _jobRate;
+                            _payslip.ProjectName = _projectName;
 
                             dataItems.Add(_payslip);
                         }
@@ -989,7 +1030,6 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
-        
 
         public void ExecuteSqlPayrollUpdateQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {

@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using CCSPayrollBillingSystem.Scripts;
-using System.Reflection;
+using CCSPayrollBillingSystem.Scripts.SystemUtility;
 
 namespace CCSPayrollBillingSystem
 {
     public partial class EmployeePrintForm : Form
     {
-        public EmployeePrintForm()
-        {
-            InitializeComponent();
-        }
-
+        
         public int empIdPayroll;
         public string empFnamePayroll;
         public string empLnamePayroll;
@@ -24,12 +21,23 @@ namespace CCSPayrollBillingSystem
         private string dateFrom;
         private string dateTo;
 
+        private string projectName;
+
         EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
         EmployeePayrollDate employeePayrollDate = new EmployeePayrollDate();
 
         PaySlipData _paySlipData = new PaySlipData();
 
         List<PaySlipData> _paySlipDataListItems = new List<PaySlipData>();
+        private ProjectProcessor projectProcessor;
+        private IDictionary<int, string> projectInfo;
+
+        public EmployeePrintForm()
+        {
+            InitializeComponent();
+            projectProcessor = new ProjectProcessor();
+        }
+
         private void Init(PayrollData payroll, WorkDays work)
         {
             _paySlipData.PayrollData = payroll;
@@ -40,6 +48,8 @@ namespace CCSPayrollBillingSystem
         {
             employeeListForPayroll.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
             employeePayrollDate.OnPayrollDateSelected += SetPayrollDates;
+            projectInfo = projectProcessor.ProjectInfo;
+
 
             ValidationHelper.SingleEnableControls(btnSearch, false);
             ValidationHelper.SingleEnableControls(btnGenerate, false);
@@ -95,6 +105,8 @@ namespace CCSPayrollBillingSystem
                 
                 QueryProcessor payrollSearchProcessor = new QueryProcessor();
 
+                projectName = payrollSearchProcessor.ExecuteSqlEPRQueryReturnProjectID(empIdPayroll);
+
                 payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, dateFrom, dateTo, (payroll, work) =>
                 {
                     Init(payroll, work);
@@ -135,7 +147,7 @@ namespace CCSPayrollBillingSystem
             payrolSlipText += "-------------------------------------------------------------------------------------\n";
             payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
             payrolSlipText += "Name: " + empLnamePayroll + ", " + empFnamePayroll + "\n";
-            payrolSlipText += "Project: \n\n";
+            payrolSlipText += "Project: "+ projectName +"\n\n";
 
             payrolSlipText += "Regular Days\t: \t" + _paySlipData.WorkDays.RegularDays + "\t" + (WorkDaysComputation.RegularDays(empRatePayroll, _paySlipData.WorkDays.RegularDays).ToPhpCurrencyFormat()) + "\n";
             payrolSlipText += "Regular OT\t: \t" + _paySlipData.WorkDays.RegularDaysOT + "\t" + (WorkDaysComputation.RegularDaysOT(empRatePayroll, _paySlipData.WorkDays.RegularDaysOT).ToPhpCurrencyFormat()) + "\n";
@@ -170,7 +182,7 @@ namespace CCSPayrollBillingSystem
                 payrolSlipText += "-------------------------------------------------------------------------------------\n";
                 payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
                 payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " " + paySlipData.Employee.EmpMiddleName + " \n";
-                payrolSlipText += "Project: \n\n";
+                payrolSlipText += "Project: "+ paySlipData.ProjectName + "\n\n";
 
                 payrolSlipText += "Regular Days\t: \t" + paySlipData.WorkDays.RegularDays + "\t" + (WorkDaysComputation.RegularDays(paySlipData.PayRate, paySlipData.WorkDays.RegularDays).ToPhpCurrencyFormat()) + "\n";
                 payrolSlipText += "Regular OT\t: \t" + paySlipData.WorkDays.RegularDaysOT + "\t" + (WorkDaysComputation.RegularDaysOT(paySlipData.PayRate, paySlipData.WorkDays.RegularDaysOT).ToPhpCurrencyFormat()) + "\n";
