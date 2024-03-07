@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Drawing;
 using CCSPayrollBillingSystem.Scripts;
 using CCSPayrollBillingSystem.Scripts.SystemUtility;
+using Word = Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
 
 namespace CCSPayrollBillingSystem
 {
@@ -23,12 +25,15 @@ namespace CCSPayrollBillingSystem
 
         private string projectName;
 
+        private int defaultColumn = 2;
+
         EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
         EmployeePayrollDate employeePayrollDate = new EmployeePayrollDate();
 
         PaySlipData _paySlipData = new PaySlipData();
 
         List<PaySlipData> _paySlipDataListItems = new List<PaySlipData>();
+        List<string> paySlip2WordDocumentList = new List<string>();
         private ProjectProcessor projectProcessor;
         private IDictionary<int, string> projectInfo;
 
@@ -46,6 +51,7 @@ namespace CCSPayrollBillingSystem
 
         private void EmployeePrintForm_Load(object sender, EventArgs e)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-PH");
             employeeListForPayroll.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
             employeePayrollDate.OnPayrollDateSelected += SetPayrollDates;
             projectInfo = projectProcessor.ProjectInfo;
@@ -140,11 +146,13 @@ namespace CCSPayrollBillingSystem
 
         private void GenerateSinglePaySlip()
         {
+            // Clear the existing content of paySlipWordDocumentList
+            paySlip2WordDocumentList.Clear();
             payrolSlipText = string.Empty;
 
-            payrolSlipText += "-------------------------------------------------------------------------------------\n";
-            payrolSlipText += "-----                                CCS Payslip                       -----\n";
-            payrolSlipText += "-------------------------------------------------------------------------------------\n";
+            payrolSlipText += "-----------------------------------------------------------------------------------\n";
+            payrolSlipText += "                                            CCS Payslip                              \n";
+            payrolSlipText += "-----------------------------------------------------------------------------------\n";
             payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
             payrolSlipText += "Name: " + empLnamePayroll + ", " + empFnamePayroll + "\n";
             payrolSlipText += "Project: "+ projectName +"\n\n";
@@ -168,18 +176,21 @@ namespace CCSPayrollBillingSystem
             payrolSlipText += "NET PAY\t\t: " + (_paySlipData.PayrollData.NetSalary).ToPhpCurrencyFormat() + "\n\n";
             payrolSlipText += "I certify that I have received the above amount.\n";
 
+            paySlip2WordDocumentList.Add(payrolSlipText);
             rtbPayrollSlip.Text = payrolSlipText;
         }
 
         private void GenerateAllPaySlip() //Generate all payslips of the employees
         {
-            payrolSlipText = string.Empty;
+            // Clear the existing content of paySlipWordDocumentList
+            paySlip2WordDocumentList.Clear();
 
             foreach (PaySlipData paySlipData in _paySlipDataListItems)
             {
-                payrolSlipText += "-------------------------------------------------------------------------------------\n";
-                payrolSlipText += "-----                                CCS Payslip                       -----\n";
-                payrolSlipText += "-------------------------------------------------------------------------------------\n";
+                payrolSlipText = string.Empty;
+                payrolSlipText += "-----------------------------------------------------------------------------------\n";
+                payrolSlipText += "                                            CCS Payslip                              \n";
+                payrolSlipText += "-----------------------------------------------------------------------------------\n";
                 payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
                 payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " " + paySlipData.Employee.EmpMiddleName + " \n";
                 payrolSlipText += "Project: "+ paySlipData.ProjectName + "\n\n";
@@ -202,9 +213,9 @@ namespace CCSPayrollBillingSystem
                 payrolSlipText += "  Others\t\t: " + paySlipData.PayrollData.PayrollOthers + "\n\n";
                 payrolSlipText += "NET PAY\t\t: " + (paySlipData.PayrollData.NetSalary).ToPhpCurrencyFormat() + "\n\n";
                 payrolSlipText += "I certify that I have received the above amount.\n";
-                payrolSlipText += "-------------------------------------------------------------------------------------\n";
+                payrolSlipText += "-----------------------------------------------------------------------------------\n";
 
-
+                paySlip2WordDocumentList.Add(payrolSlipText);
             }
 
             PaySlipDisplay(payrolSlipText);
@@ -212,6 +223,8 @@ namespace CCSPayrollBillingSystem
 
         private void GeneratePreview() //Generate all payslips of the employees
         {
+            // Clear the existing content of paySlipWordDocumentList
+            paySlip2WordDocumentList.Clear();
             payrolSlipText = string.Empty;
 
             payrolSlipText += "CCS - Manpower & Allied Services \n";
@@ -239,16 +252,136 @@ namespace CCSPayrollBillingSystem
                 }
                 payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
 
-
+                paySlip2WordDocumentList.Add(payrolSlipText);
             }
 
             PaySlipDisplay(payrolSlipText);
         }
 
+        private void CreateWordDocument(bool isPreview)
+        {
+            Word.Application _word = new Word.Application();
+            Word.Document _document = _word.Documents.Add();
+            Word.Range _range = _document.Range(0, 0);
+
+            // Set margins style to Narrow
+            SetNarrowMargins(_document);
+
+            try
+            {
+                _document = _word.ActiveDocument;
+
+                if (isPreview)//checks if the to-be printed documents were Payroll Preview
+                {
+                    for (int i = 0; i < paySlip2WordDocumentList.Count; i++)
+                    {
+                        _range.Text = (paySlip2WordDocumentList[i].ToString());
+                    }
+                }
+                else
+                {
+                    // Calculate the number of rows needed based on the number of elements in paySlipWordDocumentList
+                    int numRows = (int)Math.Ceiling((double)(paySlip2WordDocumentList.Count / defaultColumn));
+
+                    if (numRows <= 0) numRows = 1;
+
+                    Word.Table _wdTable = _document.Tables.Add(_range, numRows, defaultColumn);
+                    int row = 1;
+                    int column = 1;
+
+                    foreach (var item in paySlip2WordDocumentList)
+                    {
+                        _wdTable.Cell(row, column).Range.InsertAfter(item.ToString());
+                        column++;
+                        if (column > defaultColumn)
+                        {
+                            column = 1;
+                            row++;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                CleanUpWordObjects(_word, _document);
+            }
+        }
+
+        private void CleanUpWordObjects(Word.Application wordApp, Word.Document document)
+        {
+            if (document != null)
+            {
+                try
+                {
+                    wordApp.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    Marshal.ReleaseComObject(document);
+                    Marshal.ReleaseComObject(wordApp);
+                }
+            }
+        }
+
+        private void SetNarrowMargins(Word.Document document)
+        {
+            Word.Application wordApp = document.Application;
+            float marginSize = 0.5f; // inches
+            document.PageSetup.LeftMargin = wordApp.InchesToPoints(marginSize);
+            document.PageSetup.RightMargin = wordApp.InchesToPoints(marginSize);
+            document.PageSetup.TopMargin = wordApp.InchesToPoints(marginSize);
+            document.PageSetup.BottomMargin = wordApp.InchesToPoints(marginSize);
+        }
+
+        private void CreateWordDocumentPreview()
+        {
+            Word.Application _word = new Word.Application();
+            Word.Document _document = _word.Documents.Add();
+            Word.Range _range = _document.Range(0, 0);
+
+            // Set margins style to Narrow
+            _document.PageSetup.LeftMargin = _word.InchesToPoints(0.5f);
+            _document.PageSetup.RightMargin = _word.InchesToPoints(0.5f);
+            _document.PageSetup.TopMargin = _word.InchesToPoints(0.5f);
+            _document.PageSetup.BottomMargin = _word.InchesToPoints(0.5f);
+
+            try
+            {
+                _document = _word.ActiveDocument;
+
+                for (int i = 0; i < paySlip2WordDocumentList.Count; i++)
+                {
+                    _range.Text = (paySlip2WordDocumentList[i].ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                _word.Visible = true;
+                _word.Quit();
+                _word = null;
+                _document = null;
+            }
+        }
+
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
+            //printPreviewDialog1.Document = printDocument1;
+            //printPreviewDialog1.ShowDialog();
+            bool isPreview = cmbPrintFilter.SelectedItem.Equals("Preview") ? true : false;
+            CreateWordDocument(isPreview);
         }
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
