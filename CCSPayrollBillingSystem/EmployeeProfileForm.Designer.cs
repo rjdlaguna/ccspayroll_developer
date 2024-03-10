@@ -52,7 +52,6 @@ namespace CCSPayrollBillingSystem
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtEmpDataPrompt = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnViewEmp = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -273,7 +272,7 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::CCSPayrollBillingSystem.Properties.Resources.cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(437, 178);
+            this.btnCancel.Location = new System.Drawing.Point(437, 119);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 4;
@@ -281,20 +280,6 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnViewEmp
-            // 
-            this.btnViewEmp.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewEmp.Image = global::CCSPayrollBillingSystem.Properties.Resources.file;
-            this.btnViewEmp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnViewEmp.Location = new System.Drawing.Point(437, 119);
-            this.btnViewEmp.Name = "btnViewEmp";
-            this.btnViewEmp.Size = new System.Drawing.Size(100, 40);
-            this.btnViewEmp.TabIndex = 3;
-            this.btnViewEmp.Text = "VIEW EMPLOYEES";
-            this.btnViewEmp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnViewEmp.UseVisualStyleBackColor = true;
-            this.btnViewEmp.Click += new System.EventHandler(this.btnViewEmp_Click);
             // 
             // btnSave
             // 
@@ -318,7 +303,6 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnViewEmp);
             this.Controls.Add(this.btnSave);
             this.Name = "EmployeeProfileForm";
             this.Text = "Employee Profile Form";
@@ -333,7 +317,6 @@ namespace CCSPayrollBillingSystem
 
         #endregion
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnViewEmp;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

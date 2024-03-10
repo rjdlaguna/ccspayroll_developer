@@ -49,13 +49,13 @@ namespace CCSPayrollBillingSystem
             this.projectToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.billingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxMenu = new System.Windows.Forms.GroupBox();
+            this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnProfilePromptProject = new System.Windows.Forms.Button();
             this.btnProfilePromptEmployee = new System.Windows.Forms.Button();
             this.btnPrintMenu = new System.Windows.Forms.Button();
             this.btnBillingMenu = new System.Windows.Forms.Button();
             this.btnPayrollMenu = new System.Windows.Forms.Button();
-            this.statusStripMain = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelMainView = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.groupBoxMenu.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -233,6 +233,22 @@ namespace CCSPayrollBillingSystem
             this.groupBoxMenu.TabStop = false;
             this.groupBoxMenu.Text = "MenuBox";
             // 
+            // statusStripMain
+            // 
+            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelMainView});
+            this.statusStripMain.Location = new System.Drawing.Point(0, 496);
+            this.statusStripMain.Name = "statusStripMain";
+            this.statusStripMain.Size = new System.Drawing.Size(934, 22);
+            this.statusStripMain.TabIndex = 3;
+            this.statusStripMain.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelMainView
+            // 
+            this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
+            this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
+            // 
             // btnProfilePromptProject
             // 
             this.btnProfilePromptProject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -245,7 +261,7 @@ namespace CCSPayrollBillingSystem
             this.btnProfilePromptProject.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnProfilePromptProject.Size = new System.Drawing.Size(223, 86);
             this.btnProfilePromptProject.TabIndex = 6;
-            this.btnProfilePromptProject.Text = "Add Project";
+            this.btnProfilePromptProject.Text = "PROJECT";
             this.btnProfilePromptProject.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilePromptProject.UseVisualStyleBackColor = true;
             this.btnProfilePromptProject.Click += new System.EventHandler(this.btnProfilePromptProject_Click);
@@ -262,7 +278,7 @@ namespace CCSPayrollBillingSystem
             this.btnProfilePromptEmployee.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnProfilePromptEmployee.Size = new System.Drawing.Size(223, 86);
             this.btnProfilePromptEmployee.TabIndex = 5;
-            this.btnProfilePromptEmployee.Text = "Add Employee";
+            this.btnProfilePromptEmployee.Text = "EMPLOYEE";
             this.btnProfilePromptEmployee.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilePromptEmployee.UseVisualStyleBackColor = true;
             this.btnProfilePromptEmployee.Click += new System.EventHandler(this.btnProfilePromptEmployee_Click);
@@ -317,22 +333,6 @@ namespace CCSPayrollBillingSystem
             this.btnPayrollMenu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPayrollMenu.UseVisualStyleBackColor = true;
             this.btnPayrollMenu.Click += new System.EventHandler(this.btnPayrollMenu_Click);
-            // 
-            // statusStripMain
-            // 
-            this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelMainView});
-            this.statusStripMain.Location = new System.Drawing.Point(0, 496);
-            this.statusStripMain.Name = "statusStripMain";
-            this.statusStripMain.Size = new System.Drawing.Size(934, 22);
-            this.statusStripMain.TabIndex = 3;
-            this.statusStripMain.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabelMainView
-            // 
-            this.toolStripStatusLabelMainView.Name = "toolStripStatusLabelMainView";
-            this.toolStripStatusLabelMainView.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabelMainView.Text = "toolStripStatusLabel1";
             // 
             // FormMain
             // 
