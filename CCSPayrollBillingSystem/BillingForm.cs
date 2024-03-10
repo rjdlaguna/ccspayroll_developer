@@ -6,6 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using CCSPayrollBillingSystem.Scripts;
 using CCSPayrollBillingSystem.Scripts.SystemUtility;
+using Word = Microsoft.Office.Interop.Word;
+using System.Runtime.InteropServices;
 
 namespace CCSPayrollBillingSystem
 {
@@ -43,6 +45,10 @@ namespace CCSPayrollBillingSystem
             cmbProject.DataSource = new BindingSource(projectInfo, null);
             cmbProject.DisplayMember = "Value";
             cmbProject.ValueMember = "Key";
+
+            ValidationHelper.SingleEnableControls(btnGenerate, false);
+            ValidationHelper.SingleEnableControls(btnCalculate, false);
+            ValidationHelper.SingleEnableControls(btnPrint, false);
         }
 
         private void LoadProjectEmployees(int projID, DateTime date)
@@ -347,6 +353,8 @@ namespace CCSPayrollBillingSystem
             BillingAttributeListProcessing();
             BillingAttributeList2Display();
             txtGrossTotal.Text = gross.ToPhpCurrencyFormat();
+
+            ValidationHelper.SingleEnableControls(btnCalculate, true);
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -360,6 +368,8 @@ namespace CCSPayrollBillingSystem
             rtbBillingSlip.Text += "\t\tGrand Total: " + "\t\t" + net.ToPhpCurrencyFormat();
             
             BillingSaveQuery();
+
+            ValidationHelper.SingleEnableControls(btnPrint, true);
         }
 
         private bool ValidateInput()
@@ -387,6 +397,7 @@ namespace CCSPayrollBillingSystem
             if ((currentID > slideValue) || (currentID <= 0) || (currentID > slideValue))
             {
                 MessageBox.Show("End of the Record.");
+                ValidationHelper.SingleEnableControls(btnGenerate, true);
             }
         }
         private void btnNext_Click(object sender, EventArgs e)
@@ -436,17 +447,76 @@ namespace CCSPayrollBillingSystem
         #endregion
 
 
-        #region Printing Section
+        #region Printing | Saving to Word Section
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
+            //printPreviewDialog1.Document = printDocument1;
+            //printPreviewDialog1.ShowDialog();
+
+            CreateWordDocument();
         }
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             e.Graphics.DrawString(rtbBillingSlip.Text, new Font("Microsoft Sans Serif", 8, FontStyle.Regular), Brushes.Black, new Point(10, 10));
         }
+
+        private void CreateWordDocument()
+        {
+            Word.Application _word = new Word.Application();
+            Word.Document _document = _word.Documents.Add();
+            Word.Range _range = _document.Range(0, 0);
+
+            // Set margins style to Narrow
+            SetNarrowMargins(_document);
+
+            try
+            {
+                _document = _word.ActiveDocument;
+
+                _range.Text = rtbBillingSlip.Text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                CleanUpWordObjects(_word, _document);
+            }
+        }
+
+        private void CleanUpWordObjects(Word.Application wordApp, Word.Document document)
+        {
+            if (document != null)
+            {
+                try
+                {
+                    wordApp.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    Marshal.ReleaseComObject(document);
+                    Marshal.ReleaseComObject(wordApp);
+                }
+            }
+        }
+
+        private void SetNarrowMargins(Word.Document document)
+        {
+            Word.Application wordApp = document.Application;
+            float marginSize = 0.5f; // inches
+            document.PageSetup.LeftMargin = wordApp.InchesToPoints(marginSize);
+            document.PageSetup.RightMargin = wordApp.InchesToPoints(marginSize);
+            document.PageSetup.TopMargin = wordApp.InchesToPoints(marginSize);
+            document.PageSetup.BottomMargin = wordApp.InchesToPoints(marginSize);
+        }
+
+
         #endregion
     }
 }
