@@ -65,32 +65,21 @@ namespace CCSPayrollBillingSystem
 
         private void btnProfilePromptEmployee_Click(object sender, EventArgs e)
         {
-            QueryProcessor empDataProcessor = new QueryProcessor();
-            int jobCount = empDataProcessor.ExecuteSQLCountJobsQuery(() =>
-            {
-                Console.WriteLine("There are jobs in the table.");
-            }, () =>
-            {
-                Console.WriteLine("There are no jobs in the table.");
-            });
-            if (jobCount == 0)
-            {
-                MessageBox.Show("No Jobs added. Please add first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                EmployeeProfileForm frmEmployeeProfile = new EmployeeProfileForm();
-                frmEmployeeProfile.StartPosition = FormStartPosition.CenterScreen;
-                frmEmployeeProfile.ShowDialog();
-            }
+            EmployeePrompt frmEmployeePrompt = new EmployeePrompt();
+            frmEmployeePrompt.StartPosition = FormStartPosition.CenterScreen;
+            frmEmployeePrompt.ShowDialog();
             
         }
 
         private void btnProfilePromptProject_Click(object sender, EventArgs e)
         {
-            ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
+            /*ProjectProfileForm frmProjectProfile = new ProjectProfileForm();
             frmProjectProfile.StartPosition = FormStartPosition.CenterScreen;
-            frmProjectProfile.ShowDialog();
+            frmProjectProfile.ShowDialog();*/
+
+            ProjectPrompt frmProjectPrompt = new ProjectPrompt();
+            frmProjectPrompt.StartPosition = FormStartPosition.CenterScreen;
+            frmProjectPrompt.ShowDialog();
         }
         #endregion
 

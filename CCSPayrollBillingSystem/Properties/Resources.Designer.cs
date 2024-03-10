@@ -73,6 +73,16 @@ namespace CCSPayrollBillingSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_project {
+            get {
+                object obj = ResourceManager.GetObject("add_project", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bill1 {
             get {
                 object obj = ResourceManager.GetObject("bill1", resourceCulture);
@@ -346,6 +356,26 @@ namespace CCSPayrollBillingSystem.Properties {
         internal static System.Drawing.Bitmap small_loupe {
             get {
                 object obj = ResourceManager.GetObject("small_loupe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap update_emp {
+            get {
+                object obj = ResourceManager.GetObject("update_emp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap update_pproject {
+            get {
+                object obj = ResourceManager.GetObject("update_pproject", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -43,7 +43,6 @@ namespace CCSPayrollBillingSystem
             this.label6 = new System.Windows.Forms.Label();
             this.txtProjectEmailAddress = new System.Windows.Forms.TextBox();
             this.txtProjectName = new System.Windows.Forms.TextBox();
-            this.btnViewProjects = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -193,20 +192,6 @@ namespace CCSPayrollBillingSystem
             this.txtProjectName.Size = new System.Drawing.Size(138, 20);
             this.txtProjectName.TabIndex = 16;
             // 
-            // btnViewProjects
-            // 
-            this.btnViewProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewProjects.Image = global::CCSPayrollBillingSystem.Properties.Resources.file;
-            this.btnViewProjects.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnViewProjects.Location = new System.Drawing.Point(442, 238);
-            this.btnViewProjects.Name = "btnViewProjects";
-            this.btnViewProjects.Size = new System.Drawing.Size(100, 40);
-            this.btnViewProjects.TabIndex = 26;
-            this.btnViewProjects.Text = "VIEW PROJECTS";
-            this.btnViewProjects.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnViewProjects.UseVisualStyleBackColor = true;
-            this.btnViewProjects.Click += new System.EventHandler(this.btnViewProjects_Click);
-            // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -241,7 +226,6 @@ namespace CCSPayrollBillingSystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 402);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnViewProjects);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Name = "ProjectProfileForm";
@@ -267,7 +251,6 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtProjectEmailAddress;
         private System.Windows.Forms.TextBox txtProjectName;
-        private System.Windows.Forms.Button btnViewProjects;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
     }
