@@ -24,6 +24,8 @@ namespace CCSPayrollBillingSystem
         private decimal _PDARate;
         private decimal _OthersRate;
 
+        private bool isEmployeeLoaded;
+
         public int empIdPayroll;
         public string empFnamePayroll;
         public string empLnamePayroll;
@@ -42,6 +44,7 @@ namespace CCSPayrollBillingSystem
         public frmEmployeePayroll()
         {
             InitializeComponent();
+            isEmployeeLoaded = false;
         }
 
         private void TextDefautValue()
@@ -61,6 +64,9 @@ namespace CCSPayrollBillingSystem
         private void frmEmployeePayroll_Load(object sender, EventArgs e)
         {
             employeeListForPayroll.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
+            ValidationHelper.SingleEnableControls(btnCalculate, false);
+            ValidationHelper.SingleEnableControls(btnSave, false);
+            ValidationHelper.SingleEnableControls(btnEdit, isEmployeeLoaded);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -70,6 +76,15 @@ namespace CCSPayrollBillingSystem
 
         private void LoadSearchedEmployeeDetails(Employee emp)
         {
+            if (emp is null)
+            {
+                return;
+            }
+            else
+            {
+                isEmployeeLoaded = true;
+            }
+
             empIdPayroll = emp.EmpIdPayroll;
             empFnamePayroll = emp.EmpFnamePayroll;
             empLnamePayroll = emp.EmpLnamePayroll;
@@ -79,6 +94,8 @@ namespace CCSPayrollBillingSystem
             txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
             txtBaseRate.Text = empRatePayroll.ToString();
             txtRank.Text = empRankPayroll;
+
+            ValidationHelper.SingleEnableControls(btnEdit, isEmployeeLoaded);
         }
 
         private void txtRegDays_TextChanged(object sender, EventArgs e)
@@ -86,7 +103,8 @@ namespace CCSPayrollBillingSystem
             if (string.IsNullOrWhiteSpace(txtRegDays.Text)) txtRegDays.Text = "0";
             _RegDaysRate = WorkDaysComputation.RegularDays(baseRate, float.Parse(txtRegDays.Text));
             txtRegDaysRate.Text = CurrencyFormatter.ToPhpCurrencyFormat(_RegDaysRate);
-            
+
+            ValidationHelper.SingleEnableControls(btnCalculate, isEmployeeLoaded);
         }
 
         private void txtRegOT_TextChanged(object sender, EventArgs e)
@@ -195,8 +213,15 @@ namespace CCSPayrollBillingSystem
                 {
                     MessageBox.Show("Problem saving Payroll information.");
                 });
+
+                ValidationHelper.ResetDefaultValueTextBoxControls(txtBaseRate);
+                ValidationHelper.ResetDefaultValueTextBoxControls(txtSSS);
+                ValidationHelper.ResetDefaultValueTextBoxControls(txtPagIbig);
+                ValidationHelper.ResetDefaultValueTextBoxControls(txtPhilHealth);
+                ValidationHelper.ResetDefaultValueTextBoxControls(txtPayrollOthers);
             }
 
+            
         }
 
 
@@ -209,7 +234,7 @@ namespace CCSPayrollBillingSystem
             PayrollData payrollData = new PayrollData();
 
             payrollData.PayrollStartDate = dtPayrollStartDate.Value;
-            payrollData.PayrollEndDate = dtPayrollStartDate.Value;
+            payrollData.PayrollEndDate = dtPayrollCutOffDate.Value;
             payrollData.EmpID = empIdPayroll;
             payrollData.SSSAmount = Convert.ToDecimal(txtSSS.Text);
             payrollData.PagIbigAmount = Convert.ToDecimal(txtPhilHealth.Text);
@@ -240,6 +265,13 @@ namespace CCSPayrollBillingSystem
             return workDays;
         }
 
-
+        private void txtNetPay_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtNetPay.Text))
+            {
+                ValidationHelper.SingleEnableControls(btnSave, isEmployeeLoaded);
+                ValidationHelper.SingleEnableControls(btnEdit, false);
+            }
+        }
     }
 }
