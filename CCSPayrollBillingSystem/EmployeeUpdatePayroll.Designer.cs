@@ -53,7 +53,10 @@ namespace CCSPayrollBillingSystem
             this.txtOthers = new System.Windows.Forms.TextBox();
             this.lblRegDays = new System.Windows.Forms.Label();
             this.gbPayrollDate = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.dtPayrollCutOffDate = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
             this.dtPayrollStartDate = new System.Windows.Forms.DateTimePicker();
             this.txtNetPay = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -383,7 +386,10 @@ namespace CCSPayrollBillingSystem
             // 
             this.gbPayrollDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbPayrollDate.AutoSize = true;
+            this.gbPayrollDate.Controls.Add(this.label19);
+            this.gbPayrollDate.Controls.Add(this.label16);
             this.gbPayrollDate.Controls.Add(this.dtPayrollCutOffDate);
+            this.gbPayrollDate.Controls.Add(this.label15);
             this.gbPayrollDate.Controls.Add(this.dtPayrollStartDate);
             this.gbPayrollDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbPayrollDate.Location = new System.Drawing.Point(368, 13);
@@ -393,6 +399,27 @@ namespace CCSPayrollBillingSystem
             this.gbPayrollDate.TabStop = false;
             this.gbPayrollDate.Text = "PAYROLL PERIOD";
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.Red;
+            this.label19.Location = new System.Drawing.Point(63, 16);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(191, 13);
+            this.label19.TabIndex = 60;
+            this.label19.Text = "Do not forget to indicate Payroll Period.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(59, 69);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(23, 13);
+            this.label16.TabIndex = 59;
+            this.label16.Text = "To:";
+            // 
             // dtPayrollCutOffDate
             // 
             this.dtPayrollCutOffDate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -400,10 +427,20 @@ namespace CCSPayrollBillingSystem
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtPayrollCutOffDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtPayrollCutOffDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtPayrollCutOffDate.Location = new System.Drawing.Point(107, 61);
+            this.dtPayrollCutOffDate.Location = new System.Drawing.Point(107, 66);
             this.dtPayrollCutOffDate.Name = "dtPayrollCutOffDate";
             this.dtPayrollCutOffDate.Size = new System.Drawing.Size(131, 20);
             this.dtPayrollCutOffDate.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(49, 41);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(33, 13);
+            this.label15.TabIndex = 58;
+            this.label15.Text = "From:";
             // 
             // dtPayrollStartDate
             // 
@@ -413,7 +450,7 @@ namespace CCSPayrollBillingSystem
             this.dtPayrollStartDate.CalendarForeColor = System.Drawing.Color.Crimson;
             this.dtPayrollStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtPayrollStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtPayrollStartDate.Location = new System.Drawing.Point(107, 30);
+            this.dtPayrollStartDate.Location = new System.Drawing.Point(107, 35);
             this.dtPayrollStartDate.Name = "dtPayrollStartDate";
             this.dtPayrollStartDate.Size = new System.Drawing.Size(131, 20);
             this.dtPayrollStartDate.TabIndex = 0;
@@ -497,7 +534,7 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(21, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(307, 106);
+            this.groupBox1.Size = new System.Drawing.Size(323, 106);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "EMPLOYEE DETAILS";
@@ -506,7 +543,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.txtBaseRate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBaseRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBaseRate.Location = new System.Drawing.Point(77, 67);
+            this.txtBaseRate.Location = new System.Drawing.Point(85, 67);
             this.txtBaseRate.Name = "txtBaseRate";
             this.txtBaseRate.ReadOnly = true;
             this.txtBaseRate.Size = new System.Drawing.Size(179, 20);
@@ -516,7 +553,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.txtRank.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtRank.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRank.Location = new System.Drawing.Point(77, 41);
+            this.txtRank.Location = new System.Drawing.Point(85, 41);
             this.txtRank.Name = "txtRank";
             this.txtRank.ReadOnly = true;
             this.txtRank.Size = new System.Drawing.Size(179, 20);
@@ -526,7 +563,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.txtEmployeeName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtEmployeeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployeeName.Location = new System.Drawing.Point(77, 18);
+            this.txtEmployeeName.Location = new System.Drawing.Point(85, 18);
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.ReadOnly = true;
             this.txtEmployeeName.Size = new System.Drawing.Size(179, 20);
@@ -560,7 +597,7 @@ namespace CCSPayrollBillingSystem
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(262, 18);
+            this.btnSearch.Location = new System.Drawing.Point(278, 18);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(30, 30);
             this.btnSearch.TabIndex = 1;
@@ -1020,6 +1057,7 @@ namespace CCSPayrollBillingSystem
             this.Text = "EmployeeUpdatePayroll";
             this.Load += new System.EventHandler(this.EmployeeUpdatePayroll_Load);
             this.gbPayrollDate.ResumeLayout(false);
+            this.gbPayrollDate.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gbDeductions.ResumeLayout(false);
@@ -1100,5 +1138,8 @@ namespace CCSPayrollBillingSystem
         private System.Windows.Forms.TextBox txtRegHolidays;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
     }
 }

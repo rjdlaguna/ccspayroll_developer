@@ -41,10 +41,6 @@ namespace CCSPayrollBillingSystem.Scripts
 
     public class ValidationHelper
     {
-        public static void InputControlValues(Control control)
-        {
-
-        }
         public static bool IfNullOrEmpty(Control control)
         {
             if (control is TextBox textBox)
@@ -64,14 +60,11 @@ namespace CCSPayrollBillingSystem.Scripts
             control.Enabled = status;
         }
 
-        public static void MultipleEnablingControls(Control control, bool status)
+        public static void ResetDefaultValueTextBoxControls(Control control)
         {
             if (control is TextBox textBox)
             {
-                if (textBox.Text.Equals("0"))
-                {
-                    textBox.Enabled = status;
-                }
+                textBox.Text = "0.0";
             }
         }
 

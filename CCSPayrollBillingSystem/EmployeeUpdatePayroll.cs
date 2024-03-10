@@ -154,8 +154,8 @@ namespace CCSPayrollBillingSystem
         private void btnEdit_Click(object sender, EventArgs e)
         {
             QueryProcessor payrollSearchProcessor = new QueryProcessor();
-            DateTime dtFrom = Convert.ToDateTime(dtPayrollStartDate.Value);
-            DateTime dtTo = Convert.ToDateTime(dtPayrollCutOffDate.Value);
+            DateTime dtFrom = dtPayrollStartDate.Value;
+            DateTime dtTo = dtPayrollCutOffDate.Value;
 
             payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, dtFrom.ToShortDateString(), dtTo.ToShortDateString(), (payroll, work) =>
             {
@@ -278,5 +278,6 @@ namespace CCSPayrollBillingSystem
         {
             this.Close();
         }
+
     }
 }
