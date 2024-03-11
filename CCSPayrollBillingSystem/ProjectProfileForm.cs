@@ -25,21 +25,21 @@ namespace CCSPayrollBillingSystem
                 txtProjectName.Focus();
                 prompt = "Project Name cannot be empty.";
             }
-            else if (IsProjectFieldEmpty(projaddress))
-            {
-                txtProjectAddress.Focus();
-                prompt = "Project Address cannot be empty.";
-            }
-            else if (IsProjectFieldEmpty(personincharge))
-            {
-                txtPersonInCharge.Focus();
-                prompt = "Person In-Charge cannot be empty.";
-            }
-            else if (IsProjectFieldEmpty(projcontactno))
-            {
-                txtProjectContactNo.Focus();
-                prompt = "Contact No. cannot be empty.";
-            }
+            /* else if (IsProjectFieldEmpty(projaddress))
+             {
+                 txtProjectAddress.Focus();
+                 prompt = "Project Address cannot be empty.";
+             }
+             else if (IsProjectFieldEmpty(personincharge))
+             {
+                 txtPersonInCharge.Focus();
+                 prompt = "Person In-Charge cannot be empty.";
+             }
+             else if (IsProjectFieldEmpty(projcontactno))
+             {
+                 txtProjectContactNo.Focus();
+                 prompt = "Contact No. cannot be empty.";
+             }*/
             return prompt;
 
         }
@@ -96,15 +96,11 @@ namespace CCSPayrollBillingSystem
             }
         }
 
-        private void btnViewProjects_Click(object sender, EventArgs e)
-        {
-            ProjectProfileList frmProjectProfileList = new ProjectProfileList();
-            frmProjectProfileList.ShowDialog();
-        }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
     }
 }

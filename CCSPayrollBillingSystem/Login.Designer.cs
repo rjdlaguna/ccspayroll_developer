@@ -101,11 +101,11 @@ namespace CCSPayrollBillingSystem
             // lblloginprompt
             // 
             this.lblloginprompt.AutoSize = true;
-            this.lblloginprompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblloginprompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblloginprompt.ForeColor = System.Drawing.Color.Red;
-            this.lblloginprompt.Location = new System.Drawing.Point(147, 22);
+            this.lblloginprompt.Location = new System.Drawing.Point(149, 22);
             this.lblloginprompt.Name = "lblloginprompt";
-            this.lblloginprompt.Size = new System.Drawing.Size(45, 16);
+            this.lblloginprompt.Size = new System.Drawing.Size(35, 13);
             this.lblloginprompt.TabIndex = 6;
             this.lblloginprompt.Text = "label3";
             // 

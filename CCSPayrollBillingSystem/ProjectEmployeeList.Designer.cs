@@ -39,9 +39,9 @@ namespace CCSPayrollBillingSystem
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtprojectrate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnSearchEmployee = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSearchEmployee = new System.Windows.Forms.Button();
             this.btnAddEmployee = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgEmployeeInProjectList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -61,11 +61,11 @@ namespace CCSPayrollBillingSystem
             // cmbProject
             // 
             this.cmbProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbProject.FormattingEnabled = true;
             this.cmbProject.Location = new System.Drawing.Point(109, 19);
             this.cmbProject.Name = "cmbProject";
-            this.cmbProject.Size = new System.Drawing.Size(155, 26);
+            this.cmbProject.Size = new System.Drawing.Size(231, 21);
             this.cmbProject.TabIndex = 1;
             this.cmbProject.SelectedIndexChanged += new System.EventHandler(this.cmbProject_SelectedIndexChanged);
             // 
@@ -151,6 +151,17 @@ namespace CCSPayrollBillingSystem
             this.label4.TabIndex = 9;
             this.label4.Text = "Project Rate:";
             // 
+            // btnSearchEmployee
+            // 
+            this.btnSearchEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchEmployee.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
+            this.btnSearchEmployee.Location = new System.Drawing.Point(274, 19);
+            this.btnSearchEmployee.Name = "btnSearchEmployee";
+            this.btnSearchEmployee.Size = new System.Drawing.Size(33, 28);
+            this.btnSearchEmployee.TabIndex = 8;
+            this.btnSearchEmployee.UseVisualStyleBackColor = true;
+            this.btnSearchEmployee.Click += new System.EventHandler(this.btnSearchEmployee_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label1);
@@ -175,17 +186,7 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnSearchEmployee
-            // 
-            this.btnSearchEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchEmployee.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
-            this.btnSearchEmployee.Location = new System.Drawing.Point(274, 19);
-            this.btnSearchEmployee.Name = "btnSearchEmployee";
-            this.btnSearchEmployee.Size = new System.Drawing.Size(33, 28);
-            this.btnSearchEmployee.TabIndex = 8;
-            this.btnSearchEmployee.UseVisualStyleBackColor = true;
-            this.btnSearchEmployee.Click += new System.EventHandler(this.btnSearchEmployee_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
             // 
             // btnAddEmployee
             // 

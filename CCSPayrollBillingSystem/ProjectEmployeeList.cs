@@ -50,6 +50,7 @@ namespace CCSPayrollBillingSystem
             empLname = txtaddlastname.Text;
             projRate = Convert.ToDecimal(txtprojectrate.Text);
             projName = cmbProject.Text;
+
             if (String.IsNullOrEmpty(empFname))
             {
                 MessageBox.Show("First name cannot be empty.");
@@ -70,25 +71,43 @@ namespace CCSPayrollBillingSystem
             }
             else
             {
-                if (CheckEmployeeInfoExists(empFname, empLname) != 1)
+                if (CheckEmployeeInfoExists(empFname, empLname) > 0)
                 {
                     projId = projectInfo.FirstOrDefault(x => x.Value == projName).Key;
-                    projectProcessor.ExecuteSQLAddEmployeeToProject(empId, projId, projRate, () =>
+                    int existCount = projectProcessor.ExecuteSQLCheckEmployeeExistsInProject(empId, projId, () =>
                     {
-                        MessageBox.Show("Employee successfully added in project.");
+                        MessageBox.Show("Employee already added in the project.");
                         ResetAddEmployeeToProjectTextFields();
                     }, () =>
                     {
-                        MessageBox.Show("Problem adding employee in the project.");
+
                     });
+                    if (existCount == 0)
+                    {
+                        projectProcessor.ExecuteSQLAddEmployeeToProject(empId, projId, projRate, () =>
+                        {
+                            MessageBox.Show("Employee successfully added in project.");
+                            projectProcessor.ExecuteSQLListProjectEmployees(projId, () =>
+                            {
+                                Console.WriteLine("Listing employees for the project: " + projId);
+                            }, () =>
+                            {
+                                Console.WriteLine("Problem listing employees for the project: " + projId);
+                            });
+                            ResetAddEmployeeToProjectTextFields();
+                        }, () =>
+                        {
+                            MessageBox.Show("Problem adding employee in the project.");
+                        });
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Employee already added in project.");
+                    MessageBox.Show("Employee does not exists.");
                     txtaddlastname.Focus();
                 }
             }
-            
+
         }
 
         private int CheckEmployeeInfoExists(string fname, string lname)
@@ -135,7 +154,8 @@ namespace CCSPayrollBillingSystem
 
         private void btnSearchEmployee_Click(object sender, EventArgs e)
         {
-            employeeList.Show();
+            employeeList.StartPosition = FormStartPosition.CenterScreen;
+            employeeList.ShowDialog();
         }
 
         private void LoadSearchedEmployeeDetails(Employee emp)
@@ -146,6 +166,11 @@ namespace CCSPayrollBillingSystem
 
             txtaddfirstname.Text = empFname;
             txtaddlastname.Text = empLname;
+        }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
