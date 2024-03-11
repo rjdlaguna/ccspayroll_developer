@@ -44,7 +44,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
         #endregion
-         
+
         #region SQL Process for Change Password
         //Search for Username
         public void ExecuteSqlSearchChangePasswordQuery(string username, string currentPassword, string newPassword, string confirmPassword, Action onSuccess, Action onFailure)
@@ -471,7 +471,7 @@ namespace CCSPayrollBillingSystem.Scripts
             string converted_bdate = birthdate.ToString("yyyy-MM-dd");
             string converted_datehired = datehired.ToString("yyyy-MM-dd");
             string converted_endofcontract = endofcontract.ToString("yyyy-MM-dd");
-            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContract,JobID,EmpStatus) "
+            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContractDate,JobID,EmpStatus) "
                                 + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','"
                                                                 + homeaddress + "', '" + contactno + "','" + converted_bdate + "','"
                                                                 + converted_datehired + "','" + converted_endofcontract + "','" + jobID + "','" +
@@ -502,13 +502,13 @@ namespace CCSPayrollBillingSystem.Scripts
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
-                                        "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee WHERE EmpStatus = 1";
+                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee WHERE EmpStatus = 1";
                 }
                 else
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
-                                        "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee " +
+                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee " +
                                         "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
                     hasSearchValues = true;
                 }
@@ -584,12 +584,12 @@ namespace CCSPayrollBillingSystem.Scripts
 
                 string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," +
                                     "EmpHomeAddress=@homeaddress,EmpContactNo=@contactno,EmpBirthDate=@birthdate,EmploymentDate=@datehired," +
-                                    "EndOfContract=@endofcontract,JobID=@jobID WHERE EmpID = @id";
-                
+                                    "EndOfContractDate=@endofcontract,JobID=@jobID WHERE EmpID = @id";
+
                 sqlConnection.Open();
                 using (SqlCommand command = new SqlCommand(sqlSearch, sqlConnection))
                 {
-                    command.Parameters.AddWithValue("@firstname",firstname);
+                    command.Parameters.AddWithValue("@firstname", firstname);
                     command.Parameters.AddWithValue("@middlename", middlename);
                     command.Parameters.AddWithValue("@lastname", lastname);
                     command.Parameters.AddWithValue("@homeaddress", homeaddress);
@@ -792,7 +792,7 @@ namespace CCSPayrollBillingSystem.Scripts
         public void ExecuteSqlPayrollSearchQuery(int empID, string from, string to, Action<PayrollData, WorkDays> onSuccess, Action onFailure)
         {
             string sqlSearch = "SELECT * FROM tblPayroll WHERE EmpID=@EmpID AND PayrollStartDate=@PayrollStartDate AND PayrollEndDate=@PayrollEndDate";
-            
+
 
             using (connection = new DatabaseConnection(connectionString))
             using (command = new DatabaseCommand(sqlSearch, connection))
@@ -973,7 +973,7 @@ namespace CCSPayrollBillingSystem.Scripts
                     command.AddParameter("@PayrollStartDate", Convert.ToDateTime(from).Date);
                     command.AddParameter("@PayrollEndDate", Convert.ToDateTime(to).Date);
                     sqlDataReader = command.ExecuteReader();
-                    if(sqlDataReader.HasRows)
+                    if (sqlDataReader.HasRows)
                     {
                         while (sqlDataReader.Read())
                         {
@@ -1309,6 +1309,70 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
+        public int ExecuteSQLCheckEmployeeExistsInProject(int empId, int projId, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlSelect = "SELECT COUNT(*) FROM tblEPR WHERE EmpID = @empId AND ProjectId = @projId";
+
+                using (command = new DatabaseCommand(sqlSelect, connection))
+                {
+                    command.AddParameter("@empId", empId);
+                    command.AddParameter("@projId", projId);
+
+                    using (dataReader = new DatabaseReader(command.ExecuteReader()))
+                    {
+                        if (dataReader.Read())
+                        {
+                            object result = dataReader.GetValue(0);
+                            int intValue = (int)result;
+                            if (intValue > 0)
+                            {
+                                onSuccess?.Invoke();
+                            }
+                            return intValue;
+                        }
+                        else
+                        {
+                            onFailure?.Invoke();
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ExecuteSQLListProjectEmployees(int projId, Action onSuccess, Action onFailure)
+        {
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                string sqlEmpDataSearch = "";
+
+                sqlEmpDataSearch = "SELECT * FROM tblEPR WHERE ProjectID = @projId";
+
+                using (command = new DatabaseCommand(sqlEmpDataSearch, connection))
+                {
+
+                    command.AddParameter("@projId", projId);
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        onSuccess?.Invoke();
+                    }
+                    else
+                    {
+                        onFailure?.Invoke();
+                    }
+
+                }
+            }
+
+
+
+        }
+
+
         public void ExecuteSQLLoadProjectEmployeesQuery(int projId, Action onSuccess, Action onFailure)
         {
             using (connection = new DatabaseConnection(connectionString))
@@ -1378,7 +1442,7 @@ namespace CCSPayrollBillingSystem.Scripts
             string sqlEPRDataSearch = string.Empty;
             using (connection = new DatabaseConnection(connectionString))
             {
-                sqlEPRDataSearch = 
+                sqlEPRDataSearch =
                     "SELECT EMP.EmpID AS 'Employee ID', EMP.EmpFirstName AS 'FirstName', EMP.EmpLastName AS 'LastName', " +
                     "       PROJ.ProjectName AS 'ProjectName', EPR.ProjectRate AS 'ProjectRate', " +
                     "       WORK.RegularDays AS 'Regular Days', WORK.RegularDaysOT AS 'Regular Days OT', " +
@@ -1414,9 +1478,9 @@ namespace CCSPayrollBillingSystem.Scripts
                         }
 
                     }
-                    
-                }  
-               
+
+                }
+
             }
             return resultRows;
         }
@@ -1432,7 +1496,7 @@ namespace CCSPayrollBillingSystem.Scripts
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
                                     "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID "+
+                                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID " +
                                     "WHERE PROJ.ProjectID = @ProjectID";
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
@@ -1455,7 +1519,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
 
         }
-        
+
         public void ExecuteSqlBillingInsertQuery(DateTime billingStartDate, DateTime billingEndDate, decimal billingGrossTotal, decimal vat, int projectID, decimal billingNetTotal, Action onSuccess, Action onFailure)
         {
             string sqlInsert = "INSERT INTO tblBilling (BillingStartDate, BillingEndDate, BillingGrossTotal, ComputedTax, ProjectID, BillingNetTotal) VALUES (@BillingStartDate, @BillingEndDate, @BillingGrossTotal, @Vat, @ProjectID, @BillingNetTotal)";
