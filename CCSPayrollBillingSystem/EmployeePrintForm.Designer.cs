@@ -42,8 +42,8 @@ namespace CCSPayrollBillingSystem
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnPreview = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnPreview = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -56,6 +56,7 @@ namespace CCSPayrollBillingSystem
             this.rtbPayrollSlip.Size = new System.Drawing.Size(432, 426);
             this.rtbPayrollSlip.TabIndex = 4;
             this.rtbPayrollSlip.Text = "";
+            this.rtbPayrollSlip.WordWrap = false;
             // 
             // printPreviewDialog1
             // 
@@ -106,7 +107,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.cmbPrintFilter.FormattingEnabled = true;
             this.cmbPrintFilter.Items.AddRange(new object[] {
-            "Preview",
+            "Summary",
             "Single",
             "All"});
             this.cmbPrintFilter.Location = new System.Drawing.Point(77, 26);
@@ -178,20 +179,6 @@ namespace CCSPayrollBillingSystem
             this.label2.TabIndex = 3;
             this.label2.Text = "Name :";
             // 
-            // btnPreview
-            // 
-            this.btnPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreview.Image = global::CCSPayrollBillingSystem.Properties.Resources.preview;
-            this.btnPreview.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPreview.Location = new System.Drawing.Point(61, 382);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(128, 40);
-            this.btnPreview.TabIndex = 43;
-            this.btnPreview.Text = "PREVIEW";
-            this.btnPreview.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPreview.UseVisualStyleBackColor = true;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -205,6 +192,20 @@ namespace CCSPayrollBillingSystem
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreview.Image = global::CCSPayrollBillingSystem.Properties.Resources.preview;
+            this.btnPreview.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPreview.Location = new System.Drawing.Point(61, 382);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(128, 40);
+            this.btnPreview.TabIndex = 43;
+            this.btnPreview.Text = "SUMMARY";
+            this.btnPreview.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPreview.UseVisualStyleBackColor = true;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
             // 
             // btnPrint
             // 
