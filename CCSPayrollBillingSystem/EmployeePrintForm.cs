@@ -226,34 +226,44 @@ namespace CCSPayrollBillingSystem
             // Clear the existing content of paySlipWordDocumentList
             paySlip2WordDocumentList.Clear();
             payrolSlipText = string.Empty;
+            decimal empTotalDeduction = 0M;
+            int counter = 1;
+            decimal totalDeduction = 0;
 
             payrolSlipText += "CCS - Manpower & Allied Services \n";
             payrolSlipText += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
-            payrolSlipText += "Payroll Preview \n\n";
+            payrolSlipText += "Payroll Summary \n\n";
             payrolSlipText += "Payroll for the period: " + dateFrom + " to " + dateTo + "\n";
-            payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
-            payrolSlipText += "EMPLOYEE NAME                Hrs/Days                Amount  \n";
-            payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
+            payrolSlipText += "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+            payrolSlipText += "EMPLOYEE NAME                GROSS PAY                DEDUCTION                NET PAY                SIGNATURE   \n";
+            payrolSlipText += "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
             foreach (PaySlipData paySlipData in _paySlipDataListItems)
-            {
-                payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " \n";
-                foreach (var property in typeof(WorkDays).GetProperties())
-                {
-                    float temp = 0f;
-                    if (property.PropertyType == typeof(float) && (property.Name != "WorkDayID"))
-                    {
-                        temp = (float)property.GetValue(paySlipData.WorkDays);
-                        if (temp == 0)
-                        {
-                            continue;
-                        }
-                        payrolSlipText += property.Name + "\t: \t" + temp + "\t\t" + WorkDaysComputation.BillingRateState(property.Name, paySlipData.PayRate, temp).ToPhpCurrencyFormat() + "\n";
-                    }
-                }
-                payrolSlipText += "----------------------------------------------------------------------------------------------------\n";
-
+            {               
+                empTotalDeduction = 0M;
+                empTotalDeduction = paySlipData.PayrollData.SSSAmount + paySlipData.PayrollData.PhilHealthAmount + paySlipData.PayrollData.PagIbigAmount + paySlipData.PayrollData.PayrollOthers;
+                payrolSlipText += counter + ". " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " \t\t"+
+                    paySlipData.PayrollData.GrossSalary.ToPhpCurrencyFormat() +"\t"+ empTotalDeduction.ToPhpCurrencyFormat() +"\t\t"+ paySlipData.PayrollData.NetSalary.ToPhpCurrencyFormat() +
+                    "\t____________________ \n";
+                
+                counter++;
                 paySlip2WordDocumentList.Add(payrolSlipText);
+                totalDeduction += empTotalDeduction;
             }
+            payrolSlipText += "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+
+            decimal totalGrossSalary = _paySlipDataListItems.Sum(p => p.PayrollData.GrossSalary);
+            decimal totalNetSalary = _paySlipDataListItems.Sum(p => p.PayrollData.NetSalary);
+            
+            payrolSlipText += "\t\t\t"+ totalGrossSalary.ToPhpCurrencyFormat() + "\t" + totalDeduction.ToPhpCurrencyFormat() + "\t" + totalNetSalary.ToPhpCurrencyFormat() + "\n\n";
+
+            payrolSlipText += "\t\tApproved for Payment: \t\t\t Date of Payment: \n\n";
+            payrolSlipText += "\t\t____________________ \t\t\t ____________________ \n";
+            payrolSlipText += "\t\t      General Manager \t\t\t                      \n\n";
+            payrolSlipText += "I HEREBY CERTIFY that I have personally paid in cash to each employee whose \n";
+            payrolSlipText += "name appears in the above payroll the amount set opposite his/her name. \n";
+            payrolSlipText += "The total amount paid in this payroll is "+ totalNetSalary.ToPhpCurrencyFormat() + " \n";
+            payrolSlipText += "                                 \t\t\t ____________________ " + " \n";
+            payrolSlipText += "                                       \t\t\t\tPaymaster " + " \n";
 
             PaySlipDisplay(payrolSlipText);
         }
@@ -275,7 +285,7 @@ namespace CCSPayrollBillingSystem
                 {
                     for (int i = 0; i < paySlip2WordDocumentList.Count; i++)
                     {
-                        _range.Text = (paySlip2WordDocumentList[i].ToString());
+                        _range.Text = payrolSlipText;
                     }
                 }
                 else
