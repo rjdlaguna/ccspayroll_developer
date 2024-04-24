@@ -1,4 +1,4 @@
-﻿namespace CCSPayrollBillingSystem.Scripts
+﻿namespace CCSPayrollBillingSystem.Scripts.Data
 {
     [System.Serializable]
     public class PaySlipData

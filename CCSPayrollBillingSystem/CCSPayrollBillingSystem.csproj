@@ -121,7 +121,6 @@
     <Compile Include="EmployeePayroll.Designer.cs">
       <DependentUpon>EmployeePayroll.cs</DependentUpon>
     </Compile>
-    <Compile Include="EmployeePayrollData.cs" />
     <Compile Include="EmployeePayrollDate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +138,12 @@
     </Compile>
     <Compile Include="EmployeeProfileForm.Designer.cs">
       <DependentUpon>EmployeeProfileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeePrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeePrompt.designer.cs">
+      <DependentUpon>EmployeePrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="EmployeeUpdatePayroll.cs">
       <SubType>Form</SubType>
@@ -207,21 +212,30 @@
     <Compile Include="ProjectProfileList.Designer.cs">
       <DependentUpon>ProjectProfileList.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProjectPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectPrompt.designer.cs">
+      <DependentUpon>ProjectPrompt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\Employee.cs" />
-    <Compile Include="Scripts\PayrollData.cs" />
-    <Compile Include="Scripts\PaySlipData.cs" />
+    <Compile Include="Scripts\Data\Employee.cs" />
+    <Compile Include="Scripts\Data\PayrollData.cs" />
+    <Compile Include="Scripts\Data\PayrollSummary.cs" />
+    <Compile Include="Scripts\Data\PaySlipData.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseCommand.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseConnection.cs" />
     <Compile Include="Scripts\SQLUtilities\DatabaseReader.cs" />
+    <Compile Include="Scripts\SystemUtility\EmployeePayrollData.cs" />
     <Compile Include="Scripts\SystemUtility\EventManager.cs" />
     <Compile Include="Scripts\SystemUtility\FormVisibility.cs" />
     <Compile Include="Scripts\SQLUtilities\QueryProcessor.cs" />
+    <Compile Include="Scripts\SystemUtility\ProjectProcessor.cs" />
     <Compile Include="Scripts\SystemUtility\SessionManager.cs" />
     <Compile Include="Scripts\SystemUtility\StaticInstance.cs" />
     <Compile Include="Scripts\SystemUtility\SystemUtilities.cs" />
     <Compile Include="Scripts\ValidationHelper.cs" />
-    <Compile Include="Scripts\WorkDays.cs" />
+    <Compile Include="Scripts\Data\WorkDays.cs" />
     <Compile Include="UserManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,7 +248,7 @@
     <Compile Include="UsersPrompt.Designer.cs">
       <DependentUpon>UsersPrompt.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkDaysRate.cs" />
+    <Compile Include="Scripts\Data\WorkDaysRate.cs" />
     <EmbeddedResource Include="BillingForm.resx">
       <DependentUpon>BillingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeProfileForm.resx">
       <DependentUpon>EmployeeProfileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeePrompt.resx">
+      <DependentUpon>EmployeePrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeUpdatePayroll.resx">
       <DependentUpon>EmployeeUpdatePayroll.cs</DependentUpon>
@@ -294,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectProfileList.resx">
       <DependentUpon>ProjectProfileList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectPrompt.resx">
+      <DependentUpon>ProjectPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -410,6 +430,24 @@
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="MSTSCLib">
       <Guid>{8C11EFA1-92C3-11D1-BC1E-00C04FA31489}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -425,6 +463,15 @@
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>

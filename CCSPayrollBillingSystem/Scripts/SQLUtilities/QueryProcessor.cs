@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
+using CCSPayrollBillingSystem.Scripts.Data;
 
 namespace CCSPayrollBillingSystem.Scripts
 {
@@ -712,7 +713,7 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
-        //Insert tblJob
+        //Insert tblPayroll
         public void ExecuteSqlPayrollSaveQuery(PayrollData payrollData, WorkDays workDays, Action onSuccess, Action onFailure)
         {
             string sqlInsert = "INSERT INTO tblPayroll VALUES (@PayrollStartDate, @PayrollEndDate, @EmpID, @SSSAmount, @PagIbigAmount, @PhilHealthAmount, @GrossSalary, @NetSalary, @WorkDayID, @PayrollOthers)";
@@ -787,6 +788,67 @@ namespace CCSPayrollBillingSystem.Scripts
             }
 
         }
+        // Preparing a Payroll Summary
+
+        public List<Dictionary<string, object>> ExecuteSqlPayrollSummaryQuery(string dateFrom, string dateTo, int projectID)
+        {
+            List<Dictionary<string, object>> resultRows = new List<Dictionary<string, object>>();
+
+            string sqlPayrollSummary = string.Empty;
+            using (connection = new DatabaseConnection(connectionString))
+            {
+                sqlPayrollSummary =
+                    "SELECT DISTINCT " +
+                    "EMP.EmpID AS 'EmployeeID', " +
+                    "EMP.EmpFirstName AS 'FirstName', " +
+                    "EMP.EmpLastName AS 'LastName', " +
+                    "EMP.EmpMiddleName AS 'MiddleName', " +
+                    "PROJ.ProjectName AS 'ProjectName', " +
+                    "EPR.ProjectRate AS 'ProjectRate', " +
+                    "PAY.SSSAmount AS 'SSS'," +
+	                "PAY.PagIbigAmount AS 'PagIbig'," +
+	                "PAY.PhilHealthAmount AS 'PhilHealth'," +
+	                "PAY.PayrollOthers AS 'Others'," +
+	                "PAY.GrossSalary AS 'Gross'," +
+	                "PAY.NetSalary AS 'NET'" +
+
+                    "FROM tblEPR AS EPR " +
+                    "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
+                    "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
+                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollStartDate = @DateFrom AND PAY.PayrollEndDate = @DateTo " +
+                    "WHERE PROJ.ProjectID = @ProjectID";
+
+
+                using (command = new DatabaseCommand(sqlPayrollSummary, connection))
+                {
+                    command.AddParameter("@DateFrom", dateFrom);
+                    command.AddParameter("@DateTo", dateTo);
+                    command.AddParameter("@ProjectID", projectID);
+
+                    sqlDataReader = command.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            Dictionary<string, object> row = new Dictionary<string, object>();
+                            for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                            {
+                                string columnName = sqlDataReader.GetName(i);
+                                object columnValue = sqlDataReader[i];
+                                row[columnName] = columnValue;
+                            }
+                            resultRows.Add(row);
+                        }
+
+                    }
+
+                }
+
+            }
+            return resultRows;
+        }
+
 
         //Searching on tblPayroll
         public void ExecuteSqlPayrollSearchQuery(int empID, string from, string to, Action<PayrollData, WorkDays> onSuccess, Action onFailure)
@@ -956,7 +1018,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
-        public void ExecuteSqlPayrollAllSearchQuery(string from, string to, Action<List<PaySlipData>> onSuccess, Action onFailure)
+        public void ExecuteSqlPayrollAllSearchQuery(string from, string to, string project,Action<List<PaySlipData>> onSuccess, Action onFailure)
         {
             List<PaySlipData> dataItems = new List<PaySlipData>();
 
@@ -970,6 +1032,7 @@ namespace CCSPayrollBillingSystem.Scripts
                 using (command = new DatabaseCommand(sqlSearch, connection))
                 {
                     // Add parameters with appropriate data types
+                    command.AddParameter("@ProjectName", project);
                     command.AddParameter("@PayrollStartDate", Convert.ToDateTime(from).Date);
                     command.AddParameter("@PayrollEndDate", Convert.ToDateTime(to).Date);
                     sqlDataReader = command.ExecuteReader();
@@ -1577,11 +1640,12 @@ namespace CCSPayrollBillingSystem.Scripts
                     {
                         onFailure?.Invoke();
                     }
+                    
                     sqlConnection.Close();
-
                 }
             }
         }
+
         // Update Project Status
         public void ExecuteSqlProjectStatusUpdateQuery(int id, Action onSuccess, Action onFailure)
         {
