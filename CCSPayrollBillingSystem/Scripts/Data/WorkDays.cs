@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CCSPayrollBillingSystem.Scripts
+namespace CCSPayrollBillingSystem.Scripts.Data
 {
     [Serializable]
     public class WorkDays

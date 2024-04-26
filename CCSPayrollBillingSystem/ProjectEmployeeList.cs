@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using CCSPayrollBillingSystem.Scripts;
+using CCSPayrollBillingSystem.Scripts.Data;
 using CCSPayrollBillingSystem.Scripts.SystemUtility;
 
 namespace CCSPayrollBillingSystem

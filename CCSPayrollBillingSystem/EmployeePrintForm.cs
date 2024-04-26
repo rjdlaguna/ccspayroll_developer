@@ -7,6 +7,7 @@ using CCSPayrollBillingSystem.Scripts;
 using CCSPayrollBillingSystem.Scripts.SystemUtility;
 using Word = Microsoft.Office.Interop.Word;
 using System.Runtime.InteropServices;
+using CCSPayrollBillingSystem.Scripts.Data;
 
 namespace CCSPayrollBillingSystem
 {
@@ -23,17 +24,21 @@ namespace CCSPayrollBillingSystem
         private string dateFrom;
         private string dateTo;
 
+        private int projectID;
         private string projectName;
 
-        private int defaultColumn = 2;
+        private int defaultColumn = 2; 
 
         EmployeeListForPayroll employeeListForPayroll = new EmployeeListForPayroll();
         EmployeePayrollDate employeePayrollDate = new EmployeePayrollDate();
 
         PaySlipData _paySlipData = new PaySlipData();
-
+        
+        List<PayrollSummary> _payrollSummary = new List<PayrollSummary>();
         List<PaySlipData> _paySlipDataListItems = new List<PaySlipData>();
         List<string> paySlip2WordDocumentList = new List<string>();
+        List<Dictionary<string, object>> keyPayrollSummaryValues = new List<Dictionary<string, object>>();
+
         private ProjectProcessor projectProcessor;
         private IDictionary<int, string> projectInfo;
 
@@ -55,7 +60,10 @@ namespace CCSPayrollBillingSystem
             employeeListForPayroll.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
             employeePayrollDate.OnPayrollDateSelected += SetPayrollDates;
             projectInfo = projectProcessor.ProjectInfo;
-
+            
+            cmbProject.DataSource = new BindingSource(projectInfo, null);
+            cmbProject.DisplayMember = "Value";
+            cmbProject.ValueMember = "Key";
 
             ValidationHelper.SingleEnableControls(btnSearch, false);
             ValidationHelper.SingleEnableControls(btnGenerate, false);
@@ -64,8 +72,40 @@ namespace CCSPayrollBillingSystem
 
         private void SetPayrollDates(string from, string to)
         {
-            dateFrom = from;
+            dateFrom = from;   
             dateTo = to;
+        }
+
+        private void InitializePayrollSummary()
+        {
+            // Convert list of dictionaries to list of PayrollSummary objects
+            _payrollSummary = keyPayrollSummaryValues
+                .Select(row => new PayrollSummary
+                {
+                    EmpID = Convert.ToInt32(row["EmployeeID"]),
+                    FirstName = row["FirstName"].ToString(),
+                    LastName = row["LastName"].ToString(),
+                    MiddleName = row["MiddleName"].ToString(),
+                    ProjectName = row["ProjectName"].ToString(),
+                    PayRate = Convert.ToDecimal(row["ProjectRate"]),
+                    SSSAmount = Convert.ToDecimal(row["SSS"]),
+                    PagIbigAmount = Convert.ToDecimal(row["PagIbig"]),
+                    PhilHealthAmount = Convert.ToDecimal(row["PhilHealth"]),
+                    PayrollOthers = Convert.ToDecimal(row["Others"]),
+                    GrossSalary = Convert.ToDecimal(row["Gross"]),
+                    NetSalary = Convert.ToDecimal(row["NET"])
+                })
+                .ToList();
+        }
+
+        private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected item from the ComboBox
+            KeyValuePair<int, string> selectedProject = (KeyValuePair<int, string>)cmbProject.SelectedItem;
+
+            // Access the selected project ID and name
+            projectID = selectedProject.Key;
+            projectName = selectedProject.Value;
         }
 
         private void LoadSearchedEmployeeDetails(Employee emp)
@@ -129,7 +169,7 @@ namespace CCSPayrollBillingSystem
 
                 QueryProcessor payrollSearchAllProcessor = new QueryProcessor();
 
-                payrollSearchAllProcessor.ExecuteSqlPayrollAllSearchQuery(dateFrom, dateTo, (payslipListFromQuery) =>
+                payrollSearchAllProcessor.ExecuteSqlPayrollAllSearchQuery(dateFrom, dateTo, cmbProject.Text, (payslipListFromQuery) =>
                 {
                     _paySlipDataListItems = payslipListFromQuery;
                     GenerateAllPaySlip();
@@ -137,9 +177,6 @@ namespace CCSPayrollBillingSystem
                 {
                     MessageBox.Show("Problem loading All employee payroll information.");
                 });
-            }else if (cmbPrintFilter.SelectedItem.Equals("Preview"))
-            {
-                
             }
 
         }
@@ -184,6 +221,7 @@ namespace CCSPayrollBillingSystem
         {
             // Clear the existing content of paySlipWordDocumentList
             paySlip2WordDocumentList.Clear();
+            rtbPayrollSlip.Clear();
 
             foreach (PaySlipData paySlipData in _paySlipDataListItems)
             {
@@ -193,7 +231,7 @@ namespace CCSPayrollBillingSystem
                 payrolSlipText += "-----------------------------------------------------------------------------------\n";
                 payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
                 payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " " + paySlipData.Employee.EmpMiddleName + " \n";
-                payrolSlipText += "Project: "+ paySlipData.ProjectName + "\n\n";
+                payrolSlipText += "Project: " + paySlipData.ProjectName + "\n\n";
 
                 payrolSlipText += "Regular Days\t: \t" + paySlipData.WorkDays.RegularDays + "\t" + (WorkDaysComputation.RegularDays(paySlipData.PayRate, paySlipData.WorkDays.RegularDays).ToPhpCurrencyFormat()) + "\n";
                 payrolSlipText += "Regular OT\t: \t" + paySlipData.WorkDays.RegularDaysOT + "\t" + (WorkDaysComputation.RegularDaysOT(paySlipData.PayRate, paySlipData.WorkDays.RegularDaysOT).ToPhpCurrencyFormat()) + "\n";
@@ -225,7 +263,9 @@ namespace CCSPayrollBillingSystem
         {
             // Clear the existing content of paySlipWordDocumentList
             paySlip2WordDocumentList.Clear();
+            rtbPayrollSlip.Clear();
             payrolSlipText = string.Empty;
+
             decimal empTotalDeduction = 0M;
             int counter = 1;
             decimal totalDeduction = 0;
@@ -234,41 +274,42 @@ namespace CCSPayrollBillingSystem
             payrolSlipText += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
             payrolSlipText += "Payroll Summary \n\n";
             payrolSlipText += "Payroll for the period: " + dateFrom + " to " + dateTo + "\n";
+            payrolSlipText += "Project : " + cmbProject.Text + "\n";
             payrolSlipText += "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
             payrolSlipText += "EMPLOYEE NAME                GROSS PAY                DEDUCTION                NET PAY                SIGNATURE   \n";
             payrolSlipText += "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-            foreach (PaySlipData paySlipData in _paySlipDataListItems)
-            {               
+            foreach (PayrollSummary paySlipData in _payrollSummary)
+            {
                 empTotalDeduction = 0M;
-                empTotalDeduction = paySlipData.PayrollData.SSSAmount + paySlipData.PayrollData.PhilHealthAmount + paySlipData.PayrollData.PagIbigAmount + paySlipData.PayrollData.PayrollOthers;
-                payrolSlipText += counter + ". " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " \t\t"+
-                    paySlipData.PayrollData.GrossSalary.ToPhpCurrencyFormat() +"\t"+ empTotalDeduction.ToPhpCurrencyFormat() +"\t\t"+ paySlipData.PayrollData.NetSalary.ToPhpCurrencyFormat() +
+                empTotalDeduction = paySlipData.SSSAmount + paySlipData.PhilHealthAmount + paySlipData.PagIbigAmount + paySlipData.PayrollOthers;
+                payrolSlipText += counter + ". " + paySlipData.LastName + ", " + paySlipData.FirstName + " \t\t" +
+                    paySlipData.GrossSalary.ToPhpCurrencyFormat() + "\t" + empTotalDeduction.ToPhpCurrencyFormat() + "\t\t" + paySlipData.NetSalary.ToPhpCurrencyFormat() +
                     "\t____________________ \n";
-                
+
                 counter++;
                 paySlip2WordDocumentList.Add(payrolSlipText);
                 totalDeduction += empTotalDeduction;
             }
             payrolSlipText += "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
 
-            decimal totalGrossSalary = _paySlipDataListItems.Sum(p => p.PayrollData.GrossSalary);
-            decimal totalNetSalary = _paySlipDataListItems.Sum(p => p.PayrollData.NetSalary);
-            
-            payrolSlipText += "\t\t\t"+ totalGrossSalary.ToPhpCurrencyFormat() + "\t" + totalDeduction.ToPhpCurrencyFormat() + "\t" + totalNetSalary.ToPhpCurrencyFormat() + "\n\n";
+            decimal totalGrossSalary = _payrollSummary.Sum(p => p.GrossSalary);
+            decimal totalNetSalary = _payrollSummary.Sum(p => p.NetSalary);
+
+            payrolSlipText += "\t\t\t" + totalGrossSalary.ToPhpCurrencyFormat() + "\t" + totalDeduction.ToPhpCurrencyFormat() + "\t\t" + totalNetSalary.ToPhpCurrencyFormat() + "\n\n";
 
             payrolSlipText += "\t\tApproved for Payment: \t\t\t Date of Payment: \n\n";
             payrolSlipText += "\t\t____________________ \t\t\t ____________________ \n";
             payrolSlipText += "\t\t      General Manager \t\t\t                      \n\n";
             payrolSlipText += "I HEREBY CERTIFY that I have personally paid in cash to each employee whose \n";
             payrolSlipText += "name appears in the above payroll the amount set opposite his/her name. \n";
-            payrolSlipText += "The total amount paid in this payroll is "+ totalNetSalary.ToPhpCurrencyFormat() + " \n";
+            payrolSlipText += "The total amount paid in this payroll is " + totalNetSalary.ToPhpCurrencyFormat() + " \n";
             payrolSlipText += "                                 \t\t\t ____________________ " + " \n";
             payrolSlipText += "                                       \t\t\t\tPaymaster " + " \n";
 
             PaySlipDisplay(payrolSlipText);
         }
 
-        private void CreateWordDocument(bool isPreview)
+        private void CreateWordDocument(bool isSummary)
         {
             Word.Application _word = new Word.Application();
             Word.Document _document = _word.Documents.Add();
@@ -281,7 +322,7 @@ namespace CCSPayrollBillingSystem
             {
                 _document = _word.ActiveDocument;
 
-                if (isPreview)//checks if the to-be printed documents were Payroll Preview
+                if (isSummary)//checks if the to-be printed documents were Payroll Preview
                 {
                     for (int i = 0; i < paySlip2WordDocumentList.Count; i++)
                     {
@@ -390,8 +431,8 @@ namespace CCSPayrollBillingSystem
         {
             //printPreviewDialog1.Document = printDocument1;
             //printPreviewDialog1.ShowDialog();
-            bool isPreview = cmbPrintFilter.SelectedItem.Equals("Preview") ? true : false;
-            CreateWordDocument(isPreview);
+            bool isSummary = cmbPrintFilter.SelectedItem.Equals("Summary") ? true : false;
+            CreateWordDocument(isSummary);
         }
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
@@ -435,14 +476,12 @@ namespace CCSPayrollBillingSystem
 
             QueryProcessor payrollSearchAllProcessor = new QueryProcessor();
 
-            payrollSearchAllProcessor.ExecuteSqlPayrollAllSearchQuery(dateFrom, dateTo, (payslipListFromQuery) =>
-            {
-                _paySlipDataListItems = payslipListFromQuery;
-                GeneratePreview();
-            }, () =>
-            {
-                MessageBox.Show("Problem loading All employee payroll information.");
-            });
+            keyPayrollSummaryValues = payrollSearchAllProcessor.ExecuteSqlPayrollSummaryQuery(dateFrom, dateTo, projectID);
+            
+            InitializePayrollSummary(); //Initialize the SQL result to PayrollSummary data
+            GeneratePreview(); //Display it to the RichTextBox and reflect to the Word Document
         }
+
+        
     }
 }

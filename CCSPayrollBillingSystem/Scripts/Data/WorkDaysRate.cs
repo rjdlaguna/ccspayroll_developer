@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CCSPayrollBillingSystem.Scripts
+namespace CCSPayrollBillingSystem.Scripts.Data
 {
     public class WorkDaysRate
     {
