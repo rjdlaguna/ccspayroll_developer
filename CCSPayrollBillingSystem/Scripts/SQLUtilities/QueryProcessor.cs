@@ -472,7 +472,7 @@ namespace CCSPayrollBillingSystem.Scripts
             string converted_bdate = birthdate.ToString("yyyy-MM-dd");
             string converted_datehired = datehired.ToString("yyyy-MM-dd");
             string converted_endofcontract = endofcontract.ToString("yyyy-MM-dd");
-            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContractDate,JobID,EmpStatus) "
+            string sqlInsert = "INSERT INTO tblEmployee(EmpFirstName,EmpMiddleName,EmpLastName,EmpHomeAddress,EmpContactNo,EmpBirthDate,EmploymentDate,EndOfContract,JobID,EmpStatus) "
                                 + " VALUES('" + firstname + "','" + middlename + "','" + lastname + "','"
                                                                 + homeaddress + "', '" + contactno + "','" + converted_bdate + "','"
                                                                 + converted_datehired + "','" + converted_endofcontract + "','" + jobID + "','" +
@@ -503,13 +503,13 @@ namespace CCSPayrollBillingSystem.Scripts
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
-                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee WHERE EmpStatus = 1";
+                                        "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee WHERE EmpStatus = 1";
                 }
                 else
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
-                                        "EmploymentDate as 'Date Hired', EndOfContractDate as 'End of Contract' FROM tblEmployee " +
+                                        "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee " +
                                         "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
                     hasSearchValues = true;
                 }
@@ -585,7 +585,7 @@ namespace CCSPayrollBillingSystem.Scripts
 
                 string sqlSearch = "UPDATE tblEmployee SET EmpFirstName=@firstname,EmpMiddleName=@middlename,EmpLastName=@lastname," +
                                     "EmpHomeAddress=@homeaddress,EmpContactNo=@contactno,EmpBirthDate=@birthdate,EmploymentDate=@datehired," +
-                                    "EndOfContractDate=@endofcontract,JobID=@jobID WHERE EmpID = @id";
+                                    "EndOfContract=@endofcontract,JobID=@jobID WHERE EmpID = @id";
 
                 sqlConnection.Open();
                 using (SqlCommand command = new SqlCommand(sqlSearch, sqlConnection))
