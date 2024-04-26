@@ -88,6 +88,7 @@ namespace CCSPayrollBillingSystem
             this.cmbProjectList.Name = "cmbProjectList";
             this.cmbProjectList.Size = new System.Drawing.Size(177, 21);
             this.cmbProjectList.TabIndex = 4;
+            this.cmbProjectList.SelectedIndexChanged += new System.EventHandler(this.cmbProjectList_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -98,7 +99,6 @@ namespace CCSPayrollBillingSystem
             this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Assigned Project:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // groupBox1
             // 
@@ -136,8 +136,6 @@ namespace CCSPayrollBillingSystem
             this.dgPayrollEmpList.ReadOnly = true;
             this.dgPayrollEmpList.Size = new System.Drawing.Size(586, 175);
             this.dgPayrollEmpList.TabIndex = 7;
-            this.dgPayrollEmpList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPayrollEmpList_CellClick);
-            this.dgPayrollEmpList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPayrollEmpList_CellContentClick);
             // 
             // btnCancel
             // 
