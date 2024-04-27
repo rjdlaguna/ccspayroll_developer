@@ -33,6 +33,7 @@ namespace CCSPayrollBillingSystem
         private void EmployeeListForPayroll_Load(object sender, EventArgs e)
         {
 
+            projectInfo.Clear();
             LoadPayrollEmployeeINfo(empFname, empLname);
             projectInfo = _projectProcessor.ProjectInfo;
             projectInfo.Add(projectInfo.Count + 1, "ALL");
