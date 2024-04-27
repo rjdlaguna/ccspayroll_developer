@@ -35,6 +35,7 @@ namespace CCSPayrollBillingSystem
 
             LoadPayrollEmployeeINfo(empFname, empLname);
             projectInfo = _projectProcessor.ProjectInfo;
+            projectInfo.Add(projectInfo.Count + 1, "ALL");
 
             cmbProjectList.DataSource = new BindingSource(projectInfo, null);
             cmbProjectList.DisplayMember = "Value";
@@ -100,12 +101,12 @@ namespace CCSPayrollBillingSystem
             projName = cmbProjectList.Text;
             projId = projectInfo.FirstOrDefault(x => x.Value == projName).Key;
             dgPayrollEmpList.DataSource = null;
-            LoadProjectEmployees(projId);
+            LoadProjectEmployees(projId,projName);
         }
 
-        private void LoadProjectEmployees(int id)
+        private void LoadProjectEmployees(int id, string pName)
         {
-            projectProcessor.ExecuteSQLLoadProjectEmployeesQuery(id, () =>
+            projectProcessor.ExecuteSQLLoadProjectEmployeesQuery(id, pName,() =>
             {
                 dgPayrollEmpList.DataSource = projectProcessor.GetSqlReaderData();
                 Console.WriteLine("Loading Employee for the Project successful.");

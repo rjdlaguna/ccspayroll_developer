@@ -1436,16 +1436,24 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
 
-        public void ExecuteSQLLoadProjectEmployeesQuery(int projId, Action onSuccess, Action onFailure)
+        public void ExecuteSQLLoadProjectEmployeesQuery(int projId, string pName, Action onSuccess, Action onFailure)
         {
             using (connection = new DatabaseConnection(connectionString))
             {
                 string sqlEmpProjectDataSearch = "";
 
-                sqlEmpProjectDataSearch = "SELECT E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate', " +
-                                    "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
-                                    "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @projId";
-
+                if (pName == "ALL")
+                {
+                    sqlEmpProjectDataSearch = "SELECT E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate'," +
+                                        "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
+                                        "FULL JOIN tblEPR EP ON EP.EmpID = E.EmpID";
+                }
+                else
+                {
+                    sqlEmpProjectDataSearch = "SELECT E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate', " +
+                                        "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
+                                        "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @projId";
+                }
                 using (command = new DatabaseCommand(sqlEmpProjectDataSearch, connection))
                 {
 

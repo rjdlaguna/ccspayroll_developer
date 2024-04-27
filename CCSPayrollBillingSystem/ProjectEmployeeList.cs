@@ -133,9 +133,9 @@ namespace CCSPayrollBillingSystem
             cmbProject.Text = "Select";
         }
 
-        private void LoadProjectEmployees(int id)
+        private void LoadProjectEmployees(int id, string pName)
         {
-            projectProcessor.ExecuteSQLLoadProjectEmployeesQuery(id, () =>
+            projectProcessor.ExecuteSQLLoadProjectEmployeesQuery(id, pName, () =>
             {
                 dgEmployeeInProjectList.DataSource = projectProcessor.GetSqlReaderData();
                 Console.WriteLine("Loading Employee for the Project successful.");
@@ -150,7 +150,7 @@ namespace CCSPayrollBillingSystem
             projName = cmbProject.Text;
             projId = projectInfo.FirstOrDefault(x => x.Value == projName).Key;
             dgEmployeeInProjectList.DataSource = null;
-            LoadProjectEmployees(projId);
+            LoadProjectEmployees(projId, projName);
         }
 
         private void btnSearchEmployee_Click(object sender, EventArgs e)
