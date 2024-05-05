@@ -32,8 +32,10 @@ namespace CCSPayrollBillingSystem
 
         private void EmployeeListForPayroll_Load(object sender, EventArgs e)
         {
-
-            projectInfo.Clear();
+            if(projectInfo != null)
+            {
+                projectInfo.Clear();
+            }
             LoadPayrollEmployeeINfo(empFname, empLname);
             projectInfo = _projectProcessor.ProjectInfo;
             projectInfo.Add(projectInfo.Count + 1, "ALL");
@@ -78,10 +80,11 @@ namespace CCSPayrollBillingSystem
         private void btnLoad_Click(object sender, EventArgs e)
         {
             Employee SelectedEmployee = new Employee();
+            var empRate = dgPayrollEmpList.SelectedRows[0].Cells[3].Value;
 
-            SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString();
-            SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
-            SelectedEmployee.EmpRatePayroll = Convert.ToDecimal(dgPayrollEmpList.SelectedRows[0].Cells[3].Value);
+            SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
+            SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString();
+            SelectedEmployee.EmpRatePayroll = empRate != DBNull.Value ? Convert.ToDecimal(empRate) : 0;
             SelectedEmployee.EmpRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString();
 
             OnEmployeeSearchedValues?.Invoke(SelectedEmployee);

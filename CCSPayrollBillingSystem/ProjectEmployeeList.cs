@@ -37,11 +37,15 @@ namespace CCSPayrollBillingSystem
         {
             projectInfo = _projectProcessor.ProjectInfo;
 
+            var projectValuePair = projectInfo.ToList();
+            var projIndex = projectValuePair.FindIndex(x => x.Value == projName);
+
             cmbProject.DataSource = new BindingSource(projectInfo, null);
             cmbProject.DisplayMember = "Value";
             cmbProject.ValueMember = "Key";
 
             employeeList.OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
+            cmbProject.SelectedIndex = projIndex;
 
         }
 
@@ -88,12 +92,14 @@ namespace CCSPayrollBillingSystem
                         projectProcessor.ExecuteSQLAddEmployeeToProject(empId, projId, projRate, () =>
                         {
                             MessageBox.Show("Employee successfully added in project.");
-                            projectProcessor.ExecuteSQLListProjectEmployees(projId, () =>
+                            
+                            projectProcessor.ExecuteSQLLoadProjectEmployeesQuery(projId, projName, () =>
                             {
-                                Console.WriteLine("Listing employees for the project: " + projId);
+                                dgEmployeeInProjectList.DataSource = projectProcessor.GetSqlReaderData();
+                                Console.WriteLine("Loading Employee for the Project successful.");
                             }, () =>
                             {
-                                Console.WriteLine("Problem listing employees for the project: " + projId);
+                                Console.WriteLine("Problem loading employee for the project.");
                             });
                             ResetAddEmployeeToProjectTextFields();
                         }, () =>
