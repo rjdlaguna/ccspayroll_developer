@@ -165,7 +165,7 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
         //Searching Records from tblJob
-        public void ExecuteSqlSearchQuery(string jobTitle, Action<string, string, string, string> onSuccess, Action onFailure)
+        public void ExecuteSqlSearchQuery(string jobTitle, Action<int,string, string, string, string> onSuccess, Action onFailure)
         {
             using (connection = new DatabaseConnection(connectionString))
             {
@@ -179,7 +179,8 @@ namespace CCSPayrollBillingSystem.Scripts
                     {
                         if (dataReader.Read())
                         {
-                            onSuccess?.Invoke(dataReader.GetValue(1).ToString(), dataReader.GetValue(2).ToString(), dataReader.GetValue(3).ToString(), dataReader.GetValue(4).ToString());
+                            var tempID = int.TryParse(dataReader.GetValue(0).ToString(), out int resultID);
+                            onSuccess?.Invoke(resultID, dataReader.GetValue(1).ToString(), dataReader.GetValue(2).ToString(), dataReader.GetValue(3).ToString(), dataReader.GetValue(4).ToString());
                         }
                         else
                         {
@@ -201,10 +202,14 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
         //Updating tblJob
-        public void ExecuteSqlUpdateQuery(string jobTitle, string jobDescription, string jobRank, decimal jobPayRate)
+        public void ExecuteSqlUpdateQuery(int jobID, string jobTitle, string jobDescription, string jobRank, decimal jobPayRate)
         {
-
-            string sqlUpdate = "UPDATE tblJob SET JobDescription='" + jobDescription + "', Rank='" + jobRank + "', PayRate='" + jobPayRate + "' WHERE JobTitle='" + jobTitle + "'";
+            string sqlUpdate = "UPDATE tblJob SET " +
+                "JobTitle='" + jobTitle + "', " +
+                "JobDescription='" + jobDescription + "', " +
+                "Rank='" + jobRank + "', " +
+                "PayRate='" + jobPayRate + "' " +
+                "WHERE JobID='" + jobID +"'";
 
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlUpdate, connection);

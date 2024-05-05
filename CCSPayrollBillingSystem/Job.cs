@@ -15,8 +15,9 @@ namespace CCSPayrollBillingSystem
             InitializeComponent();
         }
 
-        public void SetUIs(string jobTitle, string jobDescription, string jobRank, decimal jobPayRate)
+        public void SetUIs(int jobID, string jobTitle, string jobDescription, string jobRank, decimal jobPayRate)
         {
+            txtJobID.Text = jobID.ToString();
             txtJobTitle.Text = jobTitle;
             txtJobDescription.Text = jobDescription;
             comboRank.Text = jobRank;
@@ -52,9 +53,8 @@ namespace CCSPayrollBillingSystem
                     jobProcessor.ExecuteSqlSaveQuery(jobTitle, jobDescription, jobRank, jobPayRate);
                     MessageBox.Show(" Record Successfully Inserted.");
 
-                    FormMain formMain = new FormMain();
                     this.Close();
-                    formMain.Show();
+
                 }, () =>
                 {
                     // Failed Job action
@@ -75,15 +75,13 @@ namespace CCSPayrollBillingSystem
             if (ValidateInput())
             {
                 QueryProcessor jobProcessor = new QueryProcessor();
-                jobProcessor.ExecuteSqlSearchQuery(jobTitle, (jobTitle, jobDescription, jobRank, jobPayRate) =>
+                jobProcessor.ExecuteSqlSearchQuery(jobTitle, (jobID, jobTitle, jobDescription, jobRank, jobPayRate) =>
                 {
                     // Successful Job action
-                    jobProcessor.ExecuteSqlUpdateQuery(jobTitle, jobDescription, jobRank, decimal.Parse(jobPayRate));
+                    jobProcessor.ExecuteSqlUpdateQuery(jobID, txtJobTitle.Text, txtJobDescription.Text, comboRank.Text, decimal.Parse(txtPayRate.Text));
                     MessageBox.Show(" Record Successfully Updated.");
 
-                    FormMain formMain = new FormMain();
                     this.Close();
-                    formMain.Show();
                 }, () =>
                 {
                     // Failed Job action
@@ -103,15 +101,14 @@ namespace CCSPayrollBillingSystem
             if (jobTitle != string.Empty)
             {
                 QueryProcessor jobProcessor = new QueryProcessor();
-                jobProcessor.ExecuteSqlSearchQuery(jobTitle, (jobTitle, jobDescription, jobRank, jobPayRate) =>
+                jobProcessor.ExecuteSqlSearchQuery(jobTitle, (jobID, jobTitle, jobDescription, jobRank, jobPayRate) =>
                 {
                     // Successful Job action
-                    SetUIs(jobTitle, jobDescription, jobRank, decimal.Parse(jobPayRate));
+                    SetUIs(jobID, jobTitle, jobDescription, jobRank, decimal.Parse(jobPayRate));
                     MessageBox.Show(" Record Successfully Searched.");
+                    ValidationHelper.SingleEnableControls(btnUpdate, true);
+                    ValidationHelper.SingleEnableControls(btnSave, false);
 
-                    //FormMain formMain = new FormMain();
-                    //this.Close();
-                    //formMain.Show();
                 }, () =>
                 {
                     // Failed Job action
@@ -124,16 +121,13 @@ namespace CCSPayrollBillingSystem
             }
         }
 
-        private bool ValidateInput()
-        {
-            return !string.IsNullOrEmpty(txtJobTitle.Text) && !string.IsNullOrEmpty(comboRank.Text) && !string.IsNullOrEmpty(txtPayRate.Text);
-        }
+        private bool ValidateInput() => !string.IsNullOrEmpty(txtJobTitle.Text) && !string.IsNullOrEmpty(comboRank.Text) && !string.IsNullOrEmpty(txtPayRate.Text);
+        
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void Job_Load(object sender, EventArgs e)
         {
-            FormMain formMain = new FormMain();
-            this.Close();
-            formMain.Show();
+            ValidationHelper.SingleEnableControls(btnUpdate, false);
         }
     }
 }

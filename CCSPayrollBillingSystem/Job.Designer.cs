@@ -213,6 +213,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.label1);
             this.Name = "Job";
             this.Text = "Job";
+            this.Load += new System.EventHandler(this.Job_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
