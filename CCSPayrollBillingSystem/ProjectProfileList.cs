@@ -114,6 +114,7 @@ namespace CCSPayrollBillingSystem
         private void btnAddEmpToProject_Click(object sender, EventArgs e)
         {
             ProjectEmployeeList frmProjectEmployeeList = new ProjectEmployeeList();
+            frmProjectEmployeeList.projName = txteditProjectName.Text;
             frmProjectEmployeeList.Show();
         }
 

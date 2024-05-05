@@ -1325,7 +1325,7 @@ namespace CCSPayrollBillingSystem.Scripts
                 if (!String.IsNullOrEmpty(fname) || !String.IsNullOrEmpty(lname))
                 {
                     sqlEmpDataSearch = "SELECT EmpID FROM tblEmployee " +
-                                        "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
+                                        "WHERE EmpFirstName = @firstname AND EmpLastName = @lastname AND EmpStatus = 1";
                 }
 
                 using (command = new DatabaseCommand(sqlEmpDataSearch, connection))
