@@ -19,12 +19,7 @@ namespace CCSPayrollBillingSystem
             txtUsernameView.Text = user;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            FormMain formMain = new FormMain();
-            this.Close();
-            formMain.Show();
-        }
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {

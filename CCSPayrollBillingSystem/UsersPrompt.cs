@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CCSPayrollBillingSystem.Scripts;
+using System;
 using System.Windows.Forms;
 
 namespace CCSPayrollBillingSystem
@@ -24,7 +25,7 @@ namespace CCSPayrollBillingSystem
         {
             UserManagement userManagement = new UserManagement();
             this.Close();
-            userManagement.Show();
+            userManagement.InitializeFormPositionConfig();
         }
     }
 }

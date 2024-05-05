@@ -39,35 +39,23 @@ namespace CCSPayrollBillingSystem.Scripts
         }
     }
 
-    public class ValidationHelper
+    public static class FormSetter
     {
-        public static bool IfNullOrEmpty(Control control)
+        public static void InitializeFormPositionConfig(this Form form)
         {
-            if (control is TextBox textBox)
-            {
-                return string.IsNullOrEmpty(textBox.Text);
-            }
-
-            if (control is ComboBox cmb)
-            {
-                return string.IsNullOrEmpty(cmb.Text);
-            }
-            return true;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.ShowDialog();
         }
+    }
 
-        public static void SingleEnableControls(Control control, bool status)
-        {
-            control.Enabled = status;
-        }
+    public static class DBValueValidator
+    {
+        public static object ObjectValidation(this object obj) => (obj != DBNull.Value) ? obj : 0f;
 
-        public static void ResetDefaultValueTextBoxControls(Control control)
-        {
-            if (control is TextBox textBox)
-            {
-                textBox.Text = "0.0";
-            }
-        }
+    }
 
+    public class ControlsManager
+    {
         public static void ClearControls(Control control)
         {
             foreach (Control controlItem in control.Controls)
@@ -89,26 +77,26 @@ namespace CCSPayrollBillingSystem.Scripts
             }
         }
 
-        public static void ResetControls(Control control)
+        public static void ClearGBControlsInTextBox(Control.ControlCollection controls)
         {
-            foreach (Control controlItem in control.Controls)
+            foreach (Control controlItem in controls)
             {
                 if (controlItem is TextBox)
                 {
-                    ((TextBox)controlItem).Text = "0";
-                }
-                if (controlItem is GroupBox)
-                {
-                    foreach (Control item in controlItem.Controls)
-                    {
-                        if (item is TextBox)
-                        {
-                            ((TextBox)item).Text = "0";
-                        }
-                    }
+                    ((TextBox)controlItem).Clear();
                 }
             }
-            
+        }
+
+        public static void EnableButtonControlsInGroupBox(Control.ControlCollection controls, bool status)
+        {
+            foreach (Control controlItem in controls)
+            {
+                if (controlItem is Button)
+                {
+                    controlItem.Enabled = status;
+                }
+            }
         }
 
         public static void EnableControls(Control control, bool status)
@@ -135,8 +123,10 @@ namespace CCSPayrollBillingSystem.Scripts
                     }
                 }
             }
-            
+
         }
+
+        
 
         public static void EnableGroupBoxControls(Control control, bool status)
         {
@@ -153,6 +143,58 @@ namespace CCSPayrollBillingSystem.Scripts
             }
 
         }
+
+        public static void ResetControls(Control control)
+        {
+            foreach (Control controlItem in control.Controls)
+            {
+                if (controlItem is TextBox)
+                {
+                    ((TextBox)controlItem).Text = "0";
+                }
+                if (controlItem is GroupBox)
+                {
+                    foreach (Control item in controlItem.Controls)
+                    {
+                        if (item is TextBox)
+                        {
+                            ((TextBox)item).Text = "0";
+                        }
+                    }
+                }
+            }
+
+        }
+
+        public static void ResetDefaultValueTextBoxControls(Control control)
+        {
+            if (control is TextBox textBox)
+            {
+                textBox.Text = "0.0";
+            }
+        }
+
+        public static void SingleEnableControls(Control control, bool status)
+        {
+            control.Enabled = status;
+        }
     }
-    
+
+    public class ValidationHelper : ControlsManager
+    {
+        public static bool IfNullOrEmpty(Control control)
+        {
+            if (control is TextBox textBox)
+            {
+                return string.IsNullOrEmpty(textBox.Text);
+            }
+
+            if (control is ComboBox cmb)
+            {
+                return string.IsNullOrEmpty(cmb.Text);
+            }
+            return true;
+        }
+    }
+
 }
