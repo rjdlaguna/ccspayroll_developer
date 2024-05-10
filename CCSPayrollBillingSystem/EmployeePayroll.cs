@@ -72,7 +72,7 @@ namespace CCSPayrollBillingSystem
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            employeeListForPayroll.ShowDialog();
+            employeeListForPayroll.InitializeFormPositionConfig();
         }
 
         private void LoadSearchedEmployeeDetails(Employee emp)
@@ -220,6 +220,9 @@ namespace CCSPayrollBillingSystem
                 ValidationHelper.ResetDefaultValueTextBoxControls(txtPagIbig);
                 ValidationHelper.ResetDefaultValueTextBoxControls(txtPhilHealth);
                 ValidationHelper.ResetDefaultValueTextBoxControls(txtPayrollOthers);
+
+                ControlsManager.SingleEnableControls(btnSave, false);
+                ControlsManager.SingleEnableControls(btnCalculate, false);
             }
 
             
