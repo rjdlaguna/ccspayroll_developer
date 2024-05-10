@@ -71,6 +71,9 @@ namespace CCSPayrollBillingSystem
                 LoadBillingWorkdaysOnGroupbox(currentID);
             }, () =>
             {
+                ControlsManager.ClearGBControlsInTextBox(gbWorkDays.Controls);
+                ControlsManager.EnableButtonControlsInGroupBox(gbWorkDays.Controls, false);
+                SetDefaultWorkDaysRate();
                 MessageBox.Show("Problem listing all employees in the Project.");
             });
 
@@ -110,31 +113,36 @@ namespace CCSPayrollBillingSystem
 
         private void LoadBillingWorkdaysOnGroupbox(int rowID)
         {
-            //Load the employees in the textboxes under the groupbox Employee Billing
-            DataGridViewRow dataGridViewRow = dgvEmployeeList4Billing.Rows[rowID];
+            ControlsManager.EnableButtonControlsInGroupBox(gbWorkDays.Controls, true);
+            if (dgvEmployeeList4Billing.RowCount > 0)
+            {
+                //Load the employees in the textboxes under the groupbox Employee Billing
+                DataGridViewRow dataGridViewRow = dgvEmployeeList4Billing.Rows[rowID];
 
-            txtFullName.Text = dataGridViewRow.Cells[2].Value.ToString()+", "+ dataGridViewRow.Cells[1].Value.ToString();
-            txtRegDays.Text = dataGridViewRow.Cells[5].Value.ToString();
-            txtRegOT.Text = dataGridViewRow.Cells[7].Value.ToString();
-            txtSplHolidays.Text = dataGridViewRow.Cells[9].Value.ToString();
-            txtSplHolidaysOT.Text = dataGridViewRow.Cells[11].Value.ToString();
-            txtRegHolidays.Text = dataGridViewRow.Cells[13].Value.ToString();
-            txtRegHolidaysOT.Text = dataGridViewRow.Cells[15].Value.ToString();
-            txtRegHolRestDay.Text = dataGridViewRow.Cells[17].Value.ToString();
-            txtCOLA.Text = dataGridViewRow.Cells[19].Value.ToString();
-            txtPDA.Text = dataGridViewRow.Cells[21].Value.ToString();
-            txtOthers.Text = dataGridViewRow.Cells[23].Value.ToString();
+                txtFullName.Text = dataGridViewRow.Cells[2].Value.ToString() + ", " + dataGridViewRow.Cells[1].Value.ToString();
+                txtRegDays.Text = dataGridViewRow.Cells[5].Value.ToString();
+                txtRegOT.Text = dataGridViewRow.Cells[7].Value.ToString();
+                txtSplHolidays.Text = dataGridViewRow.Cells[9].Value.ToString();
+                txtSplHolidaysOT.Text = dataGridViewRow.Cells[11].Value.ToString();
+                txtRegHolidays.Text = dataGridViewRow.Cells[13].Value.ToString();
+                txtRegHolidaysOT.Text = dataGridViewRow.Cells[15].Value.ToString();
+                txtRegHolRestDay.Text = dataGridViewRow.Cells[17].Value.ToString();
+                txtCOLA.Text = dataGridViewRow.Cells[19].Value.ToString();
+                txtPDA.Text = dataGridViewRow.Cells[21].Value.ToString();
+                txtOthers.Text = dataGridViewRow.Cells[23].Value.ToString();
 
-            txtRegDaysRate.Text = ObjectValidation(dataGridViewRow.Cells[6].Value).ToString();
-            txtRegOTRate.Text = ObjectValidation(dataGridViewRow.Cells[8].Value).ToString();
-            txtSplHolidaysRate.Text = ObjectValidation(dataGridViewRow.Cells[10].Value).ToString();
-            txtSplHolidaysOTRate.Text = ObjectValidation(dataGridViewRow.Cells[12].Value).ToString();
-            txtRegHolidaysRate.Text = ObjectValidation(dataGridViewRow.Cells[14].Value).ToString();
-            txtRegHolidaysOTRate.Text = ObjectValidation(dataGridViewRow.Cells[16].Value).ToString();
-            txtRegHolRestDayRate.Text = ObjectValidation(dataGridViewRow.Cells[18].Value).ToString();
-            txtCOLARate.Text = txtCOLA.Text;
-            txtPDARate.Text = txtPDA.Text;
-            txtOthersRate.Text = txtOthers.Text;
+                txtRegDaysRate.Text = (dataGridViewRow.Cells[6].Value).ObjectValidation().ToString();
+                txtRegOTRate.Text = (dataGridViewRow.Cells[8].Value).ObjectValidation().ToString();
+                txtSplHolidaysRate.Text = (dataGridViewRow.Cells[10].Value).ObjectValidation().ToString();
+                txtSplHolidaysOTRate.Text = (dataGridViewRow.Cells[12].Value).ObjectValidation().ToString();
+                txtRegHolidaysRate.Text = (dataGridViewRow.Cells[14].Value).ObjectValidation().ToString();
+                txtRegHolidaysOTRate.Text = (dataGridViewRow.Cells[16].Value).ObjectValidation().ToString();
+                txtRegHolRestDayRate.Text = (dataGridViewRow.Cells[18].Value).ObjectValidation().ToString();
+                txtCOLARate.Text = txtCOLA.Text;
+                txtPDARate.Text = txtPDA.Text;
+                txtOthersRate.Text = txtOthers.Text;
+            }
+            
         }
 
         private void SetInputWorkDaysRate(int rowID)
@@ -161,7 +169,7 @@ namespace CCSPayrollBillingSystem
 
         private void SetDefaultWorkDaysRate()
         {
-            //txtRegDaysRate.Text = Constants.DEFAULT_VALUE;
+            txtRegDaysRate.Text = Constants.DEFAULT_VALUE;
             txtRegOTRate.Text = Constants.DEFAULT_VALUE;
             txtSplHolidaysRate.Text = Constants.DEFAULT_VALUE;
             txtSplHolidaysOTRate.Text = Constants.DEFAULT_VALUE;
@@ -230,12 +238,6 @@ namespace CCSPayrollBillingSystem
             }
         }
 
-        private object ObjectValidation(object obj)
-        {//DBNull Validation
-            var _obj = (obj != DBNull.Value) ? obj : 0f;
-            return _obj;
-        }
-
         private void BillingAttributeListProcessing()
         {
             Dictionary<string, object> newEmployeeBillingData = null;
@@ -259,7 +261,7 @@ namespace CCSPayrollBillingSystem
                 for (int index = 5; index < dgvRow.Cells.Count; index++)
                 {
                     var columnName = dgvEmployeeList4Billing.Columns[index].HeaderText;
-                    var columnValue = ObjectValidation(dgvRow.Cells[index].Value);
+                    var columnValue = (dgvRow.Cells[index].Value).ObjectValidation();
                     //var value = Convert.ToInt32(dgvRow.Cells[index].Value.ToString());
                     if (dgvRow.Cells[index].Value is null)
                     {
@@ -297,7 +299,7 @@ namespace CCSPayrollBillingSystem
                     decimal amount = 0;
                     string key = dgvEmployeeList4Billing.Columns[i].HeaderText;
                     object value = dgvRow.Cells[i].Value;
-                    decimal rate = Convert.ToDecimal(ObjectValidation(value));
+                    decimal rate = Convert.ToDecimal((value).ObjectValidation());
                     if (rate == 0)
                     {
                         grandTotalAmount = total + regDaysAmount;

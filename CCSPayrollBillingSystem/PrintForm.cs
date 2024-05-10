@@ -14,7 +14,7 @@ namespace CCSPayrollBillingSystem
         private void btnEmployeePrint_Click(object sender, EventArgs e)
         {
             EmployeePrintForm employeePrintForm = new EmployeePrintForm();
-            employeePrintForm.Show();
+            employeePrintForm.InitializeFormPositionConfig();
         }
 
         private void btnUserPromptUser2_Click(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace CCSPayrollBillingSystem
             if(projectNum > 0)
             {
                 frmBilling frmBilling = new frmBilling();
-                frmBilling.Show();
+                frmBilling.InitializeFormPositionConfig();
             }
             else
             {

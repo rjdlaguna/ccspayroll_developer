@@ -29,7 +29,7 @@ namespace CCSPayrollBillingSystem
             jobTitle = txtJobTitle.Text;
             jobDescription = txtJobDescription.Text;
             jobRank = comboRank.Text;
-            jobPayRate = decimal.Parse(txtPayRate.Text);
+            jobPayRate = (txtPayRate.Text == string.Empty) ? 0 : decimal.Parse(txtPayRate.Text);
         }
 
         public void ClearUIs()
