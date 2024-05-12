@@ -31,7 +31,8 @@ namespace CCSPayrollBillingSystem
         private void btnEdit_Click(object sender, EventArgs e)
         {
             LoadSelectedEmployeeToTextFields();
-            btnUpdate.Enabled = true;
+            ControlsManager.SingleEnableControls(btnUpdate, true);
+            ControlsManager.SingleEnableControls(btnEdit, false);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -73,9 +74,9 @@ namespace CCSPayrollBillingSystem
 
             ExtractJobTitle(jobList);
             EnableDisableTextFields(false);
-            btnEdit.Enabled = false;
-            btnDelete.Enabled = false;
-            btnUpdate.Enabled = false;
+
+            ControlsManager.SingleEnableControls(btnUpdate, false);
+            ControlsManager.SingleEnableControls(btnDelete, false);
 
         }
 
@@ -107,19 +108,12 @@ namespace CCSPayrollBillingSystem
         private void dgEmployeesList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             LoadSelectedEmployeeToTextFields();
-            btnEdit.Enabled = true;
-            btnUpdate.Enabled = true;
-            btnDelete.Enabled = false;
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void dgEmployeesList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
         private void LoadSelectedEmployeeToTextFields()
         {
             empId = Convert.ToInt32(dgEmployeesList.SelectedRows[0].Cells[0].Value.ToString());
@@ -244,7 +238,7 @@ namespace CCSPayrollBillingSystem
                 {
                     Console.WriteLine("Employee Status successfully updated.");
                     ViewEmployees(empFirstName,empLastName);
-                }, () =>
+                }, () => 
                 {
                     Console.WriteLine("Problem updating Employee Status.");
                 });

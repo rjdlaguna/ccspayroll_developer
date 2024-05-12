@@ -29,8 +29,7 @@ namespace CCSPayrollBillingSystem
             {
                 this.Close();
                 frmEmployeePayroll employeePayroll = new frmEmployeePayroll();
-                employeePayroll.StartPosition = FormStartPosition.CenterScreen;
-                employeePayroll.ShowDialog();
+                employeePayroll.InitializeFormPositionConfig();
             }
             
         }
@@ -53,8 +52,7 @@ namespace CCSPayrollBillingSystem
             {
                 this.Close();
                 EmployeeUpdatePayroll employeeUpdatePayroll = new EmployeeUpdatePayroll();
-                employeeUpdatePayroll.StartPosition = FormStartPosition.CenterScreen;
-                employeeUpdatePayroll.ShowDialog();
+                employeeUpdatePayroll.InitializeFormPositionConfig();
             }
             
         }

@@ -30,6 +30,9 @@ namespace CCSPayrollBillingSystem
             LoadProjectProfileInfo(projectName);
             EnableDisableProjectTextFields(false);
             btnAddEmpToProject.Enabled = false;
+
+            ControlsManager.SingleEnableControls(btnUpdate, false);
+            ControlsManager.SingleEnableControls(btnDelete, false);
         }
 
         private void LoadProjectProfileInfo(string projname)
@@ -53,6 +56,9 @@ namespace CCSPayrollBillingSystem
         {
             LoadSelectedProjectToTextFields();
             btnAddEmpToProject.Enabled = true;
+
+            ControlsManager.SingleEnableControls(btnEdit, false);
+            ControlsManager.SingleEnableControls(btnUpdate, true);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)

@@ -33,6 +33,7 @@ namespace CCSPayrollBillingSystem
             this.txtsearchprojectname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@ namespace CCSPayrollBillingSystem
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgProjectProfileList)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,6 +63,7 @@ namespace CCSPayrollBillingSystem
             this.dgProjectProfileList.Location = new System.Drawing.Point(345, 68);
             this.dgProjectProfileList.Name = "dgProjectProfileList";
             this.dgProjectProfileList.ReadOnly = true;
+            this.dgProjectProfileList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgProjectProfileList.Size = new System.Drawing.Size(581, 366);
             this.dgProjectProfileList.TabIndex = 0;
             this.dgProjectProfileList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProjectProfileList_CellClick);
@@ -98,6 +99,19 @@ namespace CCSPayrollBillingSystem
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SEARCH PROJECT";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
+            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Location = new System.Drawing.Point(323, 9);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(31, 30);
+            this.btnSearch.TabIndex = 40;
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // label2
             // 
@@ -250,7 +264,7 @@ namespace CCSPayrollBillingSystem
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDelete.Location = new System.Drawing.Point(950, 268);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(92, 40);
+            this.btnDelete.Size = new System.Drawing.Size(100, 40);
             this.btnDelete.TabIndex = 43;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -292,25 +306,12 @@ namespace CCSPayrollBillingSystem
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(950, 328);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(92, 40);
+            this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 26;
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Image = global::CCSPayrollBillingSystem.Properties.Resources.loupe2;
-            this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Location = new System.Drawing.Point(323, 9);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(31, 30);
-            this.btnSearch.TabIndex = 40;
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // ProjectProfileList
             // 

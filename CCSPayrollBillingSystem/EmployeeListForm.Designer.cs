@@ -74,10 +74,10 @@ namespace CCSPayrollBillingSystem
             this.dgEmployeesList.Location = new System.Drawing.Point(370, 121);
             this.dgEmployeesList.Name = "dgEmployeesList";
             this.dgEmployeesList.ReadOnly = true;
+            this.dgEmployeesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgEmployeesList.Size = new System.Drawing.Size(514, 300);
             this.dgEmployeesList.TabIndex = 52;
             this.dgEmployeesList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeesList_CellClick);
-            this.dgEmployeesList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeesList_CellContentClick);
             this.dgEmployeesList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEmployeesList_CellDoubleClick);
             // 
             // dteditbirthdate
