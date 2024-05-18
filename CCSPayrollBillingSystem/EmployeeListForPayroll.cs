@@ -21,6 +21,7 @@ namespace CCSPayrollBillingSystem
         public event Action<Employee> OnEmployeeSearchedValues;
         QueryProcessor projectProcessor = new QueryProcessor();
 
+
         public EmployeeListForPayroll()
         {
             InitializeComponent();
@@ -32,17 +33,19 @@ namespace CCSPayrollBillingSystem
 
         private void EmployeeListForPayroll_Load(object sender, EventArgs e)
         {
-            if(projectInfo != null)
-            {
-                projectInfo.Clear();
-            }
+
             LoadPayrollEmployeeINfo(empFname, empLname);
             projectInfo = _projectProcessor.ProjectInfo;
-            projectInfo.Add(projectInfo.Count + 1, "ALL");
+            var projectValue = projectInfo.Any(x => x.Value == "ALL");
+            if (!projectValue)
+            {
+                projectInfo.Add(projectInfo.Count + 1, "ALL");
+            }
 
             cmbProjectList.DataSource = new BindingSource(projectInfo, null);
             cmbProjectList.DisplayMember = "Value";
             cmbProjectList.ValueMember = "Key";
+            dgPayrollEmpList.Columns[0].Visible = false;
 
             OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
         }
@@ -69,7 +72,6 @@ namespace CCSPayrollBillingSystem
             payrollProcessor.ExecuteSqlPayrollEmpLoadInfoQuery(fname, lname, () =>
             {
                 dgPayrollEmpList.DataSource = payrollProcessor.GetSqlReaderData();
-                dgPayrollEmpList.Columns[0].Visible = false;
                 Console.WriteLine("Loading Employee Payroll Information successful.");
             }, () =>
             {
@@ -80,12 +82,13 @@ namespace CCSPayrollBillingSystem
         private void btnLoad_Click(object sender, EventArgs e)
         {
             Employee SelectedEmployee = new Employee();
-            var empRate = dgPayrollEmpList.SelectedRows[0].Cells[3].Value;
+            var empRate = dgPayrollEmpList.SelectedRows[0].Cells[4].Value;
 
-            SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[2].Value.ToString();
-            SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString();
+            SelectedEmployee.EmpIdPayroll = Convert.ToInt32(dgPayrollEmpList.SelectedRows[0].Cells[0].Value.ToString());
+            SelectedEmployee.EmpFnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[1].Value.ToString();
+            SelectedEmployee.EmpLnamePayroll = dgPayrollEmpList.SelectedRows[0].Cells[3].Value.ToString();
             SelectedEmployee.EmpRatePayroll = empRate != DBNull.Value ? Convert.ToDecimal(empRate) : 0;
-            SelectedEmployee.EmpRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[4].Value.ToString();
+            SelectedEmployee.EmpRankPayroll = dgPayrollEmpList.SelectedRows[0].Cells[5].Value.ToString();
 
             OnEmployeeSearchedValues?.Invoke(SelectedEmployee);
 
@@ -106,6 +109,7 @@ namespace CCSPayrollBillingSystem
             projId = projectInfo.FirstOrDefault(x => x.Value == projName).Key;
             dgPayrollEmpList.DataSource = null;
             LoadProjectEmployees(projId,projName);
+            HideFirstColumn();
         }
 
         private void LoadProjectEmployees(int id, string pName)
@@ -118,6 +122,19 @@ namespace CCSPayrollBillingSystem
             {
                 Console.WriteLine("Problem loading employee for the project.");
             });
+        }
+
+        private void HideFirstColumn()
+        {
+            if(dgPayrollEmpList.Columns.Contains("EmpID"))
+            {
+                dgPayrollEmpList.Columns[0].Visible = false;
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
