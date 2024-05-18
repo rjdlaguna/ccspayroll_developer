@@ -504,7 +504,7 @@ namespace CCSPayrollBillingSystem.Scripts
             {
                 string sqlEmpDataSearch = "";
                 bool hasSearchValues = false;
-                if (fname == null && lname == null)
+                if ((String.IsNullOrEmpty(fname)) && (String.IsNullOrEmpty(lname)))
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
@@ -512,10 +512,27 @@ namespace CCSPayrollBillingSystem.Scripts
                 }
                 else
                 {
-                    sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                    if (!(String.IsNullOrEmpty(fname)) && String.IsNullOrEmpty(lname))
+                    {
+                        sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
                                         "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee " +
-                                        "WHERE EmpFirstName = @firstname OR EmpLastName = @lastname AND EmpStatus = 1";
+                                        "WHERE EmpFirstName LIKE '%' + @firstname + '%' AND EmpStatus = 1";
+                    }
+                    else if (String.IsNullOrEmpty(fname) && !(String.IsNullOrEmpty(lname)))
+                    {
+                        sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                                        "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
+                                        "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee " +
+                                        "WHERE EmpLastName LIKE '%' + @lastname+ '%' AND EmpStatus = 1";
+                    }
+                    else
+                    {
+                        sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
+                                            "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
+                                            "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee " +
+                                            "WHERE EmpFirstName LIKE '%' + @firstname + '%' AND EmpLastName LIKE '%' + @lastname+ '%' AND EmpStatus = 1";
+                    }
                     hasSearchValues = true;
                 }
 
