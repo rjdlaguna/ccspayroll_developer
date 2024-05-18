@@ -1466,13 +1466,13 @@ namespace CCSPayrollBillingSystem.Scripts
 
                 if (pName == "ALL")
                 {
-                    sqlEmpProjectDataSearch = "SELECT E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate'," +
+                    sqlEmpProjectDataSearch = "SELECT E.EmpID, E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate'," +
                                         "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
                                         "FULL JOIN tblEPR EP ON EP.EmpID = E.EmpID";
                 }
                 else
                 {
-                    sqlEmpProjectDataSearch = "SELECT E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate', " +
+                    sqlEmpProjectDataSearch = "SELECT E.EmpID, E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate', " +
                                         "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
                                         "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @projId";
                 }
