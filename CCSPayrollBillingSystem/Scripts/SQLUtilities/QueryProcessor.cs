@@ -504,7 +504,7 @@ namespace CCSPayrollBillingSystem.Scripts
             {
                 string sqlEmpDataSearch = "";
                 bool hasSearchValues = false;
-                if ((fname == null || fname == "") && (lname == null || lname == ""))
+                if ((String.IsNullOrEmpty(fname)) && (String.IsNullOrEmpty(lname)))
                 {
                     sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
@@ -512,14 +512,14 @@ namespace CCSPayrollBillingSystem.Scripts
                 }
                 else
                 {
-                    if (fname != "" && lname == "")
+                    if (!(String.IsNullOrEmpty(fname)) && String.IsNullOrEmpty(lname))
                     {
                         sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
                                         "EmploymentDate as 'Date Hired', EndOfContract as 'End of Contract' FROM tblEmployee " +
                                         "WHERE EmpFirstName LIKE '%' + @firstname + '%' AND EmpStatus = 1";
                     }
-                    else if (fname == "" && lname != "")
+                    else if (String.IsNullOrEmpty(fname) && !(String.IsNullOrEmpty(lname)))
                     {
                         sqlEmpDataSearch = "SELECT EmpID as 'Employee ID', EmpFirstName as 'First Name', EmpMiddleName as 'Middle Name', EmpLastName as 'Last Name'," +
                                         "EmpHomeAddress as 'Home Address', EmpContactNo as 'Contact No.', EmpBirthDate as 'Date of Birth'," +
