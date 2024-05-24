@@ -29,6 +29,7 @@ namespace CCSPayrollBillingSystem
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.payrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeePayrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,14 +187,14 @@ namespace CCSPayrollBillingSystem
             // payrollToolStripMenuItem1
             // 
             this.payrollToolStripMenuItem1.Name = "payrollToolStripMenuItem1";
-            this.payrollToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.payrollToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
             this.payrollToolStripMenuItem1.Text = "Payroll";
             this.payrollToolStripMenuItem1.Click += new System.EventHandler(this.payrollToolStripMenuItem1_Click);
             // 
             // billingToolStripMenuItem1
             // 
             this.billingToolStripMenuItem1.Name = "billingToolStripMenuItem1";
-            this.billingToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.billingToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
             this.billingToolStripMenuItem1.Text = "Billing";
             this.billingToolStripMenuItem1.Click += new System.EventHandler(this.billingToolStripMenuItem1_Click);
             // 
@@ -326,6 +327,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.groupBoxMenu);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MinimizeBox = false;
             this.Name = "FormMain";

@@ -1545,14 +1545,14 @@ namespace CCSPayrollBillingSystem.Scripts
                     "FROM tblEPR AS EPR " +
                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
-                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollEndDate = @Date " +
+                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID AND PAY.PayrollEndDate = @Date " +
+                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID " +
                     "WHERE PROJ.ProjectID = @ProjectID";
 
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
-                    command.AddParameter("@Date", dateTime);
+                    command.AddParameter("@Date", dateTime.ToShortDateString());
                     command.AddParameter("@ProjectID", projectID);
 
                     sqlDataReader = command.ExecuteReader();
@@ -1588,13 +1588,13 @@ namespace CCSPayrollBillingSystem.Scripts
                                     "FROM tblEPR AS EPR " +
                                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
-                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
+                                    "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID AND PAY.PayrollEndDate = @Date " +
                                     "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID " +
                                     "WHERE PROJ.ProjectID = @ProjectID";
 
                 using (command = new DatabaseCommand(sqlEPRDataSearch, connection))
                 {
-                    command.AddParameter("@Date", dateTime);
+                    command.AddParameter("@Date", dateTime.ToShortDateString());
                     command.AddParameter("@ProjectID", projectID);
 
                     sqlDataReader = command.ExecuteReader();

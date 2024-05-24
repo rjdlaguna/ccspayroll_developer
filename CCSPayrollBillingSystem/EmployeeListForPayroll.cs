@@ -71,10 +71,12 @@ namespace CCSPayrollBillingSystem
             QueryProcessor payrollProcessor = new QueryProcessor();
             payrollProcessor.ExecuteSqlPayrollEmpLoadInfoQuery(fname, lname, () =>
             {
+                ControlsManager.SingleEnableControls(btnLoad, true);
                 dgPayrollEmpList.DataSource = payrollProcessor.GetSqlReaderData();
                 Console.WriteLine("Loading Employee Payroll Information successful.");
             }, () =>
             {
+                ControlsManager.SingleEnableControls(btnLoad, false);
                 Console.WriteLine("Problem loading employee payroll information.");
             });
         }
@@ -100,7 +102,6 @@ namespace CCSPayrollBillingSystem
             empId = emp.EmpIdPayroll;
             empLname = emp.EmpFnamePayroll;
             empFname = emp.EmpLnamePayroll;
-
         }
 
         private void cmbProjectList_SelectedIndexChanged(object sender, EventArgs e)
@@ -116,10 +117,12 @@ namespace CCSPayrollBillingSystem
         {
             projectProcessor.ExecuteSQLLoadProjectEmployeesQuery(id, pName,() =>
             {
+                ControlsManager.SingleEnableControls(btnLoad, true);
                 dgPayrollEmpList.DataSource = projectProcessor.GetSqlReaderData();
                 Console.WriteLine("Loading Employee for the Project successful.");
             }, () =>
             {
+                ControlsManager.SingleEnableControls(btnLoad, false);
                 Console.WriteLine("Problem loading employee for the project.");
             });
         }
@@ -132,7 +135,7 @@ namespace CCSPayrollBillingSystem
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }

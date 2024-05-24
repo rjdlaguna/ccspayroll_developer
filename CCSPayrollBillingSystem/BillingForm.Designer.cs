@@ -122,11 +122,11 @@ namespace CCSPayrollBillingSystem
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(50, 29);
+            this.label1.Location = new System.Drawing.Point(11, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Date :";
+            this.label1.Text = "Payroll End Date :";
             // 
             // groupBox1
             // 
@@ -145,7 +145,7 @@ namespace CCSPayrollBillingSystem
             // dateBillingPicker
             // 
             this.dateBillingPicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateBillingPicker.Location = new System.Drawing.Point(92, 25);
+            this.dateBillingPicker.Location = new System.Drawing.Point(103, 27);
             this.dateBillingPicker.Name = "dateBillingPicker";
             this.dateBillingPicker.Size = new System.Drawing.Size(179, 20);
             this.dateBillingPicker.TabIndex = 57;
@@ -154,7 +154,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.cmbProject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbProject.FormattingEnabled = true;
-            this.cmbProject.Location = new System.Drawing.Point(92, 51);
+            this.cmbProject.Location = new System.Drawing.Point(103, 53);
             this.cmbProject.Name = "cmbProject";
             this.cmbProject.Size = new System.Drawing.Size(179, 21);
             this.cmbProject.TabIndex = 56;
@@ -165,7 +165,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 58);
+            this.label2.Location = new System.Drawing.Point(20, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 3;
@@ -228,7 +228,7 @@ namespace CCSPayrollBillingSystem
             this.btnGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Image = global::CCSPayrollBillingSystem.Properties.Resources.refresh;
             this.btnGenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerate.Location = new System.Drawing.Point(350, 109);
+            this.btnGenerate.Location = new System.Drawing.Point(350, 176);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 70;
@@ -242,7 +242,7 @@ namespace CCSPayrollBillingSystem
             this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalculate.Image = global::CCSPayrollBillingSystem.Properties.Resources.calculator;
             this.btnCalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCalculate.Location = new System.Drawing.Point(350, 169);
+            this.btnCalculate.Location = new System.Drawing.Point(350, 118);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(128, 40);
             this.btnCalculate.TabIndex = 71;
@@ -864,6 +864,7 @@ namespace CCSPayrollBillingSystem
             this.Controls.Add(this.txtGrossTotal);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label19);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "frmBilling";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Billing";
