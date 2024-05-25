@@ -57,12 +57,12 @@ namespace CCSPayrollBillingSystem
             ExtractProjectBySelectedID(projID);
 
             QueryProcessor billingProcessor = new QueryProcessor();
-            employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID, date);
+            //employeeAttribFromQuery = billingProcessor.ExecuteSqlBillingViewQuery(projID, date);
 
             billingProcessor.ExecuteSqlBillingViewQuery4DataGrid(projID, date, () =>
             {
                 DataTable tempDataTableBilling = billingProcessor.GetSqlReaderData();
-                dgvEmployeeList4Billing.DataSource = AddInputColumnsOnBillingDVG(tempDataTableBilling); 
+                dgvEmployeeList4Billing.DataSource = AddInputColumnsOnBillingDVG(tempDataTableBilling);
                 //WorkDaysBillingInitialization();
                 dgvEmployeeList4Billing.Columns[0].Visible = false;
                 dgvEmployeeList4Billing.Columns[3].Visible = false;
@@ -78,6 +78,32 @@ namespace CCSPayrollBillingSystem
             });
 
         }
+
+        private DataTable ConvertToDataTable(List<Dictionary<string, object>> list)
+        {
+            DataTable dataTable = new DataTable();
+
+            if (list.Count > 0)
+            {
+                foreach (var key in list[0].Keys)
+                {
+                    dataTable.Columns.Add(key);
+                }
+
+                foreach (var dict in list)
+                {
+                    DataRow row = dataTable.NewRow();
+                    foreach (var key in dict.Keys)
+                    {
+                        row[key] = dict[key] ?? DBNull.Value;
+                    }
+                    dataTable.Rows.Add(row);
+                }
+            }
+
+            return dataTable;
+        }
+
 
         private void ExtractProjectBySelectedID(int projectID)
         {
@@ -335,6 +361,8 @@ namespace CCSPayrollBillingSystem
 
         private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbProject.SelectedItem.Equals("Select")) return;
+
             // Get the selected item from the ComboBox
             KeyValuePair<int, string> selectedProject = (KeyValuePair<int, string>)cmbProject.SelectedItem;
 
