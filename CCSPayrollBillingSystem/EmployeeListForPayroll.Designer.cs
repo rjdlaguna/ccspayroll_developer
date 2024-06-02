@@ -134,6 +134,7 @@ namespace CCSPayrollBillingSystem
             this.dgPayrollEmpList.Location = new System.Drawing.Point(35, 157);
             this.dgPayrollEmpList.Name = "dgPayrollEmpList";
             this.dgPayrollEmpList.ReadOnly = true;
+            this.dgPayrollEmpList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgPayrollEmpList.Size = new System.Drawing.Size(586, 175);
             this.dgPayrollEmpList.TabIndex = 7;
             // 
