@@ -1458,13 +1458,13 @@ namespace CCSPayrollBillingSystem.Scripts
         }
 
 
-        public void ExecuteSQLLoadProjectEmployeesQuery(int projId, string pName, Action onSuccess, Action onFailure)
+        public void ExecuteSQLLoadProjectEmployeesQuery(int projId, string pName, Action onSuccess, Action onFailure, string firstname = "", string lastname = "")
         {
             using (connection = new DatabaseConnection(connectionString))
             {
-                string sqlEmpProjectDataSearch = "";
+                string sqlEmpProjectDataSearch = string.Empty;
 
-                if (pName == "ALL")
+                /*if (pName == "ALL")
                 {
                     sqlEmpProjectDataSearch = "SELECT E.EmpID, E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate'," +
                                         "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
@@ -1474,12 +1474,47 @@ namespace CCSPayrollBillingSystem.Scripts
                 {
                     sqlEmpProjectDataSearch = "SELECT E.EmpID, E.EmpFirstName as 'First Name', E.EmpMiddleName as 'Middle Name', E.EmpLastName as 'Last Name', EP.ProjectRate as 'Project Rate', " +
                                         "(SELECT J.JobTitle from tblJob J WHERE J.JobID = E.JobID) AS 'Job Title' from tblEmployee E " +
-                                        "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @projId";
+                                        "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @ProjId";
+                }*/
+
+                if (pName == "ALL")
+                {
+                    sqlEmpProjectDataSearch = "SELECT " +
+                            "E.EmpID, " +
+                            "E.EmpFirstName as 'First Name', " +
+                            "E.EmpMiddleName as 'Middle Name', " +
+                            "E.EmpLastName as 'Last Name', " +
+                            "J.JobTitle as 'Job Title', " +
+                            "EP.ProjectRate as 'Project Rate', " +
+                            "J.PayRate as 'Pay Rate' " +
+                        "FROM tblEmployee E " +
+                        "FULL JOIN tblEPR EP ON EP.EmpID = E.EmpID " +
+                        "LEFT JOIN tblJob J ON J.JobID = E.JobID " +
+                        "WHERE E.EmpFirstName LIKE '%' + @Firstname + '%' AND E.EmpLastName LIKE '%' + @Lastname + '%'";
                 }
+                else
+                {
+                    sqlEmpProjectDataSearch = "SELECT " +
+                            "E.EmpID, " +
+                            "E.EmpFirstName as 'First Name', " +
+                            "E.EmpMiddleName as 'Middle Name', " +
+                            "E.EmpLastName as 'Last Name', " +
+                            "J.JobTitle as 'Job Title', " +
+                            "EP.ProjectRate as 'Project Rate', " +
+                            "J.PayRate as 'Pay Rate' " +
+                        "FROM tblEmployee E " +
+                        "INNER JOIN tblEPR EP ON EP.EmpID = E.EmpID AND EP.ProjectID = @ProjId " +
+                        "LEFT JOIN tblJob J ON J.JobID = E.JobID " +
+                        "WHERE E.EmpFirstName LIKE '%' + @Firstname + '%' AND E.EmpLastName LIKE '%' + @Lastname + '%'";
+                }
+
+
                 using (command = new DatabaseCommand(sqlEmpProjectDataSearch, connection))
                 {
 
-                    command.AddParameter("@projId", projId);
+                    command.AddParameter("@ProjId", projId);
+                    command.AddParameter("@Firstname", firstname);
+                    command.AddParameter("@Lastname", lastname);
 
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)

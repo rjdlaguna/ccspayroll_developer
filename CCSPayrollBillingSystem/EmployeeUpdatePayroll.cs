@@ -105,7 +105,7 @@ namespace CCSPayrollBillingSystem
             empIdPayroll = emp.EmpIdPayroll;
             empFnamePayroll = emp.EmpFnamePayroll;
             empLnamePayroll = emp.EmpLnamePayroll;
-            empRatePayroll = emp.EmpRatePayroll;
+            empRatePayroll = emp.EmpPayRatePayroll;
             empRankPayroll = emp.EmpRankPayroll;
 
             nfi = new CultureInfo("en-PH", false).NumberFormat;

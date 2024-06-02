@@ -113,7 +113,7 @@ namespace CCSPayrollBillingSystem
             empIdPayroll = emp.EmpIdPayroll;
             empFnamePayroll = emp.EmpFnamePayroll;
             empLnamePayroll = emp.EmpLnamePayroll;
-            empRatePayroll = emp.EmpRatePayroll;
+            empRatePayroll = emp.EmpPayRatePayroll;
             empRankPayroll = emp.EmpRankPayroll;
 
             txtEmployeeName.Text = empFnamePayroll + " " + empLnamePayroll;
