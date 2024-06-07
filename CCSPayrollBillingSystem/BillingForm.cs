@@ -22,6 +22,9 @@ namespace CCSPayrollBillingSystem
         private int currentID = 0;
         private int slideValue = 1;
 
+        private string HeaderBillingDocument = string.Empty;
+        private string FooterBillingDocument = string.Empty;
+
         private decimal grandTotalAmount;
 
         List<Dictionary<string, object>> employeeAttribFromQuery = new List<Dictionary<string, object>>();
@@ -303,11 +306,12 @@ namespace CCSPayrollBillingSystem
 
         private void BillingAttributeList2Display()
         {//Populate the RichTextBox with Billing Slip for Printing
-            rtbBillingSlip.Text += "CCS - Manpower & Allied Services \n";
-            rtbBillingSlip.Text += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
-            rtbBillingSlip.Text += "ProjectName: "+ projectName + "\n";
-            rtbBillingSlip.Text += "Services rendered for the period: "+ DateTime.Now + "\n";
-            rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
+            HeaderBillingDocument = string.Empty;
+            HeaderBillingDocument += "CCS - Manpower & Allied Services \n";
+            HeaderBillingDocument += "1251 Miranda Street, Sto. Rosario, Angeles City \n\n";
+            HeaderBillingDocument += "ProjectName: "+ projectName + "\n";
+            HeaderBillingDocument += "Services rendered for the period: "+ dateBillingPicker.Value.ToShortDateString();
+            rtbBillingSlip.Text += "----------------------------------------------------------------------------------------------------------------------------------\n";
             rtbBillingSlip.Text += "Employee Name\t\t\t Hrs/Days\t Rate \t\t Amount"; //Title
             rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
             foreach (DataGridViewRow dgvRow in dgvEmployeeList4Billing.Rows)
@@ -338,7 +342,7 @@ namespace CCSPayrollBillingSystem
                         {
                             decimal render = Convert.ToDecimal(dgvRow.Cells[i - 1].Value.ToString());
                             amount = rate * render;
-                            rtbBillingSlip.Text += rate + "\t\t" + amount + "\n";
+                            rtbBillingSlip.Text += rate.ToString().ToDecimal() + "\t\t" + amount.ToString().ToDecimal() + "\n";
                         }
                         else
                         {
@@ -351,18 +355,23 @@ namespace CCSPayrollBillingSystem
                 rtbBillingSlip.Text += "\n----------------------------------------------------------------------------------------------------------------------------------\n";
                 rtbBillingSlip.Text += "                                                                                                            Subtotal: " + grandTotalAmount.ToPhpCurrencyFormat() + "\n";
                 
-                rtbBillingSlip.Text += "\n";
                 gross += grandTotalAmount;
             }
 
             rtbBillingSlip.Text += "\n\t\t-----------------------------------------------------------------\n";
-            rtbBillingSlip.Text += "\t\tSales: " + "\t\t\t" + gross.ToPhpCurrencyFormat();
+            rtbBillingSlip.Text += "\t\tSales: " + "\t\t\t" + gross.ToPhpCurrencyFormat() + "\n";
+
+            FooterBillingDocument = string.Empty;
+            FooterBillingDocument += "\nPrepared by: \n";
+            FooterBillingDocument += "\t\t\t________________\n\n";
+            FooterBillingDocument += "Noted by: \n";
+            FooterBillingDocument += "\t\t\t________________\n";
         }
 
         private void cmbProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbProject.SelectedItem.Equals("Select")) return;
-
+            currentID = 0;
             // Get the selected item from the ComboBox
             KeyValuePair<int, string> selectedProject = (KeyValuePair<int, string>)cmbProject.SelectedItem;
 
@@ -394,7 +403,7 @@ namespace CCSPayrollBillingSystem
             net = gross + vat;
             txtNetTotal.Text = net.ToPhpCurrencyFormat();
 
-            rtbBillingSlip.Text += "\n\t\tVat: " + "\t\t\t" + vat.ToPhpCurrencyFormat();
+            rtbBillingSlip.Text += "\t\tVat: " + "\t\t\t" + vat.ToPhpCurrencyFormat();
             rtbBillingSlip.Text += "\n\t\t-----------------------------------------------------------------\n";
             rtbBillingSlip.Text += "\t\tGrand Total: " + "\t\t" + net.ToPhpCurrencyFormat();
             
@@ -411,7 +420,7 @@ namespace CCSPayrollBillingSystem
         private void BillingSaveQuery()
         {
             QueryProcessor billingSaveQueryProcessor = new QueryProcessor();
-            billingSaveQueryProcessor.ExecuteSqlBillingInsertQuery(DateTime.Today, DateTime.Today, gross, vat, projectID, net, () =>
+            billingSaveQueryProcessor.ExecuteSqlBillingInsertQuery(DateTime.Today, dateBillingPicker.Value.Date, gross, vat, projectID, net, () =>
             {
                 MessageBox.Show("Billing slip Saved.");
             }, () =>
@@ -496,16 +505,39 @@ namespace CCSPayrollBillingSystem
         {
             Word.Application _word = new Word.Application();
             Word.Document _document = _word.Documents.Add();
-            Word.Range _range = _document.Range(0, 0);
+            Word.Paragraph headerParagraph = _document.Content.Paragraphs.Add();
+            Word.Paragraph contentParagraph;
+            Word.Paragraph footerParagraph;
+            Word.Range _range = headerParagraph.Range;
 
             // Set margins style to Narrow
             SetNarrowMargins(_document);
-
+              
             try
             {
-                _document = _word.ActiveDocument;
+                headerParagraph.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                headerParagraph.Range.Text = HeaderBillingDocument;
+                headerParagraph.Format.SpaceAfter = 0f;
+                headerParagraph.Format.SpaceBefore = 0f;
+                headerParagraph.Range.InsertParagraphAfter();
+                
+                object headerRange = headerParagraph.Range;
+                
+                contentParagraph = _document.Content.Paragraphs.Add(ref headerRange);
+                contentParagraph.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                contentParagraph.Range.Text = rtbBillingSlip.Text;
+                contentParagraph.Format.SpaceAfter = 0f;
+                contentParagraph.Format.SpaceBefore = 0f;
+                contentParagraph.Range.InsertParagraphAfter();
 
-                _range.Text = rtbBillingSlip.Text;
+                object contentRange = contentParagraph.Range;
+
+                footerParagraph = _document.Content.Paragraphs.Add(ref contentRange);
+                footerParagraph.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                footerParagraph.Range.Text = FooterBillingDocument;
+                footerParagraph.Format.SpaceAfter = 0f;
+                footerParagraph.Format.SpaceBefore = 0f;
+                footerParagraph.Range.InsertParagraphAfter();
             }
             catch (Exception ex)
             {
