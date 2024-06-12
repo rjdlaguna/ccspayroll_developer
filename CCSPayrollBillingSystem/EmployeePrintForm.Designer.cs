@@ -135,9 +135,8 @@ namespace CCSPayrollBillingSystem
             // 
             this.cmbPrintFilter.FormattingEnabled = true;
             this.cmbPrintFilter.Items.AddRange(new object[] {
-            "Summary",
-            "Single",
-            "All"});
+            "Payroll Summary",
+            "PaySlip Per Project"});
             this.cmbPrintFilter.Location = new System.Drawing.Point(77, 26);
             this.cmbPrintFilter.Name = "cmbPrintFilter";
             this.cmbPrintFilter.Size = new System.Drawing.Size(175, 21);
