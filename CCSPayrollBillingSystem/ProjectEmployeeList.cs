@@ -168,8 +168,8 @@ namespace CCSPayrollBillingSystem
         private void LoadSearchedEmployeeDetails(Employee emp)
         {
             empId = emp.EmpIdPayroll;
-            empLname = emp.EmpFnamePayroll;
-            empFname = emp.EmpLnamePayroll;
+            empFname = emp.EmpFnamePayroll;
+            empLname = emp.EmpLnamePayroll;
 
             txtaddfirstname.Text = empFname;
             txtaddlastname.Text = empLname;

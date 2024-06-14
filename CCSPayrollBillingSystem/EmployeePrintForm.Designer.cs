@@ -55,6 +55,7 @@ namespace CCSPayrollBillingSystem
             // 
             this.rtbPayrollSlip.Location = new System.Drawing.Point(356, 12);
             this.rtbPayrollSlip.Name = "rtbPayrollSlip";
+            this.rtbPayrollSlip.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.rtbPayrollSlip.Size = new System.Drawing.Size(432, 426);
             this.rtbPayrollSlip.TabIndex = 4;
             this.rtbPayrollSlip.Text = "";
