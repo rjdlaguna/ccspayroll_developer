@@ -315,6 +315,7 @@ namespace CCSPayrollBillingSystem
         {
             Word.Application _word = new Word.Application();
             Word.Document _document = _word.Documents.Add();
+            Word.Paragraph content = _document.Content.Paragraphs.Add();
             Word.Range _range = _document.Range(0, 0);
 
             // Set margins style to Narrow
@@ -328,7 +329,7 @@ namespace CCSPayrollBillingSystem
                 {
                     for (int i = 0; i < paySlip2WordDocumentList.Count; i++)
                     {
-                        _range.Text = payrolSlipText;
+                        content.Range.Text = payrolSlipText;
                     }
                 }
                 else
@@ -351,8 +352,12 @@ namespace CCSPayrollBillingSystem
                             column = 1;
                             row++;
                         }
-                    }
+                    }  
                 }
+
+                content.Format.SpaceAfter = 0f;
+                content.Format.SpaceBefore = 0f;
+                content.Format.LineSpacing = 1;
             }
             catch (Exception ex)
             {
@@ -433,7 +438,7 @@ namespace CCSPayrollBillingSystem
         {
             //printPreviewDialog1.Document = printDocument1;
             //printPreviewDialog1.ShowDialog();
-            bool isSummary = cmbPrintFilter.SelectedItem.Equals("Summary") ? true : false;
+            bool isSummary = cmbPrintFilter.SelectedItem.Equals("Payroll Summary") ? true : false;
             CreateWordDocument(isSummary);
         }
 
