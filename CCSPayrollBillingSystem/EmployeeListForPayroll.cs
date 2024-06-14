@@ -43,7 +43,10 @@ namespace CCSPayrollBillingSystem
             cmbProjectList.DataSource = new BindingSource(projectInfo, null);
             cmbProjectList.DisplayMember = "Value";
             cmbProjectList.ValueMember = "Key";
-            dgPayrollEmpList.Columns[0].Visible = false;
+            if (dgPayrollEmpList.Rows.Count > 0)
+            {
+                dgPayrollEmpList.Columns[0].Visible = false;
+            }
 
             OnEmployeeSearchedValues += LoadSearchedEmployeeDetails;
         }
