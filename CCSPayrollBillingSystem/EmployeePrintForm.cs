@@ -253,7 +253,7 @@ namespace CCSPayrollBillingSystem
                 payrolSlipText += "  Others\t\t: " + paySlipData.PayrollData.PayrollOthers + "\n\n";
                 payrolSlipText += "NET PAY\t\t: " + (paySlipData.PayrollData.NetSalary).ToPhpCurrencyFormat() + "\n\n";
                 payrolSlipText += "I certify that I have received the above amount.\n";
-                payrolSlipText += "-----------------------------------------------------------------------------------\n";
+                payrolSlipText += "-----------------------------------------------------------------------------------";
 
                 paySlip2WordDocumentList.Add(payrolSlipText);
             }
