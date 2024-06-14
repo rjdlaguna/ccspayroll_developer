@@ -327,10 +327,7 @@ namespace CCSPayrollBillingSystem
 
                 if (isSummary)//checks if the to-be printed documents were Payroll Preview
                 {
-                    for (int i = 0; i < paySlip2WordDocumentList.Count; i++)
-                    {
-                        content.Range.Text = payrolSlipText;
-                    }
+                    content.Range.Text = payrolSlipText;
                 }
                 else
                 {
