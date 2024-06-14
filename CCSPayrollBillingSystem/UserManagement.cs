@@ -7,10 +7,10 @@ namespace CCSPayrollBillingSystem
     public partial class UserManagement : Form
     {
         private string user;
-        public UserManagement()
+        public UserManagement(string user)
         {
             InitializeComponent();
-            this.user = SessionManager.LoggedInUser;
+            this.user = user;
         }
 
         private void UserManagement_Load(object sender, EventArgs e)

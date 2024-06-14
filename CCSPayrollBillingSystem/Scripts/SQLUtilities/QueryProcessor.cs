@@ -124,7 +124,7 @@ namespace CCSPayrollBillingSystem.Scripts
         private void ExecuteSqlUpdateChangeUserQuery(string username, int empID, string password)
         {
 
-            string sqlUpdate = "UPDATE tblUser SET EmpID= '" + empID + "',Password='" + password + "' WHERE Username='" + username + "'";
+            string sqlUpdate = "UPDATE tblUser SET UserID= '" + empID + "',Password='" + password + "' WHERE Username='" + username + "'";
 
             connection = new DatabaseConnection(connectionString);
             command = new DatabaseCommand(sqlUpdate, connection);
@@ -838,14 +838,14 @@ namespace CCSPayrollBillingSystem.Scripts
                     "INNER JOIN tblEmployee AS EMP ON EPR.EmpID = EMP.EmpID " +
                     "INNER JOIN tblProject AS PROJ ON EPR.ProjectID = PROJ.ProjectID " +
                     "INNER JOIN tblPayroll AS PAY ON EPR.EmpID = PAY.EmpID " +
-                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID AND PAY.PayrollStartDate = @DateFrom AND PAY.PayrollEndDate = @DateTo " +
-                    "WHERE PROJ.ProjectID = @ProjectID";
+                    "LEFT JOIN tblWorkDays AS WORK ON PAY.WorkDayID = WORK.WorkDayID " +
+                    "WHERE PROJ.ProjectID = @ProjectID AND PAY.PayrollStartDate = @DateFrom AND PAY.PayrollEndDate = @DateTo ";
 
 
                 using (command = new DatabaseCommand(sqlPayrollSummary, connection))
                 {
-                    command.AddParameter("@DateFrom", dateFrom);
-                    command.AddParameter("@DateTo", dateTo);
+                    command.AddParameter("@DateFrom", DateTime.Parse(dateFrom));
+                    command.AddParameter("@DateTo", DateTime.Parse(dateTo));
                     command.AddParameter("@ProjectID", projectID);
 
                     sqlDataReader = command.ExecuteReader();
@@ -876,7 +876,6 @@ namespace CCSPayrollBillingSystem.Scripts
         public void ExecuteSqlPayrollSearchQuery(int empID, string from, string to, Action<PayrollData, WorkDays> onSuccess, Action onFailure)
         {
             string sqlSearch = "SELECT * FROM tblPayroll WHERE EmpID=@EmpID AND PayrollStartDate=@PayrollStartDate AND PayrollEndDate=@PayrollEndDate";
-
 
             using (connection = new DatabaseConnection(connectionString))
             using (command = new DatabaseCommand(sqlSearch, connection))
@@ -1040,23 +1039,22 @@ namespace CCSPayrollBillingSystem.Scripts
 
         }
 
-        public void ExecuteSqlPayrollAllSearchQuery(string from, string to, string project,Action<List<PaySlipData>> onSuccess, Action onFailure)
+        public void ExecuteSqlPayrollAllSearchQuery(string from, string to, int projectID,Action<List<PaySlipData>> onSuccess, Action onFailure)
         {
             List<PaySlipData> dataItems = new List<PaySlipData>();
 
-            string sqlSearch = "SELECT * FROM tblPayroll WHERE " +
-                    "(PayrollStartDate >= @PayrollStartDate AND PayrollStartDate < DATEADD(DAY, 1, @PayrollEndDate))" +
-                    "OR (PayrollEndDate >= @PayrollStartDate AND PayrollEndDate < DATEADD(DAY, 1, @PayrollEndDate))" +
-                    "OR (PayrollStartDate <= @PayrollStartDate AND PayrollEndDate >= @PayrollEndDate)";
+            string sqlSearch = "SELECT DISTINCT PAY.* FROM tblPayroll AS PAY " +
+                    "LEFT JOIN tblEPR AS EPR ON PAY.EmpID = EPR.EmpID " +
+                    "WHERE EPR.ProjectID = @ProjectID AND PayrollStartDate = @PayrollStartDate AND PayrollEndDate = @PayrollEndDate";
 
             using (connection = new DatabaseConnection(connectionString))
             {
                 using (command = new DatabaseCommand(sqlSearch, connection))
                 {
                     // Add parameters with appropriate data types
-                    command.AddParameter("@ProjectName", project);
-                    command.AddParameter("@PayrollStartDate", Convert.ToDateTime(from).Date);
-                    command.AddParameter("@PayrollEndDate", Convert.ToDateTime(to).Date);
+                    command.AddParameter("@ProjectID", projectID);
+                    command.AddParameter("@PayrollStartDate", DateTime.Parse(from));
+                    command.AddParameter("@PayrollEndDate", DateTime.Parse(to));
                     sqlDataReader = command.ExecuteReader();
                     if (sqlDataReader.HasRows)
                     {

@@ -21,6 +21,7 @@ namespace CCSPayrollBillingSystem
         public string empRankPayroll;
 
         private string payrolSlipText;
+        
         private string dateFrom;
         private string dateTo;
 
@@ -127,15 +128,15 @@ namespace CCSPayrollBillingSystem
             {
                 MessageBox.Show("Please select proper Print Filter!");
             }
-            else if (cmbPrintFilter.SelectedItem.Equals("Single"))
+            else if (cmbPrintFilter.SelectedItem.Equals("PaySlip"))
             {
                 employeeListForPayroll.ShowDialog();
             }
-            else if (cmbPrintFilter.SelectedItem.Equals("All"))
+            else if (cmbPrintFilter.SelectedItem.Equals("PaySlip Per Project"))
             {
                 MessageBox.Show("Print All! \n Please click Generate button to process Document");
             }
-            else if (cmbPrintFilter.SelectedItem.Equals("Preview"))
+            else if (cmbPrintFilter.SelectedItem.Equals("Payroll Summary"))
             {
                 MessageBox.Show("Printing Preview! \n Please click Generate button to process Document");
             }
@@ -144,14 +145,14 @@ namespace CCSPayrollBillingSystem
 
         private void btnGenerate_Click(object sender, EventArgs e) //Payslip on solo employee
         {
-            
-            if (cmbPrintFilter.SelectedItem.Equals("Single"))
+            rtbPayrollSlip.Clear();
+            if (cmbPrintFilter.SelectedItem.Equals("PaySlip"))
             {
                 employeePayrollDate.ShowDialog();
                 
                 QueryProcessor payrollSearchProcessor = new QueryProcessor();
 
-                projectName = payrollSearchProcessor.ExecuteSqlEPRQueryReturnProjectID(empIdPayroll);
+                //projectName = payrollSearchProcessor.ExecuteSqlEPRQueryReturnProjectID(empIdPayroll);
 
                 payrollSearchProcessor.ExecuteSqlPayrollSearchQuery(empIdPayroll, dateFrom, dateTo, (payroll, work) =>
                 {
@@ -163,13 +164,14 @@ namespace CCSPayrollBillingSystem
                 });
                 
             }
-            else if (cmbPrintFilter.SelectedItem.Equals("All"))
+            else if (cmbPrintFilter.SelectedItem.Equals("PaySlip Per Project"))
             {
                 employeePayrollDate.ShowDialog();
+                _paySlipDataListItems.Clear();
 
                 QueryProcessor payrollSearchAllProcessor = new QueryProcessor();
 
-                payrollSearchAllProcessor.ExecuteSqlPayrollAllSearchQuery(dateFrom, dateTo, cmbProject.Text, (payslipListFromQuery) =>
+                payrollSearchAllProcessor.ExecuteSqlPayrollAllSearchQuery(dateFrom, dateTo, projectID, (payslipListFromQuery) =>
                 {
                     _paySlipDataListItems = payslipListFromQuery;
                     GenerateAllPaySlip();
@@ -187,9 +189,9 @@ namespace CCSPayrollBillingSystem
             paySlip2WordDocumentList.Clear();
             payrolSlipText = string.Empty;
 
-            payrolSlipText += "-----------------------------------------------------------------------------------\n";
-            payrolSlipText += "                                            CCS Payslip                              \n";
-            payrolSlipText += "-----------------------------------------------------------------------------------\n";
+            //payrolSlipText += "-----------------------------------------------------------------------------------\n";
+            payrolSlipText += "                                            CCS Payslip                              \n\n";
+            //payrolSlipText += "-----------------------------------------------------------------------------------\n";
             payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
             payrolSlipText += "Name: " + empLnamePayroll + ", " + empFnamePayroll + "\n";
             payrolSlipText += "Project: "+ projectName +"\n\n";
@@ -201,9 +203,9 @@ namespace CCSPayrollBillingSystem
             payrolSlipText += "Regular Holiday\t: \t" + _paySlipData.WorkDays.RegularHoliday + "\t" + (WorkDaysComputation.RegularHolidays(empRatePayroll, _paySlipData.WorkDays.RegularHoliday).ToPhpCurrencyFormat()) + "\n";
             payrolSlipText += "Reg Hol OT\t: \t" + _paySlipData.WorkDays.RegularHolidayOT + "\t" + (WorkDaysComputation.RegularHolidaysOT(empRatePayroll, _paySlipData.WorkDays.RegularHolidayOT).ToPhpCurrencyFormat()) + "\n";
             payrolSlipText += "Reg Hol Rest Day\t: \t" + _paySlipData.WorkDays.RegHolRestDay + "\t" + (WorkDaysComputation.RestDayAndRegularHolidays(empRatePayroll, _paySlipData.WorkDays.RegHolRestDay).ToPhpCurrencyFormat()) + "\n";
-            payrolSlipText += "COLA\t: \t\t" + _paySlipData.WorkDays.COLA + "\t" + (WorkDaysComputation.COLA(decimal.Parse(_paySlipData.WorkDays.COLA.ToString()))).ToPhpCurrencyFormat() + "\n";
-            payrolSlipText += "PDA\t: \t\t" + _paySlipData.WorkDays.PDA + "\t" + WorkDaysComputation.PDA(decimal.Parse(_paySlipData.WorkDays.PDA.ToString())).ToPhpCurrencyFormat() + "\n";
-            payrolSlipText += "Others\t: \t\t" + _paySlipData.WorkDays.Others + "\t" + (WorkDaysComputation.Others(decimal.Parse(_paySlipData.WorkDays.Others.ToString())).ToPhpCurrencyFormat()) + "\n\n";
+            payrolSlipText += "COLA\t: \t\t" + _paySlipData.WorkDays.COLA + "\t" + (WorkDaysComputation.COLA(_paySlipData.WorkDays.COLA.ToString().ToDecimal())).ToPhpCurrencyFormat() + "\n";
+            payrolSlipText += "PDA\t: \t\t" + _paySlipData.WorkDays.PDA + "\t" + (WorkDaysComputation.PDA(_paySlipData.WorkDays.PDA.ToString().ToDecimal())).ToPhpCurrencyFormat() + "\n";
+            payrolSlipText += "Others\t: \t\t" + _paySlipData.WorkDays.Others + "\t" + (WorkDaysComputation.Others(_paySlipData.WorkDays.Others.ToString().ToDecimal()).ToPhpCurrencyFormat()) + "\n\n";
             payrolSlipText += "GROSS PAY\t: " + (_paySlipData.PayrollData.GrossSalary).ToPhpCurrencyFormat() + "\n\n";
             payrolSlipText += "Less: \n";
             payrolSlipText += "  SSS/MED\t: " + _paySlipData.PayrollData.SSSAmount + "\n";
@@ -226,9 +228,9 @@ namespace CCSPayrollBillingSystem
             foreach (PaySlipData paySlipData in _paySlipDataListItems)
             {
                 payrolSlipText = string.Empty;
-                payrolSlipText += "-----------------------------------------------------------------------------------\n";
-                payrolSlipText += "                                            CCS Payslip                              \n";
-                payrolSlipText += "-----------------------------------------------------------------------------------\n";
+                //payrolSlipText += "-----------------------------------------------------------------------------------\n";
+                payrolSlipText += "                                            CCS Payslip                              \n\n";
+                //payrolSlipText += "-----------------------------------------------------------------------------------\n";
                 payrolSlipText += "Payroll Date: " + dateFrom + " to " + dateTo + "\n";
                 payrolSlipText += "Name: " + paySlipData.Employee.EmpLastName + ", " + paySlipData.Employee.EmpFirstName + " " + paySlipData.Employee.EmpMiddleName + " \n";
                 payrolSlipText += "Project: " + paySlipData.ProjectName + "\n\n";
@@ -451,13 +453,13 @@ namespace CCSPayrollBillingSystem
 
         private void cmbPrintFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbPrintFilter.Text.Equals("Single"))
+            if (cmbPrintFilter.Text.Equals("PaySlip"))
             {
                 ValidationHelper.SingleEnableControls(btnSearch, true);
                 ValidationHelper.SingleEnableControls(btnGenerate, true);
                 ValidationHelper.SingleEnableControls(btnPreview, false);
             }
-            else if(cmbPrintFilter.Text.Equals("All")){
+            else if(cmbPrintFilter.Text.Equals("PaySlip Per Project")){
                 ValidationHelper.SingleEnableControls(btnSearch, false);
                 ValidationHelper.SingleEnableControls(btnGenerate, true);
                 ValidationHelper.SingleEnableControls(btnPreview, false);
